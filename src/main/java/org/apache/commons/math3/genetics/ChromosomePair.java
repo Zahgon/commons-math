@@ -19,13 +19,17 @@ package org.apache.commons.math3.genetics;
 /**
  * A pair of {@link Chromosome} objects.
  * @since 2.0
- *
  */
 public class ChromosomePair {
-    /** the first chromosome in the pair. */
+
+    /**
+     * the first chromosome in the pair.
+     */
     private final Chromosome first;
 
-    /** the second chromosome in the pair. */
+    /**
+     * the second chromosome in the pair.
+     */
     private final Chromosome second;
 
     /**
@@ -46,7 +50,8 @@ public class ChromosomePair {
      * @return the first chromosome.
      */
     public Chromosome getFirst() {
-        return first;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -55,12 +60,16 @@ public class ChromosomePair {
      * @return the second chromosome.
      */
     public Chromosome getSecond() {
-        return second;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return String.format("(%s,%s)", getFirst(), getSecond());
+        // STUB: not implemented
+        return null;
     }
 }

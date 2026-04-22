@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization;
 
 /**
@@ -29,17 +28,22 @@ package org.apache.commons.math3.optimization;
  */
 @Deprecated
 public class SimpleBounds implements OptimizationData {
-    /** Lower bounds. */
+
+    /**
+     * Lower bounds.
+     */
     private final double[] lower;
-    /** Upper bounds. */
+
+    /**
+     * Upper bounds.
+     */
     private final double[] upper;
 
     /**
      * @param lB Lower bounds.
      * @param uB Upper bounds.
      */
-    public SimpleBounds(double[] lB,
-                        double[] uB) {
+    public SimpleBounds(double[] lB, double[] uB) {
         lower = lB.clone();
         upper = uB.clone();
     }
@@ -50,14 +54,17 @@ public class SimpleBounds implements OptimizationData {
      * @return the initial guess.
      */
     public double[] getLower() {
-        return lower.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * Gets the lower bounds.
      *
      * @return the initial guess.
      */
     public double[] getUpper() {
-        return upper.clone();
+        // STUB: not implemented
+        return null;
     }
 }

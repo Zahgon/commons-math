@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NotANumberException;
@@ -44,7 +43,9 @@ import org.apache.commons.math3.util.Pair;
  */
 public class EnumeratedRealDistribution extends AbstractRealDistribution {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20130308L;
 
     /**
@@ -73,9 +74,7 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @throws NotANumberException if any of the probabilities are NaN.
      * @throws MathArithmeticException all of the probabilities are 0.
      */
-    public EnumeratedRealDistribution(final double[] singletons, final double[] probabilities)
-    throws DimensionMismatchException, NotPositiveException, MathArithmeticException,
-           NotFiniteNumberException, NotANumberException {
+    public EnumeratedRealDistribution(final double[] singletons, final double[] probabilities) throws DimensionMismatchException, NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
         this(new Well19937c(), singletons, probabilities);
     }
 
@@ -93,14 +92,9 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @throws NotANumberException if any of the probabilities are NaN.
      * @throws MathArithmeticException all of the probabilities are 0.
      */
-    public EnumeratedRealDistribution(final RandomGenerator rng,
-                                    final double[] singletons, final double[] probabilities)
-        throws DimensionMismatchException, NotPositiveException, MathArithmeticException,
-               NotFiniteNumberException, NotANumberException {
+    public EnumeratedRealDistribution(final RandomGenerator rng, final double[] singletons, final double[] probabilities) throws DimensionMismatchException, NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
         super(rng);
-
-        innerDistribution = new EnumeratedDistribution<Double>(
-                rng, createDistribution(singletons, probabilities));
+        innerDistribution = new EnumeratedDistribution<Double>(rng, createDistribution(singletons, probabilities));
     }
 
     /**
@@ -145,6 +139,7 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
     public EnumeratedRealDistribution(final double[] data) {
         this(new Well19937c(), data);
     }
+
     /**
      * Create the list of Pairs representing the distribution from singletons and probabilities.
      *
@@ -152,18 +147,15 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @param probabilities probabilities
      * @return list of value/probability pairs
      */
-    private static List<Pair<Double, Double>>  createDistribution(double[] singletons, double[] probabilities) {
+    private static List<Pair<Double, Double>> createDistribution(double[] singletons, double[] probabilities) {
         if (singletons.length != probabilities.length) {
             throw new DimensionMismatchException(probabilities.length, singletons.length);
         }
-
         final List<Pair<Double, Double>> samples = new ArrayList<Pair<Double, Double>>(singletons.length);
-
         for (int i = 0; i < singletons.length; i++) {
             samples.add(new Pair<Double, Double>(singletons[i], probabilities[i]));
         }
         return samples;
-
     }
 
     /**
@@ -171,7 +163,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      */
     @Override
     public double probability(final double x) {
-        return innerDistribution.probability(x);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -184,22 +177,16 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return the value of the probability mass function at point {@code x}
      */
     public double density(final double x) {
-        return probability(x);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double cumulativeProbability(final double x) {
-        double probability = 0;
-
-        for (final Pair<Double, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getKey() <= x) {
-                probability += sample.getValue();
-            }
-        }
-
-        return probability;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -207,26 +194,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      */
     @Override
     public double inverseCumulativeProbability(final double p) throws OutOfRangeException {
-        if (p < 0.0 || p > 1.0) {
-            throw new OutOfRangeException(p, 0, 1);
-        }
-
-        double probability = 0;
-        double x = getSupportLowerBound();
-        for (final Pair<Double, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getValue() == 0.0) {
-                continue;
-            }
-
-            probability += sample.getValue();
-            x = sample.getKey();
-
-            if (probability >= p) {
-                break;
-            }
-        }
-
-        return x;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -235,13 +204,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return {@code sum(singletons[i] * probabilities[i])}
      */
     public double getNumericalMean() {
-        double mean = 0;
-
-        for (final Pair<Double, Double> sample : innerDistribution.getPmf()) {
-            mean += sample.getValue() * sample.getKey();
-        }
-
-        return mean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -250,15 +214,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return {@code sum((singletons[i] - mean) ^ 2 * probabilities[i])}
      */
     public double getNumericalVariance() {
-        double mean = 0;
-        double meanOfSquares = 0;
-
-        for (final Pair<Double, Double> sample : innerDistribution.getPmf()) {
-            mean += sample.getValue() * sample.getKey();
-            meanOfSquares += sample.getValue() * sample.getKey() * sample.getKey();
-        }
-
-        return meanOfSquares - mean * mean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -269,14 +226,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return the lowest value with non-zero probability.
      */
     public double getSupportLowerBound() {
-        double min = Double.POSITIVE_INFINITY;
-        for (final Pair<Double, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getKey() < min && sample.getValue() > 0) {
-                min = sample.getKey();
-            }
-        }
-
-        return min;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -287,14 +238,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return the highest value with non-zero probability.
      */
     public double getSupportUpperBound() {
-        double max = Double.NEGATIVE_INFINITY;
-        for (final Pair<Double, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getKey() > max && sample.getValue() > 0) {
-                max = sample.getKey();
-            }
-        }
-
-        return max;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -305,7 +250,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -316,7 +262,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportUpperBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -327,7 +274,8 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -335,6 +283,7 @@ public class EnumeratedRealDistribution extends AbstractRealDistribution {
      */
     @Override
     public double sample() {
-        return innerDistribution.sample();
+        // STUB: not implemented
+        return 0.0;
     }
 }

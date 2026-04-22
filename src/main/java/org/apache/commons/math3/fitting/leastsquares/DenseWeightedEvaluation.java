@@ -27,9 +27,14 @@ import org.apache.commons.math3.linear.RealVector;
  */
 class DenseWeightedEvaluation extends AbstractEvaluation {
 
-    /** the unweighted evaluation */
+    /**
+     * the unweighted evaluation
+     */
     private final Evaluation unweighted;
-    /** reference to the weight square root matrix */
+
+    /**
+     * reference to the weight square root matrix
+     */
     private final RealMatrix weightSqrt;
 
     /**
@@ -38,8 +43,7 @@ class DenseWeightedEvaluation extends AbstractEvaluation {
      * @param unweighted the evalutation before weights are applied
      * @param weightSqrt the matrix square root of the weight matrix
      */
-    DenseWeightedEvaluation(final Evaluation unweighted,
-                            final RealMatrix weightSqrt) {
+    DenseWeightedEvaluation(final Evaluation unweighted, final RealMatrix weightSqrt) {
         // weight square root is square, nR=nC=number of observations
         super(weightSqrt.getColumnDimension());
         this.unweighted = unweighted;
@@ -47,22 +51,28 @@ class DenseWeightedEvaluation extends AbstractEvaluation {
     }
 
     /* apply weights */
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getJacobian() {
-        return weightSqrt.multiply(this.unweighted.getJacobian());
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealVector getResiduals() {
-        return this.weightSqrt.operate(this.unweighted.getResiduals());
+        // STUB: not implemented
+        return null;
     }
 
     /* delegate */
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealVector getPoint() {
-        return unweighted.getPoint();
+        // STUB: not implemented
+        return null;
     }
-
 }

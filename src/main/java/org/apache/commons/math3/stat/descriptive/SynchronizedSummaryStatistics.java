@@ -34,7 +34,9 @@ import org.apache.commons.math3.util.MathUtils;
  */
 public class SynchronizedSummaryStatistics extends SummaryStatistics {
 
-    /** Serialization UID */
+    /**
+     * Serialization UID
+     */
     private static final long serialVersionUID = 1909861009042253704L;
 
     /**
@@ -50,8 +52,7 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      * @param original the {@code SynchronizedSummaryStatistics} instance to copy
      * @throws NullArgumentException if original is null
      */
-    public SynchronizedSummaryStatistics(SynchronizedSummaryStatistics original)
-    throws NullArgumentException {
+    public SynchronizedSummaryStatistics(SynchronizedSummaryStatistics original) throws NullArgumentException {
         copy(original, this);
     }
 
@@ -60,7 +61,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StatisticalSummary getSummary() {
-        return super.getSummary();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -68,7 +70,7 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized void addValue(double value) {
-        super.addValue(value);
+        // STUB: not implemented
     }
 
     /**
@@ -76,7 +78,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized long getN() {
-        return super.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -84,7 +87,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getSum() {
-        return super.getSum();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -92,7 +96,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getSumsq() {
-        return super.getSumsq();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -100,7 +105,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getMean() {
-        return super.getMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -108,7 +114,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getStandardDeviation() {
-        return super.getStandardDeviation();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -116,7 +123,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getQuadraticMean() {
-        return super.getQuadraticMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -124,7 +132,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getVariance() {
-        return super.getVariance();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -132,7 +141,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getPopulationVariance() {
-        return super.getPopulationVariance();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -140,7 +150,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getMax() {
-        return super.getMax();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -148,7 +159,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getMin() {
-        return super.getMin();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -156,7 +168,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized double getGeometricMean() {
-        return super.getGeometricMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -164,7 +177,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized String toString() {
-        return super.toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -172,7 +186,7 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized void clear() {
-        super.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -180,7 +194,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized boolean equals(Object object) {
-        return super.equals(object);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -188,7 +203,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized int hashCode() {
-        return super.hashCode();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -196,16 +212,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getSumImpl() {
-        return super.getSumImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setSumImpl(StorelessUnivariateStatistic sumImpl)
-    throws MathIllegalStateException {
-        super.setSumImpl(sumImpl);
+    public synchronized void setSumImpl(StorelessUnivariateStatistic sumImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -213,16 +229,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getSumsqImpl() {
-        return super.getSumsqImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setSumsqImpl(StorelessUnivariateStatistic sumsqImpl)
-    throws MathIllegalStateException {
-        super.setSumsqImpl(sumsqImpl);
+    public synchronized void setSumsqImpl(StorelessUnivariateStatistic sumsqImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -230,16 +246,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getMinImpl() {
-        return super.getMinImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setMinImpl(StorelessUnivariateStatistic minImpl)
-    throws MathIllegalStateException {
-        super.setMinImpl(minImpl);
+    public synchronized void setMinImpl(StorelessUnivariateStatistic minImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -247,16 +263,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getMaxImpl() {
-        return super.getMaxImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setMaxImpl(StorelessUnivariateStatistic maxImpl)
-    throws MathIllegalStateException {
-        super.setMaxImpl(maxImpl);
+    public synchronized void setMaxImpl(StorelessUnivariateStatistic maxImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -264,16 +280,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getSumLogImpl() {
-        return super.getSumLogImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setSumLogImpl(StorelessUnivariateStatistic sumLogImpl)
-    throws MathIllegalStateException {
-        super.setSumLogImpl(sumLogImpl);
+    public synchronized void setSumLogImpl(StorelessUnivariateStatistic sumLogImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -281,16 +297,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getGeoMeanImpl() {
-        return super.getGeoMeanImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setGeoMeanImpl(StorelessUnivariateStatistic geoMeanImpl)
-    throws MathIllegalStateException {
-        super.setGeoMeanImpl(geoMeanImpl);
+    public synchronized void setGeoMeanImpl(StorelessUnivariateStatistic geoMeanImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -298,16 +314,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getMeanImpl() {
-        return super.getMeanImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setMeanImpl(StorelessUnivariateStatistic meanImpl)
-    throws MathIllegalStateException {
-        super.setMeanImpl(meanImpl);
+    public synchronized void setMeanImpl(StorelessUnivariateStatistic meanImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -315,16 +331,16 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized StorelessUnivariateStatistic getVarianceImpl() {
-        return super.getVarianceImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setVarianceImpl(StorelessUnivariateStatistic varianceImpl)
-    throws MathIllegalStateException {
-        super.setVarianceImpl(varianceImpl);
+    public synchronized void setVarianceImpl(StorelessUnivariateStatistic varianceImpl) throws MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -335,11 +351,8 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      */
     @Override
     public synchronized SynchronizedSummaryStatistics copy() {
-        SynchronizedSummaryStatistics result =
-            new SynchronizedSummaryStatistics();
-        // No try-catch or advertised exception because arguments are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -351,16 +364,7 @@ public class SynchronizedSummaryStatistics extends SummaryStatistics {
      * @param dest SynchronizedSummaryStatistics to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(SynchronizedSummaryStatistics source,
-                            SynchronizedSummaryStatistics dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        synchronized (source) {
-            synchronized (dest) {
-                SummaryStatistics.copy(source, dest);
-            }
-        }
+    public static void copy(SynchronizedSummaryStatistics source, SynchronizedSummaryStatistics dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

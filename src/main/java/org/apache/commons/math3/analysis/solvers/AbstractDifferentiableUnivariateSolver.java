@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.solvers;
 
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -29,10 +28,11 @@ import org.apache.commons.math3.exception.TooManyEvaluationsException;
  * @deprecated as of 3.1, replaced by {@link AbstractUnivariateDifferentiableSolver}
  */
 @Deprecated
-public abstract class AbstractDifferentiableUnivariateSolver
-    extends BaseAbstractUnivariateSolver<DifferentiableUnivariateFunction>
-    implements DifferentiableUnivariateSolver {
-    /** Derivative of the function to solve. */
+public abstract class AbstractDifferentiableUnivariateSolver extends BaseAbstractUnivariateSolver<DifferentiableUnivariateFunction> implements DifferentiableUnivariateSolver {
+
+    /**
+     * Derivative of the function to solve.
+     */
     private UnivariateFunction functionDerivative;
 
     /**
@@ -51,9 +51,7 @@ public abstract class AbstractDifferentiableUnivariateSolver
      * @param absoluteAccuracy Maximum absolute error.
      * @param functionValueAccuracy Maximum function value error.
      */
-    protected AbstractDifferentiableUnivariateSolver(final double relativeAccuracy,
-                                                     final double absoluteAccuracy,
-                                                     final double functionValueAccuracy) {
+    protected AbstractDifferentiableUnivariateSolver(final double relativeAccuracy, final double absoluteAccuracy, final double functionValueAccuracy) {
         super(relativeAccuracy, absoluteAccuracy, functionValueAccuracy);
     }
 
@@ -64,19 +62,16 @@ public abstract class AbstractDifferentiableUnivariateSolver
      * @return the objective function value at specified point.
      * @throws TooManyEvaluationsException if the maximal number of evaluations is exceeded.
      */
-    protected double computeDerivativeObjectiveValue(double point)
-        throws TooManyEvaluationsException {
-        incrementEvaluationCount();
-        return functionDerivative.value(point);
+    protected double computeDerivativeObjectiveValue(double point) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void setup(int maxEval, DifferentiableUnivariateFunction f,
-                         double min, double max, double startValue) {
-        super.setup(maxEval, f, min, max, startValue);
-        functionDerivative = f.derivative();
+    protected void setup(int maxEval, DifferentiableUnivariateFunction f, double min, double max, double startValue) {
+        // STUB: not implemented
     }
 }

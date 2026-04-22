@@ -14,12 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.linear;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import org.apache.commons.math3.exception.MathIllegalStateException;
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.optimization.GoalType;
@@ -37,7 +35,9 @@ import org.apache.commons.math3.optimization.PointValuePair;
 @Deprecated
 public abstract class AbstractLinearOptimizer implements LinearOptimizer {
 
-    /** Default maximal number of iterations allowed. */
+    /**
+     * Default maximal number of iterations allowed.
+     */
     public static final int DEFAULT_MAX_ITERATIONS = 100;
 
     /**
@@ -64,10 +64,14 @@ public abstract class AbstractLinearOptimizer implements LinearOptimizer {
      */
     private boolean nonNegative;
 
-    /** Maximal number of iterations allowed. */
+    /**
+     * Maximal number of iterations allowed.
+     */
     private int maxIterations;
 
-    /** Number of iterations already performed. */
+    /**
+     * Number of iterations already performed.
+     */
     private int iterations;
 
     /**
@@ -82,73 +86,71 @@ public abstract class AbstractLinearOptimizer implements LinearOptimizer {
      * @return {@code true} if the variables are restricted to non-negative values.
      */
     protected boolean restrictToNonNegative() {
-        return nonNegative;
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * @return the optimization type.
      */
     protected GoalType getGoalType() {
-        return goal;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * @return the optimization type.
      */
     protected LinearObjectiveFunction getFunction() {
-        return function;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * @return the optimization type.
      */
     protected Collection<LinearConstraint> getConstraints() {
-        return Collections.unmodifiableCollection(linearConstraints);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void setMaxIterations(int maxIterations) {
-        this.maxIterations = maxIterations;
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMaxIterations() {
-        return maxIterations;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getIterations() {
-        return iterations;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
      * Increment the iterations counter by 1.
      * @exception MaxCountExceededException if the maximal number of iterations is exceeded
      */
-    protected void incrementIterationsCounter()
-        throws MaxCountExceededException {
-        if (++iterations > maxIterations) {
-            throw new MaxCountExceededException(maxIterations);
-        }
+    protected void incrementIterationsCounter() throws MaxCountExceededException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
-    public PointValuePair optimize(final LinearObjectiveFunction f,
-                                   final Collection<LinearConstraint> constraints,
-                                   final GoalType goalType, final boolean restrictToNonNegative)
-        throws MathIllegalStateException {
-
-        // store linear problem characteristics
-        this.function          = f;
-        this.linearConstraints = constraints;
-        this.goal              = goalType;
-        this.nonNegative       = restrictToNonNegative;
-
-        iterations  = 0;
-
-        // solve the problem
-        return doOptimize();
-
+    /**
+     * {@inheritDoc}
+     */
+    public PointValuePair optimize(final LinearObjectiveFunction f, final Collection<LinearConstraint> constraints, final GoalType goalType, final boolean restrictToNonNegative) throws MathIllegalStateException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -158,5 +160,4 @@ public abstract class AbstractLinearOptimizer implements LinearOptimizer {
      * can be found in the allowed number of iterations
      */
     protected abstract PointValuePair doOptimize() throws MathIllegalStateException;
-
 }

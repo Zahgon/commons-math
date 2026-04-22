@@ -26,17 +26,23 @@ import java.util.Random;
  */
 public class RandomAdaptor extends Random implements RandomGenerator {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 2306581345647615033L;
 
-    /** Wrapped randomGenerator instance */
+    /**
+     * Wrapped randomGenerator instance
+     */
     private final RandomGenerator randomGenerator;
 
     /**
      * Prevent instantiation without a generator argument
      */
     @SuppressWarnings("unused")
-    private RandomAdaptor() { randomGenerator = null; }
+    private RandomAdaptor() {
+        randomGenerator = null;
+    }
 
     /**
      * Construct a RandomAdaptor wrapping the supplied RandomGenerator.
@@ -55,7 +61,8 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      * @return a Random instance wrapping the RandomGenerator
      */
     public static Random createAdaptor(RandomGenerator randomGenerator) {
-        return new RandomAdaptor(randomGenerator);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -69,10 +76,11 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public boolean nextBoolean() {
-        return randomGenerator.nextBoolean();
+        // STUB: not implemented
+        return false;
     }
 
-     /**
+    /**
      * Generates random bytes and places them into a user-supplied
      * byte array.  The number of random bytes produced is equal to
      * the length of the byte array.
@@ -82,10 +90,10 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public void nextBytes(byte[] bytes) {
-        randomGenerator.nextBytes(bytes);
+        // STUB: not implemented
     }
 
-     /**
+    /**
      * Returns the next pseudorandom, uniformly distributed
      * <code>double</code> value between <code>0.0</code> and
      * <code>1.0</code> from this random number generator's sequence.
@@ -96,7 +104,8 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public double nextDouble() {
-        return randomGenerator.nextDouble();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -110,7 +119,8 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public float nextFloat() {
-        return randomGenerator.nextFloat();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -125,10 +135,11 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public double nextGaussian() {
-        return randomGenerator.nextGaussian();
+        // STUB: not implemented
+        return 0.0;
     }
 
-     /**
+    /**
      * Returns the next pseudorandom, uniformly distributed <code>int</code>
      * value from this random number generator's sequence.
      * All 2<font size="-1"><sup>32</sup></font> possible {@code int} values
@@ -139,7 +150,8 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public int nextInt() {
-        return randomGenerator.nextInt();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -155,43 +167,44 @@ public class RandomAdaptor extends Random implements RandomGenerator {
      */
     @Override
     public int nextInt(int n) {
-        return randomGenerator.nextInt(n);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
-     * Returns the next pseudorandom, uniformly distributed <code>long</code>
-     * value from this random number generator's sequence.  All
-     * 2<font size="-1"><sup>64</sup></font> possible {@code long} values
-     * should be produced with (approximately) equal probability.
+     *  Returns the next pseudorandom, uniformly distributed <code>long</code>
+     *  value from this random number generator's sequence.  All
+     *  2<font size="-1"><sup>64</sup></font> possible {@code long} values
+     *  should be produced with (approximately) equal probability.
      *
-     * @return  the next pseudorandom, uniformly distributed <code>long</code>
-     *value from this random number generator's sequence
+     *  @return  the next pseudorandom, uniformly distributed <code>long</code>
+     * value from this random number generator's sequence
      */
     @Override
     public long nextLong() {
-        return randomGenerator.nextLong();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void setSeed(int seed) {
-        if (randomGenerator != null) {  // required to avoid NPE in constructor
-            randomGenerator.setSeed(seed);
-        }
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void setSeed(int[] seed) {
-        if (randomGenerator != null) {  // required to avoid NPE in constructor
-            randomGenerator.setSeed(seed);
-        }
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSeed(long seed) {
-        if (randomGenerator != null) {  // required to avoid NPE in constructor
-            randomGenerator.setSeed(seed);
-        }
+        // STUB: not implemented
     }
-
 }

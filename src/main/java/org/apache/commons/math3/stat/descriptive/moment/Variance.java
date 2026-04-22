@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
@@ -64,14 +63,17 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
 public class Variance extends AbstractStorelessUnivariateStatistic implements Serializable, WeightedEvaluation {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -9111962718267217978L;
 
-    /** SecondMoment is used in incremental calculation of Variance*/
+    /**
+     * SecondMoment is used in incremental calculation of Variance
+     */
     protected SecondMoment moment = null;
 
     /**
@@ -167,9 +169,7 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      */
     @Override
     public void increment(final double d) {
-        if (incMoment) {
-            moment.increment(d);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -177,24 +177,16 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      */
     @Override
     public double getResult() {
-            if (moment.n == 0) {
-                return Double.NaN;
-            } else if (moment.n == 1) {
-                return 0d;
-            } else {
-                if (isBiasCorrected) {
-                    return moment.m2 / (moment.n - 1d);
-                } else {
-                    return moment.m2 / (moment.n);
-                }
-            }
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return moment.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -202,9 +194,7 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      */
     @Override
     public void clear() {
-        if (incMoment) {
-            moment.clear();
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -225,10 +215,8 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      */
     @Override
     public double evaluate(final double[] values) throws MathIllegalArgumentException {
-        if (values == null) {
-            throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
-        }
-        return evaluate(values, 0, values.length);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -253,22 +241,9 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values, final int begin, final int length)
-    throws MathIllegalArgumentException {
-
-        double var = Double.NaN;
-
-        if (test(values, begin, length)) {
-            clear();
-            if (length == 1) {
-                var = 0.0;
-            } else if (length > 1) {
-                Mean mean = new Mean();
-                double m = mean.evaluate(values, begin, length);
-                var = evaluate(values, m, begin, length);
-            }
-        }
-        return var;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -313,22 +288,9 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights,
-                           final int begin, final int length) throws MathIllegalArgumentException {
-
-        double var = Double.NaN;
-
-        if (test(values, weights,begin, length)) {
-            clear();
-            if (length == 1) {
-                var = 0.0;
-            } else if (length > 1) {
-                Mean mean = new Mean();
-                double m = mean.evaluate(values, weights, begin, length);
-                var = evaluate(values, weights, m, begin, length);
-            }
-        }
-        return var;
+    public double evaluate(final double[] values, final double[] weights, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -369,9 +331,9 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights)
-    throws MathIllegalArgumentException {
-        return evaluate(values, weights, 0, values.length);
+    public double evaluate(final double[] values, final double[] weights) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -400,32 +362,9 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @throws MathIllegalArgumentException if the array is null or the array index
      *  parameters are not valid
      */
-    public double evaluate(final double[] values, final double mean,
-            final int begin, final int length) throws MathIllegalArgumentException {
-
-        double var = Double.NaN;
-
-        if (test(values, begin, length)) {
-            if (length == 1) {
-                var = 0.0;
-            } else if (length > 1) {
-                double accum = 0.0;
-                double dev = 0.0;
-                double accum2 = 0.0;
-                for (int i = begin; i < begin + length; i++) {
-                    dev = values[i] - mean;
-                    accum += dev * dev;
-                    accum2 += dev;
-                }
-                double len = length;
-                if (isBiasCorrected) {
-                    var = (accum - (accum2 * accum2 / len)) / (len - 1.0);
-                } else {
-                    var = (accum - (accum2 * accum2 / len)) / len;
-                }
-            }
-        }
-        return var;
+    public double evaluate(final double[] values, final double mean, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -454,7 +393,8 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @throws MathIllegalArgumentException if the array is null
      */
     public double evaluate(final double[] values, final double mean) throws MathIllegalArgumentException {
-        return evaluate(values, mean, 0, values.length);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -502,38 +442,9 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights,
-    final double mean, final int begin, final int length)
-    throws MathIllegalArgumentException {
-
-        double var = Double.NaN;
-
-        if (test(values, weights, begin, length)) {
-            if (length == 1) {
-                var = 0.0;
-            } else if (length > 1) {
-                double accum = 0.0;
-                double dev = 0.0;
-                double accum2 = 0.0;
-                for (int i = begin; i < begin + length; i++) {
-                    dev = values[i] - mean;
-                    accum += weights[i] * (dev * dev);
-                    accum2 += weights[i] * dev;
-                }
-
-                double sumWts = 0;
-                for (int i = begin; i < begin + length; i++) {
-                    sumWts += weights[i];
-                }
-
-                if (isBiasCorrected) {
-                    var = (accum - (accum2 * accum2 / sumWts)) / (sumWts - 1.0);
-                } else {
-                    var = (accum - (accum2 * accum2 / sumWts)) / sumWts;
-                }
-            }
-        }
-        return var;
+    public double evaluate(final double[] values, final double[] weights, final double mean, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -577,23 +488,24 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights, final double mean)
-    throws MathIllegalArgumentException {
-        return evaluate(values, weights, mean, 0, values.length);
+    public double evaluate(final double[] values, final double[] weights, final double mean) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * @return Returns the isBiasCorrected.
      */
     public boolean isBiasCorrected() {
-        return isBiasCorrected;
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * @param biasCorrected The isBiasCorrected to set.
      */
     public void setBiasCorrected(boolean biasCorrected) {
-        this.isBiasCorrected = biasCorrected;
+        // STUB: not implemented
     }
 
     /**
@@ -601,10 +513,8 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      */
     @Override
     public Variance copy() {
-        Variance result = new Variance();
-        // No try-catch or advertised exception because parameters are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -615,13 +525,7 @@ public class Variance extends AbstractStorelessUnivariateStatistic implements Se
      * @param dest Variance to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(Variance source, Variance dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.moment = source.moment.copy();
-        dest.isBiasCorrected = source.isBiasCorrected;
-        dest.incMoment = source.incMoment;
+    public static void copy(Variance source, Variance dest) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

@@ -43,18 +43,18 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * coefficients[0] is the constant term and coefficients[n] is the
      * coefficient of x^n where n is the degree of the polynomial.
      */
-    private double coefficients[];
+    private double[] coefficients;
 
     /**
      * Centers of the Newton polynomial.
      */
-    private final double c[];
+    private final double[] c;
 
     /**
      * When all c[i] = 0, a[] becomes normal polynomial coefficients,
      * i.e. a[i] = coefficients[i].
      */
-    private final double a[];
+    private final double[] a;
 
     /**
      * Whether the polynomial coefficients are available.
@@ -75,9 +75,7 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @throws DimensionMismatchException if the size difference between
      * {@code a} and {@code c} is not equal to 1.
      */
-    public PolynomialFunctionNewtonForm(double a[], double c[])
-        throws NullArgumentException, NoDataException, DimensionMismatchException {
-
+    public PolynomialFunctionNewtonForm(double[] a, double[] c) throws NullArgumentException, NoDataException, DimensionMismatchException {
         verifyInputArray(a, c);
         this.a = new double[a.length];
         this.c = new double[c.length];
@@ -93,7 +91,8 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @return the function value.
      */
     public double value(double z) {
-       return evaluate(a, c, z);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -101,16 +100,8 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @since 3.1
      */
     public DerivativeStructure value(final DerivativeStructure t) {
-        verifyInputArray(a, c);
-
-        final int n = c.length;
-        DerivativeStructure value = new DerivativeStructure(t.getFreeParameters(), t.getOrder(), a[n]);
-        for (int i = n - 1; i >= 0; i--) {
-            value = t.subtract(c[i]).multiply(value).add(a[i]);
-        }
-
-        return value;
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -119,7 +110,8 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @return the degree of the polynomial
      */
     public int degree() {
-        return c.length;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -130,9 +122,8 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @return a fresh copy of coefficients in Newton form formula
      */
     public double[] getNewtonCoefficients() {
-        double[] out = new double[a.length];
-        System.arraycopy(a, 0, out, 0, a.length);
-        return out;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -143,9 +134,8 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @return a fresh copy of the centers array.
      */
     public double[] getCenters() {
-        double[] out = new double[c.length];
-        System.arraycopy(c, 0, out, 0, c.length);
-        return out;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -156,12 +146,8 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @return a fresh copy of the coefficients array.
      */
     public double[] getCoefficients() {
-        if (!coefficientsComputed) {
-            computeCoefficients();
-        }
-        double[] out = new double[coefficients.length];
-        System.arraycopy(coefficients, 0, out, 0, coefficients.length);
-        return out;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -178,17 +164,9 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @throws DimensionMismatchException if the size difference between
      * {@code a} and {@code c} is not equal to 1.
      */
-    public static double evaluate(double a[], double c[], double z)
-        throws NullArgumentException, DimensionMismatchException, NoDataException {
-        verifyInputArray(a, c);
-
-        final int n = c.length;
-        double value = a[n];
-        for (int i = n - 1; i >= 0; i--) {
-            value = a[i] + (z - c[i]) * value;
-        }
-
-        return value;
+    public static double evaluate(double[] a, double[] c, double z) throws NullArgumentException, DimensionMismatchException, NoDataException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -196,22 +174,7 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * It also uses nested multiplication but takes O(N^2) time.
      */
     protected void computeCoefficients() {
-        final int n = degree();
-
-        coefficients = new double[n+1];
-        for (int i = 0; i <= n; i++) {
-            coefficients[i] = 0.0;
-        }
-
-        coefficients[0] = a[n];
-        for (int i = n-1; i >= 0; i--) {
-            for (int j = n-i; j > 0; j--) {
-                coefficients[j] = coefficients[j-1] - c[i] * coefficients[j];
-            }
-            coefficients[0] = a[i] - c[i] * coefficients[0];
-        }
-
-        coefficientsComputed = true;
+        // STUB: not implemented
     }
 
     /**
@@ -229,17 +192,7 @@ public class PolynomialFunctionNewtonForm implements UnivariateDifferentiableFun
      * @see org.apache.commons.math3.analysis.interpolation.DividedDifferenceInterpolator#computeDividedDifference(double[],
      * double[])
      */
-    protected static void verifyInputArray(double a[], double c[])
-        throws NullArgumentException, NoDataException, DimensionMismatchException {
-        MathUtils.checkNotNull(a);
-        MathUtils.checkNotNull(c);
-        if (a.length == 0 || c.length == 0) {
-            throw new NoDataException(LocalizedFormats.EMPTY_POLYNOMIALS_COEFFICIENTS_ARRAY);
-        }
-        if (a.length != c.length + 1) {
-            throw new DimensionMismatchException(LocalizedFormats.ARRAY_SIZES_SHOULD_HAVE_DIFFERENCE_1,
-                                                 a.length, c.length);
-        }
+    protected static void verifyInputArray(double[] a, double[] c) throws NullArgumentException, NoDataException, DimensionMismatchException {
+        // STUB: not implemented
     }
-
 }

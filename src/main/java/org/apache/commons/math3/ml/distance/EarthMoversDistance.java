@@ -29,20 +29,16 @@ import org.apache.commons.math3.util.MathArrays;
  */
 public class EarthMoversDistance implements DistanceMeasure {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -5406732779747414922L;
 
-    /** {@inheritDoc} */
-    public double compute(double[] a, double[] b)
-    throws DimensionMismatchException {
-        MathArrays.checkEqualLength(a, b);
-        double lastDistance = 0;
-        double totalDistance = 0;
-        for (int i = 0; i < a.length; i++) {
-            final double currentDistance = (a[i] + lastDistance) - b[i];
-            totalDistance += FastMath.abs(currentDistance);
-            lastDistance = currentDistance;
-        }
-        return totalDistance;
+    /**
+     * {@inheritDoc}
+     */
+    public double compute(double[] a, double[] b) throws DimensionMismatchException {
+        // STUB: not implemented
+        return 0.0;
     }
 }

@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import java.util.Arrays;
-
 import org.apache.commons.math3.analysis.FunctionUtils;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -39,9 +37,15 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class Sigmoid implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Lower asymptote. */
+
+    /**
+     * Lower asymptote.
+     */
     private final double lo;
-    /** Higher asymptote. */
+
+    /**
+     * Higher asymptote.
+     */
     private final double hi;
 
     /**
@@ -58,13 +62,13 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
      * @param lo Lower asymptote.
      * @param hi Higher asymptote.
      */
-    public Sigmoid(double lo,
-                   double hi) {
+    public Sigmoid(double lo, double hi) {
         this.lo = lo;
         this.hi = hi;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -72,9 +76,12 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
         return FunctionUtils.toDifferentiableUnivariateFunction(this).derivative();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return value(x, lo, hi);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -87,6 +94,7 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
      * </ul>
      */
     public static class Parametric implements ParametricUnivariateFunction {
+
         /**
          * Computes the value of the sigmoid at {@code x}.
          *
@@ -97,11 +105,9 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 2.
          */
-        public double value(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
-            validateParameters(param);
-            return Sigmoid.value(x, param[0], param[1]);
+        public double value(double x, double... param) throws NullArgumentException, DimensionMismatchException {
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -117,14 +123,9 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 2.
          */
-        public double[] gradient(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
-            validateParameters(param);
-
-            final double invExp1 = 1 / (1 + FastMath.exp(-x));
-
-            return new double[] { 1 - invExp1, invExp1 };
+        public double[] gradient(double x, double... param) throws NullArgumentException, DimensionMismatchException {
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -137,9 +138,7 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 2.
          */
-        private void validateParameters(double[] param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
+        private void validateParameters(double[] param) throws NullArgumentException, DimensionMismatchException {
             if (param == null) {
                 throw new NullArgumentException();
             }
@@ -155,64 +154,16 @@ public class Sigmoid implements UnivariateDifferentiableFunction, Differentiable
      * @param hi Higher asymptote.
      * @return the value of the sigmoid function at {@code x}.
      */
-    private static double value(double x,
-                                double lo,
-                                double hi) {
+    private static double value(double x, double lo, double hi) {
         return lo + (hi - lo) / (1 + FastMath.exp(-x));
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
-    public DerivativeStructure value(final DerivativeStructure t)
-        throws DimensionMismatchException {
-
-        double[] f = new double[t.getOrder() + 1];
-        final double exp = FastMath.exp(-t.getValue());
-        if (Double.isInfinite(exp)) {
-
-            // special handling near lower boundary, to avoid NaN
-            f[0] = lo;
-            Arrays.fill(f, 1, f.length, 0.0);
-
-        } else {
-
-            // the nth order derivative of sigmoid has the form:
-            // dn(sigmoid(x)/dxn = P_n(exp(-x)) / (1+exp(-x))^(n+1)
-            // where P_n(t) is a degree n polynomial with normalized higher term
-            // P_0(t) = 1, P_1(t) = t, P_2(t) = t^2 - t, P_3(t) = t^3 - 4 t^2 + t...
-            // the general recurrence relation for P_n is:
-            // P_n(x) = n t P_(n-1)(t) - t (1 + t) P_(n-1)'(t)
-            final double[] p = new double[f.length];
-
-            final double inv   = 1 / (1 + exp);
-            double coeff = hi - lo;
-            for (int n = 0; n < f.length; ++n) {
-
-                // update and evaluate polynomial P_n(t)
-                double v = 0;
-                p[n] = 1;
-                for (int k = n; k >= 0; --k) {
-                    v = v * exp + p[k];
-                    if (k > 1) {
-                        p[k - 1] = (n - k + 2) * p[k - 2] - (k - 1) * p[k - 1];
-                    } else {
-                        p[0] = 0;
-                    }
-                }
-
-                coeff *= inv;
-                f[n]   = coeff * v;
-
-            }
-
-            // fix function value
-            f[0] += lo;
-
-        }
-
-        return t.compose(f);
-
+    public DerivativeStructure value(final DerivativeStructure t) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
-
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -48,19 +47,29 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class ParetoDistribution extends AbstractRealDistribution {
 
-    /** Default inverse cumulative probability accuracy. */
+    /**
+     * Default inverse cumulative probability accuracy.
+     */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20130424;
 
-    /** The scale parameter of this distribution. */
+    /**
+     * The scale parameter of this distribution.
+     */
     private final double scale;
 
-    /** The shape parameter of this distribution. */
+    /**
+     * The shape parameter of this distribution.
+     */
     private final double shape;
 
-    /** Inverse cumulative probability accuracy. */
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double solverAbsoluteAccuracy;
 
     /**
@@ -84,8 +93,7 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @param shape the shape parameter of this distribution
      * @throws NotStrictlyPositiveException if {@code scale <= 0} or {@code shape <= 0}.
      */
-    public ParetoDistribution(double scale, double shape)
-        throws NotStrictlyPositiveException {
+    public ParetoDistribution(double scale, double shape) throws NotStrictlyPositiveException {
         this(scale, shape, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -105,8 +113,7 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @param inverseCumAccuracy Inverse cumulative probability accuracy.
      * @throws NotStrictlyPositiveException if {@code scale <= 0} or {@code shape <= 0}.
      */
-    public ParetoDistribution(double scale, double shape, double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public ParetoDistribution(double scale, double shape, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         this(new Well19937c(), scale, shape, inverseCumAccuracy);
     }
 
@@ -118,8 +125,7 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @param shape Shape parameter of this distribution.
      * @throws NotStrictlyPositiveException if {@code scale <= 0} or {@code shape <= 0}.
      */
-    public ParetoDistribution(RandomGenerator rng, double scale, double shape)
-        throws NotStrictlyPositiveException {
+    public ParetoDistribution(RandomGenerator rng, double scale, double shape) throws NotStrictlyPositiveException {
         this(rng, scale, shape, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -132,21 +138,14 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @param inverseCumAccuracy Inverse cumulative probability accuracy.
      * @throws NotStrictlyPositiveException if {@code scale <= 0} or {@code shape <= 0}.
      */
-    public ParetoDistribution(RandomGenerator rng,
-                              double scale,
-                              double shape,
-                              double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public ParetoDistribution(RandomGenerator rng, double scale, double shape, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         super(rng);
-
         if (scale <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.SCALE, scale);
         }
-
         if (shape <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.SHAPE, shape);
         }
-
         this.scale = scale;
         this.shape = shape;
         this.solverAbsoluteAccuracy = inverseCumAccuracy;
@@ -158,7 +157,8 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @return the scale parameter
      */
     public double getScale() {
-        return scale;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -167,7 +167,8 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @return the shape parameter
      */
     public double getShape() {
-        return shape;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -181,22 +182,19 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double density(double x) {
-        if (x < scale) {
-            return 0;
-        }
-        return FastMath.pow(scale, shape) / FastMath.pow(x, shape + 1) * shape;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      *
      * See documentation of {@link #density(double)} for computation details.
      */
     @Override
     public double logDensity(double x) {
-        if (x < scale) {
-            return Double.NEGATIVE_INFINITY;
-        }
-        return FastMath.log(scale) * shape - FastMath.log(x) * (shape + 1) + FastMath.log(shape);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -208,11 +206,9 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * <li>{@code 1 - (k / x)^α} otherwise.</li>
      * </ul>
      */
-    public double cumulativeProbability(double x)  {
-        if (x <= scale) {
-            return 0;
-        }
-        return 1 - FastMath.pow(scale / x, shape);
+    public double cumulativeProbability(double x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -222,15 +218,17 @@ public class ParetoDistribution extends AbstractRealDistribution {
      */
     @Override
     @Deprecated
-    public double cumulativeProbability(double x0, double x1)
-        throws NumberIsTooLargeException {
+    public double cumulativeProbability(double x0, double x1) throws NumberIsTooLargeException {
         return probability(x0, x1);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -243,10 +241,8 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double getNumericalMean() {
-        if (shape <= 1) {
-            return Double.POSITIVE_INFINITY;
-        }
-        return shape * scale / (shape - 1);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -259,11 +255,8 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double getNumericalVariance() {
-        if (shape <= 2) {
-            return Double.POSITIVE_INFINITY;
-        }
-        double s = shape - 1;
-        return scale * scale * shape / (s * s) / (shape - 2);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -274,7 +267,8 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @return lower bound of the support
      */
     public double getSupportLowerBound() {
-        return scale;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -285,16 +279,23 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @return upper bound of the support (always {@code Double.POSITIVE_INFINITY})
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -306,13 +307,16 @@ public class ParetoDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double sample()  {
-        final double n = random.nextDouble();
-        return scale / FastMath.pow(n, 1 / shape);
+    public double sample() {
+        // STUB: not implemented
+        return 0.0;
     }
 }

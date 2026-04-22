@@ -18,7 +18,6 @@ package org.apache.commons.math3.analysis.interpolation;
 
 import java.io.Serializable;
 import java.util.Arrays;
-
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NoDataException;
@@ -47,19 +46,29 @@ import org.apache.commons.math3.util.MathUtils;
  *
  * @since 2.0
  */
-public class LoessInterpolator
-    implements UnivariateInterpolator, Serializable {
-    /** Default value of the bandwidth parameter. */
+public class LoessInterpolator implements UnivariateInterpolator, Serializable {
+
+    /**
+     * Default value of the bandwidth parameter.
+     */
     public static final double DEFAULT_BANDWIDTH = 0.3;
-    /** Default value of the number of robustness iterations. */
+
+    /**
+     * Default value of the number of robustness iterations.
+     */
     public static final int DEFAULT_ROBUSTNESS_ITERS = 2;
+
     /**
      * Default value for accuracy.
      * @since 2.1
      */
     public static final double DEFAULT_ACCURACY = 1e-12;
-    /** serializable version identifier. */
+
+    /**
+     * serializable version identifier.
+     */
     private static final long serialVersionUID = 5204927143605193821L;
+
     /**
      * The bandwidth parameter: when computing the loess fit at
      * a particular point, this fraction of source points closest
@@ -69,6 +78,7 @@ public class LoessInterpolator
      * A sensible value is usually 0.25 to 0.5.</p>
      */
     private final double bandwidth;
+
     /**
      * The number of robustness iterations parameter: this many
      * robustness iterations are done.
@@ -77,6 +87,7 @@ public class LoessInterpolator
      * robustness iterations) to 4.</p>
      */
     private final int robustnessIters;
+
     /**
      * If the median residual at a certain robustness iteration
      * is less than this amount, no more iterations are done.
@@ -116,7 +127,7 @@ public class LoessInterpolator
      * A sensible value is usually 0 (just the initial fit without any
      * robustness iterations) to 4, the default value is
      * {@link #DEFAULT_ROBUSTNESS_ITERS}.
-
+     *
      * @see #LoessInterpolator(double, int, double)
      */
     public LoessInterpolator(double bandwidth, int robustnessIters) {
@@ -144,11 +155,8 @@ public class LoessInterpolator
      * @see #LoessInterpolator(double, int)
      * @since 2.1
      */
-    public LoessInterpolator(double bandwidth, int robustnessIters, double accuracy)
-        throws OutOfRangeException,
-               NotPositiveException {
-        if (bandwidth < 0 ||
-            bandwidth > 1) {
+    public LoessInterpolator(double bandwidth, int robustnessIters, double accuracy) throws OutOfRangeException, NotPositiveException {
+        if (bandwidth < 0 || bandwidth > 1) {
             throw new OutOfRangeException(LocalizedFormats.BANDWIDTH, bandwidth, 0, 1);
         }
         this.bandwidth = bandwidth;
@@ -180,14 +188,9 @@ public class LoessInterpolator
      * accomodate the size of the input data (i.e. the bandwidth must be
      * larger than 2/n).
      */
-    public final PolynomialSplineFunction interpolate(final double[] xval,
-                                                      final double[] yval)
-        throws NonMonotonicSequenceException,
-               DimensionMismatchException,
-               NoDataException,
-               NotFiniteNumberException,
-               NumberIsTooSmallException {
-        return new SplineInterpolator().interpolate(xval, smooth(xval, yval));
+    public final PolynomialSplineFunction interpolate(final double[] xval, final double[] yval) throws NonMonotonicSequenceException, DimensionMismatchException, NoDataException, NotFiniteNumberException, NumberIsTooSmallException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -204,161 +207,15 @@ public class LoessInterpolator
      * different sizes.
      * @throws NoDataException if {@code xval} or {@code yval} has zero size.
      * @throws NotFiniteNumberException if any of the arguments and values are
-     not finite real numbers.
+     *     not finite real numbers.
      * @throws NumberIsTooSmallException if the bandwidth is too small to
      * accomodate the size of the input data (i.e. the bandwidth must be
      * larger than 2/n).
      * @since 2.1
      */
-    public final double[] smooth(final double[] xval, final double[] yval,
-                                 final double[] weights)
-        throws NonMonotonicSequenceException,
-               DimensionMismatchException,
-               NoDataException,
-               NotFiniteNumberException,
-               NumberIsTooSmallException {
-        if (xval.length != yval.length) {
-            throw new DimensionMismatchException(xval.length, yval.length);
-        }
-
-        final int n = xval.length;
-
-        if (n == 0) {
-            throw new NoDataException();
-        }
-
-        checkAllFiniteReal(xval);
-        checkAllFiniteReal(yval);
-        checkAllFiniteReal(weights);
-
-        MathArrays.checkOrder(xval);
-
-        if (n == 1) {
-            return new double[]{yval[0]};
-        }
-
-        if (n == 2) {
-            return new double[]{yval[0], yval[1]};
-        }
-
-        int bandwidthInPoints = (int) (bandwidth * n);
-
-        if (bandwidthInPoints < 2) {
-            throw new NumberIsTooSmallException(LocalizedFormats.BANDWIDTH,
-                                                bandwidthInPoints, 2, true);
-        }
-
-        final double[] res = new double[n];
-
-        final double[] residuals = new double[n];
-        final double[] sortedResiduals = new double[n];
-
-        final double[] robustnessWeights = new double[n];
-
-        // Do an initial fit and 'robustnessIters' robustness iterations.
-        // This is equivalent to doing 'robustnessIters+1' robustness iterations
-        // starting with all robustness weights set to 1.
-        Arrays.fill(robustnessWeights, 1);
-
-        for (int iter = 0; iter <= robustnessIters; ++iter) {
-            final int[] bandwidthInterval = {0, bandwidthInPoints - 1};
-            // At each x, compute a local weighted linear regression
-            for (int i = 0; i < n; ++i) {
-                final double x = xval[i];
-
-                // Find out the interval of source points on which
-                // a regression is to be made.
-                if (i > 0) {
-                    updateBandwidthInterval(xval, weights, i, bandwidthInterval);
-                }
-
-                final int ileft = bandwidthInterval[0];
-                final int iright = bandwidthInterval[1];
-
-                // Compute the point of the bandwidth interval that is
-                // farthest from x
-                final int edge;
-                if (xval[i] - xval[ileft] > xval[iright] - xval[i]) {
-                    edge = ileft;
-                } else {
-                    edge = iright;
-                }
-
-                // Compute a least-squares linear fit weighted by
-                // the product of robustness weights and the tricube
-                // weight function.
-                // See http://en.wikipedia.org/wiki/Linear_regression
-                // (section "Univariate linear case")
-                // and http://en.wikipedia.org/wiki/Weighted_least_squares
-                // (section "Weighted least squares")
-                double sumWeights = 0;
-                double sumX = 0;
-                double sumXSquared = 0;
-                double sumY = 0;
-                double sumXY = 0;
-                double denom = FastMath.abs(1.0 / (xval[edge] - x));
-                for (int k = ileft; k <= iright; ++k) {
-                    final double xk   = xval[k];
-                    final double yk   = yval[k];
-                    final double dist = (k < i) ? x - xk : xk - x;
-                    final double w    = tricube(dist * denom) * robustnessWeights[k] * weights[k];
-                    final double xkw  = xk * w;
-                    sumWeights += w;
-                    sumX += xkw;
-                    sumXSquared += xk * xkw;
-                    sumY += yk * w;
-                    sumXY += yk * xkw;
-                }
-
-                final double meanX = sumX / sumWeights;
-                final double meanY = sumY / sumWeights;
-                final double meanXY = sumXY / sumWeights;
-                final double meanXSquared = sumXSquared / sumWeights;
-
-                final double beta;
-                if (FastMath.sqrt(FastMath.abs(meanXSquared - meanX * meanX)) < accuracy) {
-                    beta = 0;
-                } else {
-                    beta = (meanXY - meanX * meanY) / (meanXSquared - meanX * meanX);
-                }
-
-                final double alpha = meanY - beta * meanX;
-
-                res[i] = beta * x + alpha;
-                residuals[i] = FastMath.abs(yval[i] - res[i]);
-            }
-
-            // No need to recompute the robustness weights at the last
-            // iteration, they won't be needed anymore
-            if (iter == robustnessIters) {
-                break;
-            }
-
-            // Recompute the robustness weights.
-
-            // Find the median residual.
-            // An arraycopy and a sort are completely tractable here,
-            // because the preceding loop is a lot more expensive
-            System.arraycopy(residuals, 0, sortedResiduals, 0, n);
-            Arrays.sort(sortedResiduals);
-            final double medianResidual = sortedResiduals[n / 2];
-
-            if (FastMath.abs(medianResidual) < accuracy) {
-                break;
-            }
-
-            for (int i = 0; i < n; ++i) {
-                final double arg = residuals[i] / (6 * medianResidual);
-                if (arg >= 1) {
-                    robustnessWeights[i] = 0;
-                } else {
-                    final double w = 1 - arg * arg;
-                    robustnessWeights[i] = w * w;
-                }
-            }
-        }
-
-        return res;
+    public final double[] smooth(final double[] xval, final double[] yval, final double[] weights) throws NonMonotonicSequenceException, DimensionMismatchException, NoDataException, NotFiniteNumberException, NumberIsTooSmallException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -378,20 +235,9 @@ public class LoessInterpolator
      * accomodate the size of the input data (i.e. the bandwidth must be
      * larger than 2/n).
      */
-    public final double[] smooth(final double[] xval, final double[] yval)
-        throws NonMonotonicSequenceException,
-               DimensionMismatchException,
-               NoDataException,
-               NotFiniteNumberException,
-               NumberIsTooSmallException {
-        if (xval.length != yval.length) {
-            throw new DimensionMismatchException(xval.length, yval.length);
-        }
-
-        final double[] unitWeights = new double[xval.length];
-        Arrays.fill(unitWeights, 1.0);
-
-        return smooth(xval, yval, unitWeights);
+    public final double[] smooth(final double[] xval, final double[] yval) throws NonMonotonicSequenceException, DimensionMismatchException, NoDataException, NotFiniteNumberException, NumberIsTooSmallException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -409,12 +255,9 @@ public class LoessInterpolator
      * {@code (right==xval.length-1 or xval[right+1] - xval[i] > xval[i] - xval[left])}.
      * The array will be updated.
      */
-    private static void updateBandwidthInterval(final double[] xval, final double[] weights,
-                                                final int i,
-                                                final int[] bandwidthInterval) {
+    private static void updateBandwidthInterval(final double[] xval, final double[] weights, final int i, final int[] bandwidthInterval) {
         final int left = bandwidthInterval[0];
         final int right = bandwidthInterval[1];
-
         // The right edge should be adjusted if the next point to the right
         // is closer to xval[i] than the leftmost point of the current interval
         int nextRight = nextNonzero(weights, right);
@@ -435,7 +278,7 @@ public class LoessInterpolator
      */
     private static int nextNonzero(final double[] weights, final int i) {
         int j = i + 1;
-        while(j < weights.length && weights[j] == 0) {
+        while (j < weights.length && weights[j] == 0) {
             ++j;
         }
         return j;

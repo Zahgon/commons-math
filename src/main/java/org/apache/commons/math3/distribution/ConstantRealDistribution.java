@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.OutOfRangeException;
@@ -26,10 +25,14 @@ import org.apache.commons.math3.exception.OutOfRangeException;
  */
 public class ConstantRealDistribution extends AbstractRealDistribution {
 
-    /** Serialization ID */
+    /**
+     * Serialization ID
+     */
     private static final long serialVersionUID = -4157745166772046273L;
 
-    /** Constant value of the distribution */
+    /**
+     * Constant value of the distribution
+     */
     private final double value;
 
     /**
@@ -38,79 +41,99 @@ public class ConstantRealDistribution extends AbstractRealDistribution {
      * @param value the constant value of this distribution
      */
     public ConstantRealDistribution(double value) {
-        super(null);  // Avoid creating RandomGenerator
+        // Avoid creating RandomGenerator
+        super(null);
         this.value = value;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        return x == value ? 1 : 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
-    public double cumulativeProbability(double x)  {
-        return x < value ? 0 : 1;
+    /**
+     * {@inheritDoc}
+     */
+    public double cumulativeProbability(double x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double inverseCumulativeProbability(final double p)
-            throws OutOfRangeException {
-        if (p < 0.0 || p > 1.0) {
-            throw new OutOfRangeException(p, 0, 1);
-        }
-        return value;
+    public double inverseCumulativeProbability(final double p) throws OutOfRangeException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double getNumericalMean() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double getNumericalVariance() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double getSupportLowerBound() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double getSupportUpperBound() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double sample()  {
-        return value;
+    public double sample() {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -118,5 +141,7 @@ public class ConstantRealDistribution extends AbstractRealDistribution {
      * @param seed (ignored)
      */
     @Override
-    public void reseedRandomGenerator(long seed) {}
+    public void reseedRandomGenerator(long seed) {
+        // STUB: not implemented
+    }
 }

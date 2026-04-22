@@ -20,41 +20,48 @@ import org.apache.commons.math3.geometry.partitioning.Region.Location;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
 
-
-/** This class represents a 1D interval.
+/**
+ * This class represents a 1D interval.
  * @see IntervalsSet
  * @since 3.0
  */
 public class Interval {
 
-    /** The lower bound of the interval. */
+    /**
+     * The lower bound of the interval.
+     */
     private final double lower;
 
-    /** The upper bound of the interval. */
+    /**
+     * The upper bound of the interval.
+     */
     private final double upper;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param lower lower bound of the interval
      * @param upper upper bound of the interval
      */
     public Interval(final double lower, final double upper) {
         if (upper < lower) {
-            throw new NumberIsTooSmallException(LocalizedFormats.ENDPOINTS_NOT_AN_INTERVAL,
-                                                upper, lower, true);
+            throw new NumberIsTooSmallException(LocalizedFormats.ENDPOINTS_NOT_AN_INTERVAL, upper, lower, true);
         }
         this.lower = lower;
         this.upper = upper;
     }
 
-    /** Get the lower bound of the interval.
+    /**
+     * Get the lower bound of the interval.
      * @return lower bound of the interval
      * @since 3.1
      */
     public double getInf() {
-        return lower;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Get the lower bound of the interval.
+    /**
+     * Get the lower bound of the interval.
      * @return lower bound of the interval
      * @deprecated as of 3.1, replaced by {@link #getInf()}
      */
@@ -63,15 +70,18 @@ public class Interval {
         return getInf();
     }
 
-    /** Get the upper bound of the interval.
+    /**
+     * Get the upper bound of the interval.
      * @return upper bound of the interval
      * @since 3.1
      */
     public double getSup() {
-        return upper;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Get the upper bound of the interval.
+    /**
+     * Get the upper bound of the interval.
      * @return upper bound of the interval
      * @deprecated as of 3.1, replaced by {@link #getSup()}
      */
@@ -80,15 +90,18 @@ public class Interval {
         return getSup();
     }
 
-    /** Get the size of the interval.
+    /**
+     * Get the size of the interval.
      * @return size of the interval
      * @since 3.1
      */
     public double getSize() {
-        return upper - lower;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Get the length of the interval.
+    /**
+     * Get the length of the interval.
      * @return length of the interval
      * @deprecated as of 3.1, replaced by {@link #getSize()}
      */
@@ -97,15 +110,18 @@ public class Interval {
         return getSize();
     }
 
-    /** Get the barycenter of the interval.
+    /**
+     * Get the barycenter of the interval.
      * @return barycenter of the interval
      * @since 3.1
      */
     public double getBarycenter() {
-        return 0.5 * (lower + upper);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Get the midpoint of the interval.
+    /**
+     * Get the midpoint of the interval.
      * @return midpoint of the interval
      * @deprecated as of 3.1, replaced by {@link #getBarycenter()}
      */
@@ -114,7 +130,8 @@ public class Interval {
         return getBarycenter();
     }
 
-    /** Check a point with respect to the interval.
+    /**
+     * Check a point with respect to the interval.
      * @param point point to check
      * @param tolerance tolerance below which points are considered to
      * belong to the boundary
@@ -123,13 +140,7 @@ public class Interval {
      * @since 3.1
      */
     public Location checkPoint(final double point, final double tolerance) {
-        if (point < lower - tolerance || point > upper + tolerance) {
-            return Location.OUTSIDE;
-        } else if (point > lower + tolerance && point < upper - tolerance) {
-            return Location.INSIDE;
-        } else {
-            return Location.BOUNDARY;
-        }
+        // STUB: not implemented
+        return null;
     }
-
 }

@@ -25,7 +25,10 @@ import org.apache.commons.math3.optim.OptimizationData;
  * @since 3.1
  */
 public class ObjectiveFunction implements OptimizationData {
-    /** Function to be optimized. */
+
+    /**
+     * Function to be optimized.
+     */
     private final MultivariateFunction function;
 
     /**
@@ -41,6 +44,7 @@ public class ObjectiveFunction implements OptimizationData {
      * @return the objective function.
      */
     public MultivariateFunction getObjectiveFunction() {
-        return function;
+        // STUB: not implemented
+        return null;
     }
 }

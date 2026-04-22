@@ -31,18 +31,31 @@ import org.apache.commons.math3.util.FastMath;
  * @since 1.1 (changed to concrete class in 3.0)
  */
 public class CauchyDistribution extends AbstractRealDistribution {
+
     /**
      * Default inverse cumulative probability accuracy.
      * @since 2.1
      */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
-    /** Serializable version identifier */
+
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 8589540077390120676L;
-    /** The median of this distribution. */
+
+    /**
+     * The median of this distribution.
+     */
     private final double median;
-    /** The scale of this distribution. */
+
+    /**
+     * The scale of this distribution.
+     */
     private final double scale;
-    /** Inverse cumulative probability accuracy */
+
+    /**
+     * Inverse cumulative probability accuracy
+     */
     private final double solverAbsoluteAccuracy;
 
     /**
@@ -88,8 +101,7 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code scale <= 0}.
      * @since 2.1
      */
-    public CauchyDistribution(double median, double scale,
-                              double inverseCumAccuracy) {
+    public CauchyDistribution(double median, double scale, double inverseCumAccuracy) {
         this(new Well19937c(), median, scale, inverseCumAccuracy);
     }
 
@@ -118,10 +130,7 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code scale <= 0}.
      * @since 3.1
      */
-    public CauchyDistribution(RandomGenerator rng,
-                              double median,
-                              double scale,
-                              double inverseCumAccuracy) {
+    public CauchyDistribution(RandomGenerator rng, double median, double scale, double inverseCumAccuracy) {
         super(rng);
         if (scale <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.SCALE, scale);
@@ -131,9 +140,12 @@ public class CauchyDistribution extends AbstractRealDistribution {
         solverAbsoluteAccuracy = inverseCumAccuracy;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(double x) {
-        return 0.5 + (FastMath.atan((x - median) / scale) / FastMath.PI);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -142,7 +154,8 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return the median for this distribution.
      */
     public double getMedian() {
-        return median;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -151,13 +164,16 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return the scale parameter for this distribution.
      */
     public double getScale() {
-        return scale;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        final double dev = x - median;
-        return (1 / FastMath.PI) * (scale / (dev * dev + scale * scale));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -168,23 +184,17 @@ public class CauchyDistribution extends AbstractRealDistribution {
      */
     @Override
     public double inverseCumulativeProbability(double p) throws OutOfRangeException {
-        double ret;
-        if (p < 0 || p > 1) {
-            throw new OutOfRangeException(p, 0, 1);
-        } else if (p == 0) {
-            ret = Double.NEGATIVE_INFINITY;
-        } else  if (p == 1) {
-            ret = Double.POSITIVE_INFINITY;
-        } else {
-            ret = median + scale * FastMath.tan(FastMath.PI * (p - .5));
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -195,7 +205,8 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return mean (always Double.NaN)
      */
     public double getNumericalMean() {
-        return Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -206,7 +217,8 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return variance (always Double.NaN)
      */
     public double getNumericalVariance() {
-        return Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -218,7 +230,8 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return lower bound of the support (always Double.NEGATIVE_INFINITY)
      */
     public double getSupportLowerBound() {
-        return Double.NEGATIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -230,16 +243,23 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return upper bound of the support (always Double.POSITIVE_INFINITY)
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -251,6 +271,7 @@ public class CauchyDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

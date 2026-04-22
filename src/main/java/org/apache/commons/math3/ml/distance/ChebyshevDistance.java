@@ -26,13 +26,16 @@ import org.apache.commons.math3.util.MathArrays;
  */
 public class ChebyshevDistance implements DistanceMeasure {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -4694868171115238296L;
 
-    /** {@inheritDoc} */
-    public double compute(double[] a, double[] b)
-    throws DimensionMismatchException {
-        return MathArrays.distanceInf(a, b);
+    /**
+     * {@inheritDoc}
+     */
+    public double compute(double[] a, double[] b) throws DimensionMismatchException {
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

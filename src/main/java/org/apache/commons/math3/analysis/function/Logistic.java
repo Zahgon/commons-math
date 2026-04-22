@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.FunctionUtils;
@@ -35,17 +34,35 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class Logistic implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Lower asymptote. */
+
+    /**
+     * Lower asymptote.
+     */
     private final double a;
-    /** Upper asymptote. */
+
+    /**
+     * Upper asymptote.
+     */
     private final double k;
-    /** Growth rate. */
+
+    /**
+     * Growth rate.
+     */
     private final double b;
-    /** Parameter that affects near which asymptote maximum growth occurs. */
+
+    /**
+     * Parameter that affects near which asymptote maximum growth occurs.
+     */
     private final double oneOverN;
-    /** Parameter that affects the position of the curve along the ordinate axis. */
+
+    /**
+     * Parameter that affects the position of the curve along the ordinate axis.
+     */
     private final double q;
-    /** Abscissa of maximum growth. */
+
+    /**
+     * Abscissa of maximum growth.
+     */
     private final double m;
 
     /**
@@ -61,17 +78,10 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
      * growth occurs.
      * @throws NotStrictlyPositiveException if {@code n <= 0}.
      */
-    public Logistic(double k,
-                    double m,
-                    double b,
-                    double q,
-                    double a,
-                    double n)
-        throws NotStrictlyPositiveException {
+    public Logistic(double k, double m, double b, double q, double a, double n) throws NotStrictlyPositiveException {
         if (n <= 0) {
             throw new NotStrictlyPositiveException(n);
         }
-
         this.k = k;
         this.m = m;
         this.b = b;
@@ -80,12 +90,16 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
         oneOverN = 1 / n;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return value(m - x, k, b, q, a, oneOverN);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -107,6 +121,7 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
      * </ul>
      */
     public static class Parametric implements ParametricUnivariateFunction {
+
         /**
          * Computes the value of the sigmoid at {@code x}.
          *
@@ -119,14 +134,9 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
          * not 6.
          * @throws NotStrictlyPositiveException if {@code param[5] <= 0}.
          */
-        public double value(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException,
-                   NotStrictlyPositiveException {
-            validateParameters(param);
-            return Logistic.value(param[1] - x, param[0],
-                                  param[2], param[3],
-                                  param[4], 1 / param[5]);
+        public double value(double x, double... param) throws NullArgumentException, DimensionMismatchException, NotStrictlyPositiveException {
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -144,32 +154,9 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
          * not 6.
          * @throws NotStrictlyPositiveException if {@code param[5] <= 0}.
          */
-        public double[] gradient(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException,
-                   NotStrictlyPositiveException {
-            validateParameters(param);
-
-            final double b = param[2];
-            final double q = param[3];
-
-            final double mMinusX = param[1] - x;
-            final double oneOverN = 1 / param[5];
-            final double exp = FastMath.exp(b * mMinusX);
-            final double qExp = q * exp;
-            final double qExp1 = qExp + 1;
-            final double factor1 = (param[0] - param[4]) * oneOverN / FastMath.pow(qExp1, oneOverN);
-            final double factor2 = -factor1 / qExp1;
-
-            // Components of the gradient.
-            final double gk = Logistic.value(mMinusX, 1, b, q, 0, oneOverN);
-            final double gm = factor2 * b * qExp;
-            final double gb = factor2 * mMinusX * qExp;
-            final double gq = factor2 * exp;
-            final double ga = Logistic.value(mMinusX, 0, b, q, 1, oneOverN);
-            final double gn = factor1 * FastMath.log(qExp1) * oneOverN;
-
-            return new double[] { gk, gm, gb, gq, ga, gn };
+        public double[] gradient(double x, double... param) throws NullArgumentException, DimensionMismatchException, NotStrictlyPositiveException {
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -184,10 +171,7 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
          * not 6.
          * @throws NotStrictlyPositiveException if {@code param[5] <= 0}.
          */
-        private void validateParameters(double[] param)
-            throws NullArgumentException,
-                   DimensionMismatchException,
-                   NotStrictlyPositiveException {
+        private void validateParameters(double[] param) throws NullArgumentException, DimensionMismatchException, NotStrictlyPositiveException {
             if (param == null) {
                 throw new NullArgumentException();
             }
@@ -209,20 +193,16 @@ public class Logistic implements UnivariateDifferentiableFunction, Differentiabl
      * @param oneOverN {@code 1 / n}.
      * @return the value of the function.
      */
-    private static double value(double mMinusX,
-                                double k,
-                                double b,
-                                double q,
-                                double a,
-                                double oneOverN) {
+    private static double value(double mMinusX, double k, double b, double q, double a, double oneOverN) {
         return a + (k - a) / FastMath.pow(1 + q * FastMath.exp(b * mMinusX), oneOverN);
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
     public DerivativeStructure value(final DerivativeStructure t) {
-        return t.negate().add(m).multiply(b).exp().multiply(q).add(1).pow(oneOverN).reciprocal().multiply(k - a).add(a);
+        // STUB: not implemented
+        return null;
     }
-
 }

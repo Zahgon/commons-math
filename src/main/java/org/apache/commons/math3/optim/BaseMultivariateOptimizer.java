@@ -31,13 +31,21 @@ import org.apache.commons.math3.exception.NumberIsTooLargeException;
  *
  * @since 3.1
  */
-public abstract class BaseMultivariateOptimizer<PAIR>
-    extends BaseOptimizer<PAIR> {
-    /** Initial guess. */
+public abstract class BaseMultivariateOptimizer<PAIR> extends BaseOptimizer<PAIR> {
+
+    /**
+     * Initial guess.
+     */
     private double[] start;
-    /** Lower bounds. */
+
+    /**
+     * Lower bounds.
+     */
     private double[] lowerBound;
-    /** Upper bounds. */
+
+    /**
+     * Upper bounds.
+     */
     private double[] upperBound;
 
     /**
@@ -61,8 +69,8 @@ public abstract class BaseMultivariateOptimizer<PAIR>
      */
     @Override
     public PAIR optimize(OptimizationData... optData) {
-        // Perform optimization.
-        return super.optimize(optData);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -77,26 +85,7 @@ public abstract class BaseMultivariateOptimizer<PAIR>
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof InitialGuess) {
-                start = ((InitialGuess) data).getInitialGuess();
-                continue;
-            }
-            if (data instanceof SimpleBounds) {
-                final SimpleBounds bounds = (SimpleBounds) data;
-                lowerBound = bounds.getLower();
-                upperBound = bounds.getUpper();
-                continue;
-            }
-        }
-
-        // Check input consistency.
-        checkParameters();
+        // STUB: not implemented
     }
 
     /**
@@ -105,19 +94,24 @@ public abstract class BaseMultivariateOptimizer<PAIR>
      * @return the initial guess, or {@code null} if not set.
      */
     public double[] getStartPoint() {
-        return start == null ? null : start.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return the lower bounds, or {@code null} if not set.
      */
     public double[] getLowerBound() {
-        return lowerBound == null ? null : lowerBound.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return the upper bounds, or {@code null} if not set.
      */
     public double[] getUpperBound() {
-        return upperBound == null ? null : upperBound.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**

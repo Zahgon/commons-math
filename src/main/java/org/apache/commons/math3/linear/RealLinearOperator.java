@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.linear;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -50,6 +49,7 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
  * @since 3.0
  */
 public abstract class RealLinearOperator {
+
     /**
      * Returns the dimension of the codomain of this operator.
      *
@@ -72,8 +72,7 @@ public abstract class RealLinearOperator {
      * @throws DimensionMismatchException if the column dimension does not match
      * the size of {@code x}
      */
-    public abstract RealVector operate(final RealVector x)
-        throws DimensionMismatchException;
+    public abstract RealVector operate(final RealVector x) throws DimensionMismatchException;
 
     /**
      * Returns the result of multiplying the transpose of {@code this} operator
@@ -89,9 +88,9 @@ public abstract class RealLinearOperator {
      * @throws UnsupportedOperationException if this operation is not supported
      * by {@code this} operator
      */
-    public RealVector operateTranspose(final RealVector x)
-        throws DimensionMismatchException, UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+    public RealVector operateTranspose(final RealVector x) throws DimensionMismatchException, UnsupportedOperationException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -104,6 +103,7 @@ public abstract class RealLinearOperator {
      * @return {@code false}
      */
     public boolean isTransposable() {
+        // STUB: not implemented
         return false;
     }
 }

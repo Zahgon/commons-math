@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
 import org.apache.commons.math3.util.MathUtils;
@@ -46,19 +45,22 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
-class FirstMoment extends AbstractStorelessUnivariateStatistic
-    implements Serializable {
+class FirstMoment extends AbstractStorelessUnivariateStatistic implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 6112755307178490473L;
 
-
-    /** Count of values that have been added */
+    /**
+     * Count of values that have been added
+     */
     protected long n;
 
-    /** First moment of values that have been added */
+    /**
+     * First moment of values that have been added
+     */
     protected double m1;
 
     /**
@@ -91,24 +93,17 @@ class FirstMoment extends AbstractStorelessUnivariateStatistic
      * @param original the {@code FirstMoment} instance to copy
      * @throws NullArgumentException if original is null
      */
-     FirstMoment(FirstMoment original) throws NullArgumentException {
-         super();
-         copy(original, this);
-     }
+    FirstMoment(FirstMoment original) throws NullArgumentException {
+        super();
+        copy(original, this);
+    }
 
     /**
      * {@inheritDoc}
      */
-     @Override
+    @Override
     public void increment(final double d) {
-        if (n == 0) {
-            m1 = 0.0;
-        }
-        n++;
-        double n0 = n;
-        dev = d - m1;
-        nDev = dev / n0;
-        m1 += nDev;
+        // STUB: not implemented
     }
 
     /**
@@ -116,10 +111,7 @@ class FirstMoment extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public void clear() {
-        m1 = Double.NaN;
-        n = 0;
-        dev = Double.NaN;
-        nDev = Double.NaN;
+        // STUB: not implemented
     }
 
     /**
@@ -127,14 +119,16 @@ class FirstMoment extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public double getResult() {
-        return m1;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -142,10 +136,8 @@ class FirstMoment extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public FirstMoment copy() {
-        FirstMoment result = new FirstMoment();
-        // No try-catch or advertised exception because args are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -156,14 +148,7 @@ class FirstMoment extends AbstractStorelessUnivariateStatistic
      * @param dest FirstMoment to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(FirstMoment source, FirstMoment dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.n = source.n;
-        dest.m1 = source.m1;
-        dest.dev = source.dev;
-        dest.nDev = source.nDev;
+    public static void copy(FirstMoment source, FirstMoment dest) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

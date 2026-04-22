@@ -37,7 +37,9 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class RombergIntegrator extends BaseAbstractUnivariateIntegrator {
 
-    /** Maximal number of iterations for Romberg. */
+    /**
+     * Maximal number of iterations for Romberg.
+     */
     public static final int ROMBERG_MAX_ITERATIONS_COUNT = 32;
 
     /**
@@ -54,15 +56,10 @@ public class RombergIntegrator extends BaseAbstractUnivariateIntegrator {
      * @exception NumberIsTooLargeException if maximal number of iterations
      * is greater than {@link #ROMBERG_MAX_ITERATIONS_COUNT}
      */
-    public RombergIntegrator(final double relativeAccuracy,
-                             final double absoluteAccuracy,
-                             final int minimalIterationCount,
-                             final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
+    public RombergIntegrator(final double relativeAccuracy, final double absoluteAccuracy, final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
         super(relativeAccuracy, absoluteAccuracy, minimalIterationCount, maximalIterationCount);
         if (maximalIterationCount > ROMBERG_MAX_ITERATIONS_COUNT) {
-            throw new NumberIsTooLargeException(maximalIterationCount,
-                                                ROMBERG_MAX_ITERATIONS_COUNT, false);
+            throw new NumberIsTooLargeException(maximalIterationCount, ROMBERG_MAX_ITERATIONS_COUNT, false);
         }
     }
 
@@ -78,13 +75,10 @@ public class RombergIntegrator extends BaseAbstractUnivariateIntegrator {
      * @exception NumberIsTooLargeException if maximal number of iterations
      * is greater than {@link #ROMBERG_MAX_ITERATIONS_COUNT}
      */
-    public RombergIntegrator(final int minimalIterationCount,
-                             final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
+    public RombergIntegrator(final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
         super(minimalIterationCount, maximalIterationCount);
         if (maximalIterationCount > ROMBERG_MAX_ITERATIONS_COUNT) {
-            throw new NumberIsTooLargeException(maximalIterationCount,
-                                                ROMBERG_MAX_ITERATIONS_COUNT, false);
+            throw new NumberIsTooLargeException(maximalIterationCount, ROMBERG_MAX_ITERATIONS_COUNT, false);
         }
     }
 
@@ -96,47 +90,12 @@ public class RombergIntegrator extends BaseAbstractUnivariateIntegrator {
         super(DEFAULT_MIN_ITERATIONS_COUNT, ROMBERG_MAX_ITERATIONS_COUNT);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected double doIntegrate()
-        throws TooManyEvaluationsException, MaxCountExceededException {
-
-        final int m = getMaximalIterationCount() + 1;
-        double previousRow[] = new double[m];
-        double currentRow[]  = new double[m];
-
-        TrapezoidIntegrator qtrap = new TrapezoidIntegrator();
-        currentRow[0] = qtrap.stage(this, 0);
-        incrementCount();
-        double olds = currentRow[0];
-        while (true) {
-
-            final int i = getIterations();
-
-            // switch rows
-            final double[] tmpRow = previousRow;
-            previousRow = currentRow;
-            currentRow = tmpRow;
-
-            currentRow[0] = qtrap.stage(this, i);
-            incrementCount();
-            for (int j = 1; j <= i; j++) {
-                // Richardson extrapolation coefficient
-                final double r = (1L << (2 * j)) - 1;
-                final double tIJm1 = currentRow[j - 1];
-                currentRow[j] = tIJm1 + (tIJm1 - previousRow[j - 1]) / r;
-            }
-            final double s = currentRow[i];
-            if (i >= getMinimalIterationCount()) {
-                final double delta  = FastMath.abs(s - olds);
-                final double rLimit = getRelativeAccuracy() * (FastMath.abs(olds) + FastMath.abs(s)) * 0.5;
-                if ((delta <= rLimit) || (delta <= getAbsoluteAccuracy())) {
-                    return s;
-                }
-            }
-            olds = s;
-        }
-
+    protected double doIntegrate() throws TooManyEvaluationsException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

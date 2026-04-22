@@ -28,11 +28,16 @@ import org.apache.commons.math3.exception.util.ExceptionContextProvider;
  *
  * @since 2.2
  */
-public class MathIllegalStateException extends IllegalStateException
-    implements ExceptionContextProvider {
-    /** Serializable version Id. */
+public class MathIllegalStateException extends IllegalStateException implements ExceptionContextProvider {
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = -6024911025449780478L;
-    /** Context. */
+
+    /**
+     * Context.
+     */
     private final ExceptionContext context;
 
     /**
@@ -41,8 +46,7 @@ public class MathIllegalStateException extends IllegalStateException
      * @param pattern Message pattern explaining the cause of the error.
      * @param args Arguments.
      */
-    public MathIllegalStateException(Localizable pattern,
-                                     Object ... args) {
+    public MathIllegalStateException(Localizable pattern, Object... args) {
         context = new ExceptionContext(this);
         context.addMessage(pattern, args);
     }
@@ -54,9 +58,7 @@ public class MathIllegalStateException extends IllegalStateException
      * @param pattern Message pattern explaining the cause of the error.
      * @param args Arguments.
      */
-    public MathIllegalStateException(Throwable cause,
-                                     Localizable pattern,
-                                     Object ... args) {
+    public MathIllegalStateException(Throwable cause, Localizable pattern, Object... args) {
         super(cause);
         context = new ExceptionContext(this);
         context.addMessage(pattern, args);
@@ -69,20 +71,29 @@ public class MathIllegalStateException extends IllegalStateException
         this(LocalizedFormats.ILLEGAL_STATE);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public ExceptionContext getContext() {
-        return context;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
-        return context.getMessage();
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getLocalizedMessage() {
-        return context.getLocalizedMessage();
+        // STUB: not implemented
+        return null;
     }
 }

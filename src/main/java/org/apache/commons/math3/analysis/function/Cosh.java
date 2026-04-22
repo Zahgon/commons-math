@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -28,12 +27,17 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class Cosh implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return FastMath.cosh(x);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -41,11 +45,12 @@ public class Cosh implements UnivariateDifferentiableFunction, DifferentiableUni
         return new Sinh();
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
     public DerivativeStructure value(final DerivativeStructure t) {
-        return t.cosh();
+        // STUB: not implemented
+        return null;
     }
-
 }

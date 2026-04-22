@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -43,21 +42,45 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="https://en.wikipedia.org/wiki/Harmonic_number#Generalized_harmonic_numbers">Generalized harmonic numbers</a>
  */
 public class ZipfDistribution extends AbstractIntegerDistribution {
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -140627372283420404L;
-    /** Number of elements. */
+
+    /**
+     * Number of elements.
+     */
     private final int numberOfElements;
-    /** Exponent parameter of the distribution. */
+
+    /**
+     * Exponent parameter of the distribution.
+     */
     private final double exponent;
-    /** Cached numerical mean */
+
+    /**
+     * Cached numerical mean
+     */
     private double numericalMean = Double.NaN;
-    /** Whether or not the numerical mean has been calculated */
+
+    /**
+     * Whether or not the numerical mean has been calculated
+     */
     private boolean numericalMeanIsCalculated = false;
-    /** Cached numerical variance */
+
+    /**
+     * Cached numerical variance
+     */
     private double numericalVariance = Double.NaN;
-    /** Whether or not the numerical variance has been calculated */
+
+    /**
+     * Whether or not the numerical variance has been calculated
+     */
     private boolean numericalVarianceIsCalculated = false;
-    /** The sampler to be used for the sample() method */
+
+    /**
+     * The sampler to be used for the sample() method
+     */
     private transient ZipfRejectionInversionSampler sampler;
 
     /**
@@ -90,21 +113,14 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * or {@code exponent <= 0}.
      * @since 3.1
      */
-    public ZipfDistribution(RandomGenerator rng,
-                            int numberOfElements,
-                            double exponent)
-        throws NotStrictlyPositiveException {
+    public ZipfDistribution(RandomGenerator rng, int numberOfElements, double exponent) throws NotStrictlyPositiveException {
         super(rng);
-
         if (numberOfElements <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.DIMENSION,
-                                                   numberOfElements);
+            throw new NotStrictlyPositiveException(LocalizedFormats.DIMENSION, numberOfElements);
         }
         if (exponent <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.EXPONENT,
-                                                   exponent);
+            throw new NotStrictlyPositiveException(LocalizedFormats.EXPONENT, exponent);
         }
-
         this.numberOfElements = numberOfElements;
         this.exponent = exponent;
     }
@@ -115,7 +131,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return the number of elements
      */
     public int getNumberOfElements() {
-        return numberOfElements;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -124,37 +141,33 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return the exponent
      */
     public double getExponent() {
-        return exponent;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(final int x) {
-        if (x <= 0 || x > numberOfElements) {
-            return 0.0;
-        }
-
-        return (1.0 / FastMath.pow(x, exponent)) / generalizedHarmonic(numberOfElements, exponent);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logProbability(int x) {
-        if (x <= 0 || x > numberOfElements) {
-            return Double.NEGATIVE_INFINITY;
-        }
-
-        return -FastMath.log(x) * exponent - FastMath.log(generalizedHarmonic(numberOfElements, exponent));
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(final int x) {
-        if (x <= 0) {
-            return 0.0;
-        } else if (x >= numberOfElements) {
-            return 1.0;
-        }
-
-        return generalizedHarmonic(x, exponent) / generalizedHarmonic(numberOfElements, exponent);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -168,11 +181,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * </ul>
      */
     public double getNumericalMean() {
-        if (!numericalMeanIsCalculated) {
-            numericalMean = calculateNumericalMean();
-            numericalMeanIsCalculated = true;
-        }
-        return numericalMean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -181,13 +191,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return the mean of this distribution
      */
     protected double calculateNumericalMean() {
-        final int N = getNumberOfElements();
-        final double s = getExponent();
-
-        final double Hs1 = generalizedHarmonic(N, s - 1);
-        final double Hs = generalizedHarmonic(N, s);
-
-        return Hs1 / Hs;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -202,11 +207,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * </ul>
      */
     public double getNumericalVariance() {
-        if (!numericalVarianceIsCalculated) {
-            numericalVariance = calculateNumericalVariance();
-            numericalVarianceIsCalculated = true;
-        }
-        return numericalVariance;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -215,14 +217,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return the variance of this distribution
      */
     protected double calculateNumericalVariance() {
-        final int N = getNumberOfElements();
-        final double s = getExponent();
-
-        final double Hs2 = generalizedHarmonic(N, s - 2);
-        final double Hs1 = generalizedHarmonic(N, s - 1);
-        final double Hs = generalizedHarmonic(N, s);
-
-        return (Hs2 / Hs) - ((Hs1 * Hs1) / (Hs * Hs));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -250,7 +246,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support (always 1)
      */
     public int getSupportLowerBound() {
-        return 1;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -261,7 +258,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return upper bound of the support
      */
     public int getSupportUpperBound() {
-        return getNumberOfElements();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -272,7 +270,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -280,10 +279,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      */
     @Override
     public int sample() {
-        if (sampler == null) {
-            sampler = new ZipfRejectionInversionSampler(numberOfElements, exponent);
-        }
-        return sampler.sample(random);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -312,18 +309,33 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
      */
     static final class ZipfRejectionInversionSampler {
 
-        /** Exponent parameter of the distribution. */
+        /**
+         * Exponent parameter of the distribution.
+         */
         private final double exponent;
-        /** Number of elements. */
+
+        /**
+         * Number of elements.
+         */
         private final int numberOfElements;
-        /** Constant equal to {@code hIntegral(1.5) - 1}. */
+
+        /**
+         * Constant equal to {@code hIntegral(1.5) - 1}.
+         */
         private final double hIntegralX1;
-        /** Constant equal to {@code hIntegral(numberOfElements + 0.5)}. */
+
+        /**
+         * Constant equal to {@code hIntegral(numberOfElements + 0.5)}.
+         */
         private final double hIntegralNumberOfElements;
-        /** Constant equal to {@code 2 - hIntegralInverse(hIntegral(2.5) - h(2)}. */
+
+        /**
+         * Constant equal to {@code 2 - hIntegralInverse(hIntegral(2.5) - h(2)}.
+         */
         private final double s;
 
-        /** Simple constructor.
+        /**
+         * Simple constructor.
          * @param numberOfElements number of elements
          * @param exponent exponent parameter of the distribution
          */
@@ -335,77 +347,14 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
             this.s = 2d - hIntegralInverse(hIntegral(2.5) - h(2));
         }
 
-        /** Generate one integral number in the range [1, numberOfElements].
+        /**
+         * Generate one integral number in the range [1, numberOfElements].
          * @param random random generator to use
          * @return generated integral number in the range [1, numberOfElements]
          */
         int sample(final RandomGenerator random) {
-            while(true) {
-
-                final double u = hIntegralNumberOfElements + random.nextDouble() * (hIntegralX1 - hIntegralNumberOfElements);
-                // u is uniformly distributed in (hIntegralX1, hIntegralNumberOfElements]
-
-                double x = hIntegralInverse(u);
-
-                int k = (int)(x + 0.5);
-
-                // Limit k to the range [1, numberOfElements]
-                // (k could be outside due to numerical inaccuracies)
-                if (k < 1) {
-                    k = 1;
-                }
-                else if (k > numberOfElements) {
-                    k = numberOfElements;
-                }
-
-                // Here, the distribution of k is given by:
-                //
-                //   P(k = 1) = C * (hIntegral(1.5) - hIntegralX1) = C
-                //   P(k = m) = C * (hIntegral(m + 1/2) - hIntegral(m - 1/2)) for m >= 2
-                //
-                //   where C := 1 / (hIntegralNumberOfElements - hIntegralX1)
-
-                if (k - x <= s || u >= hIntegral(k + 0.5) - h(k)) {
-
-                    // Case k = 1:
-                    //
-                    //   The right inequality is always true, because replacing k by 1 gives
-                    //   u >= hIntegral(1.5) - h(1) = hIntegralX1 and u is taken from
-                    //   (hIntegralX1, hIntegralNumberOfElements].
-                    //
-                    //   Therefore, the acceptance rate for k = 1 is P(accepted | k = 1) = 1
-                    //   and the probability that 1 is returned as random value is
-                    //   P(k = 1 and accepted) = P(accepted | k = 1) * P(k = 1) = C = C / 1^exponent
-                    //
-                    // Case k >= 2:
-                    //
-                    //   The left inequality (k - x <= s) is just a short cut
-                    //   to avoid the more expensive evaluation of the right inequality
-                    //   (u >= hIntegral(k + 0.5) - h(k)) in many cases.
-                    //
-                    //   If the left inequality is true, the right inequality is also true:
-                    //     Theorem 2 in the paper is valid for all positive exponents, because
-                    //     the requirements h'(x) = -exponent/x^(exponent + 1) < 0 and
-                    //     (-1/hInverse'(x))'' = (1+1/exponent) * x^(1/exponent-1) >= 0
-                    //     are both fulfilled.
-                    //     Therefore, f(x) := x - hIntegralInverse(hIntegral(x + 0.5) - h(x))
-                    //     is a non-decreasing function. If k - x <= s holds,
-                    //     k - x <= s + f(k) - f(2) is obviously also true which is equivalent to
-                    //     -x <= -hIntegralInverse(hIntegral(k + 0.5) - h(k)),
-                    //     -hIntegralInverse(u) <= -hIntegralInverse(hIntegral(k + 0.5) - h(k)),
-                    //     and finally u >= hIntegral(k + 0.5) - h(k).
-                    //
-                    //   Hence, the right inequality determines the acceptance rate:
-                    //   P(accepted | k = m) = h(m) / (hIntegrated(m+1/2) - hIntegrated(m-1/2))
-                    //   The probability that m is returned is given by
-                    //   P(k = m and accepted) = P(accepted | k = m) * P(k = m) = C * h(m) = C / m^exponent.
-                    //
-                    // In both cases the probabilities are proportional to the probability mass function
-                    // of the Zipf distribution.
-
-                    return k;
-                }
-            }
+            // STUB: not implemented
+            return 0;
         }
 
         /**
@@ -422,7 +371,7 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
          */
         private double hIntegral(final double x) {
             final double logX = FastMath.log(x);
-            return helper2((1d-exponent)*logX)*logX;
+            return helper2((1d - exponent) * logX) * logX;
         }
 
         /**
@@ -442,13 +391,13 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
          * @return y for which {@code H(y) = x}
          */
         private double hIntegralInverse(final double x) {
-            double t = x*(1d-exponent);
+            double t = x * (1d - exponent);
             if (t < -1d) {
                 // Limit value to the range [-1, +inf).
                 // t could be smaller than -1 in some rare cases due to numerical errors.
                 t = -1;
             }
-            return FastMath.exp(helper1(t)*x);
+            return FastMath.exp(helper1(t) * x);
         }
 
         /**
@@ -460,12 +409,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
          * @return {@code log(1+x)/x}
          */
         static double helper1(final double x) {
-            if (FastMath.abs(x)>1e-8) {
-                return FastMath.log1p(x)/x;
-            }
-            else {
-                return 1.-x*((1./2.)-x*((1./3.)-x*(1./4.)));
-            }
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -477,12 +422,8 @@ public class ZipfDistribution extends AbstractIntegerDistribution {
          * @return {@code (exp(x)-1)/x} if x is non-zero, or 1 if x=0
          */
         static double helper2(final double x) {
-            if (FastMath.abs(x)>1e-8) {
-                return FastMath.expm1(x)/x;
-            }
-            else {
-                return 1.+x*(1./2.)*(1.+x*(1./3.)*(1.+x*(1./4.)));
-            }
+            // STUB: not implemented
+            return 0.0;
         }
     }
 }

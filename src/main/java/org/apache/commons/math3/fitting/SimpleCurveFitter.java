@@ -17,7 +17,6 @@
 package org.apache.commons.math3.fitting;
 
 import java.util.Collection;
-
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresBuilder;
 import org.apache.commons.math3.fitting.leastsquares.LeastSquaresProblem;
@@ -29,11 +28,20 @@ import org.apache.commons.math3.linear.DiagonalMatrix;
  * @since 3.4
  */
 public class SimpleCurveFitter extends AbstractCurveFitter {
-    /** Function to fit. */
+
+    /**
+     * Function to fit.
+     */
     private final ParametricUnivariateFunction function;
-    /** Initial guess for the parameters. */
+
+    /**
+     * Initial guess for the parameters.
+     */
     private final double[] initialGuess;
-    /** Maximum number of iterations of the optimization algorithm. */
+
+    /**
+     * Maximum number of iterations of the optimization algorithm.
+     */
     private final int maxIter;
 
     /**
@@ -44,9 +52,7 @@ public class SimpleCurveFitter extends AbstractCurveFitter {
      * be consistent with the number of parameters of the {@code function} to fit.
      * @param maxIter Maximum number of iterations of the optimization algorithm.
      */
-    private SimpleCurveFitter(ParametricUnivariateFunction function,
-                              double[] initialGuess,
-                              int maxIter) {
+    private SimpleCurveFitter(ParametricUnivariateFunction function, double[] initialGuess, int maxIter) {
         this.function = function;
         this.initialGuess = initialGuess;
         this.maxIter = maxIter;
@@ -66,9 +72,9 @@ public class SimpleCurveFitter extends AbstractCurveFitter {
      * @see #withStartPoint(double[])
      * @see #withMaxIterations(int)
      */
-    public static SimpleCurveFitter create(ParametricUnivariateFunction f,
-                                           double[] start) {
-        return new SimpleCurveFitter(f, start, Integer.MAX_VALUE);
+    public static SimpleCurveFitter create(ParametricUnivariateFunction f, double[] start) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -77,9 +83,8 @@ public class SimpleCurveFitter extends AbstractCurveFitter {
      * @return a new instance.
      */
     public SimpleCurveFitter withStartPoint(double[] newStart) {
-        return new SimpleCurveFitter(function,
-                                     newStart.clone(),
-                                     maxIter);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -88,38 +93,16 @@ public class SimpleCurveFitter extends AbstractCurveFitter {
      * @return a new instance.
      */
     public SimpleCurveFitter withMaxIterations(int newMaxIter) {
-        return new SimpleCurveFitter(function,
-                                     initialGuess,
-                                     newMaxIter);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected LeastSquaresProblem getProblem(Collection<WeightedObservedPoint> observations) {
-        // Prepare least-squares problem.
-        final int len = observations.size();
-        final double[] target  = new double[len];
-        final double[] weights = new double[len];
-
-        int count = 0;
-        for (WeightedObservedPoint obs : observations) {
-            target[count]  = obs.getY();
-            weights[count] = obs.getWeight();
-            ++count;
-        }
-
-        final AbstractCurveFitter.TheoreticalValuesFunction model
-            = new AbstractCurveFitter.TheoreticalValuesFunction(function,
-                                                                observations);
-
-        // Create an optimizer for fitting the curve to the observed points.
-        return new LeastSquaresBuilder().
-                maxEvaluations(Integer.MAX_VALUE).
-                maxIterations(maxIter).
-                start(initialGuess).
-                target(target).
-                weight(new DiagonalMatrix(weights)).
-                model(model.getModelFunction(), model.getModelFunctionJacobian()).
-                build();
+        // STUB: not implemented
+        return null;
     }
 }

@@ -18,7 +18,6 @@ package org.apache.commons.math3.genetics;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -51,7 +50,9 @@ import org.apache.commons.math3.random.RandomGenerator;
  */
 public class NPointCrossover<T> implements CrossoverPolicy {
 
-    /** The number of crossover points. */
+    /**
+     * The number of crossover points.
+     */
     private final int crossoverPoints;
 
     /**
@@ -76,7 +77,8 @@ public class NPointCrossover<T> implements CrossoverPolicy {
      * @return the number of crossover points
      */
     public int getCrossoverPoints() {
-        return crossoverPoints;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -103,14 +105,11 @@ public class NPointCrossover<T> implements CrossoverPolicy {
      *   not an instance of {@link AbstractListChromosome}
      * @throws DimensionMismatchException if the length of the two chromosomes is different
      */
-    @SuppressWarnings("unchecked") // OK because of instanceof checks
-    public ChromosomePair crossover(final Chromosome first, final Chromosome second)
-        throws DimensionMismatchException, MathIllegalArgumentException {
-
-        if (!(first instanceof AbstractListChromosome<?> && second instanceof AbstractListChromosome<?>)) {
-            throw new MathIllegalArgumentException(LocalizedFormats.INVALID_FIXED_LENGTH_CHROMOSOME);
-        }
-        return mate((AbstractListChromosome<T>) first, (AbstractListChromosome<T>) second);
+    // OK because of instanceof checks
+    @SuppressWarnings("unchecked")
+    public ChromosomePair crossover(final Chromosome first, final Chromosome second) throws DimensionMismatchException, MathIllegalArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -122,10 +121,7 @@ public class NPointCrossover<T> implements CrossoverPolicy {
      * @throws DimensionMismatchException if the length of the two chromosomes is different
      * @throws NumberIsTooLargeException if the number of crossoverPoints is too large for the actual chromosomes
      */
-    private ChromosomePair mate(final AbstractListChromosome<T> first,
-                                final AbstractListChromosome<T> second)
-        throws DimensionMismatchException, NumberIsTooLargeException {
-
+    private ChromosomePair mate(final AbstractListChromosome<T> first, final AbstractListChromosome<T> second) throws DimensionMismatchException, NumberIsTooLargeException {
         final int length = first.getLength();
         if (length != second.getLength()) {
             throw new DimensionMismatchException(second.getLength(), length);
@@ -133,46 +129,36 @@ public class NPointCrossover<T> implements CrossoverPolicy {
         if (crossoverPoints >= length) {
             throw new NumberIsTooLargeException(crossoverPoints, length, false);
         }
-
         // array representations of the parents
         final List<T> parent1Rep = first.getRepresentation();
         final List<T> parent2Rep = second.getRepresentation();
         // and of the children
         final List<T> child1Rep = new ArrayList<T>(length);
         final List<T> child2Rep = new ArrayList<T>(length);
-
         final RandomGenerator random = GeneticAlgorithm.getRandomGenerator();
-
         List<T> c1 = child1Rep;
         List<T> c2 = child2Rep;
-
         int remainingPoints = crossoverPoints;
         int lastIndex = 0;
         for (int i = 0; i < crossoverPoints; i++, remainingPoints--) {
             // select the next crossover point at random
             final int crossoverIndex = 1 + lastIndex + random.nextInt(length - lastIndex - remainingPoints);
-
             // copy the current segment
             for (int j = lastIndex; j < crossoverIndex; j++) {
                 c1.add(parent1Rep.get(j));
                 c2.add(parent2Rep.get(j));
             }
-
             // swap the children for the next segment
             List<T> tmp = c1;
             c1 = c2;
             c2 = tmp;
-
             lastIndex = crossoverIndex;
         }
-
         // copy the last segment
         for (int j = lastIndex; j < length; j++) {
             c1.add(parent1Rep.get(j));
             c2.add(parent2Rep.get(j));
         }
-
-        return new ChromosomePair(first.newFixedLengthChromosome(child1Rep),
-                                  second.newFixedLengthChromosome(child2Rep));
+        return new ChromosomePair(first.newFixedLengthChromosome(child1Rep), second.newFixedLengthChromosome(child2Rep));
     }
 }

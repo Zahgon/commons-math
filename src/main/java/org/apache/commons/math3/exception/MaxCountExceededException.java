@@ -25,8 +25,12 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 3.0
  */
 public class MaxCountExceededException extends MathIllegalStateException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = 4330003017885151975L;
+
     /**
      * Maximum number of evaluations.
      */
@@ -40,6 +44,7 @@ public class MaxCountExceededException extends MathIllegalStateException {
     public MaxCountExceededException(Number max) {
         this(LocalizedFormats.MAX_COUNT_EXCEEDED, max);
     }
+
     /**
      * Construct the exception with a specific context.
      *
@@ -47,9 +52,7 @@ public class MaxCountExceededException extends MathIllegalStateException {
      * @param max Maximum.
      * @param args Additional arguments.
      */
-    public MaxCountExceededException(Localizable specific,
-                                     Number max,
-                                     Object ... args) {
+    public MaxCountExceededException(Localizable specific, Number max, Object... args) {
         getContext().addMessage(specific, max, args);
         this.max = max;
     }
@@ -58,6 +61,7 @@ public class MaxCountExceededException extends MathIllegalStateException {
      * @return the maximum number of evaluations.
      */
     public Number getMax() {
-        return max;
+        // STUB: not implemented
+        return null;
     }
 }

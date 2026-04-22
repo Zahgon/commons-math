@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import java.util.Arrays;
-
 import org.apache.commons.math3.analysis.FunctionUtils;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -38,13 +36,25 @@ import org.apache.commons.math3.util.Precision;
  * @since 3.0
  */
 public class Gaussian implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Mean. */
+
+    /**
+     * Mean.
+     */
     private final double mean;
-    /** Inverse of the standard deviation. */
+
+    /**
+     * Inverse of the standard deviation.
+     */
     private final double is;
-    /** Inverse of twice the square of the standard deviation. */
+
+    /**
+     * Inverse of twice the square of the standard deviation.
+     */
     private final double i2s2;
-    /** Normalization factor. */
+
+    /**
+     * Normalization factor.
+     */
     private final double norm;
 
     /**
@@ -55,17 +65,13 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
      * @param sigma Standard deviation.
      * @throws NotStrictlyPositiveException if {@code sigma <= 0}.
      */
-    public Gaussian(double norm,
-                    double mean,
-                    double sigma)
-        throws NotStrictlyPositiveException {
+    public Gaussian(double norm, double mean, double sigma) throws NotStrictlyPositiveException {
         if (sigma <= 0) {
             throw new NotStrictlyPositiveException(sigma);
         }
-
         this.norm = norm;
         this.mean = mean;
-        this.is   = 1 / sigma;
+        this.is = 1 / sigma;
         this.i2s2 = 0.5 * is * is;
     }
 
@@ -76,9 +82,7 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
      * @param sigma Standard deviation.
      * @throws NotStrictlyPositiveException if {@code sigma <= 0}.
      */
-    public Gaussian(double mean,
-                    double sigma)
-        throws NotStrictlyPositiveException {
+    public Gaussian(double mean, double sigma) throws NotStrictlyPositiveException {
         this(1 / (sigma * FastMath.sqrt(2 * Math.PI)), mean, sigma);
     }
 
@@ -89,12 +93,16 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
         this(0, 1);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return value(x - mean, norm, i2s2);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -112,6 +120,7 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
      * </ul>
      */
     public static class Parametric implements ParametricUnivariateFunction {
+
         /**
          * Computes the value of the Gaussian at {@code x}.
          *
@@ -123,15 +132,9 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
          * not 3.
          * @throws NotStrictlyPositiveException if {@code param[2]} is negative.
          */
-        public double value(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException,
-                   NotStrictlyPositiveException {
-            validateParameters(param);
-
-            final double diff = x - param[1];
-            final double i2s2 = 1 / (2 * param[2] * param[2]);
-            return Gaussian.value(diff, param[0], i2s2);
+        public double value(double x, double... param) throws NullArgumentException, DimensionMismatchException, NotStrictlyPositiveException {
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -148,22 +151,9 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
          * not 3.
          * @throws NotStrictlyPositiveException if {@code param[2]} is negative.
          */
-        public double[] gradient(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException,
-                   NotStrictlyPositiveException {
-            validateParameters(param);
-
-            final double norm = param[0];
-            final double diff = x - param[1];
-            final double sigma = param[2];
-            final double i2s2 = 1 / (2 * sigma * sigma);
-
-            final double n = Gaussian.value(diff, 1, i2s2);
-            final double m = norm * n * 2 * i2s2 * diff;
-            final double s = m * diff / sigma;
-
-            return new double[] { n, m, s };
+        public double[] gradient(double x, double... param) throws NullArgumentException, DimensionMismatchException, NotStrictlyPositiveException {
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -177,10 +167,7 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
          * not 3.
          * @throws NotStrictlyPositiveException if {@code param[2]} is negative.
          */
-        private void validateParameters(double[] param)
-            throws NullArgumentException,
-                   DimensionMismatchException,
-                   NotStrictlyPositiveException {
+        private void validateParameters(double[] param) throws NullArgumentException, DimensionMismatchException, NotStrictlyPositiveException {
             if (param == null) {
                 throw new NullArgumentException();
             }
@@ -199,61 +186,16 @@ public class Gaussian implements UnivariateDifferentiableFunction, Differentiabl
      * @param i2s2 Inverse of twice the square of the standard deviation.
      * @return the value of the Gaussian at {@code x}.
      */
-    private static double value(double xMinusMean,
-                                double norm,
-                                double i2s2) {
+    private static double value(double xMinusMean, double norm, double i2s2) {
         return norm * FastMath.exp(-xMinusMean * xMinusMean * i2s2);
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
-    public DerivativeStructure value(final DerivativeStructure t)
-        throws DimensionMismatchException {
-
-        final double u = is * (t.getValue() - mean);
-        double[] f = new double[t.getOrder() + 1];
-
-        // the nth order derivative of the Gaussian has the form:
-        // dn(g(x)/dxn = (norm / s^n) P_n(u) exp(-u^2/2) with u=(x-m)/s
-        // where P_n(u) is a degree n polynomial with same parity as n
-        // P_0(u) = 1, P_1(u) = -u, P_2(u) = u^2 - 1, P_3(u) = -u^3 + 3 u...
-        // the general recurrence relation for P_n is:
-        // P_n(u) = P_(n-1)'(u) - u P_(n-1)(u)
-        // as per polynomial parity, we can store coefficients of both P_(n-1) and P_n in the same array
-        final double[] p = new double[f.length];
-        p[0] = 1;
-        final double u2 = u * u;
-        double coeff = norm * FastMath.exp(-0.5 * u2);
-        if (coeff <= Precision.SAFE_MIN) {
-            Arrays.fill(f, 0.0);
-        } else {
-            f[0] = coeff;
-            for (int n = 1; n < f.length; ++n) {
-
-                // update and evaluate polynomial P_n(x)
-                double v = 0;
-                p[n] = -p[n - 1];
-                for (int k = n; k >= 0; k -= 2) {
-                    v = v * u2 + p[k];
-                    if (k > 2) {
-                        p[k - 2] = (k - 1) * p[k - 1] - p[k - 3];
-                    } else if (k == 2) {
-                        p[0] = p[1];
-                    }
-                }
-                if ((n & 0x1) == 1) {
-                    v *= u;
-                }
-
-                coeff *= is;
-                f[n] = coeff * v;
-
-            }
-        }
-
-        return t.compose(f);
-
+    public DerivativeStructure value(final DerivativeStructure t) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
-
 }

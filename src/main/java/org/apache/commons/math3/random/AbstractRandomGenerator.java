@@ -48,7 +48,6 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      */
     public AbstractRandomGenerator() {
         super();
-
     }
 
     /**
@@ -58,24 +57,21 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      * method in the implementation of {@link #setSeed(long)}
      */
     public void clear() {
-        cachedNormalDeviate = Double.NaN;
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void setSeed(int seed) {
-        setSeed((long) seed);
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void setSeed(int[] seed) {
-        // the following number is the largest prime that fits in 32 bits (it is 2^32 - 5)
-        final long prime = 4294967291l;
-
-        long combined = 0l;
-        for (int s : seed) {
-            combined = combined * prime + s;
-        }
-        setSeed(combined);
+        // STUB: not implemented
     }
 
     /**
@@ -103,22 +99,10 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      * random bytes
      */
     public void nextBytes(byte[] bytes) {
-        int bytesOut = 0;
-        while (bytesOut < bytes.length) {
-          int randInt = nextInt();
-          for (int i = 0; i < 3; i++) {
-              if ( i > 0) {
-                  randInt >>= 8;
-              }
-              bytes[bytesOut++] = (byte) randInt;
-              if (bytesOut == bytes.length) {
-                  return;
-              }
-          }
-        }
+        // STUB: not implemented
     }
 
-     /**
+    /**
      * Returns the next pseudorandom, uniformly distributed {@code int}
      * value from this random number generator's sequence.
      * All 2<font size="-1"><sup>32</sup></font> possible {@code int} values
@@ -133,7 +117,8 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      *  value from this random number generator's sequence
      */
     public int nextInt() {
-        return (int) ((2d * nextDouble() - 1d) * Integer.MAX_VALUE);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -153,29 +138,27 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      * @throws NotStrictlyPositiveException if {@code n <= 0}.
      */
     public int nextInt(int n) {
-        if (n <= 0 ) {
-            throw new NotStrictlyPositiveException(n);
-        }
-        int result = (int) (nextDouble() * n);
-        return result < n ? result : n - 1;
+        // STUB: not implemented
+        return 0;
     }
 
-     /**
-     * Returns the next pseudorandom, uniformly distributed {@code long}
-     * value from this random number generator's sequence.  All
-     * 2<font size="-1"><sup>64</sup></font> possible {@code long} values
-     * should be produced with (approximately) equal probability.
-     * <p>
-     * The default implementation returns
-     * <pre>
-     * <code>(long) (nextDouble() * Long.MAX_VALUE)</code>
-     * </pre></p>
+    /**
+     *  Returns the next pseudorandom, uniformly distributed {@code long}
+     *  value from this random number generator's sequence.  All
+     *  2<font size="-1"><sup>64</sup></font> possible {@code long} values
+     *  should be produced with (approximately) equal probability.
+     *  <p>
+     *  The default implementation returns
+     *  <pre>
+     *  <code>(long) (nextDouble() * Long.MAX_VALUE)</code>
+     *  </pre></p>
      *
-     * @return  the next pseudorandom, uniformly distributed {@code long}
-     *value from this random number generator's sequence
+     *  @return  the next pseudorandom, uniformly distributed {@code long}
+     * value from this random number generator's sequence
      */
     public long nextLong() {
-        return (long) ((2d * nextDouble() - 1d) * Long.MAX_VALUE);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -193,10 +176,11 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      * sequence
      */
     public boolean nextBoolean() {
-        return nextDouble() <= 0.5;
+        // STUB: not implemented
+        return false;
     }
 
-     /**
+    /**
      * Returns the next pseudorandom, uniformly distributed {@code float}
      * value between {@code 0.0} and {@code 1.0} from this random
      * number generator's sequence.
@@ -211,7 +195,8 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      * random number generator's sequence
      */
     public float nextFloat() {
-        return (float) nextDouble();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -249,23 +234,7 @@ public abstract class AbstractRandomGenerator implements RandomGenerator {
      *  generator's sequence
      */
     public double nextGaussian() {
-        if (!Double.isNaN(cachedNormalDeviate)) {
-            double dev = cachedNormalDeviate;
-            cachedNormalDeviate = Double.NaN;
-            return dev;
-        }
-        double v1 = 0;
-        double v2 = 0;
-        double s = 1;
-        while (s >=1 ) {
-            v1 = 2 * nextDouble() - 1;
-            v2 = 2 * nextDouble() - 1;
-            s = v1 * v1 + v2 * v2;
-        }
-        if (s != 0) {
-            s = FastMath.sqrt(-2 * FastMath.log(s) / s);
-        }
-        cachedNormalDeviate = v2 * s;
-        return v1 * s;
+        // STUB: not implemented
+        return 0.0;
     }
 }

@@ -27,13 +27,16 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
  *
  * @since 3.1
  */
-public class Decimal64 extends Number
-                       implements RealFieldElement<Decimal64>, Comparable<Decimal64> {
+public class Decimal64 extends Number implements RealFieldElement<Decimal64>, Comparable<Decimal64> {
 
-    /** The constant value of {@code 0d} as a {@code Decimal64}. */
+    /**
+     * The constant value of {@code 0d} as a {@code Decimal64}.
+     */
     public static final Decimal64 ZERO;
 
-    /** The constant value of {@code 1d} as a {@code Decimal64}. */
+    /**
+     * The constant value of {@code 1d} as a {@code Decimal64}.
+     */
     public static final Decimal64 ONE;
 
     /**
@@ -48,10 +51,13 @@ public class Decimal64 extends Number
      */
     public static final Decimal64 POSITIVE_INFINITY;
 
-    /** The constant value of {@link Double#NaN} as a {@code Decimal64}. */
+    /**
+     * The constant value of {@link Double#NaN} as a {@code Decimal64}.
+     */
     public static final Decimal64 NAN;
 
-    /** */
+    /**
+     */
     private static final long serialVersionUID = 20120227L;
 
     static {
@@ -62,7 +68,9 @@ public class Decimal64 extends Number
         NAN = new Decimal64(Double.NaN);
     }
 
-    /** The primitive {@code double} value of this object. */
+    /**
+     * The primitive {@code double} value of this object.
+     */
     private final double value;
 
     /**
@@ -77,10 +85,12 @@ public class Decimal64 extends Number
     /*
      * Methods from the FieldElement interface.
      */
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Field<Decimal64> getField() {
-        return Decimal64Field.getInstance();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -91,7 +101,8 @@ public class Decimal64 extends Number
      * + a.doubleValue()))}.
      */
     public Decimal64 add(final Decimal64 a) {
-        return new Decimal64(this.value + a.value);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -102,7 +113,8 @@ public class Decimal64 extends Number
      * - a.doubleValue()))}.
      */
     public Decimal64 subtract(final Decimal64 a) {
-        return new Decimal64(this.value - a.value);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -112,7 +124,8 @@ public class Decimal64 extends Number
      * {@code this.negate().equals(new Decimal64(-this.doubleValue()))}.
      */
     public Decimal64 negate() {
-        return new Decimal64(-this.value);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -123,7 +136,8 @@ public class Decimal64 extends Number
      * * a.doubleValue()))}.
      */
     public Decimal64 multiply(final Decimal64 a) {
-        return new Decimal64(this.value * a.value);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -133,7 +147,8 @@ public class Decimal64 extends Number
      * {@code this.multiply(n).equals(new Decimal64(n * this.doubleValue()))}.
      */
     public Decimal64 multiply(final int n) {
-        return new Decimal64(n * this.value);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -142,10 +157,10 @@ public class Decimal64 extends Number
      * The current implementation strictly enforces
      * {@code this.divide(a).equals(new Decimal64(this.doubleValue()
      * / a.doubleValue()))}.
-     *
      */
     public Decimal64 divide(final Decimal64 a) {
-        return new Decimal64(this.value / a.value);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -156,13 +171,13 @@ public class Decimal64 extends Number
      * / this.doubleValue()))}.
      */
     public Decimal64 reciprocal() {
-        return new Decimal64(1.0 / this.value);
+        // STUB: not implemented
+        return null;
     }
 
     /*
      * Methods from the Number abstract class
      */
-
     /**
      * {@inheritDoc}
      *
@@ -170,7 +185,8 @@ public class Decimal64 extends Number
      */
     @Override
     public byte byteValue() {
-        return (byte) value;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -180,7 +196,8 @@ public class Decimal64 extends Number
      */
     @Override
     public short shortValue() {
-        return (short) value;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -190,7 +207,8 @@ public class Decimal64 extends Number
      */
     @Override
     public int intValue() {
-        return (int) value;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -200,7 +218,8 @@ public class Decimal64 extends Number
      */
     @Override
     public long longValue() {
-        return (long) value;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -210,19 +229,22 @@ public class Decimal64 extends Number
      */
     @Override
     public float floatValue() {
-        return (float) value;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double doubleValue() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /*
      * Methods from the Comparable interface.
      */
-
     /**
      * {@inheritDoc}
      *
@@ -233,21 +255,19 @@ public class Decimal64 extends Number
      * @see Double#compareTo(Double)
      */
     public int compareTo(final Decimal64 o) {
-        return Double.compare(this.value, o.value);
+        // STUB: not implemented
+        return 0;
     }
 
     /*
      * Methods from the Object abstract class.
      */
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object obj) {
-        if (obj instanceof Decimal64) {
-            final Decimal64 that = (Decimal64) obj;
-            return Double.doubleToLongBits(this.value) == Double
-                    .doubleToLongBits(that.value);
-        }
+        // STUB: not implemented
         return false;
     }
 
@@ -261,8 +281,8 @@ public class Decimal64 extends Number
      */
     @Override
     public int hashCode() {
-        long v = Double.doubleToLongBits(value);
-        return (int) (v ^ (v >>> 32));
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -275,13 +295,13 @@ public class Decimal64 extends Number
      */
     @Override
     public String toString() {
-        return Double.toString(value);
+        // STUB: not implemented
+        return null;
     }
 
     /*
      * Methods inspired by the Double class.
      */
-
     /**
      * Returns {@code true} if {@code this} double precision number is infinite
      * ({@link Double#POSITIVE_INFINITY} or {@link Double#NEGATIVE_INFINITY}).
@@ -289,7 +309,8 @@ public class Decimal64 extends Number
      * @return {@code true} if {@code this} number is infinite
      */
     public boolean isInfinite() {
-        return Double.isInfinite(value);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -299,397 +320,449 @@ public class Decimal64 extends Number
      * @return {@code true} if {@code this} is {@code NaN}
      */
     public boolean isNaN() {
-        return Double.isNaN(value);
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public double getReal() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 add(final double a) {
-        return new Decimal64(value + a);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 subtract(final double a) {
-        return new Decimal64(value - a);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 multiply(final double a) {
-        return new Decimal64(value * a);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 divide(final double a) {
-        return new Decimal64(value / a);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 remainder(final double a) {
-        return new Decimal64(FastMath.IEEEremainder(value, a));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 remainder(final Decimal64 a) {
-        return new Decimal64(FastMath.IEEEremainder(value, a.value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 abs() {
-        return new Decimal64(FastMath.abs(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 ceil() {
-        return new Decimal64(FastMath.ceil(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 floor() {
-        return new Decimal64(FastMath.floor(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 rint() {
-        return new Decimal64(FastMath.rint(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public long round() {
-        return FastMath.round(value);
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 signum() {
-        return new Decimal64(FastMath.signum(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 copySign(final Decimal64 sign) {
-        return new Decimal64(FastMath.copySign(value, sign.value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 copySign(final double sign) {
-        return new Decimal64(FastMath.copySign(value, sign));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 scalb(final int n) {
-        return new Decimal64(FastMath.scalb(value, n));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 hypot(final Decimal64 y) {
-        return new Decimal64(FastMath.hypot(value, y.value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 sqrt() {
-        return new Decimal64(FastMath.sqrt(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 cbrt() {
-        return new Decimal64(FastMath.cbrt(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 rootN(final int n) {
-        if (value < 0) {
-            return new Decimal64(-FastMath.pow(-value, 1.0 / n));
-        } else {
-            return new Decimal64(FastMath.pow(value, 1.0 / n));
-        }
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 pow(final double p) {
-        return new Decimal64(FastMath.pow(value, p));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 pow(final int n) {
-        return new Decimal64(FastMath.pow(value, n));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 pow(final Decimal64 e) {
-        return new Decimal64(FastMath.pow(value, e.value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 exp() {
-        return new Decimal64(FastMath.exp(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 expm1() {
-        return new Decimal64(FastMath.expm1(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 log() {
-        return new Decimal64(FastMath.log(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 log1p() {
-        return new Decimal64(FastMath.log1p(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** Base 10 logarithm.
+    /**
+     * Base 10 logarithm.
      * @return base 10 logarithm of the instance
      * @since 3.2
      */
     public Decimal64 log10() {
-        return new Decimal64(FastMath.log10(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 cos() {
-        return new Decimal64(FastMath.cos(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 sin() {
-        return new Decimal64(FastMath.sin(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 tan() {
-        return new Decimal64(FastMath.tan(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 acos() {
-        return new Decimal64(FastMath.acos(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 asin() {
-        return new Decimal64(FastMath.asin(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 atan() {
-        return new Decimal64(FastMath.atan(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 atan2(final Decimal64 x) {
-        return new Decimal64(FastMath.atan2(value, x.value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 cosh() {
-        return new Decimal64(FastMath.cosh(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 sinh() {
-        return new Decimal64(FastMath.sinh(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 tanh() {
-        return new Decimal64(FastMath.tanh(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 acosh() {
-        return new Decimal64(FastMath.acosh(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 asinh() {
-        return new Decimal64(FastMath.asinh(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
     public Decimal64 atanh() {
-        return new Decimal64(FastMath.atanh(value));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final Decimal64[] a, final Decimal64[] b)
-        throws DimensionMismatchException {
-        if (a.length != b.length) {
-            throw new DimensionMismatchException(a.length, b.length);
-        }
-        final double[] aDouble = new double[a.length];
-        final double[] bDouble = new double[b.length];
-        for (int i = 0; i < a.length; ++i) {
-            aDouble[i] = a[i].value;
-            bDouble[i] = b[i].value;
-        }
-        return new Decimal64(MathArrays.linearCombination(aDouble, bDouble));
+    public Decimal64 linearCombination(final Decimal64[] a, final Decimal64[] b) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final double[] a, final Decimal64[] b)
-        throws DimensionMismatchException {
-        if (a.length != b.length) {
-            throw new DimensionMismatchException(a.length, b.length);
-        }
-        final double[] bDouble = new double[b.length];
-        for (int i = 0; i < a.length; ++i) {
-            bDouble[i] = b[i].value;
-        }
-        return new Decimal64(MathArrays.linearCombination(a, bDouble));
+    public Decimal64 linearCombination(final double[] a, final Decimal64[] b) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final Decimal64 a1, final Decimal64 b1,
-                                       final Decimal64 a2, final Decimal64 b2) {
-        return new Decimal64(MathArrays.linearCombination(a1.value, b1.value,
-                                                          a2.value, b2.value));
+    public Decimal64 linearCombination(final Decimal64 a1, final Decimal64 b1, final Decimal64 a2, final Decimal64 b2) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final double a1, final Decimal64 b1,
-                                       final double a2, final Decimal64 b2) {
-        return new Decimal64(MathArrays.linearCombination(a1, b1.value,
-                                                          a2, b2.value));
+    public Decimal64 linearCombination(final double a1, final Decimal64 b1, final double a2, final Decimal64 b2) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final Decimal64 a1, final Decimal64 b1,
-                                       final Decimal64 a2, final Decimal64 b2,
-                                       final Decimal64 a3, final Decimal64 b3) {
-        return new Decimal64(MathArrays.linearCombination(a1.value, b1.value,
-                                                          a2.value, b2.value,
-                                                          a3.value, b3.value));
+    public Decimal64 linearCombination(final Decimal64 a1, final Decimal64 b1, final Decimal64 a2, final Decimal64 b2, final Decimal64 a3, final Decimal64 b3) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final double a1, final Decimal64 b1,
-                                       final double a2, final Decimal64 b2,
-                                       final double a3, final Decimal64 b3) {
-        return new Decimal64(MathArrays.linearCombination(a1, b1.value,
-                                                          a2, b2.value,
-                                                          a3, b3.value));
+    public Decimal64 linearCombination(final double a1, final Decimal64 b1, final double a2, final Decimal64 b2, final double a3, final Decimal64 b3) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final Decimal64 a1, final Decimal64 b1,
-                                       final Decimal64 a2, final Decimal64 b2,
-                                       final Decimal64 a3, final Decimal64 b3,
-                                       final Decimal64 a4, final Decimal64 b4) {
-        return new Decimal64(MathArrays.linearCombination(a1.value, b1.value,
-                                                          a2.value, b2.value,
-                                                          a3.value, b3.value,
-                                                          a4.value, b4.value));
+    public Decimal64 linearCombination(final Decimal64 a1, final Decimal64 b1, final Decimal64 a2, final Decimal64 b2, final Decimal64 a3, final Decimal64 b3, final Decimal64 a4, final Decimal64 b4) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.2
      */
-    public Decimal64 linearCombination(final double a1, final Decimal64 b1,
-                                       final double a2, final Decimal64 b2,
-                                       final double a3, final Decimal64 b3,
-                                       final double a4, final Decimal64 b4) {
-        return new Decimal64(MathArrays.linearCombination(a1, b1.value,
-                                                          a2, b2.value,
-                                                          a3, b3.value,
-                                                          a4, b4.value));
+    public Decimal64 linearCombination(final double a1, final Decimal64 b1, final double a2, final Decimal64 b2, final double a3, final Decimal64 b3, final double a4, final Decimal64 b4) {
+        // STUB: not implemented
+        return null;
     }
-
 }

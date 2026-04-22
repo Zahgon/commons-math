@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet;
 
 import org.apache.commons.math3.distribution.RealDistribution;
@@ -30,8 +29,12 @@ import org.apache.commons.math3.random.RandomGenerator;
  * @since 3.3
  */
 public class FeatureInitializerFactory {
-    /** Class contains only static methods. */
-    private FeatureInitializerFactory() {}
+
+    /**
+     * Class contains only static methods.
+     */
+    private FeatureInitializerFactory() {
+    }
 
     /**
      * Uniform sampling of the given range.
@@ -45,11 +48,9 @@ public class FeatureInitializerFactory {
      * @throws org.apache.commons.math3.exception.NumberIsTooLargeException
      * if {@code min >= max}.
      */
-    public static FeatureInitializer uniform(final RandomGenerator rng,
-                                             final double min,
-                                             final double max) {
-        return randomize(new UniformRealDistribution(rng, min, max),
-                         function(new Constant(0), 0, 0));
+    public static FeatureInitializer uniform(final RandomGenerator rng, final double min, final double max) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -62,10 +63,9 @@ public class FeatureInitializerFactory {
      * @throws org.apache.commons.math3.exception.NumberIsTooLargeException
      * if {@code min >= max}.
      */
-    public static FeatureInitializer uniform(final double min,
-                                             final double max) {
-        return randomize(new UniformRealDistribution(min, max),
-                         function(new Constant(0), 0, 0));
+    public static FeatureInitializer uniform(final double min, final double max) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -78,20 +78,9 @@ public class FeatureInitializerFactory {
      * @param inc Increment
      * @return the initializer.
      */
-    public static FeatureInitializer function(final UnivariateFunction f,
-                                              final double init,
-                                              final double inc) {
-        return new FeatureInitializer() {
-            /** Argument. */
-            private double arg = init;
-
-            /** {@inheritDoc} */
-            public double value() {
-                final double result = f.value(arg);
-                arg += inc;
-                return result;
-            }
-        };
+    public static FeatureInitializer function(final UnivariateFunction f, final double init, final double inc) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -102,13 +91,8 @@ public class FeatureInitializerFactory {
      * @return an initializer whose {@link FeatureInitializer#value() value}
      * method will return {@code orig.value() + random.sample()}.
      */
-    public static FeatureInitializer randomize(final RealDistribution random,
-                                               final FeatureInitializer orig) {
-        return new FeatureInitializer() {
-            /** {@inheritDoc} */
-            public double value() {
-                return orig.value() + random.sample();
-            }
-        };
+    public static FeatureInitializer randomize(final RealDistribution random, final FeatureInitializer orig) {
+        // STUB: not implemented
+        return null;
     }
 }

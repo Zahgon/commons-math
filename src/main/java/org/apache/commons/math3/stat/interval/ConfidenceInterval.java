@@ -26,10 +26,14 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 public class ConfidenceInterval {
 
-    /** Lower endpoint of the interval */
+    /**
+     * Lower endpoint of the interval
+     */
     private double lowerBound;
 
-    /** Upper endpoint of the interval */
+    /**
+     * Upper endpoint of the interval
+     */
     private double upperBound;
 
     /**
@@ -64,14 +68,16 @@ public class ConfidenceInterval {
      * @return the lower endpoint of the interval
      */
     public double getLowerBound() {
-        return lowerBound;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * @return the upper endpoint of the interval
      */
     public double getUpperBound() {
-        return upperBound;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -79,7 +85,8 @@ public class ConfidenceInterval {
      *         population parameter
      */
     public double getConfidenceLevel() {
-        return confidenceLevel;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -87,7 +94,8 @@ public class ConfidenceInterval {
      */
     @Override
     public String toString() {
-        return "[" + lowerBound + ";" + upperBound + "] (confidence level:" + confidenceLevel + ")";
+        // STUB: not implemented
+        return null;
     }
 
     /**

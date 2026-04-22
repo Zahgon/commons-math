@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 
 /**
@@ -32,7 +31,9 @@ import org.apache.commons.math3.exception.MathIllegalArgumentException;
  */
 public class TransformerMap implements NumberTransformer, Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 4605318041528645258L;
 
     /**
@@ -59,7 +60,8 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @return true|false
      */
     public boolean containsClass(Class<?> key) {
-        return map.containsKey(key);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -68,7 +70,8 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @return true|false
      */
     public boolean containsTransformer(NumberTransformer value) {
-        return map.containsValue(value);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -78,7 +81,8 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @return the mapped NumberTransformer or null.
      */
     public NumberTransformer getTransformer(Class<?> key) {
-        return map.get(key);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -90,7 +94,8 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @return the replaced transformer if one is present
      */
     public NumberTransformer putTransformer(Class<?> key, NumberTransformer transformer) {
-        return map.put(key, transformer);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -100,14 +105,15 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * null if none was present.
      */
     public NumberTransformer removeTransformer(Class<?> key) {
-        return map.remove(key);
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * Clears all the Class to Transformer mappings.
      */
     public void clear() {
-        map.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -115,7 +121,8 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @return Set of Classes
      */
     public Set<Class<?>> classes() {
-        return map.keySet();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -124,7 +131,8 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @return Set of NumberTransformers
      */
     public Collection<NumberTransformer> transformers() {
-        return map.values();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -138,52 +146,25 @@ public class TransformerMap implements NumberTransformer, Serializable {
      * @see org.apache.commons.math3.util.NumberTransformer#transform(java.lang.Object)
      */
     public double transform(Object o) throws MathIllegalArgumentException {
-        double value = Double.NaN;
-
-        if (o instanceof Number || o instanceof String) {
-            value = defaultTransformer.transform(o);
-        } else {
-            NumberTransformer trans = getTransformer(o.getClass());
-            if (trans != null) {
-                value = trans.transform(o);
-            }
-        }
-
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other instanceof TransformerMap) {
-            TransformerMap rhs = (TransformerMap) other;
-            if (! defaultTransformer.equals(rhs.defaultTransformer)) {
-                return false;
-            }
-            if (map.size() != rhs.map.size()) {
-                return false;
-            }
-            for (Map.Entry<Class<?>, NumberTransformer> entry : map.entrySet()) {
-                if (! entry.getValue().equals(rhs.map.get(entry.getKey()))) {
-                    return false;
-                }
-            }
-            return true;
-        }
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        int hash = defaultTransformer.hashCode();
-        for (NumberTransformer t : map.values()) {
-            hash = hash * 31 + t.hashCode();
-        }
-        return hash;
+        // STUB: not implemented
+        return 0;
     }
-
 }

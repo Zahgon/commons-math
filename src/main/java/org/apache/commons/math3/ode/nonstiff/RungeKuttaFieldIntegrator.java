@@ -14,9 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
-
 
 import org.apache.commons.math3.Field;
 import org.apache.commons.math3.RealFieldElement;
@@ -56,24 +54,30 @@ import org.apache.commons.math3.util.MathArrays;
  * @param <T> the type of the field elements
  * @since 3.6
  */
+public abstract class RungeKuttaFieldIntegrator<T extends RealFieldElement<T>> extends AbstractFieldIntegrator<T> implements FieldButcherArrayProvider<T> {
 
-public abstract class RungeKuttaFieldIntegrator<T extends RealFieldElement<T>>
-    extends AbstractFieldIntegrator<T>
-    implements FieldButcherArrayProvider<T> {
-
-    /** Time steps from Butcher array (without the first zero). */
+    /**
+     * Time steps from Butcher array (without the first zero).
+     */
     private final T[] c;
 
-    /** Internal weights from Butcher array (without the first empty row). */
+    /**
+     * Internal weights from Butcher array (without the first empty row).
+     */
     private final T[][] a;
 
-    /** External weights for the high order method from Butcher array. */
+    /**
+     * External weights for the high order method from Butcher array.
+     */
     private final T[] b;
 
-    /** Integration step. */
+    /**
+     * Integration step.
+     */
     private final T step;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * Build a Runge-Kutta integrator with the given
      * step. The default step handler does nothing.
      * @param field field to which the time and state vector elements belong
@@ -82,22 +86,25 @@ public abstract class RungeKuttaFieldIntegrator<T extends RealFieldElement<T>>
      */
     protected RungeKuttaFieldIntegrator(final Field<T> field, final String name, final T step) {
         super(field, name);
-        this.c    = getC();
-        this.a    = getA();
-        this.b    = getB();
+        this.c = getC();
+        this.a = getA();
+        this.b = getB();
         this.step = step.abs();
     }
 
-    /** Create a fraction.
+    /**
+     * Create a fraction.
      * @param p numerator
      * @param q denominator
      * @return p/q computed in the instance field
      */
     protected T fraction(final int p, final int q) {
-        return getField().getZero().add(p).divide(q);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create an interpolator.
+    /**
+     * Create an interpolator.
      * @param forward integration direction indicator
      * @param yDotK slopes at the intermediate points
      * @param globalPreviousState start of the global step
@@ -105,106 +112,18 @@ public abstract class RungeKuttaFieldIntegrator<T extends RealFieldElement<T>>
      * @param mapper equations mapper for the all equations
      * @return external weights for the high order method from Butcher array
      */
-    protected abstract RungeKuttaFieldStepInterpolator<T> createInterpolator(boolean forward, T[][] yDotK,
-                                                                             final FieldODEStateAndDerivative<T> globalPreviousState,
-                                                                             final FieldODEStateAndDerivative<T> globalCurrentState,
-                                                                             FieldEquationsMapper<T> mapper);
+    protected abstract RungeKuttaFieldStepInterpolator<T> createInterpolator(boolean forward, T[][] yDotK, final FieldODEStateAndDerivative<T> globalPreviousState, final FieldODEStateAndDerivative<T> globalCurrentState, FieldEquationsMapper<T> mapper);
 
-    /** {@inheritDoc} */
-    public FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations,
-                                                   final FieldODEState<T> initialState, final T finalTime)
-        throws NumberIsTooSmallException, DimensionMismatchException,
-        MaxCountExceededException, NoBracketingException {
-
-        sanityChecks(initialState, finalTime);
-        final T   t0 = initialState.getTime();
-        final T[] y0 = equations.getMapper().mapState(initialState);
-        setStepStart(initIntegration(equations, t0, y0, finalTime));
-        final boolean forward = finalTime.subtract(initialState.getTime()).getReal() > 0;
-
-        // create some internal working arrays
-        final int   stages = c.length + 1;
-        T[]         y      = y0;
-        final T[][] yDotK  = MathArrays.buildArray(getField(), stages, -1);
-        final T[]   yTmp   = MathArrays.buildArray(getField(), y0.length);
-
-        // set up integration control objects
-        if (forward) {
-            if (getStepStart().getTime().add(step).subtract(finalTime).getReal() >= 0) {
-                setStepSize(finalTime.subtract(getStepStart().getTime()));
-            } else {
-                setStepSize(step);
-            }
-        } else {
-            if (getStepStart().getTime().subtract(step).subtract(finalTime).getReal() <= 0) {
-                setStepSize(finalTime.subtract(getStepStart().getTime()));
-            } else {
-                setStepSize(step.negate());
-            }
-        }
-
-        // main integration loop
-        setIsLastStep(false);
-        do {
-
-            // first stage
-            y        = equations.getMapper().mapState(getStepStart());
-            yDotK[0] = equations.getMapper().mapDerivative(getStepStart());
-
-            // next stages
-            for (int k = 1; k < stages; ++k) {
-
-                for (int j = 0; j < y0.length; ++j) {
-                    T sum = yDotK[0][j].multiply(a[k-1][0]);
-                    for (int l = 1; l < k; ++l) {
-                        sum = sum.add(yDotK[l][j].multiply(a[k-1][l]));
-                    }
-                    yTmp[j] = y[j].add(getStepSize().multiply(sum));
-                }
-
-                yDotK[k] = computeDerivatives(getStepStart().getTime().add(getStepSize().multiply(c[k-1])), yTmp);
-
-            }
-
-            // estimate the state at the end of the step
-            for (int j = 0; j < y0.length; ++j) {
-                T sum = yDotK[0][j].multiply(b[0]);
-                for (int l = 1; l < stages; ++l) {
-                    sum = sum.add(yDotK[l][j].multiply(b[l]));
-                }
-                yTmp[j] = y[j].add(getStepSize().multiply(sum));
-            }
-            final T stepEnd   = getStepStart().getTime().add(getStepSize());
-            final T[] yDotTmp = computeDerivatives(stepEnd, yTmp);
-            final FieldODEStateAndDerivative<T> stateTmp = new FieldODEStateAndDerivative<T>(stepEnd, yTmp, yDotTmp);
-
-            // discrete events handling
-            System.arraycopy(yTmp, 0, y, 0, y0.length);
-            setStepStart(acceptStep(createInterpolator(forward, yDotK, getStepStart(), stateTmp, equations.getMapper()),
-                                    finalTime));
-
-            if (!isLastStep()) {
-
-                // stepsize control for next step
-                final T  nextT      = getStepStart().getTime().add(getStepSize());
-                final boolean nextIsLast = forward ?
-                                           (nextT.subtract(finalTime).getReal() >= 0) :
-                                           (nextT.subtract(finalTime).getReal() <= 0);
-                if (nextIsLast) {
-                    setStepSize(finalTime.subtract(getStepStart().getTime()));
-                }
-            }
-
-        } while (!isLastStep());
-
-        final FieldODEStateAndDerivative<T> finalState = getStepStart();
-        setStepStart(null);
-        setStepSize(null);
-        return finalState;
-
+    /**
+     * {@inheritDoc}
+     */
+    public FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations, final FieldODEState<T> initialState, final T finalTime) throws NumberIsTooSmallException, DimensionMismatchException, MaxCountExceededException, NoBracketingException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** Fast computation of a single step of ODE integration.
+    /**
+     * Fast computation of a single step of ODE integration.
      * <p>This method is intended for the limited use case of
      * very fast computation of only one step without using any of the
      * rich features of general integrators that may take some time
@@ -229,45 +148,8 @@ public abstract class RungeKuttaFieldIntegrator<T extends RealFieldElement<T>>
      * (can be set to a value smaller than {@code t0} for backward integration)
      * @return state vector at {@code t}
      */
-    public T[] singleStep(final FirstOrderFieldDifferentialEquations<T> equations,
-                          final T t0, final T[] y0, final T t) {
-
-        // create some internal working arrays
-        final T[] y       = y0.clone();
-        final int stages  = c.length + 1;
-        final T[][] yDotK = MathArrays.buildArray(getField(), stages, -1);
-        final T[] yTmp    = y0.clone();
-
-        // first stage
-        final T h = t.subtract(t0);
-        yDotK[0] = equations.computeDerivatives(t0, y);
-
-        // next stages
-        for (int k = 1; k < stages; ++k) {
-
-            for (int j = 0; j < y0.length; ++j) {
-                T sum = yDotK[0][j].multiply(a[k-1][0]);
-                for (int l = 1; l < k; ++l) {
-                    sum = sum.add(yDotK[l][j].multiply(a[k-1][l]));
-                }
-                yTmp[j] = y[j].add(h.multiply(sum));
-            }
-
-            yDotK[k] = equations.computeDerivatives(t0.add(h.multiply(c[k-1])), yTmp);
-
-        }
-
-        // estimate the state at the end of the step
-        for (int j = 0; j < y0.length; ++j) {
-            T sum = yDotK[0][j].multiply(b[0]);
-            for (int l = 1; l < stages; ++l) {
-                sum = sum.add(yDotK[l][j].multiply(b[l]));
-            }
-            y[j] = y[j].add(h.multiply(sum));
-        }
-
-        return y;
-
+    public T[] singleStep(final FirstOrderFieldDifferentialEquations<T> equations, final T t0, final T[] y0, final T t) {
+        // STUB: not implemented
+        return null;
     }
-
 }

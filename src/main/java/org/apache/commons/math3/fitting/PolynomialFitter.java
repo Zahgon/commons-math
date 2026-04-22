@@ -30,6 +30,7 @@ import org.apache.commons.math3.optim.nonlinear.vector.MultivariateVectorOptimiz
  */
 @Deprecated
 public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric> {
+
     /**
      * Simple constructor.
      *
@@ -53,7 +54,8 @@ public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric>
      * if the algorithm failed to converge.
      */
     public double[] fit(int maxEval, double[] guess) {
-        return fit(maxEval, new PolynomialFunction.Parametric(), guess);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -67,6 +69,7 @@ public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric>
      * if the algorithm failed to converge.
      */
     public double[] fit(double[] guess) {
-        return fit(new PolynomialFunction.Parametric(), guess);
+        // STUB: not implemented
+        return null;
     }
 }

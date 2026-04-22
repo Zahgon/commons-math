@@ -26,9 +26,9 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
 
 /**
  * Implements a linear function for interpolation of real univariate functions.
- *
  */
 public class LinearInterpolator implements UnivariateInterpolator {
+
     /**
      * Computes a linear interpolating function for the data set.
      *
@@ -42,38 +42,8 @@ public class LinearInterpolator implements UnivariateInterpolator {
      * @throws NumberIsTooSmallException if the size of {@code x} is smaller
      * than 2.
      */
-    public PolynomialSplineFunction interpolate(double x[], double y[])
-        throws DimensionMismatchException,
-               NumberIsTooSmallException,
-               NonMonotonicSequenceException {
-        if (x.length != y.length) {
-            throw new DimensionMismatchException(x.length, y.length);
-        }
-
-        if (x.length < 2) {
-            throw new NumberIsTooSmallException(LocalizedFormats.NUMBER_OF_POINTS,
-                                                x.length, 2, true);
-        }
-
-        // Number of intervals.  The number of data points is n + 1.
-        int n = x.length - 1;
-
-        MathArrays.checkOrder(x);
-
-        // Slope of the lines between the datapoints.
-        final double m[] = new double[n];
-        for (int i = 0; i < n; i++) {
-            m[i] = (y[i + 1] - y[i]) / (x[i + 1] - x[i]);
-        }
-
-        final PolynomialFunction polynomials[] = new PolynomialFunction[n];
-        final double coefficients[] = new double[2];
-        for (int i = 0; i < n; i++) {
-            coefficients[0] = y[i];
-            coefficients[1] = m[i];
-            polynomials[i] = new PolynomialFunction(coefficients);
-        }
-
-        return new PolynomialSplineFunction(x, polynomials);
+    public PolynomialSplineFunction interpolate(double[] x, double[] y) throws DimensionMismatchException, NumberIsTooSmallException, NonMonotonicSequenceException {
+        // STUB: not implemented
+        return null;
     }
 }

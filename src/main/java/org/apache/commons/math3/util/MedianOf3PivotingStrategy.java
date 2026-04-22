@@ -17,9 +17,7 @@
 package org.apache.commons.math3.util;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
-
 
 /**
  * Classic median of 3 strategy given begin and end indices.
@@ -27,37 +25,20 @@ import org.apache.commons.math3.exception.MathIllegalArgumentException;
  */
 public class MedianOf3PivotingStrategy implements PivotingStrategyInterface, Serializable {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20140713L;
 
-    /**{@inheritDoc}
-     * This in specific makes use of median of 3 pivoting.
-     * @return The index corresponding to a pivot chosen between the
-     * first, middle and the last indices of the array slice
-     * @throws MathIllegalArgumentException when indices exceeds range
+    /**
+     * {@inheritDoc}
+     *  This in specific makes use of median of 3 pivoting.
+     *  @return The index corresponding to a pivot chosen between the
+     *  first, middle and the last indices of the array slice
+     *  @throws MathIllegalArgumentException when indices exceeds range
      */
-    public int pivotIndex(final double[] work, final int begin, final int end)
-        throws MathIllegalArgumentException {
-        MathArrays.verifyValues(work, begin, end-begin);
-        final int inclusiveEnd = end - 1;
-        final int middle = begin + (inclusiveEnd - begin) / 2;
-        final double wBegin = work[begin];
-        final double wMiddle = work[middle];
-        final double wEnd = work[inclusiveEnd];
-
-        if (wBegin < wMiddle) {
-            if (wMiddle < wEnd) {
-                return middle;
-            } else {
-                return wBegin < wEnd ? inclusiveEnd : begin;
-            }
-        } else {
-            if (wBegin < wEnd) {
-                return begin;
-            } else {
-                return wMiddle < wEnd ? inclusiveEnd : middle;
-            }
-        }
+    public int pivotIndex(final double[] work, final int begin, final int end) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0;
     }
-
 }

@@ -24,7 +24,10 @@ import org.apache.commons.math3.exception.NotStrictlyPositiveException;
  * @since 3.1
  */
 public class MaxEval implements OptimizationData {
-    /** Allowed number of evalutations. */
+
+    /**
+     * Allowed number of evalutations.
+     */
     private final int maxEval;
 
     /**
@@ -35,7 +38,6 @@ public class MaxEval implements OptimizationData {
         if (max <= 0) {
             throw new NotStrictlyPositiveException(max);
         }
-
         maxEval = max;
     }
 
@@ -45,7 +47,8 @@ public class MaxEval implements OptimizationData {
      * @return the allowed number of evaluations.
      */
     public int getMaxEval() {
-        return maxEval;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -56,6 +59,7 @@ public class MaxEval implements OptimizationData {
      * evaluations.
      */
     public static MaxEval unlimited() {
-        return new MaxEval(Integer.MAX_VALUE);
+        // STUB: not implemented
+        return null;
     }
 }

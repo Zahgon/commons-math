@@ -14,12 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.univariate;
 
 import java.util.Arrays;
 import java.util.Comparator;
-
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.exception.MathIllegalStateException;
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -43,19 +41,36 @@ import org.apache.commons.math3.optimization.ConvergenceChecker;
  * @since 3.0
  */
 @Deprecated
-public class UnivariateMultiStartOptimizer<FUNC extends UnivariateFunction>
-    implements BaseUnivariateOptimizer<FUNC> {
-    /** Underlying classical optimizer. */
+public class UnivariateMultiStartOptimizer<FUNC extends UnivariateFunction> implements BaseUnivariateOptimizer<FUNC> {
+
+    /**
+     * Underlying classical optimizer.
+     */
     private final BaseUnivariateOptimizer<FUNC> optimizer;
-    /** Maximal number of evaluations allowed. */
+
+    /**
+     * Maximal number of evaluations allowed.
+     */
     private int maxEvaluations;
-    /** Number of evaluations already performed for all starts. */
+
+    /**
+     * Number of evaluations already performed for all starts.
+     */
     private int totalEvaluations;
-    /** Number of starts to go. */
+
+    /**
+     * Number of starts to go.
+     */
     private int starts;
-    /** Random generator for multi-start. */
+
+    /**
+     * Random generator for multi-start.
+     */
     private RandomGenerator generator;
-    /** Found optima. */
+
+    /**
+     * Found optima.
+     */
     private UnivariatePointValuePair[] optima;
 
     /**
@@ -70,17 +85,13 @@ public class UnivariateMultiStartOptimizer<FUNC extends UnivariateFunction>
      * is {@code null}.
      * @throws NotStrictlyPositiveException if {@code starts < 1}.
      */
-    public UnivariateMultiStartOptimizer(final BaseUnivariateOptimizer<FUNC> optimizer,
-                                             final int starts,
-                                             final RandomGenerator generator) {
-        if (optimizer == null ||
-                generator == null) {
-                throw new NullArgumentException();
+    public UnivariateMultiStartOptimizer(final BaseUnivariateOptimizer<FUNC> optimizer, final int starts, final RandomGenerator generator) {
+        if (optimizer == null || generator == null) {
+            throw new NullArgumentException();
         }
         if (starts < 1) {
             throw new NotStrictlyPositiveException(starts);
         }
-
         this.optimizer = optimizer;
         this.starts = starts;
         this.generator = generator;
@@ -90,17 +101,24 @@ public class UnivariateMultiStartOptimizer<FUNC extends UnivariateFunction>
      * {@inheritDoc}
      */
     public ConvergenceChecker<UnivariatePointValuePair> getConvergenceChecker() {
-        return optimizer.getConvergenceChecker();
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMaxEvaluations() {
-        return maxEvaluations;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getEvaluations() {
-        return totalEvaluations;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -131,51 +149,24 @@ public class UnivariateMultiStartOptimizer<FUNC extends UnivariateFunction>
      * has not been called.
      */
     public UnivariatePointValuePair[] getOptima() {
-        if (optima == null) {
-            throw new MathIllegalStateException(LocalizedFormats.NO_OPTIMUM_COMPUTED_YET);
-        }
-        return optima.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
-    public UnivariatePointValuePair optimize(int maxEval, final FUNC f,
-                                                 final GoalType goal,
-                                                 final double min, final double max) {
-        return optimize(maxEval, f, goal, min, max, min + 0.5 * (max - min));
+    /**
+     * {@inheritDoc}
+     */
+    public UnivariatePointValuePair optimize(int maxEval, final FUNC f, final GoalType goal, final double min, final double max) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
-    public UnivariatePointValuePair optimize(int maxEval, final FUNC f,
-                                                 final GoalType goal,
-                                                 final double min, final double max,
-                                                 final double startValue) {
-        RuntimeException lastException = null;
-        optima = new UnivariatePointValuePair[starts];
-        totalEvaluations = 0;
-
-        // Multi-start loop.
-        for (int i = 0; i < starts; ++i) {
-            // CHECKSTYLE: stop IllegalCatch
-            try {
-                final double s = (i == 0) ? startValue : min + generator.nextDouble() * (max - min);
-                optima[i] = optimizer.optimize(maxEval - totalEvaluations, f, goal, min, max, s);
-            } catch (RuntimeException mue) {
-                lastException = mue;
-                optima[i] = null;
-            }
-            // CHECKSTYLE: resume IllegalCatch
-
-            totalEvaluations += optimizer.getEvaluations();
-        }
-
-        sortPairs(goal);
-
-        if (optima[0] == null) {
-            throw lastException; // cannot be null if starts >=1
-        }
-
-        // Return the point with the best objective function value.
-        return optima[0];
+    /**
+     * {@inheritDoc}
+     */
+    public UnivariatePointValuePair optimize(int maxEval, final FUNC f, final GoalType goal, final double min, final double max, final double startValue) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -185,19 +176,20 @@ public class UnivariateMultiStartOptimizer<FUNC extends UnivariateFunction>
      */
     private void sortPairs(final GoalType goal) {
         Arrays.sort(optima, new Comparator<UnivariatePointValuePair>() {
-                /** {@inheritDoc} */
-                public int compare(final UnivariatePointValuePair o1,
-                                   final UnivariatePointValuePair o2) {
-                    if (o1 == null) {
-                        return (o2 == null) ? 0 : 1;
-                    } else if (o2 == null) {
-                        return -1;
-                    }
-                    final double v1 = o1.getValue();
-                    final double v2 = o2.getValue();
-                    return (goal == GoalType.MINIMIZE) ?
-                        Double.compare(v1, v2) : Double.compare(v2, v1);
+
+            /**
+             * {@inheritDoc}
+             */
+            public int compare(final UnivariatePointValuePair o1, final UnivariatePointValuePair o2) {
+                if (o1 == null) {
+                    return (o2 == null) ? 0 : 1;
+                } else if (o2 == null) {
+                    return -1;
                 }
-            });
+                final double v1 = o1.getValue();
+                final double v2 = o2.getValue();
+                return (goal == GoalType.MINIMIZE) ? Double.compare(v1, v2) : Double.compare(v2, v1);
+            }
+        });
     }
 }

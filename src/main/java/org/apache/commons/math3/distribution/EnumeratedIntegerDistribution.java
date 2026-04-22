@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NotANumberException;
@@ -43,7 +42,9 @@ import org.apache.commons.math3.util.Pair;
  */
 public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20130308L;
 
     /**
@@ -72,9 +73,7 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @throws NotANumberException if any of the probabilities are NaN.
      * @throws MathArithmeticException all of the probabilities are 0.
      */
-    public EnumeratedIntegerDistribution(final int[] singletons, final double[] probabilities)
-    throws DimensionMismatchException, NotPositiveException, MathArithmeticException,
-           NotFiniteNumberException, NotANumberException{
+    public EnumeratedIntegerDistribution(final int[] singletons, final double[] probabilities) throws DimensionMismatchException, NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
         this(new Well19937c(), singletons, probabilities);
     }
 
@@ -92,13 +91,9 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @throws NotANumberException if any of the probabilities are NaN.
      * @throws MathArithmeticException all of the probabilities are 0.
      */
-    public EnumeratedIntegerDistribution(final RandomGenerator rng,
-                                       final int[] singletons, final double[] probabilities)
-        throws DimensionMismatchException, NotPositiveException, MathArithmeticException,
-                NotFiniteNumberException, NotANumberException {
+    public EnumeratedIntegerDistribution(final RandomGenerator rng, final int[] singletons, final double[] probabilities) throws DimensionMismatchException, NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
         super(rng);
-        innerDistribution = new EnumeratedDistribution<Integer>(
-                rng, createDistribution(singletons, probabilities));
+        innerDistribution = new EnumeratedDistribution<Integer>(rng, createDistribution(singletons, probabilities));
     }
 
     /**
@@ -151,40 +146,31 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @param probabilities probabilities
      * @return list of value/probability pairs
      */
-    private static List<Pair<Integer, Double>>  createDistribution(int[] singletons, double[] probabilities) {
+    private static List<Pair<Integer, Double>> createDistribution(int[] singletons, double[] probabilities) {
         if (singletons.length != probabilities.length) {
             throw new DimensionMismatchException(probabilities.length, singletons.length);
         }
-
         final List<Pair<Integer, Double>> samples = new ArrayList<Pair<Integer, Double>>(singletons.length);
-
         for (int i = 0; i < singletons.length; i++) {
             samples.add(new Pair<Integer, Double>(singletons[i], probabilities[i]));
         }
         return samples;
-
     }
 
     /**
      * {@inheritDoc}
      */
     public double probability(final int x) {
-        return innerDistribution.probability(x);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double cumulativeProbability(final int x) {
-        double probability = 0;
-
-        for (final Pair<Integer, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getKey() <= x) {
-                probability += sample.getValue();
-            }
-        }
-
-        return probability;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -193,13 +179,8 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @return {@code sum(singletons[i] * probabilities[i])}
      */
     public double getNumericalMean() {
-        double mean = 0;
-
-        for (final Pair<Integer, Double> sample : innerDistribution.getPmf()) {
-            mean += sample.getValue() * sample.getKey();
-        }
-
-        return mean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -208,15 +189,8 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @return {@code sum((singletons[i] - mean) ^ 2 * probabilities[i])}
      */
     public double getNumericalVariance() {
-        double mean = 0;
-        double meanOfSquares = 0;
-
-        for (final Pair<Integer, Double> sample : innerDistribution.getPmf()) {
-            mean += sample.getValue() * sample.getKey();
-            meanOfSquares += sample.getValue() * sample.getKey() * sample.getKey();
-        }
-
-        return meanOfSquares - mean * mean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -227,14 +201,8 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @return the lowest value with non-zero probability.
      */
     public int getSupportLowerBound() {
-        int min = Integer.MAX_VALUE;
-        for (final Pair<Integer, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getKey() < min && sample.getValue() > 0) {
-                min = sample.getKey();
-            }
-        }
-
-        return min;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -245,14 +213,8 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @return the highest value with non-zero probability.
      */
     public int getSupportUpperBound() {
-        int max = Integer.MIN_VALUE;
-        for (final Pair<Integer, Double> sample : innerDistribution.getPmf()) {
-            if (sample.getKey() > max && sample.getValue() > 0) {
-                max = sample.getKey();
-            }
-        }
-
-        return max;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -263,7 +225,8 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -271,6 +234,7 @@ public class EnumeratedIntegerDistribution extends AbstractIntegerDistribution {
      */
     @Override
     public int sample() {
-        return innerDistribution.sample();
+        // STUB: not implemented
+        return 0;
     }
 }

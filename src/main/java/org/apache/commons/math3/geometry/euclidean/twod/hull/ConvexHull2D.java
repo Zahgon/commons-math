@@ -17,7 +17,6 @@
 package org.apache.commons.math3.geometry.euclidean.twod.hull;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.InsufficientDataException;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
@@ -38,13 +37,19 @@ import org.apache.commons.math3.util.Precision;
  */
 public class ConvexHull2D implements ConvexHull<Euclidean2D, Vector2D>, Serializable {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20140129L;
 
-    /** Vertices of the hull. */
+    /**
+     * Vertices of the hull.
+     */
     private final Vector2D[] vertices;
 
-    /** Tolerance threshold used during creation of the hull vertices. */
+    /**
+     * Tolerance threshold used during creation of the hull vertices.
+     */
     private final double tolerance;
 
     /**
@@ -59,16 +64,12 @@ public class ConvexHull2D implements ConvexHull<Euclidean2D, Vector2D>, Serializ
      * @param tolerance tolerance below which points are considered identical
      * @throws MathIllegalArgumentException if the vertices do not form a convex hull
      */
-    public ConvexHull2D(final Vector2D[] vertices, final double tolerance)
-        throws MathIllegalArgumentException {
-
+    public ConvexHull2D(final Vector2D[] vertices, final double tolerance) throws MathIllegalArgumentException {
         // assign tolerance as it will be used by the isConvex method
         this.tolerance = tolerance;
-
         if (!isConvex(vertices)) {
             throw new MathIllegalArgumentException(LocalizedFormats.NOT_CONVEX);
         }
-
         this.vertices = vertices.clone();
     }
 
@@ -81,16 +82,13 @@ public class ConvexHull2D implements ConvexHull<Euclidean2D, Vector2D>, Serializ
         if (hullVertices.length < 3) {
             return true;
         }
-
         int sign = 0;
         for (int i = 0; i < hullVertices.length; i++) {
             final Vector2D p1 = hullVertices[i == 0 ? hullVertices.length - 1 : i - 1];
             final Vector2D p2 = hullVertices[i];
             final Vector2D p3 = hullVertices[i == hullVertices.length - 1 ? 0 : i + 1];
-
             final Vector2D d1 = p2.subtract(p1);
             final Vector2D d2 = p3.subtract(p2);
-
             final double crossProduct = MathArrays.linearCombination(d1.getX(), d2.getY(), -d1.getY(), d2.getX());
             final int cmp = Precision.compareTo(crossProduct, 0.0, tolerance);
             // in case of collinear points the cross product will be zero
@@ -101,13 +99,15 @@ public class ConvexHull2D implements ConvexHull<Euclidean2D, Vector2D>, Serializ
                 sign = cmp;
             }
         }
-
         return true;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Vector2D[] getVertices() {
-        return vertices.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -115,7 +115,8 @@ public class ConvexHull2D implements ConvexHull<Euclidean2D, Vector2D>, Serializ
      * @return the line segments of the convex hull
      */
     public Segment[] getLineSegments() {
-        return retrieveLineSegments().clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -144,29 +145,21 @@ public class ConvexHull2D implements ConvexHull<Euclidean2D, Vector2D>, Serializ
                         firstPoint = point;
                         lastPoint = point;
                     } else {
-                        this.lineSegments[index++] =
-                                new Segment(lastPoint, point, new Line(lastPoint, point, tolerance));
+                        this.lineSegments[index++] = new Segment(lastPoint, point, new Line(lastPoint, point, tolerance));
                         lastPoint = point;
                     }
                 }
-                this.lineSegments[index] =
-                        new Segment(lastPoint, firstPoint, new Line(lastPoint, firstPoint, tolerance));
+                this.lineSegments[index] = new Segment(lastPoint, firstPoint, new Line(lastPoint, firstPoint, tolerance));
             }
         }
         return lineSegments;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Region<Euclidean2D> createRegion() throws InsufficientDataException {
-        if (vertices.length < 3) {
-            throw new InsufficientDataException();
-        }
-        final RegionFactory<Euclidean2D> factory = new RegionFactory<Euclidean2D>();
-        final Segment[] segments = retrieveLineSegments();
-        final Line[] lineArray = new Line[segments.length];
-        for (int i = 0; i < segments.length; i++) {
-            lineArray[i] = segments[i].getLine();
-        }
-        return factory.buildConvex(lineArray);
+        // STUB: not implemented
+        return null;
     }
 }

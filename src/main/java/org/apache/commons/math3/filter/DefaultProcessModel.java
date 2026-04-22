@@ -30,6 +30,7 @@ import org.apache.commons.math3.linear.RealVector;
  * @since 3.0
  */
 public class DefaultProcessModel implements ProcessModel {
+
     /**
      * The state transition matrix, used to advance the internal state estimation each time-step.
      */
@@ -40,13 +41,19 @@ public class DefaultProcessModel implements ProcessModel {
      */
     private RealMatrix controlMatrix;
 
-    /** The process noise covariance matrix. */
+    /**
+     * The process noise covariance matrix.
+     */
     private RealMatrix processNoiseCovMatrix;
 
-    /** The initial state estimation of the observed process. */
+    /**
+     * The initial state estimation of the observed process.
+     */
     private RealVector initialStateEstimateVector;
 
-    /** The initial error covariance matrix of the observed process. */
+    /**
+     * The initial error covariance matrix of the observed process.
+     */
     private RealMatrix initialErrorCovMatrix;
 
     /**
@@ -69,18 +76,8 @@ public class DefaultProcessModel implements ProcessModel {
      * @throws DimensionMismatchException
      *             if any of the input matrices is non-rectangular
      */
-    public DefaultProcessModel(final double[][] stateTransition,
-                               final double[][] control,
-                               final double[][] processNoise,
-                               final double[] initialStateEstimate,
-                               final double[][] initialErrorCovariance)
-            throws NullArgumentException, NoDataException, DimensionMismatchException {
-
-        this(new Array2DRowRealMatrix(stateTransition),
-                new Array2DRowRealMatrix(control),
-                new Array2DRowRealMatrix(processNoise),
-                new ArrayRealVector(initialStateEstimate),
-                new Array2DRowRealMatrix(initialErrorCovariance));
+    public DefaultProcessModel(final double[][] stateTransition, final double[][] control, final double[][] processNoise, final double[] initialStateEstimate, final double[][] initialErrorCovariance) throws NullArgumentException, NoDataException, DimensionMismatchException {
+        this(new Array2DRowRealMatrix(stateTransition), new Array2DRowRealMatrix(control), new Array2DRowRealMatrix(processNoise), new ArrayRealVector(initialStateEstimate), new Array2DRowRealMatrix(initialErrorCovariance));
     }
 
     /**
@@ -102,14 +99,8 @@ public class DefaultProcessModel implements ProcessModel {
      * @throws DimensionMismatchException
      *             if any of the input matrices is non-rectangular
      */
-    public DefaultProcessModel(final double[][] stateTransition,
-                               final double[][] control,
-                               final double[][] processNoise)
-            throws NullArgumentException, NoDataException, DimensionMismatchException {
-
-        this(new Array2DRowRealMatrix(stateTransition),
-                new Array2DRowRealMatrix(control),
-                new Array2DRowRealMatrix(processNoise), null, null);
+    public DefaultProcessModel(final double[][] stateTransition, final double[][] control, final double[][] processNoise) throws NullArgumentException, NoDataException, DimensionMismatchException {
+        this(new Array2DRowRealMatrix(stateTransition), new Array2DRowRealMatrix(control), new Array2DRowRealMatrix(processNoise), null, null);
     }
 
     /**
@@ -126,11 +117,7 @@ public class DefaultProcessModel implements ProcessModel {
      * @param initialErrorCovariance
      *            the initial error covariance matrix
      */
-    public DefaultProcessModel(final RealMatrix stateTransition,
-                               final RealMatrix control,
-                               final RealMatrix processNoise,
-                               final RealVector initialStateEstimate,
-                               final RealMatrix initialErrorCovariance) {
+    public DefaultProcessModel(final RealMatrix stateTransition, final RealMatrix control, final RealMatrix processNoise, final RealVector initialStateEstimate, final RealMatrix initialErrorCovariance) {
         this.stateTransitionMatrix = stateTransition;
         this.controlMatrix = control;
         this.processNoiseCovMatrix = processNoise;
@@ -138,28 +125,43 @@ public class DefaultProcessModel implements ProcessModel {
         this.initialErrorCovMatrix = initialErrorCovariance;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getStateTransitionMatrix() {
-        return stateTransitionMatrix;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getControlMatrix() {
-        return controlMatrix;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getProcessNoise() {
-        return processNoiseCovMatrix;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealVector getInitialStateEstimate() {
-        return initialStateEstimateVector;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getInitialErrorCovariance() {
-        return initialErrorCovMatrix;
+        // STUB: not implemented
+        return null;
     }
 }

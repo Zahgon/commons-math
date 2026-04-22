@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.twod.util;
 
 import org.apache.commons.math3.ml.neuralnet.MapUtils;
@@ -29,9 +28,15 @@ import org.apache.commons.math3.ml.distance.DistanceMeasure;
  * @since 3.6
  */
 public class HitHistogram implements MapDataVisualization {
-    /** Distance. */
+
+    /**
+     * Distance.
+     */
     private final DistanceMeasure distance;
-    /** Whether to compute relative bin counts. */
+
+    /**
+     * Whether to compute relative bin counts.
+     */
     private final boolean normalizeCount;
 
     /**
@@ -40,44 +45,16 @@ public class HitHistogram implements MapDataVisualization {
      * number of samples.
      * @param distance Distance.
      */
-    public HitHistogram(boolean normalizeCount,
-                        DistanceMeasure distance) {
+    public HitHistogram(boolean normalizeCount, DistanceMeasure distance) {
         this.normalizeCount = normalizeCount;
         this.distance = distance;
     }
 
-    /** {@inheritDoc} */
-    public double[][] computeImage(NeuronSquareMesh2D map,
-                                   Iterable<double[]> data) {
-        final int nR = map.getNumberOfRows();
-        final int nC = map.getNumberOfColumns();
-
-        final LocationFinder finder = new LocationFinder(map);
-
-        // Total number of samples.
-        int numSamples = 0;
-        // Hit bins.
-        final double[][] hit = new double[nR][nC];
-
-        for (double[] sample : data) {
-            final Neuron best = MapUtils.findBest(sample, map, distance);
-
-            final LocationFinder.Location loc = finder.getLocation(best);
-            final int row = loc.getRow();
-            final int col = loc.getColumn();
-            hit[row][col] += 1;
-
-            ++numSamples;
-        }
-
-        if (normalizeCount) {
-            for (int r = 0; r < nR; r++) {
-                for (int c = 0; c < nC; c++) {
-                    hit[r][c] /= numSamples;
-                }
-            }
-        }
-
-        return hit;
+    /**
+     * {@inheritDoc}
+     */
+    public double[][] computeImage(NeuronSquareMesh2D map, Iterable<double[]> data) {
+        // STUB: not implemented
+        return null;
     }
 }

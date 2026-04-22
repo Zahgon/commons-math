@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis;
 
 import org.apache.commons.math3.analysis.differentiation.DerivativeStructure;
@@ -33,10 +32,12 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 3.0
  */
 public class FunctionUtils {
+
     /**
      * Class only contains static methods.
      */
-    private FunctionUtils() {}
+    private FunctionUtils() {
+    }
 
     /**
      * Composes functions.
@@ -47,17 +48,9 @@ public class FunctionUtils {
      * @param f List of functions.
      * @return the composite function.
      */
-    public static UnivariateFunction compose(final UnivariateFunction ... f) {
-        return new UnivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double x) {
-                double r = x;
-                for (int i = f.length - 1; i >= 0; i--) {
-                    r = f[i].value(r);
-                }
-                return r;
-            }
-        };
+    public static UnivariateFunction compose(final UnivariateFunction... f) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -70,28 +63,9 @@ public class FunctionUtils {
      * @return the composite function.
      * @since 3.1
      */
-    public static UnivariateDifferentiableFunction compose(final UnivariateDifferentiableFunction ... f) {
-        return new UnivariateDifferentiableFunction() {
-
-            /** {@inheritDoc} */
-            public double value(final double t) {
-                double r = t;
-                for (int i = f.length - 1; i >= 0; i--) {
-                    r = f[i].value(r);
-                }
-                return r;
-            }
-
-            /** {@inheritDoc} */
-            public DerivativeStructure value(final DerivativeStructure t) {
-                DerivativeStructure r = t;
-                for (int i = f.length - 1; i >= 0; i--) {
-                    r = f[i].value(r);
-                }
-                return r;
-            }
-
-        };
+    public static UnivariateDifferentiableFunction compose(final UnivariateDifferentiableFunction... f) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -105,9 +79,12 @@ public class FunctionUtils {
      * @deprecated as of 3.1 replaced by {@link #compose(UnivariateDifferentiableFunction...)}
      */
     @Deprecated
-    public static DifferentiableUnivariateFunction compose(final DifferentiableUnivariateFunction ... f) {
+    public static DifferentiableUnivariateFunction compose(final DifferentiableUnivariateFunction... f) {
         return new DifferentiableUnivariateFunction() {
-            /** {@inheritDoc} */
+
+            /**
+             * {@inheritDoc}
+             */
             public double value(double x) {
                 double r = x;
                 for (int i = f.length - 1; i >= 0; i--) {
@@ -116,10 +93,15 @@ public class FunctionUtils {
                 return r;
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public UnivariateFunction derivative() {
                 return new UnivariateFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double value(double x) {
                         double p = 1;
                         double r = x;
@@ -140,17 +122,9 @@ public class FunctionUtils {
      * @param f List of functions.
      * @return a function that computes the sum of the functions.
      */
-    public static UnivariateFunction add(final UnivariateFunction ... f) {
-        return new UnivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double x) {
-                double r = f[0].value(x);
-                for (int i = 1; i < f.length; i++) {
-                    r += f[i].value(x);
-                }
-                return r;
-            }
-        };
+    public static UnivariateFunction add(final UnivariateFunction... f) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -160,31 +134,9 @@ public class FunctionUtils {
      * @return a function that computes the sum of the functions.
      * @since 3.1
      */
-    public static UnivariateDifferentiableFunction add(final UnivariateDifferentiableFunction ... f) {
-        return new UnivariateDifferentiableFunction() {
-
-            /** {@inheritDoc} */
-            public double value(final double t) {
-                double r = f[0].value(t);
-                for (int i = 1; i < f.length; i++) {
-                    r += f[i].value(t);
-                }
-                return r;
-            }
-
-            /** {@inheritDoc}
-             * @throws DimensionMismatchException if functions are not consistent with each other
-             */
-            public DerivativeStructure value(final DerivativeStructure t)
-                throws DimensionMismatchException {
-                DerivativeStructure r = f[0].value(t);
-                for (int i = 1; i < f.length; i++) {
-                    r = r.add(f[i].value(t));
-                }
-                return r;
-            }
-
-        };
+    public static UnivariateDifferentiableFunction add(final UnivariateDifferentiableFunction... f) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -195,9 +147,12 @@ public class FunctionUtils {
      * @deprecated as of 3.1 replaced by {@link #add(UnivariateDifferentiableFunction...)}
      */
     @Deprecated
-    public static DifferentiableUnivariateFunction add(final DifferentiableUnivariateFunction ... f) {
+    public static DifferentiableUnivariateFunction add(final DifferentiableUnivariateFunction... f) {
         return new DifferentiableUnivariateFunction() {
-            /** {@inheritDoc} */
+
+            /**
+             * {@inheritDoc}
+             */
             public double value(double x) {
                 double r = f[0].value(x);
                 for (int i = 1; i < f.length; i++) {
@@ -206,10 +161,15 @@ public class FunctionUtils {
                 return r;
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public UnivariateFunction derivative() {
                 return new UnivariateFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double value(double x) {
                         double r = f[0].derivative().value(x);
                         for (int i = 1; i < f.length; i++) {
@@ -228,17 +188,9 @@ public class FunctionUtils {
      * @param f List of functions.
      * @return a function that computes the product of the functions.
      */
-    public static UnivariateFunction multiply(final UnivariateFunction ... f) {
-        return new UnivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double x) {
-                double r = f[0].value(x);
-                for (int i = 1; i < f.length; i++) {
-                    r *= f[i].value(x);
-                }
-                return r;
-            }
-        };
+    public static UnivariateFunction multiply(final UnivariateFunction... f) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -248,28 +200,9 @@ public class FunctionUtils {
      * @return a function that computes the product of the functions.
      * @since 3.1
      */
-    public static UnivariateDifferentiableFunction multiply(final UnivariateDifferentiableFunction ... f) {
-        return new UnivariateDifferentiableFunction() {
-
-            /** {@inheritDoc} */
-            public double value(final double t) {
-                double r = f[0].value(t);
-                for (int i = 1; i < f.length; i++) {
-                    r  *= f[i].value(t);
-                }
-                return r;
-            }
-
-            /** {@inheritDoc} */
-            public DerivativeStructure value(final DerivativeStructure t) {
-                DerivativeStructure r = f[0].value(t);
-                for (int i = 1; i < f.length; i++) {
-                    r = r.multiply(f[i].value(t));
-                }
-                return r;
-            }
-
-        };
+    public static UnivariateDifferentiableFunction multiply(final UnivariateDifferentiableFunction... f) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -280,9 +213,12 @@ public class FunctionUtils {
      * @deprecated as of 3.1 replaced by {@link #multiply(UnivariateDifferentiableFunction...)}
      */
     @Deprecated
-    public static DifferentiableUnivariateFunction multiply(final DifferentiableUnivariateFunction ... f) {
+    public static DifferentiableUnivariateFunction multiply(final DifferentiableUnivariateFunction... f) {
         return new DifferentiableUnivariateFunction() {
-            /** {@inheritDoc} */
+
+            /**
+             * {@inheritDoc}
+             */
             public double value(double x) {
                 double r = f[0].value(x);
                 for (int i = 1; i < f.length; i++) {
@@ -291,10 +227,15 @@ public class FunctionUtils {
                 return r;
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public UnivariateFunction derivative() {
                 return new UnivariateFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double value(double x) {
                         double sum = 0;
                         for (int i = 0; i < f.length; i++) {
@@ -322,15 +263,9 @@ public class FunctionUtils {
      * @param g Function.
      * @return the composite function.
      */
-    public static UnivariateFunction combine(final BivariateFunction combiner,
-                                             final UnivariateFunction f,
-                                             final UnivariateFunction g) {
-        return new UnivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double x) {
-                return combiner.value(f.value(x), g.value(x));
-            }
-        };
+    public static UnivariateFunction combine(final BivariateFunction combiner, final UnivariateFunction f, final UnivariateFunction g) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -343,19 +278,9 @@ public class FunctionUtils {
      * @param initialValue Initial value.
      * @return a collector function.
      */
-    public static MultivariateFunction collector(final BivariateFunction combiner,
-                                                 final UnivariateFunction f,
-                                                 final double initialValue) {
-        return new MultivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double[] point) {
-                double result = combiner.value(initialValue, f.value(point[0]));
-                for (int i = 1; i < point.length; i++) {
-                    result = combiner.value(result, f.value(point[i]));
-                }
-                return result;
-            }
-        };
+    public static MultivariateFunction collector(final BivariateFunction combiner, final UnivariateFunction f, final double initialValue) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -367,9 +292,9 @@ public class FunctionUtils {
      * @param initialValue Initial value.
      * @return a collector function.
      */
-    public static MultivariateFunction collector(final BivariateFunction combiner,
-                                                 final double initialValue) {
-        return collector(combiner, new Identity(), initialValue);
+    public static MultivariateFunction collector(final BivariateFunction combiner, final double initialValue) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -379,15 +304,11 @@ public class FunctionUtils {
      * @param fixed value to which the first argument of {@code f} is set.
      * @return the unary function h(x) = f(fixed, x)
      */
-    public static UnivariateFunction fix1stArgument(final BivariateFunction f,
-                                                    final double fixed) {
-        return new UnivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double x) {
-                return f.value(fixed, x);
-            }
-        };
+    public static UnivariateFunction fix1stArgument(final BivariateFunction f, final double fixed) {
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * Creates a unary function by fixing the second argument of a binary function.
      *
@@ -395,14 +316,9 @@ public class FunctionUtils {
      * @param fixed value to which the second argument of {@code f} is set.
      * @return the unary function h(x) = f(x, fixed)
      */
-    public static UnivariateFunction fix2ndArgument(final BivariateFunction f,
-                                                    final double fixed) {
-        return new UnivariateFunction() {
-            /** {@inheritDoc} */
-            public double value(double x) {
-                return f.value(x, fixed);
-            }
-        };
+    public static UnivariateFunction fix2ndArgument(final BivariateFunction f, final double fixed) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -422,24 +338,9 @@ public class FunctionUtils {
      * @throws NotStrictlyPositiveException if the number of sample points
      * {@code n} is negative.
      */
-    public static double[] sample(UnivariateFunction f, double min, double max, int n)
-       throws NumberIsTooLargeException, NotStrictlyPositiveException {
-
-        if (n <= 0) {
-            throw new NotStrictlyPositiveException(
-                    LocalizedFormats.NOT_POSITIVE_NUMBER_OF_SAMPLES,
-                    Integer.valueOf(n));
-        }
-        if (min >= max) {
-            throw new NumberIsTooLargeException(min, max, false);
-        }
-
-        final double[] s = new double[n];
-        final double h = (max - min) / n;
-        for (int i = 0; i < n; i++) {
-            s[i] = f.value(min + i * h);
-        }
-        return s;
+    public static double[] sample(UnivariateFunction f, double min, double max, int n) throws NumberIsTooLargeException, NotStrictlyPositiveException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -454,21 +355,27 @@ public class FunctionUtils {
     public static DifferentiableUnivariateFunction toDifferentiableUnivariateFunction(final UnivariateDifferentiableFunction f) {
         return new DifferentiableUnivariateFunction() {
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public double value(final double x) {
                 return f.value(x);
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public UnivariateFunction derivative() {
                 return new UnivariateFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double value(final double x) {
                         return f.value(new DerivativeStructure(1, 1, 0, x)).getPartialDerivative(1);
                     }
                 };
             }
-
         };
     }
 
@@ -487,37 +394,39 @@ public class FunctionUtils {
     public static UnivariateDifferentiableFunction toUnivariateDifferential(final DifferentiableUnivariateFunction f) {
         return new UnivariateDifferentiableFunction() {
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public double value(final double x) {
                 return f.value(x);
             }
 
-            /** {@inheritDoc}
+            /**
+             * {@inheritDoc}
              * @exception NumberIsTooLargeException if derivation order is greater than 1
              */
-            public DerivativeStructure value(final DerivativeStructure t)
-                throws NumberIsTooLargeException {
-                switch (t.getOrder()) {
-                    case 0 :
+            public DerivativeStructure value(final DerivativeStructure t) throws NumberIsTooLargeException {
+                switch(t.getOrder()) {
+                    case 0:
                         return new DerivativeStructure(t.getFreeParameters(), 0, f.value(t.getValue()));
-                    case 1 : {
-                        final int parameters = t.getFreeParameters();
-                        final double[] derivatives = new double[parameters + 1];
-                        derivatives[0] = f.value(t.getValue());
-                        final double fPrime = f.derivative().value(t.getValue());
-                        int[] orders = new int[parameters];
-                        for (int i = 0; i < parameters; ++i) {
-                            orders[i] = 1;
-                            derivatives[i + 1] = fPrime * t.getPartialDerivative(orders);
-                            orders[i] = 0;
+                    case 1:
+                        {
+                            final int parameters = t.getFreeParameters();
+                            final double[] derivatives = new double[parameters + 1];
+                            derivatives[0] = f.value(t.getValue());
+                            final double fPrime = f.derivative().value(t.getValue());
+                            int[] orders = new int[parameters];
+                            for (int i = 0; i < parameters; ++i) {
+                                orders[i] = 1;
+                                derivatives[i + 1] = fPrime * t.getPartialDerivative(orders);
+                                orders[i] = 0;
+                            }
+                            return new DerivativeStructure(parameters, 1, derivatives);
                         }
-                        return new DerivativeStructure(parameters, 1, derivatives);
-                    }
-                    default :
+                    default:
                         throw new NumberIsTooLargeException(t.getOrder(), 1, true);
                 }
             }
-
         };
     }
 
@@ -533,19 +442,24 @@ public class FunctionUtils {
     public static DifferentiableMultivariateFunction toDifferentiableMultivariateFunction(final MultivariateDifferentiableFunction f) {
         return new DifferentiableMultivariateFunction() {
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public double value(final double[] x) {
                 return f.value(x);
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public MultivariateFunction partialDerivative(final int k) {
                 return new MultivariateFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double value(final double[] x) {
-
                         final int n = x.length;
-
                         // delegate computation to underlying function
                         final DerivativeStructure[] dsX = new DerivativeStructure[n];
                         for (int i = 0; i < n; ++i) {
@@ -556,44 +470,41 @@ public class FunctionUtils {
                             }
                         }
                         final DerivativeStructure y = f.value(dsX);
-
                         // extract partial derivative
                         return y.getPartialDerivative(1);
-
                     }
                 };
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public MultivariateVectorFunction gradient() {
                 return new MultivariateVectorFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double[] value(final double[] x) {
-
                         final int n = x.length;
-
                         // delegate computation to underlying function
                         final DerivativeStructure[] dsX = new DerivativeStructure[n];
                         for (int i = 0; i < n; ++i) {
                             dsX[i] = new DerivativeStructure(n, 1, i, x[i]);
                         }
                         final DerivativeStructure y = f.value(dsX);
-
                         // extract gradient
                         final double[] gradient = new double[n];
                         final int[] orders = new int[n];
                         for (int i = 0; i < n; ++i) {
-                            orders[i]   = 1;
+                            orders[i] = 1;
                             gradient[i] = y.getPartialDerivative(orders);
-                            orders[i]   = 0;
+                            orders[i] = 0;
                         }
-
                         return gradient;
-
                     }
                 };
             }
-
         };
     }
 
@@ -614,45 +525,42 @@ public class FunctionUtils {
     public static MultivariateDifferentiableFunction toMultivariateDifferentiableFunction(final DifferentiableMultivariateFunction f) {
         return new MultivariateDifferentiableFunction() {
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public double value(final double[] x) {
                 return f.value(x);
             }
 
-            /** {@inheritDoc}
+            /**
+             * {@inheritDoc}
              * @exception NumberIsTooLargeException if derivation order is higher than 1
              * @exception DimensionMismatchException if numbers of free parameters are inconsistent
              */
-            public DerivativeStructure value(final DerivativeStructure[] t)
-                throws DimensionMismatchException, NumberIsTooLargeException {
-
+            public DerivativeStructure value(final DerivativeStructure[] t) throws DimensionMismatchException, NumberIsTooLargeException {
                 // check parameters and orders limits
                 final int parameters = t[0].getFreeParameters();
-                final int order      = t[0].getOrder();
-                final int n          = t.length;
+                final int order = t[0].getOrder();
+                final int n = t.length;
                 if (order > 1) {
                     throw new NumberIsTooLargeException(order, 1, true);
                 }
-
                 // check all elements in the array are consistent
                 for (int i = 0; i < n; ++i) {
                     if (t[i].getFreeParameters() != parameters) {
                         throw new DimensionMismatchException(t[i].getFreeParameters(), parameters);
                     }
-
                     if (t[i].getOrder() != order) {
                         throw new DimensionMismatchException(t[i].getOrder(), order);
                     }
                 }
-
                 // delegate computation to underlying function
                 final double[] point = new double[n];
                 for (int i = 0; i < n; ++i) {
                     point[i] = t[i].getValue();
                 }
-                final double value      = f.value(point);
+                final double value = f.value(point);
                 final double[] gradient = f.gradient().value(point);
-
                 // merge value and gradient into one DerivativeStructure
                 final double[] derivatives = new double[parameters + 1];
                 derivatives[0] = value;
@@ -664,11 +572,8 @@ public class FunctionUtils {
                     }
                     orders[i] = 0;
                 }
-
                 return new DerivativeStructure(parameters, order, derivatives);
-
             }
-
         };
     }
 
@@ -684,43 +589,44 @@ public class FunctionUtils {
     public static DifferentiableMultivariateVectorFunction toDifferentiableMultivariateVectorFunction(final MultivariateDifferentiableVectorFunction f) {
         return new DifferentiableMultivariateVectorFunction() {
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public double[] value(final double[] x) {
                 return f.value(x);
             }
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public MultivariateMatrixFunction jacobian() {
                 return new MultivariateMatrixFunction() {
-                    /** {@inheritDoc} */
+
+                    /**
+                     * {@inheritDoc}
+                     */
                     public double[][] value(final double[] x) {
-
                         final int n = x.length;
-
                         // delegate computation to underlying function
                         final DerivativeStructure[] dsX = new DerivativeStructure[n];
                         for (int i = 0; i < n; ++i) {
                             dsX[i] = new DerivativeStructure(n, 1, i, x[i]);
                         }
                         final DerivativeStructure[] y = f.value(dsX);
-
                         // extract Jacobian
                         final double[][] jacobian = new double[y.length][n];
                         final int[] orders = new int[n];
                         for (int i = 0; i < y.length; ++i) {
                             for (int j = 0; j < n; ++j) {
-                                orders[j]      = 1;
+                                orders[j] = 1;
                                 jacobian[i][j] = y[i].getPartialDerivative(orders);
-                                orders[j]      = 0;
+                                orders[j] = 0;
                             }
                         }
-
                         return jacobian;
-
                     }
                 };
             }
-
         };
     }
 
@@ -741,45 +647,42 @@ public class FunctionUtils {
     public static MultivariateDifferentiableVectorFunction toMultivariateDifferentiableVectorFunction(final DifferentiableMultivariateVectorFunction f) {
         return new MultivariateDifferentiableVectorFunction() {
 
-            /** {@inheritDoc} */
+            /**
+             * {@inheritDoc}
+             */
             public double[] value(final double[] x) {
                 return f.value(x);
             }
 
-            /** {@inheritDoc}
+            /**
+             * {@inheritDoc}
              * @exception NumberIsTooLargeException if derivation order is higher than 1
              * @exception DimensionMismatchException if numbers of free parameters are inconsistent
              */
-            public DerivativeStructure[] value(final DerivativeStructure[] t)
-                throws DimensionMismatchException, NumberIsTooLargeException {
-
+            public DerivativeStructure[] value(final DerivativeStructure[] t) throws DimensionMismatchException, NumberIsTooLargeException {
                 // check parameters and orders limits
                 final int parameters = t[0].getFreeParameters();
-                final int order      = t[0].getOrder();
-                final int n          = t.length;
+                final int order = t[0].getOrder();
+                final int n = t.length;
                 if (order > 1) {
                     throw new NumberIsTooLargeException(order, 1, true);
                 }
-
                 // check all elements in the array are consistent
                 for (int i = 0; i < n; ++i) {
                     if (t[i].getFreeParameters() != parameters) {
                         throw new DimensionMismatchException(t[i].getFreeParameters(), parameters);
                     }
-
                     if (t[i].getOrder() != order) {
                         throw new DimensionMismatchException(t[i].getOrder(), order);
                     }
                 }
-
                 // delegate computation to underlying function
                 final double[] point = new double[n];
                 for (int i = 0; i < n; ++i) {
                     point[i] = t[i].getValue();
                 }
-                final double[] value      = f.value(point);
+                final double[] value = f.value(point);
                 final double[][] jacobian = f.jacobian().value(point);
-
                 // merge value and Jacobian into a DerivativeStructure array
                 final DerivativeStructure[] merged = new DerivativeStructure[value.length];
                 for (int k = 0; k < merged.length; ++k) {
@@ -795,12 +698,8 @@ public class FunctionUtils {
                     }
                     merged[k] = new DerivativeStructure(parameters, order, derivatives);
                 }
-
                 return merged;
-
             }
-
         };
     }
-
 }

@@ -18,7 +18,6 @@ package org.apache.commons.math3.ml.clustering;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.commons.math3.exception.ConvergenceException;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.ml.distance.DistanceMeasure;
@@ -31,7 +30,9 @@ import org.apache.commons.math3.ml.distance.DistanceMeasure;
  */
 public abstract class Clusterer<T extends Clusterable> {
 
-    /** The distance measure to use. */
+    /**
+     * The distance measure to use.
+     */
     private DistanceMeasure measure;
 
     /**
@@ -53,8 +54,7 @@ public abstract class Clusterer<T extends Clusterable> {
      * @throws ConvergenceException if the algorithm has not yet converged after
      *   the maximum number of iterations has been exceeded
      */
-    public abstract List<? extends Cluster<T>> cluster(Collection<T> points)
-            throws MathIllegalArgumentException, ConvergenceException;
+    public abstract List<? extends Cluster<T>> cluster(Collection<T> points) throws MathIllegalArgumentException, ConvergenceException;
 
     /**
      * Returns the {@link DistanceMeasure} instance used by this clusterer.
@@ -62,7 +62,8 @@ public abstract class Clusterer<T extends Clusterable> {
      * @return the distance measure
      */
     public DistanceMeasure getDistanceMeasure() {
-        return measure;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -74,7 +75,7 @@ public abstract class Clusterer<T extends Clusterable> {
      * @return the distance between the two clusterables
      */
     protected double distance(final Clusterable p1, final Clusterable p2) {
-        return measure.compute(p1.getPoint(), p2.getPoint());
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

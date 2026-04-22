@@ -34,46 +34,71 @@ import org.apache.commons.math3.util.MathUtils;
  */
 public abstract class BaseAbstractUnivariateIntegrator implements UnivariateIntegrator {
 
-    /** Default absolute accuracy. */
+    /**
+     * Default absolute accuracy.
+     */
     public static final double DEFAULT_ABSOLUTE_ACCURACY = 1.0e-15;
 
-    /** Default relative accuracy. */
+    /**
+     * Default relative accuracy.
+     */
     public static final double DEFAULT_RELATIVE_ACCURACY = 1.0e-6;
 
-    /** Default minimal iteration count. */
+    /**
+     * Default minimal iteration count.
+     */
     public static final int DEFAULT_MIN_ITERATIONS_COUNT = 3;
 
-    /** Default maximal iteration count. */
+    /**
+     * Default maximal iteration count.
+     */
     public static final int DEFAULT_MAX_ITERATIONS_COUNT = Integer.MAX_VALUE;
 
-    /** The iteration count.
+    /**
+     * The iteration count.
      * @deprecated as of 3.6, this field has been replaced with {@link #incrementCount()}
      */
     @Deprecated
     protected org.apache.commons.math3.util.Incrementor iterations;
 
-    /** The iteration count. */
+    /**
+     * The iteration count.
+     */
     private IntegerSequence.Incrementor count;
 
-    /** Maximum absolute error. */
+    /**
+     * Maximum absolute error.
+     */
     private final double absoluteAccuracy;
 
-    /** Maximum relative error. */
+    /**
+     * Maximum relative error.
+     */
     private final double relativeAccuracy;
 
-    /** minimum number of iterations */
+    /**
+     * minimum number of iterations
+     */
     private final int minimalIterationCount;
 
-    /** The functions evaluation count. */
+    /**
+     * The functions evaluation count.
+     */
     private IntegerSequence.Incrementor evaluations;
 
-    /** Function to integrate. */
+    /**
+     * Function to integrate.
+     */
     private UnivariateFunction function;
 
-    /** Lower bound for the interval. */
+    /**
+     * Lower bound for the interval.
+     */
     private double min;
 
-    /** Upper bound for the interval. */
+    /**
+     * Upper bound for the interval.
+     */
     private double max;
 
     /**
@@ -111,16 +136,10 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
      * @exception NumberIsTooSmallException if maximal number of iterations
      * is lesser than or equal to the minimal number of iterations
      */
-    protected BaseAbstractUnivariateIntegrator(final double relativeAccuracy,
-                                               final double absoluteAccuracy,
-                                               final int minimalIterationCount,
-                                               final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException {
-
+    protected BaseAbstractUnivariateIntegrator(final double relativeAccuracy, final double absoluteAccuracy, final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException {
         // accuracy settings
-        this.relativeAccuracy      = relativeAccuracy;
-        this.absoluteAccuracy      = absoluteAccuracy;
-
+        this.relativeAccuracy = relativeAccuracy;
+        this.absoluteAccuracy = absoluteAccuracy;
         // iterations count settings
         if (minimalIterationCount <= 0) {
             throw new NotStrictlyPositiveException(minimalIterationCount);
@@ -129,16 +148,12 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
             throw new NumberIsTooSmallException(maximalIterationCount, minimalIterationCount, false);
         }
         this.minimalIterationCount = minimalIterationCount;
-        this.count                 = IntegerSequence.Incrementor.create().withMaximalCount(maximalIterationCount);
-
+        this.count = IntegerSequence.Incrementor.create().withMaximalCount(maximalIterationCount);
         @SuppressWarnings("deprecation")
-        org.apache.commons.math3.util.Incrementor wrapped =
-                        org.apache.commons.math3.util.Incrementor.wrap(count);
+        org.apache.commons.math3.util.Incrementor wrapped = org.apache.commons.math3.util.Incrementor.wrap(count);
         this.iterations = wrapped;
-
         // prepare evaluations counter, but do not set it yet
         evaluations = IntegerSequence.Incrementor.create();
-
     }
 
     /**
@@ -146,10 +161,8 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
      * @param relativeAccuracy relative accuracy of the result
      * @param absoluteAccuracy absolute accuracy of the result
      */
-    protected BaseAbstractUnivariateIntegrator(final double relativeAccuracy,
-                                           final double absoluteAccuracy) {
-        this(relativeAccuracy, absoluteAccuracy,
-             DEFAULT_MIN_ITERATIONS_COUNT, DEFAULT_MAX_ITERATIONS_COUNT);
+    protected BaseAbstractUnivariateIntegrator(final double relativeAccuracy, final double absoluteAccuracy) {
+        this(relativeAccuracy, absoluteAccuracy, DEFAULT_MIN_ITERATIONS_COUNT, DEFAULT_MAX_ITERATIONS_COUNT);
     }
 
     /**
@@ -161,62 +174,81 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
      * @exception NumberIsTooSmallException if maximal number of iterations
      * is lesser than or equal to the minimal number of iterations
      */
-    protected BaseAbstractUnivariateIntegrator(final int minimalIterationCount,
-                                           final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException {
-        this(DEFAULT_RELATIVE_ACCURACY, DEFAULT_ABSOLUTE_ACCURACY,
-             minimalIterationCount, maximalIterationCount);
+    protected BaseAbstractUnivariateIntegrator(final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException {
+        this(DEFAULT_RELATIVE_ACCURACY, DEFAULT_ABSOLUTE_ACCURACY, minimalIterationCount, maximalIterationCount);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getRelativeAccuracy() {
-        return relativeAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getAbsoluteAccuracy() {
-        return absoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMinimalIterationCount() {
-        return minimalIterationCount;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMaximalIterationCount() {
-        return count.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getEvaluations() {
-        return evaluations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getIterations() {
-        return count.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** Increment the number of iterations.
+    /**
+     * Increment the number of iterations.
      * @exception MaxCountExceededException if the number of iterations
      * exceeds the allowed maximum number
      */
     protected void incrementCount() throws MaxCountExceededException {
-        count.increment();
+        // STUB: not implemented
     }
 
     /**
      * @return the lower bound.
      */
     protected double getMin() {
-        return min;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the upper bound.
      */
     protected double getMax() {
-        return max;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -227,14 +259,9 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
      * @throws TooManyEvaluationsException if the maximal number of function
      * evaluations is exceeded.
      */
-    protected double computeObjectiveValue(final double point)
-        throws TooManyEvaluationsException {
-        try {
-            evaluations.increment();
-        } catch (MaxCountExceededException e) {
-            throw new TooManyEvaluationsException(e.getMax());
-        }
-        return function.value(point);
+    protected double computeObjectiveValue(final double point) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -249,36 +276,16 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
      * @throws NullArgumentException if {@code f} is {@code null}.
      * @throws MathIllegalArgumentException if {@code min >= max}.
      */
-    protected void setup(final int maxEval,
-                         final UnivariateFunction f,
-                         final double lower, final double upper)
-        throws NullArgumentException, MathIllegalArgumentException {
-
-        // Checks.
-        MathUtils.checkNotNull(f);
-        UnivariateSolverUtils.verifyInterval(lower, upper);
-
-        // Reset.
-        min = lower;
-        max = upper;
-        function = f;
-        evaluations = evaluations.withMaximalCount(maxEval).withStart(0);
-        count       = count.withStart(0);
-
+    protected void setup(final int maxEval, final UnivariateFunction f, final double lower, final double upper) throws NullArgumentException, MathIllegalArgumentException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
-    public double integrate(final int maxEval, final UnivariateFunction f,
-                            final double lower, final double upper)
-        throws TooManyEvaluationsException, MaxCountExceededException,
-               MathIllegalArgumentException, NullArgumentException {
-
-        // Initialization.
-        setup(maxEval, f, lower, upper);
-
-        // Perform computation.
-        return doIntegrate();
-
+    /**
+     * {@inheritDoc}
+     */
+    public double integrate(final int maxEval, final UnivariateFunction f, final double lower, final double upper) throws TooManyEvaluationsException, MaxCountExceededException, MathIllegalArgumentException, NullArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -291,7 +298,5 @@ public abstract class BaseAbstractUnivariateIntegrator implements UnivariateInte
      * @throws MaxCountExceededException if the maximum iteration count is exceeded
      * or the integrator detects convergence problems otherwise
      */
-    protected abstract double doIntegrate()
-        throws TooManyEvaluationsException, MaxCountExceededException;
-
+    protected abstract double doIntegrate() throws TooManyEvaluationsException, MaxCountExceededException;
 }

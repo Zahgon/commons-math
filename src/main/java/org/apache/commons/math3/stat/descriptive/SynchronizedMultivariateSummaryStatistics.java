@@ -31,10 +31,11 @@ import org.apache.commons.math3.linear.RealMatrix;
  * the instance nor compute another statistic.
  * @since 1.2
  */
-public class SynchronizedMultivariateSummaryStatistics
-    extends MultivariateSummaryStatistics {
+public class SynchronizedMultivariateSummaryStatistics extends MultivariateSummaryStatistics {
 
-    /** Serialization UID */
+    /**
+     * Serialization UID
+     */
     private static final long serialVersionUID = 7099834153347155363L;
 
     /**
@@ -53,7 +54,7 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized void addValue(double[] value) throws DimensionMismatchException {
-      super.addValue(value);
+        // STUB: not implemented
     }
 
     /**
@@ -61,7 +62,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized int getDimension() {
-        return super.getDimension();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -69,7 +71,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized long getN() {
-        return super.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -77,7 +80,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getSum() {
-        return super.getSum();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -85,7 +89,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getSumSq() {
-        return super.getSumSq();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -93,7 +98,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getSumLog() {
-        return super.getSumLog();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -101,7 +107,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getMean() {
-        return super.getMean();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -109,7 +116,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getStandardDeviation() {
-        return super.getStandardDeviation();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -117,7 +125,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized RealMatrix getCovariance() {
-        return super.getCovariance();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -125,7 +134,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getMax() {
-        return super.getMax();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -133,7 +143,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getMin() {
-        return super.getMin();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -141,7 +152,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized double[] getGeometricMean() {
-        return super.getGeometricMean();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -149,7 +161,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized String toString() {
-        return super.toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -157,7 +170,7 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized void clear() {
-        super.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -165,7 +178,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized boolean equals(Object object) {
-        return super.equals(object);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -173,7 +187,8 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized int hashCode() {
-        return super.hashCode();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -181,16 +196,16 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getSumImpl() {
-        return super.getSumImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setSumImpl(StorelessUnivariateStatistic[] sumImpl)
-    throws DimensionMismatchException, MathIllegalStateException {
-        super.setSumImpl(sumImpl);
+    public synchronized void setSumImpl(StorelessUnivariateStatistic[] sumImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -198,16 +213,16 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getSumsqImpl() {
-        return super.getSumsqImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setSumsqImpl(StorelessUnivariateStatistic[] sumsqImpl)
-    throws DimensionMismatchException, MathIllegalStateException {
-        super.setSumsqImpl(sumsqImpl);
+    public synchronized void setSumsqImpl(StorelessUnivariateStatistic[] sumsqImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -215,16 +230,16 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getMinImpl() {
-        return super.getMinImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setMinImpl(StorelessUnivariateStatistic[] minImpl)
-    throws DimensionMismatchException, MathIllegalStateException {
-        super.setMinImpl(minImpl);
+    public synchronized void setMinImpl(StorelessUnivariateStatistic[] minImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -232,16 +247,16 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getMaxImpl() {
-        return super.getMaxImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setMaxImpl(StorelessUnivariateStatistic[] maxImpl)
-    throws DimensionMismatchException, MathIllegalStateException{
-        super.setMaxImpl(maxImpl);
+    public synchronized void setMaxImpl(StorelessUnivariateStatistic[] maxImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -249,16 +264,16 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getSumLogImpl() {
-        return super.getSumLogImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setSumLogImpl(StorelessUnivariateStatistic[] sumLogImpl)
-    throws DimensionMismatchException, MathIllegalStateException {
-        super.setSumLogImpl(sumLogImpl);
+    public synchronized void setSumLogImpl(StorelessUnivariateStatistic[] sumLogImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -266,16 +281,16 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getGeoMeanImpl() {
-        return super.getGeoMeanImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setGeoMeanImpl(StorelessUnivariateStatistic[] geoMeanImpl)
-    throws DimensionMismatchException, MathIllegalStateException {
-        super.setGeoMeanImpl(geoMeanImpl);
+    public synchronized void setGeoMeanImpl(StorelessUnivariateStatistic[] geoMeanImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 
     /**
@@ -283,15 +298,15 @@ public class SynchronizedMultivariateSummaryStatistics
      */
     @Override
     public synchronized StorelessUnivariateStatistic[] getMeanImpl() {
-        return super.getMeanImpl();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public synchronized void setMeanImpl(StorelessUnivariateStatistic[] meanImpl)
-    throws DimensionMismatchException, MathIllegalStateException {
-        super.setMeanImpl(meanImpl);
+    public synchronized void setMeanImpl(StorelessUnivariateStatistic[] meanImpl) throws DimensionMismatchException, MathIllegalStateException {
+        // STUB: not implemented
     }
 }

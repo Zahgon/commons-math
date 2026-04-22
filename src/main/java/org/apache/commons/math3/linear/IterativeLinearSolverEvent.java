@@ -25,9 +25,11 @@ import org.apache.commons.math3.exception.MathUnsupportedOperationException;
  *
  * @since 3.0
  */
-public abstract class IterativeLinearSolverEvent
-    extends IterationEvent {
-    /** Serialization identifier. */
+public abstract class IterativeLinearSolverEvent extends IterationEvent {
+
+    /**
+     * Serialization identifier.
+     */
     private static final long serialVersionUID = 20120129L;
 
     /**
@@ -89,7 +91,8 @@ public abstract class IterativeLinearSolverEvent
      * @return the updated residual, r
      */
     public RealVector getResidual() {
-        throw new MathUnsupportedOperationException();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -110,6 +113,7 @@ public abstract class IterativeLinearSolverEvent
      * {@link MathUnsupportedOperationException}
      */
     public boolean providesResidual() {
+        // STUB: not implemented
         return false;
     }
 }

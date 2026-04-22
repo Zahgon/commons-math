@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -46,10 +45,10 @@ import org.apache.commons.math3.util.MathArrays;
  * @param <T> the type of the field elements
  * @since 3.6
  */
-
 public class MidpointFieldIntegrator<T extends RealFieldElement<T>> extends RungeKuttaFieldIntegrator<T> {
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * Build a midpoint integrator with the given step.
      * @param field field to which the time and state vector elements belong
      * @param step integration step
@@ -58,39 +57,36 @@ public class MidpointFieldIntegrator<T extends RealFieldElement<T>> extends Rung
         super(field, "midpoint", step);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[] getC() {
-        final T[] c = MathArrays.buildArray(getField(), 1);
-        c[0] = getField().getOne().multiply(0.5);
-        return c;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[][] getA() {
-        final T[][] a = MathArrays.buildArray(getField(), 1, 1);
-        a[0][0] = fraction(1, 2);
-        return a;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[] getB() {
-        final T[] b = MathArrays.buildArray(getField(), 2);
-        b[0] = getField().getZero();
-        b[1] = getField().getOne();
-        return b;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected MidpointFieldStepInterpolator<T>
-        createInterpolator(final boolean forward, T[][] yDotK,
-                           final FieldODEStateAndDerivative<T> globalPreviousState,
-                           final FieldODEStateAndDerivative<T> globalCurrentState,
-                           final FieldEquationsMapper<T> mapper) {
-        return new MidpointFieldStepInterpolator<T>(getField(), forward, yDotK,
-                                                    globalPreviousState, globalCurrentState,
-                                                    globalPreviousState, globalCurrentState,
-                                                    mapper);
+    protected MidpointFieldStepInterpolator<T> createInterpolator(final boolean forward, T[][] yDotK, final FieldODEStateAndDerivative<T> globalPreviousState, final FieldODEStateAndDerivative<T> globalCurrentState, final FieldEquationsMapper<T> mapper) {
+        // STUB: not implemented
+        return null;
     }
-
 }

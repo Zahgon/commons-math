@@ -39,15 +39,21 @@ import org.apache.commons.math3.optim.OptimizationData;
  *
  * @since 2.0
  */
-public class LinearObjectiveFunction
-    implements MultivariateFunction,
-               OptimizationData,
-               Serializable {
-    /** Serializable version identifier. */
+public class LinearObjectiveFunction implements MultivariateFunction, OptimizationData, Serializable {
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -4531815507568396090L;
-    /** Coefficients of the linear equation (c<sub>i</sub>). */
+
+    /**
+     * Coefficients of the linear equation (c<sub>i</sub>).
+     */
     private final transient RealVector coefficients;
-    /** Constant term of the linear equation. */
+
+    /**
+     * Constant term of the linear equation.
+     */
     private final double constantTerm;
 
     /**
@@ -73,7 +79,8 @@ public class LinearObjectiveFunction
      * @return coefficients of the linear equation being optimized.
      */
     public RealVector getCoefficients() {
-        return coefficients;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -82,7 +89,8 @@ public class LinearObjectiveFunction
      * @return constant of the linear equation being optimized.
      */
     public double getConstantTerm() {
-        return constantTerm;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -92,7 +100,8 @@ public class LinearObjectiveFunction
      * @return the value of the linear equation at the current point.
      */
     public double value(final double[] point) {
-        return value(new ArrayRealVector(point, false));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -102,27 +111,26 @@ public class LinearObjectiveFunction
      * @return the value of the linear equation at the current point.
      */
     public double value(final RealVector point) {
-        return coefficients.dotProduct(point) + constantTerm;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (other instanceof LinearObjectiveFunction) {
-            LinearObjectiveFunction rhs = (LinearObjectiveFunction) other;
-          return (constantTerm == rhs.constantTerm) && coefficients.equals(rhs.coefficients);
-        }
-
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        return Double.valueOf(constantTerm).hashCode() ^ coefficients.hashCode();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -130,8 +138,7 @@ public class LinearObjectiveFunction
      * @param oos stream where object should be written
      * @throws IOException if object cannot be written to stream
      */
-    private void writeObject(ObjectOutputStream oos)
-        throws IOException {
+    private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
         MatrixUtils.serializeRealVector(coefficients, oos);
     }
@@ -142,8 +149,7 @@ public class LinearObjectiveFunction
      * @throws ClassNotFoundException if a class in the stream cannot be found
      * @throws IOException if object cannot be read from the stream
      */
-    private void readObject(ObjectInputStream ois)
-      throws ClassNotFoundException, IOException {
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
         ois.defaultReadObject();
         MatrixUtils.deserializeRealVector(this, "coefficients", ois);
     }

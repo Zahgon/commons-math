@@ -14,29 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode;
 
 import org.apache.commons.math3.RealFieldElement;
 
-/** Container for time, main and secondary state vectors as well as their derivatives.
-
+/**
+ * Container for time, main and secondary state vectors as well as their derivatives.
+ *
  * @see FirstOrderFieldDifferentialEquations
  * @see FieldSecondaryEquations
  * @see FirstOrderFieldIntegrator
  * @param <T> the type of the field elements
  * @since 3.6
  */
-
 public class FieldODEStateAndDerivative<T extends RealFieldElement<T>> extends FieldODEState<T> {
 
-    /** Derivative of the main state at time. */
+    /**
+     * Derivative of the main state at time.
+     */
     private final T[] derivative;
 
-    /** Derivative of the secondary state at time. */
+    /**
+     * Derivative of the secondary state at time.
+     */
     private final T[][] secondaryDerivative;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * <p>Calling this constructor is equivalent to call {@link
      * #FieldODEStateAndDerivative(RealFieldElement, RealFieldElement[], RealFieldElement[],
      * RealFieldElement[][], RealFieldElement[][]) FieldODEStateAndDerivative(time, state,
@@ -49,7 +53,8 @@ public class FieldODEStateAndDerivative<T extends RealFieldElement<T>> extends F
         this(time, state, derivative, null, null);
     }
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param time time
      * @param state state at time
      * @param derivative derivative of the state at time
@@ -58,25 +63,28 @@ public class FieldODEStateAndDerivative<T extends RealFieldElement<T>> extends F
      */
     public FieldODEStateAndDerivative(T time, T[] state, T[] derivative, T[][] secondaryState, T[][] secondaryDerivative) {
         super(time, state, secondaryState);
-        this.derivative          = derivative.clone();
+        this.derivative = derivative.clone();
         this.secondaryDerivative = copy(time.getField(), secondaryDerivative);
     }
 
-    /** Get derivative of the main state at time.
+    /**
+     * Get derivative of the main state at time.
      * @return derivative of the main state at time
      */
     public T[] getDerivative() {
-        return derivative.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get derivative of the secondary state at time.
+    /**
+     * Get derivative of the secondary state at time.
      * @param index index of the secondary set as returned
      * by {@link FieldExpandableODE#addSecondaryEquations(FieldSecondaryEquations)}
      * (beware index 0 corresponds to main state, additional states start at 1)
      * @return derivative of the secondary state at time
      */
     public T[] getSecondaryDerivative(final int index) {
-        return index == 0 ? derivative.clone() : secondaryDerivative[index - 1].clone();
+        // STUB: not implemented
+        return null;
     }
-
 }

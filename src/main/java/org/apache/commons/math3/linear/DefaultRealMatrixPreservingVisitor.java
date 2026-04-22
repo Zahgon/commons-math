@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.linear;
 
 /**
@@ -27,16 +26,26 @@ package org.apache.commons.math3.linear;
  * @since 2.0
  */
 public class DefaultRealMatrixPreservingVisitor implements RealMatrixPreservingVisitor {
-    /** {@inheritDoc} */
-    public void start(int rows, int columns,
-                      int startRow, int endRow, int startColumn, int endColumn) {
+
+    /**
+     * {@inheritDoc}
+     */
+    public void start(int rows, int columns, int startRow, int endRow, int startColumn, int endColumn) {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
-    public void visit(int row, int column, double value) {}
+    /**
+     * {@inheritDoc}
+     */
+    public void visit(int row, int column, double value) {
+        // STUB: not implemented
+    }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double end() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 }

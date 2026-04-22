@@ -17,7 +17,6 @@
 package org.apache.commons.math3.genetics;
 
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 
 /**
@@ -30,10 +29,15 @@ import org.apache.commons.math3.exception.NumberIsTooSmallException;
  * @since 3.1
  */
 public class FixedElapsedTime implements StoppingCondition {
-    /** Maximum allowed time period (in nanoseconds). */
+
+    /**
+     * Maximum allowed time period (in nanoseconds).
+     */
     private final long maxTimePeriod;
 
-    /** The predetermined termination time (stopping condition). */
+    /**
+     * The predetermined termination time (stopping condition).
+     */
     private long endTime = -1;
 
     /**
@@ -68,10 +72,7 @@ public class FixedElapsedTime implements StoppingCondition {
      * @return <code>true</code> IFF the maximum allowed time period has elapsed
      */
     public boolean isSatisfied(final Population population) {
-        if (endTime < 0) {
-            endTime = System.nanoTime() + maxTimePeriod;
-        }
-
-        return System.nanoTime() >= endTime;
+        // STUB: not implemented
+        return false;
     }
 }

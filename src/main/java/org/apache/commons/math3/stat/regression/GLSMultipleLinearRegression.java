@@ -41,23 +41,24 @@ import org.apache.commons.math3.linear.RealVector;
  */
 public class GLSMultipleLinearRegression extends AbstractMultipleLinearRegression {
 
-    /** Covariance matrix. */
+    /**
+     * Covariance matrix.
+     */
     private RealMatrix Omega;
 
-    /** Inverse of covariance matrix. */
+    /**
+     * Inverse of covariance matrix.
+     */
     private RealMatrix OmegaInverse;
 
-    /** Replace sample data, overriding any previous sample.
+    /**
+     * Replace sample data, overriding any previous sample.
      * @param y y values of the sample
      * @param x x values of the sample
      * @param covariance array representing the covariance matrix
      */
     public void newSampleData(double[] y, double[][] x, double[][] covariance) {
-        validateSampleData(x, y);
-        newYSampleData(y);
-        newXSampleData(x);
-        validateCovarianceData(x, covariance);
-        newCovarianceData(covariance);
+        // STUB: not implemented
     }
 
     /**
@@ -65,9 +66,8 @@ public class GLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      *
      * @param omega the [n,n] array representing the covariance
      */
-    protected void newCovarianceData(double[][] omega){
-        this.Omega = new Array2DRowRealMatrix(omega);
-        this.OmegaInverse = null;
+    protected void newCovarianceData(double[][] omega) {
+        // STUB: not implemented
     }
 
     /**
@@ -76,10 +76,8 @@ public class GLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      * @return inverse of the covariance
      */
     protected RealMatrix getOmegaInverse() {
-        if (OmegaInverse == null) {
-            OmegaInverse = new LUDecomposition(Omega).getSolver().getInverse();
-        }
-        return OmegaInverse;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -91,11 +89,8 @@ public class GLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     protected RealVector calculateBeta() {
-        RealMatrix OI = getOmegaInverse();
-        RealMatrix XT = getX().transpose();
-        RealMatrix XTOIX = XT.multiply(OI).multiply(getX());
-        RealMatrix inverse = new LUDecomposition(XTOIX).getSolver().getInverse();
-        return inverse.multiply(XT).multiply(OI).operate(getY());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -107,11 +102,9 @@ public class GLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     protected RealMatrix calculateBetaVariance() {
-        RealMatrix OI = getOmegaInverse();
-        RealMatrix XTOIX = getX().transpose().multiply(OI).multiply(getX());
-        return new LUDecomposition(XTOIX).getSolver().getInverse();
+        // STUB: not implemented
+        return null;
     }
-
 
     /**
      * Calculates the estimated variance of the error term using the formula
@@ -126,10 +119,7 @@ public class GLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     protected double calculateErrorVariance() {
-        RealVector residuals = calculateResiduals();
-        double t = residuals.dotProduct(getOmegaInverse().operate(residuals));
-        return t / (getX().getRowDimension() - getX().getColumnDimension());
-
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

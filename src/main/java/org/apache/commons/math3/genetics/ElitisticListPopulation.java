@@ -18,7 +18,6 @@ package org.apache.commons.math3.genetics;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.math3.exception.NotPositiveException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.exception.NumberIsTooLargeException;
@@ -34,7 +33,9 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class ElitisticListPopulation extends ListPopulation {
 
-    /** percentage of chromosomes copied to the next generation */
+    /**
+     * percentage of chromosomes copied to the next generation
+     */
     private double elitismRate = 0.9;
 
     /**
@@ -48,10 +49,7 @@ public class ElitisticListPopulation extends ListPopulation {
      * @throws NumberIsTooLargeException if the list of chromosomes exceeds the population limit
      * @throws OutOfRangeException if the elitism rate is outside the [0, 1] range
      */
-    public ElitisticListPopulation(final List<Chromosome> chromosomes, final int populationLimit,
-                                   final double elitismRate)
-        throws NullArgumentException, NotPositiveException, NumberIsTooLargeException, OutOfRangeException {
-
+    public ElitisticListPopulation(final List<Chromosome> chromosomes, final int populationLimit, final double elitismRate) throws NullArgumentException, NotPositiveException, NumberIsTooLargeException, OutOfRangeException {
         super(chromosomes, populationLimit);
         setElitismRate(elitismRate);
     }
@@ -64,9 +62,7 @@ public class ElitisticListPopulation extends ListPopulation {
      * @throws NotPositiveException if the population limit is not a positive number (&lt; 1)
      * @throws OutOfRangeException if the elitism rate is outside the [0, 1] range
      */
-    public ElitisticListPopulation(final int populationLimit, final double elitismRate)
-        throws NotPositiveException, OutOfRangeException {
-
+    public ElitisticListPopulation(final int populationLimit, final double elitismRate) throws NotPositiveException, OutOfRangeException {
         super(populationLimit);
         setElitismRate(elitismRate);
     }
@@ -78,19 +74,8 @@ public class ElitisticListPopulation extends ListPopulation {
      * @return the beginnings of the next generation.
      */
     public Population nextGeneration() {
-        // initialize a new generation with the same parameters
-        ElitisticListPopulation nextGeneration =
-                new ElitisticListPopulation(getPopulationLimit(), getElitismRate());
-
-        final List<Chromosome> oldChromosomes = getChromosomeList();
-        Collections.sort(oldChromosomes);
-
-        // index of the last "not good enough" chromosome
-        int boundIndex = (int) FastMath.ceil((1.0 - getElitismRate()) * oldChromosomes.size());
-        for (int i = boundIndex; i < oldChromosomes.size(); i++) {
-            nextGeneration.addChromosome(oldChromosomes.get(i));
-        }
-        return nextGeneration;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -100,10 +85,7 @@ public class ElitisticListPopulation extends ListPopulation {
      * @throws OutOfRangeException if the elitism rate is outside the [0, 1] range
      */
     public void setElitismRate(final double elitismRate) throws OutOfRangeException {
-        if (elitismRate < 0 || elitismRate > 1) {
-            throw new OutOfRangeException(LocalizedFormats.ELITISM_RATE, elitismRate, 0, 1);
-        }
-        this.elitismRate = elitismRate;
+        // STUB: not implemented
     }
 
     /**
@@ -111,7 +93,7 @@ public class ElitisticListPopulation extends ListPopulation {
      * @return the elitism rate
      */
     public double getElitismRate() {
-        return this.elitismRate;
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

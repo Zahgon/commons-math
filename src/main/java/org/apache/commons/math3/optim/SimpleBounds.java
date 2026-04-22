@@ -28,17 +28,22 @@ import java.util.Arrays;
  * @since 3.1
  */
 public class SimpleBounds implements OptimizationData {
-    /** Lower bounds. */
+
+    /**
+     * Lower bounds.
+     */
     private final double[] lower;
-    /** Upper bounds. */
+
+    /**
+     * Upper bounds.
+     */
     private final double[] upper;
 
     /**
      * @param lB Lower bounds.
      * @param uB Upper bounds.
      */
-    public SimpleBounds(double[] lB,
-                        double[] uB) {
+    public SimpleBounds(double[] lB, double[] uB) {
         lower = lB.clone();
         upper = uB.clone();
     }
@@ -49,15 +54,18 @@ public class SimpleBounds implements OptimizationData {
      * @return the lower bounds.
      */
     public double[] getLower() {
-        return lower.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * Gets the upper bounds.
      *
      * @return the upper bounds.
      */
     public double[] getUpper() {
-        return upper.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -69,11 +77,7 @@ public class SimpleBounds implements OptimizationData {
      * requires bounds specification.
      */
     public static SimpleBounds unbounded(int dim) {
-        final double[] lB = new double[dim];
-        Arrays.fill(lB, Double.NEGATIVE_INFINITY);
-        final double[] uB = new double[dim];
-        Arrays.fill(uB, Double.POSITIVE_INFINITY);
-
-        return new SimpleBounds(lB, uB);
+        // STUB: not implemented
+        return null;
     }
 }

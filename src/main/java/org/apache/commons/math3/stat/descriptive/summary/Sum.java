@@ -17,15 +17,13 @@
 package org.apache.commons.math3.stat.descriptive.summary;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
 import org.apache.commons.math3.util.MathUtils;
 
-
 /**
-  * Returns the sum of the available values.
+ * Returns the sum of the available values.
  * <p>
  * If there are no values in the dataset, then 0 is returned.
  * If any of the values are
@@ -35,14 +33,16 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
 public class Sum extends AbstractStorelessUnivariateStatistic implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -8231831954703408316L;
 
-    /** */
+    /**
+     */
     private long n;
 
     /**
@@ -74,8 +74,7 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public void increment(final double d) {
-        value += d;
-        n++;
+        // STUB: not implemented
     }
 
     /**
@@ -83,14 +82,16 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public double getResult() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -98,8 +99,7 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public void clear() {
-        value = 0;
-        n = 0;
+        // STUB: not implemented
     }
 
     /**
@@ -117,16 +117,9 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values, final int begin, final int length)
-    throws MathIllegalArgumentException {
-        double sum = Double.NaN;
-        if (test(values, begin, length, true)) {
-            sum = 0.0;
-            for (int i = begin; i < begin + length; i++) {
-                sum += values[i];
-            }
-        }
-        return sum;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -156,16 +149,9 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights,
-        final int begin, final int length) throws MathIllegalArgumentException {
-        double sum = Double.NaN;
-        if (test(values, weights, begin, length, true)) {
-            sum = 0.0;
-            for (int i = begin; i < begin + length; i++) {
-                sum += values[i] * weights[i];
-            }
-        }
-        return sum;
+    public double evaluate(final double[] values, final double[] weights, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -190,9 +176,9 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights)
-    throws MathIllegalArgumentException {
-        return evaluate(values, weights, 0, values.length);
+    public double evaluate(final double[] values, final double[] weights) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -200,10 +186,8 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public Sum copy() {
-        Sum result = new Sum();
-        // No try-catch or advertised exception because args are valid
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -214,13 +198,7 @@ public class Sum extends AbstractStorelessUnivariateStatistic implements Seriali
      * @param dest Sum to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(Sum source, Sum dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.n = source.n;
-        dest.value = source.value;
+    public static void copy(Sum source, Sum dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

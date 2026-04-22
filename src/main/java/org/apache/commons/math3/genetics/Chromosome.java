@@ -24,11 +24,16 @@ package org.apache.commons.math3.genetics;
  *
  * @since 2.0
  */
-public abstract class Chromosome implements Comparable<Chromosome>,Fitness {
-    /** Value assigned when no fitness has been computed yet. */
+public abstract class Chromosome implements Comparable<Chromosome>, Fitness {
+
+    /**
+     * Value assigned when no fitness has been computed yet.
+     */
     private static final double NO_FITNESS = Double.NEGATIVE_INFINITY;
 
-    /** Cached value of the fitness of this chromosome. */
+    /**
+     * Cached value of the fitness of this chromosome.
+     */
     private double fitness = NO_FITNESS;
 
     /**
@@ -39,11 +44,8 @@ public abstract class Chromosome implements Comparable<Chromosome>,Fitness {
      * @return the fitness
      */
     public double getFitness() {
-        if (this.fitness == NO_FITNESS) {
-            // no cache - compute the fitness
-            this.fitness = fitness();
-        }
-        return this.fitness;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -58,7 +60,8 @@ public abstract class Chromosome implements Comparable<Chromosome>,Fitness {
      * </ul>
      */
     public int compareTo(final Chromosome another) {
-        return Double.compare(getFitness(), another.getFitness());
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -69,6 +72,7 @@ public abstract class Chromosome implements Comparable<Chromosome>,Fitness {
      * @return true if <code>another</code> is equivalent to this chromosome
      */
     protected boolean isSame(final Chromosome another) {
+        // STUB: not implemented
         return false;
     }
 
@@ -80,11 +84,7 @@ public abstract class Chromosome implements Comparable<Chromosome>,Fitness {
      * @return Chromosome with the same representation, or <code>null</code> if no such chromosome exists.
      */
     protected Chromosome findSameChromosome(final Population population) {
-        for (Chromosome anotherChr : population) {
-            if (this.isSame(anotherChr)) {
-                return anotherChr;
-            }
-        }
+        // STUB: not implemented
         return null;
     }
 
@@ -95,10 +95,6 @@ public abstract class Chromosome implements Comparable<Chromosome>,Fitness {
      * @param population Population to search
      */
     public void searchForFitnessUpdate(final Population population) {
-        Chromosome sameChromosome = findSameChromosome(population);
-        if (sameChromosome != null) {
-            fitness = sameChromosome.getFitness();
-        }
+        // STUB: not implemented
     }
-
 }

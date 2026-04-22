@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -45,11 +44,10 @@ import org.apache.commons.math3.ode.FieldODEStateAndDerivative;
  * @param <T> the type of the field elements
  * @since 3.6
  */
+class EulerFieldStepInterpolator<T extends RealFieldElement<T>> extends RungeKuttaFieldStepInterpolator<T> {
 
-class EulerFieldStepInterpolator<T extends RealFieldElement<T>>
-    extends RungeKuttaFieldStepInterpolator<T> {
-
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param field field to which the time and state vector elements belong
      * @param forward integration direction indicator
      * @param yDotK slopes at the intermediate points
@@ -59,50 +57,26 @@ class EulerFieldStepInterpolator<T extends RealFieldElement<T>>
      * @param softCurrentState end of the restricted step
      * @param mapper equations mapper for the all equations
      */
-    EulerFieldStepInterpolator(final Field<T> field, final boolean forward,
-                                             final T[][] yDotK,
-                                             final FieldODEStateAndDerivative<T> globalPreviousState,
-                                             final FieldODEStateAndDerivative<T> globalCurrentState,
-                                             final FieldODEStateAndDerivative<T> softPreviousState,
-                                             final FieldODEStateAndDerivative<T> softCurrentState,
-                                             final FieldEquationsMapper<T> mapper) {
-        super(field, forward, yDotK,
-              globalPreviousState, globalCurrentState, softPreviousState, softCurrentState,
-              mapper);
+    EulerFieldStepInterpolator(final Field<T> field, final boolean forward, final T[][] yDotK, final FieldODEStateAndDerivative<T> globalPreviousState, final FieldODEStateAndDerivative<T> globalCurrentState, final FieldODEStateAndDerivative<T> softPreviousState, final FieldODEStateAndDerivative<T> softCurrentState, final FieldEquationsMapper<T> mapper) {
+        super(field, forward, yDotK, globalPreviousState, globalCurrentState, softPreviousState, softCurrentState, mapper);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected EulerFieldStepInterpolator<T> create(final Field<T> newField, final boolean newForward, final T[][] newYDotK,
-                                                                 final FieldODEStateAndDerivative<T> newGlobalPreviousState,
-                                                                 final FieldODEStateAndDerivative<T> newGlobalCurrentState,
-                                                                 final FieldODEStateAndDerivative<T> newSoftPreviousState,
-                                                                 final FieldODEStateAndDerivative<T> newSoftCurrentState,
-                                                                 final FieldEquationsMapper<T> newMapper) {
-        return new EulerFieldStepInterpolator<T>(newField, newForward, newYDotK,
-                                                 newGlobalPreviousState, newGlobalCurrentState,
-                                                 newSoftPreviousState, newSoftCurrentState,
-                                                 newMapper);
+    protected EulerFieldStepInterpolator<T> create(final Field<T> newField, final boolean newForward, final T[][] newYDotK, final FieldODEStateAndDerivative<T> newGlobalPreviousState, final FieldODEStateAndDerivative<T> newGlobalCurrentState, final FieldODEStateAndDerivative<T> newSoftPreviousState, final FieldODEStateAndDerivative<T> newSoftCurrentState, final FieldEquationsMapper<T> newMapper) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     @Override
-    protected FieldODEStateAndDerivative<T> computeInterpolatedStateAndDerivatives(final FieldEquationsMapper<T> mapper,
-                                                                                   final T time, final T theta,
-                                                                                   final T thetaH, final T oneMinusThetaH) {
-        final T[] interpolatedState;
-        final T[] interpolatedDerivatives;
-        if (getGlobalPreviousState() != null && theta.getReal() <= 0.5) {
-            interpolatedState       = previousStateLinearCombination(thetaH);
-            interpolatedDerivatives = derivativeLinearCombination(time.getField().getOne());
-        } else {
-            interpolatedState       = currentStateLinearCombination(oneMinusThetaH.negate());
-            interpolatedDerivatives = derivativeLinearCombination(time.getField().getOne());
-        }
-
-        return new FieldODEStateAndDerivative<T>(time, interpolatedState, interpolatedDerivatives);
-
+    protected FieldODEStateAndDerivative<T> computeInterpolatedStateAndDerivatives(final FieldEquationsMapper<T> mapper, final T time, final T theta, final T thetaH, final T oneMinusThetaH) {
+        // STUB: not implemented
+        return null;
     }
-
 }

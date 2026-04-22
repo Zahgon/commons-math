@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.univariate;
 
 import java.io.Serializable;
@@ -29,11 +28,20 @@ import java.io.Serializable;
  */
 @Deprecated
 public class UnivariatePointValuePair implements Serializable {
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 1003888396256744753L;
-    /** Point. */
+
+    /**
+     * Point.
+     */
     private final double point;
-    /** Value of the objective function at the point. */
+
+    /**
+     * Value of the objective function at the point.
+     */
     private final double value;
 
     /**
@@ -42,8 +50,7 @@ public class UnivariatePointValuePair implements Serializable {
      * @param point Point.
      * @param value Value of an objective function at the point
      */
-    public UnivariatePointValuePair(final double point,
-                                    final double value) {
+    public UnivariatePointValuePair(final double point, final double value) {
         this.point = point;
         this.value = value;
     }
@@ -54,7 +61,8 @@ public class UnivariatePointValuePair implements Serializable {
      * @return the point.
      */
     public double getPoint() {
-        return point;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -63,6 +71,7 @@ public class UnivariatePointValuePair implements Serializable {
      * @return the stored value of the objective function.
      */
     public double getValue() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 }

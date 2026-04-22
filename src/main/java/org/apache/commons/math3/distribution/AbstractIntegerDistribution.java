@@ -17,7 +17,6 @@
 package org.apache.commons.math3.distribution;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathInternalError;
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 import org.apache.commons.math3.exception.NumberIsTooLargeException;
@@ -30,11 +29,12 @@ import org.apache.commons.math3.util.FastMath;
  * Base class for integer-valued discrete distributions.  Default
  * implementations are provided for some of the methods that do not vary
  * from distribution to distribution.
- *
  */
 public abstract class AbstractIntegerDistribution implements IntegerDistribution, Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -1146319659338487221L;
 
     /**
@@ -43,8 +43,7 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * {@link #random} instance variable instead.
      */
     @Deprecated
-    protected final org.apache.commons.math3.random.RandomDataImpl randomData =
-        new org.apache.commons.math3.random.RandomDataImpl();
+    protected final org.apache.commons.math3.random.RandomDataImpl randomData = new org.apache.commons.math3.random.RandomDataImpl();
 
     /**
      * RNG instance used to generate samples from the distribution.
@@ -78,11 +77,8 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * <p>{@code P(x0 < X <= x1) = P(X <= x1) - P(X <= x0)}</p>
      */
     public double cumulativeProbability(int x0, int x1) throws NumberIsTooLargeException {
-        if (x1 < x0) {
-            throw new NumberIsTooLargeException(LocalizedFormats.LOWER_ENDPOINT_ABOVE_UPPER_ENDPOINT,
-                    x0, x1, true);
-        }
-        return cumulativeProbability(x1) - cumulativeProbability(x0);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -97,48 +93,8 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * </ul>
      */
     public int inverseCumulativeProbability(final double p) throws OutOfRangeException {
-        if (p < 0.0 || p > 1.0) {
-            throw new OutOfRangeException(p, 0, 1);
-        }
-
-        int lower = getSupportLowerBound();
-        if (p == 0.0) {
-            return lower;
-        }
-        if (lower == Integer.MIN_VALUE) {
-            if (checkedCumulativeProbability(lower) >= p) {
-                return lower;
-            }
-        } else {
-            lower -= 1; // this ensures cumulativeProbability(lower) < p, which
-                        // is important for the solving step
-        }
-
-        int upper = getSupportUpperBound();
-        if (p == 1.0) {
-            return upper;
-        }
-
-        // use the one-sided Chebyshev inequality to narrow the bracket
-        // cf. AbstractRealDistribution.inverseCumulativeProbability(double)
-        final double mu = getNumericalMean();
-        final double sigma = FastMath.sqrt(getNumericalVariance());
-        final boolean chebyshevApplies = !(Double.isInfinite(mu) || Double.isNaN(mu) ||
-                Double.isInfinite(sigma) || Double.isNaN(sigma) || sigma == 0.0);
-        if (chebyshevApplies) {
-            double k = FastMath.sqrt((1.0 - p) / p);
-            double tmp = mu - k * sigma;
-            if (tmp > lower) {
-                lower = ((int) FastMath.ceil(tmp)) - 1;
-            }
-            k = 1.0 / k;
-            tmp = mu + k * sigma;
-            if (tmp < upper) {
-                upper = ((int) FastMath.ceil(tmp)) - 1;
-            }
-        }
-
-        return solveInverseCumulativeProbability(p, lower, upper);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -154,31 +110,15 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * @return the smallest {@code p}-quantile of this distribution
      */
     protected int solveInverseCumulativeProbability(final double p, int lower, int upper) {
-        while (lower + 1 < upper) {
-            int xm = (lower + upper) / 2;
-            if (xm < lower || xm > upper) {
-                /*
-                 * Overflow.
-                 * There will never be an overflow in both calculation methods
-                 * for xm at the same time
-                 */
-                xm = lower + (upper - lower) / 2;
-            }
-
-            double pm = checkedCumulativeProbability(xm);
-            if (pm >= p) {
-                upper = xm;
-            } else {
-                lower = xm;
-            }
-        }
-        return upper;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void reseedRandomGenerator(long seed) {
-        random.setSeed(seed);
-        randomData.reSeed(seed);
+        // STUB: not implemented
     }
 
     /**
@@ -189,7 +129,8 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * inversion method</a>.
      */
     public int sample() {
-        return inverseCumulativeProbability(random.nextDouble());
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -199,15 +140,8 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * {@link #sample()} in a loop.
      */
     public int[] sample(int sampleSize) {
-        if (sampleSize <= 0) {
-            throw new NotStrictlyPositiveException(
-                    LocalizedFormats.NUMBER_OF_SAMPLES, sampleSize);
-        }
-        int[] out = new int[sampleSize];
-        for (int i = 0; i < sampleSize; i++) {
-            out[i] = sample();
-        }
-        return out;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -221,13 +155,11 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * @return the cumulative probability
      * @throws MathInternalError if the cumulative probability is {@code NaN}
      */
-    private double checkedCumulativeProbability(int argument)
-        throws MathInternalError {
+    private double checkedCumulativeProbability(int argument) throws MathInternalError {
         double result = Double.NaN;
         result = cumulativeProbability(argument);
         if (Double.isNaN(result)) {
-            throw new MathInternalError(LocalizedFormats
-                    .DISCRETE_CUMULATIVE_PROBABILITY_RETURNED_NAN, argument);
+            throw new MathInternalError(LocalizedFormats.DISCRETE_CUMULATIVE_PROBABILITY_RETURNED_NAN, argument);
         }
         return result;
     }
@@ -248,6 +180,7 @@ public abstract class AbstractIntegerDistribution implements IntegerDistribution
      * @return the logarithm of the value of the probability mass function at {@code x}
      */
     public double logProbability(int x) {
-        return FastMath.log(probability(x));
+        // STUB: not implemented
+        return 0.0;
     }
 }

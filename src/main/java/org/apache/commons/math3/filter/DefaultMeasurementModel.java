@@ -55,8 +55,7 @@ public class DefaultMeasurementModel implements MeasurementModel {
      * @throws DimensionMismatchException
      *             if any of the input matrices is non-rectangular
      */
-    public DefaultMeasurementModel(final double[][] measMatrix, final double[][] measNoise)
-            throws NullArgumentException, NoDataException, DimensionMismatchException {
+    public DefaultMeasurementModel(final double[][] measMatrix, final double[][] measNoise) throws NullArgumentException, NoDataException, DimensionMismatchException {
         this(new Array2DRowRealMatrix(measMatrix), new Array2DRowRealMatrix(measNoise));
     }
 
@@ -72,13 +71,19 @@ public class DefaultMeasurementModel implements MeasurementModel {
         this.measurementNoise = measNoise;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getMeasurementMatrix() {
-        return measurementMatrix;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getMeasurementNoise() {
-        return measurementNoise;
+        // STUB: not implemented
+        return null;
     }
 }

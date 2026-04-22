@@ -24,10 +24,12 @@ import org.apache.commons.math3.exception.TooManyEvaluationsException;
  * bisection algorithm</a> for finding zeros of univariate real functions.
  * <p>
  * The function should be continuous but not necessarily smooth.</p>
- *
  */
 public class BisectionSolver extends AbstractUnivariateSolver {
-    /** Default absolute accuracy. */
+
+    /**
+     * Default absolute accuracy.
+     */
     private static final double DEFAULT_ABSOLUTE_ACCURACY = 1e-6;
 
     /**
@@ -36,6 +38,7 @@ public class BisectionSolver extends AbstractUnivariateSolver {
     public BisectionSolver() {
         this(DEFAULT_ABSOLUTE_ACCURACY);
     }
+
     /**
      * Construct a solver.
      *
@@ -44,14 +47,14 @@ public class BisectionSolver extends AbstractUnivariateSolver {
     public BisectionSolver(double absoluteAccuracy) {
         super(absoluteAccuracy);
     }
+
     /**
      * Construct a solver.
      *
      * @param relativeAccuracy Relative accuracy.
      * @param absoluteAccuracy Absolute accuracy.
      */
-    public BisectionSolver(double relativeAccuracy,
-                           double absoluteAccuracy) {
+    public BisectionSolver(double relativeAccuracy, double absoluteAccuracy) {
         super(relativeAccuracy, absoluteAccuracy);
     }
 
@@ -59,33 +62,8 @@ public class BisectionSolver extends AbstractUnivariateSolver {
      * {@inheritDoc}
      */
     @Override
-    protected double doSolve()
-        throws TooManyEvaluationsException {
-        double min = getMin();
-        double max = getMax();
-        verifyInterval(min, max);
-        final double absoluteAccuracy = getAbsoluteAccuracy();
-        double m;
-        double fm;
-        double fmin;
-
-        while (true) {
-            m = UnivariateSolverUtils.midpoint(min, max);
-            fmin = computeObjectiveValue(min);
-            fm = computeObjectiveValue(m);
-
-            if (fm * fmin > 0) {
-                // max and m bracket the root.
-                min = m;
-            } else {
-                // min and m bracket the root.
-                max = m;
-            }
-
-            if (FastMath.abs(max - min) <= absoluteAccuracy) {
-                m = UnivariateSolverUtils.midpoint(min, max);
-                return m;
-            }
-        }
+    protected double doSolve() throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return 0.0;
     }
 }

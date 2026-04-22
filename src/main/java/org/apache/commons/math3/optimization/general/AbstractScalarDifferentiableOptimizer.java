@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.general;
 
 import org.apache.commons.math3.analysis.DifferentiableMultivariateFunction;
@@ -36,9 +35,8 @@ import org.apache.commons.math3.optimization.direct.BaseAbstractMultivariateOpti
  * @since 2.0
  */
 @Deprecated
-public abstract class AbstractScalarDifferentiableOptimizer
-    extends BaseAbstractMultivariateOptimizer<DifferentiableMultivariateFunction>
-    implements DifferentiableMultivariateOptimizer {
+public abstract class AbstractScalarDifferentiableOptimizer extends BaseAbstractMultivariateOptimizer<DifferentiableMultivariateFunction> implements DifferentiableMultivariateOptimizer {
+
     /**
      * Objective function gradient.
      */
@@ -52,7 +50,8 @@ public abstract class AbstractScalarDifferentiableOptimizer
      * @deprecated See {@link org.apache.commons.math3.optimization.SimpleValueChecker#SimpleValueChecker()}
      */
     @Deprecated
-    protected AbstractScalarDifferentiableOptimizer() {}
+    protected AbstractScalarDifferentiableOptimizer() {
+    }
 
     /**
      * @param checker Convergence checker.
@@ -70,19 +69,17 @@ public abstract class AbstractScalarDifferentiableOptimizer
      * if the allowed number of evaluations is exceeded.
      */
     protected double[] computeObjectiveGradient(final double[] evaluationPoint) {
-        return gradient.value(evaluationPoint);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected PointValuePair optimizeInternal(int maxEval,
-                                              final DifferentiableMultivariateFunction f,
-                                              final GoalType goalType,
-                                              final double[] startPoint) {
-        // Store optimization problem characteristics.
-        gradient = f.gradient();
-
-        return super.optimizeInternal(maxEval, f, goalType, startPoint);
+    protected PointValuePair optimizeInternal(int maxEval, final DifferentiableMultivariateFunction f, final GoalType goalType, final double[] startPoint) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -102,13 +99,8 @@ public abstract class AbstractScalarDifferentiableOptimizer
      * @throws org.apache.commons.math3.exception.NullArgumentException if
      * any argument is {@code null}.
      */
-    public PointValuePair optimize(final int maxEval,
-                                   final MultivariateDifferentiableFunction f,
-                                   final GoalType goalType,
-                                   final double[] startPoint) {
-        return optimizeInternal(maxEval,
-                                FunctionUtils.toDifferentiableMultivariateFunction(f),
-                                goalType,
-                                startPoint);
+    public PointValuePair optimize(final int maxEval, final MultivariateDifferentiableFunction f, final GoalType goalType, final double[] startPoint) {
+        // STUB: not implemented
+        return null;
     }
 }

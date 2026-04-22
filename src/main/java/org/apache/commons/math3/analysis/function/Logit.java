@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -36,9 +35,15 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class Logit implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Lower bound. */
+
+    /**
+     * Lower bound.
+     */
     private final double lo;
-    /** Higher bound. */
+
+    /**
+     * Higher bound.
+     */
     private final double hi;
 
     /**
@@ -55,19 +60,21 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
      * @param lo Lower bound of the function domain.
      * @param hi Higher bound of the function domain.
      */
-    public Logit(double lo,
-                 double hi) {
+    public Logit(double lo, double hi) {
         this.lo = lo;
         this.hi = hi;
     }
 
-    /** {@inheritDoc} */
-    public double value(double x)
-        throws OutOfRangeException {
-        return value(x, lo, hi);
+    /**
+     * {@inheritDoc}
+     */
+    public double value(double x) throws OutOfRangeException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -84,6 +91,7 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
      * </ul>
      */
     public static class Parametric implements ParametricUnivariateFunction {
+
         /**
          * Computes the value of the logit at {@code x}.
          *
@@ -94,11 +102,9 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 2.
          */
-        public double value(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
-            validateParameters(param);
-            return Logit.value(x, param[0], param[1]);
+        public double value(double x, double... param) throws NullArgumentException, DimensionMismatchException {
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -114,15 +120,9 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 2.
          */
-        public double[] gradient(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
-            validateParameters(param);
-
-            final double lo = param[0];
-            final double hi = param[1];
-
-            return new double[] { 1 / (lo - x), 1 / (hi - x) };
+        public double[] gradient(double x, double... param) throws NullArgumentException, DimensionMismatchException {
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -135,9 +135,7 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 2.
          */
-        private void validateParameters(double[] param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
+        private void validateParameters(double[] param) throws NullArgumentException, DimensionMismatchException {
             if (param == null) {
                 throw new NullArgumentException();
             }
@@ -154,59 +152,20 @@ public class Logit implements UnivariateDifferentiableFunction, DifferentiableUn
      * @return the value of the logit function at {@code x}.
      * @throws OutOfRangeException if {@code x < lo} or {@code x > hi}.
      */
-    private static double value(double x,
-                                double lo,
-                                double hi)
-        throws OutOfRangeException {
+    private static double value(double x, double lo, double hi) throws OutOfRangeException {
         if (x < lo || x > hi) {
             throw new OutOfRangeException(x, lo, hi);
         }
         return FastMath.log((x - lo) / (hi - x));
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      * @exception OutOfRangeException if parameter is outside of function domain
      */
-    public DerivativeStructure value(final DerivativeStructure t)
-        throws OutOfRangeException {
-        final double x = t.getValue();
-        if (x < lo || x > hi) {
-            throw new OutOfRangeException(x, lo, hi);
-        }
-        double[] f = new double[t.getOrder() + 1];
-
-        // function value
-        f[0] = FastMath.log((x - lo) / (hi - x));
-
-        if (Double.isInfinite(f[0])) {
-
-            if (f.length > 1) {
-                f[1] = Double.POSITIVE_INFINITY;
-            }
-            // fill the array with infinities
-            // (for x close to lo the signs will flip between -inf and +inf,
-            //  for x close to hi the signs will always be +inf)
-            // this is probably overkill, since the call to compose at the end
-            // of the method will transform most infinities into NaN ...
-            for (int i = 2; i < f.length; ++i) {
-                f[i] = f[i - 2];
-            }
-
-        } else {
-
-            // function derivatives
-            final double invL = 1.0 / (x - lo);
-            double xL = invL;
-            final double invH = 1.0 / (hi - x);
-            double xH = invH;
-            for (int i = 1; i < f.length; ++i) {
-                f[i] = xL + xH;
-                xL  *= -i * invL;
-                xH  *=  i * invH;
-            }
-        }
-
-        return t.compose(f);
+    public DerivativeStructure value(final DerivativeStructure t) throws OutOfRangeException {
+        // STUB: not implemented
+        return null;
     }
 }

@@ -23,18 +23,14 @@ import org.apache.commons.math3.util.MathUtils;
 import org.apache.commons.math3.util.Precision;
 
 /**
- *
  * Abstract implementation of the {@link StorelessUnivariateStatistic} interface.
  * <p>
  * Provides default <code>evaluate()</code> and <code>incrementAll(double[])</code>
  * implementations.</p>
  * <p>
  * <strong>Note that these implementations are not synchronized.</strong></p>
- *
  */
-public abstract class AbstractStorelessUnivariateStatistic
-    extends AbstractUnivariateStatistic
-    implements StorelessUnivariateStatistic {
+public abstract class AbstractStorelessUnivariateStatistic extends AbstractUnivariateStatistic implements StorelessUnivariateStatistic {
 
     /**
      * This default implementation calls {@link #clear}, then invokes
@@ -57,10 +53,8 @@ public abstract class AbstractStorelessUnivariateStatistic
      */
     @Override
     public double evaluate(final double[] values) throws MathIllegalArgumentException {
-        if (values == null) {
-            throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
-        }
-        return evaluate(values, 0, values.length);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -86,13 +80,9 @@ public abstract class AbstractStorelessUnivariateStatistic
      * @see org.apache.commons.math3.stat.descriptive.UnivariateStatistic#evaluate(double[], int, int)
      */
     @Override
-    public double evaluate(final double[] values, final int begin,
-            final int length) throws MathIllegalArgumentException {
-        if (test(values, begin, length)) {
-            clear();
-            incrementAll(values, begin, length);
-        }
-        return getResult();
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -127,10 +117,7 @@ public abstract class AbstractStorelessUnivariateStatistic
      * @see org.apache.commons.math3.stat.descriptive.StorelessUnivariateStatistic#incrementAll(double[])
      */
     public void incrementAll(double[] values) throws MathIllegalArgumentException {
-        if (values == null) {
-            throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
-        }
-        incrementAll(values, 0, values.length);
+        // STUB: not implemented
     }
 
     /**
@@ -146,12 +133,7 @@ public abstract class AbstractStorelessUnivariateStatistic
      * @see org.apache.commons.math3.stat.descriptive.StorelessUnivariateStatistic#incrementAll(double[], int, int)
      */
     public void incrementAll(double[] values, int begin, int length) throws MathIllegalArgumentException {
-        if (test(values, begin, length)) {
-            int k = begin + length;
-            for (int i = begin; i < k; i++) {
-                increment(values[i]);
-            }
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -163,15 +145,8 @@ public abstract class AbstractStorelessUnivariateStatistic
      */
     @Override
     public boolean equals(Object object) {
-        if (object == this ) {
-            return true;
-        }
-       if (object instanceof AbstractStorelessUnivariateStatistic == false) {
-            return false;
-        }
-        AbstractStorelessUnivariateStatistic stat = (AbstractStorelessUnivariateStatistic) object;
-        return Precision.equalsIncludingNaN(stat.getResult(), this.getResult()) &&
-               Precision.equalsIncludingNaN(stat.getN(), this.getN());
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -181,7 +156,7 @@ public abstract class AbstractStorelessUnivariateStatistic
      */
     @Override
     public int hashCode() {
-        return 31* (31 + MathUtils.hash(getResult())) + MathUtils.hash(getN());
+        // STUB: not implemented
+        return 0;
     }
-
 }

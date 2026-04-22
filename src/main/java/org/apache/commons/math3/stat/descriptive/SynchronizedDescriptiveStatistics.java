@@ -34,7 +34,9 @@ import org.apache.commons.math3.util.MathUtils;
  */
 public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
 
-    /** Serialization UID */
+    /**
+     * Serialization UID
+     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -61,8 +63,7 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      * @param original the {@code SynchronizedDescriptiveStatistics} instance to copy
      * @throws NullArgumentException if original is null
      */
-    public SynchronizedDescriptiveStatistics(SynchronizedDescriptiveStatistics original)
-    throws NullArgumentException {
+    public SynchronizedDescriptiveStatistics(SynchronizedDescriptiveStatistics original) throws NullArgumentException {
         copy(original, this);
     }
 
@@ -71,7 +72,7 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized void addValue(double v) {
-        super.addValue(v);
+        // STUB: not implemented
     }
 
     /**
@@ -79,7 +80,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized double apply(UnivariateStatistic stat) {
-        return super.apply(stat);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -87,7 +89,7 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized void clear() {
-        super.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -95,7 +97,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized double getElement(int index) {
-        return super.getElement(index);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -103,7 +106,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized long getN() {
-        return super.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -111,7 +115,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized double getStandardDeviation() {
-        return super.getStandardDeviation();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -119,7 +124,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized double getQuadraticMean() {
-        return super.getQuadraticMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -127,7 +133,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized double[] getValues() {
-        return super.getValues();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -135,7 +142,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized int getWindowSize() {
-        return super.getWindowSize();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -143,7 +151,7 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized void setWindowSize(int windowSize) throws MathIllegalArgumentException {
-        super.setWindowSize(windowSize);
+        // STUB: not implemented
     }
 
     /**
@@ -151,7 +159,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized String toString() {
-        return super.toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -162,11 +171,8 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      */
     @Override
     public synchronized SynchronizedDescriptiveStatistics copy() {
-        SynchronizedDescriptiveStatistics result =
-            new SynchronizedDescriptiveStatistics();
-        // No try-catch or advertised exception because arguments are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -178,15 +184,7 @@ public class SynchronizedDescriptiveStatistics extends DescriptiveStatistics {
      * @param dest SynchronizedDescriptiveStatistics to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(SynchronizedDescriptiveStatistics source,
-                            SynchronizedDescriptiveStatistics dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        synchronized (source) {
-            synchronized (dest) {
-                DescriptiveStatistics.copy(source, dest);
-            }
-        }
+    public static void copy(SynchronizedDescriptiveStatistics source, SynchronizedDescriptiveStatistics dest) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

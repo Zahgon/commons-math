@@ -23,12 +23,13 @@ package org.apache.commons.math3.optim;
  *
  * @since 3.0
  */
-public abstract class AbstractConvergenceChecker<PAIR>
-    implements ConvergenceChecker<PAIR> {
+public abstract class AbstractConvergenceChecker<PAIR> implements ConvergenceChecker<PAIR> {
+
     /**
      * Relative tolerance threshold.
      */
     private final double relativeThreshold;
+
     /**
      * Absolute tolerance threshold.
      */
@@ -40,8 +41,7 @@ public abstract class AbstractConvergenceChecker<PAIR>
      * @param relativeThreshold relative tolerance threshold
      * @param absoluteThreshold absolute tolerance threshold
      */
-    public AbstractConvergenceChecker(final double relativeThreshold,
-                                      final double absoluteThreshold) {
+    public AbstractConvergenceChecker(final double relativeThreshold, final double absoluteThreshold) {
         this.relativeThreshold = relativeThreshold;
         this.absoluteThreshold = absoluteThreshold;
     }
@@ -50,20 +50,20 @@ public abstract class AbstractConvergenceChecker<PAIR>
      * @return the relative threshold.
      */
     public double getRelativeThreshold() {
-        return relativeThreshold;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * @return the absolute threshold.
      */
     public double getAbsoluteThreshold() {
-        return absoluteThreshold;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
-    public abstract boolean converged(int iteration,
-                                      PAIR previous,
-                                      PAIR current);
+    public abstract boolean converged(int iteration, PAIR previous, PAIR current);
 }

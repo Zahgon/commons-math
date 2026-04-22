@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.sofm.util;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -30,9 +29,15 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.3
  */
 public class ExponentialDecayFunction {
-    /** Factor {@code a}. */
+
+    /**
+     * Factor {@code a}.
+     */
     private final double a;
-    /** Factor {@code 1 / b}. */
+
+    /**
+     * Factor {@code 1 / b}.
+     */
     private final double oneOverB;
 
     /**
@@ -51,9 +56,7 @@ public class ExponentialDecayFunction {
      * @throws NumberIsTooLargeException if {@code valueAtNumCall >= initValue}.
      * @throws NotStrictlyPositiveException if {@code numCall <= 0}.
      */
-    public ExponentialDecayFunction(double initValue,
-                                    double valueAtNumCall,
-                                    long numCall) {
+    public ExponentialDecayFunction(double initValue, double valueAtNumCall, long numCall) {
         if (initValue <= 0) {
             throw new NotStrictlyPositiveException(initValue);
         }
@@ -66,7 +69,6 @@ public class ExponentialDecayFunction {
         if (numCall <= 0) {
             throw new NotStrictlyPositiveException(numCall);
         }
-
         a = initValue;
         oneOverB = -FastMath.log(valueAtNumCall / initValue) / numCall;
     }
@@ -78,6 +80,7 @@ public class ExponentialDecayFunction {
      * @return the value of the function at {@code numCall}.
      */
     public double value(long numCall) {
-        return a * FastMath.exp(-numCall * oneOverB);
+        // STUB: not implemented
+        return 0.0;
     }
 }

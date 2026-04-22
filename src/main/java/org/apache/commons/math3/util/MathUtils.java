@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.util;
 
 import java.util.Arrays;
-
 import org.apache.commons.math3.RealFieldElement;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NotFiniteNumberException;
@@ -32,9 +30,9 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @see ArithmeticUtils
  * @see Precision
  * @see MathArrays
- *
  */
 public final class MathUtils {
+
     /**
      * \(2\pi\)
      * @since 2.1
@@ -47,12 +45,11 @@ public final class MathUtils {
      */
     public static final double PI_SQUARED = FastMath.PI * FastMath.PI;
 
-
     /**
      * Class contains only static methods.
      */
-    private MathUtils() {}
-
+    private MathUtils() {
+    }
 
     /**
      * Returns an integer hash code representing the given double value.
@@ -61,7 +58,8 @@ public final class MathUtils {
      * @return the hash code
      */
     public static int hash(double value) {
-        return new Double(value).hashCode();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -73,7 +71,8 @@ public final class MathUtils {
      * @return {@code new Double(x).equals(new Double(y))}
      */
     public static boolean equals(double x, double y) {
-        return new Double(x).equals(new Double(y));
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -84,7 +83,8 @@ public final class MathUtils {
      * @since 1.2
      */
     public static int hash(double[] value) {
-        return Arrays.hashCode(value);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -106,31 +106,36 @@ public final class MathUtils {
      * @return a-2k&pi; with integer k and center-&pi; &lt;= a-2k&pi; &lt;= center+&pi;
      * @since 1.2
      */
-     public static double normalizeAngle(double a, double center) {
-         return a - TWO_PI * FastMath.floor((a + FastMath.PI - center) / TWO_PI);
-     }
+    public static double normalizeAngle(double a, double center) {
+        // STUB: not implemented
+        return 0.0;
+    }
 
-     /** Find the maximum of two field elements.
-      * @param <T> the type of the field elements
-      * @param e1 first element
-      * @param e2 second element
-      * @return max(a1, e2)
-      * @since 3.6
-      */
-     public static <T extends RealFieldElement<T>> T max(final T e1, final T e2) {
-         return e1.subtract(e2).getReal() >= 0 ? e1 : e2;
-     }
+    /**
+     * Find the maximum of two field elements.
+     * @param <T> the type of the field elements
+     * @param e1 first element
+     * @param e2 second element
+     * @return max(a1, e2)
+     * @since 3.6
+     */
+    public static <T extends RealFieldElement<T>> T max(final T e1, final T e2) {
+        // STUB: not implemented
+        return null;
+    }
 
-     /** Find the minimum of two field elements.
-      * @param <T> the type of the field elements
-      * @param e1 first element
-      * @param e2 second element
-      * @return min(a1, e2)
-      * @since 3.6
-      */
-     public static <T extends RealFieldElement<T>> T min(final T e1, final T e2) {
-         return e1.subtract(e2).getReal() >= 0 ? e2 : e1;
-     }
+    /**
+     * Find the minimum of two field elements.
+     * @param <T> the type of the field elements
+     * @param e1 first element
+     * @param e2 second element
+     * @return min(a1, e2)
+     * @since 3.6
+     */
+    public static <T extends RealFieldElement<T>> T min(final T e1, final T e2) {
+        // STUB: not implemented
+        return null;
+    }
 
     /**
      * <p>Reduce {@code |a - offset|} to the primary interval
@@ -148,11 +153,9 @@ public final class MathUtils {
      * @return the value, within the interval {@code [0 |period|)},
      * that corresponds to {@code a}.
      */
-    public static double reduce(double a,
-                                double period,
-                                double offset) {
-        final double p = FastMath.abs(period);
-        return a - p * FastMath.floor((a - offset) / p) - offset;
+    public static double reduce(double a, double period, double offset) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -165,17 +168,9 @@ public final class MathUtils {
      * @throws MathArithmeticException if {@code magnitude == Byte.MIN_VALUE}
      * and {@code sign >= 0}.
      */
-    public static byte copySign(byte magnitude, byte sign)
-        throws MathArithmeticException {
-        if ((magnitude >= 0 && sign >= 0) ||
-            (magnitude < 0 && sign < 0)) { // Sign is OK.
-            return magnitude;
-        } else if (sign >= 0 &&
-                   magnitude == Byte.MIN_VALUE) {
-            throw new MathArithmeticException(LocalizedFormats.OVERFLOW);
-        } else {
-            return (byte) -magnitude; // Flip sign.
-        }
+    public static byte copySign(byte magnitude, byte sign) throws MathArithmeticException {
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -188,17 +183,9 @@ public final class MathUtils {
      * @throws MathArithmeticException if {@code magnitude == Short.MIN_VALUE}
      * and {@code sign >= 0}.
      */
-    public static short copySign(short magnitude, short sign)
-            throws MathArithmeticException {
-        if ((magnitude >= 0 && sign >= 0) ||
-            (magnitude < 0 && sign < 0)) { // Sign is OK.
-            return magnitude;
-        } else if (sign >= 0 &&
-                   magnitude == Short.MIN_VALUE) {
-            throw new MathArithmeticException(LocalizedFormats.OVERFLOW);
-        } else {
-            return (short) -magnitude; // Flip sign.
-        }
+    public static short copySign(short magnitude, short sign) throws MathArithmeticException {
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -211,17 +198,9 @@ public final class MathUtils {
      * @throws MathArithmeticException if {@code magnitude == Integer.MIN_VALUE}
      * and {@code sign >= 0}.
      */
-    public static int copySign(int magnitude, int sign)
-            throws MathArithmeticException {
-        if ((magnitude >= 0 && sign >= 0) ||
-            (magnitude < 0 && sign < 0)) { // Sign is OK.
-            return magnitude;
-        } else if (sign >= 0 &&
-                   magnitude == Integer.MIN_VALUE) {
-            throw new MathArithmeticException(LocalizedFormats.OVERFLOW);
-        } else {
-            return -magnitude; // Flip sign.
-        }
+    public static int copySign(int magnitude, int sign) throws MathArithmeticException {
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -234,18 +213,11 @@ public final class MathUtils {
      * @throws MathArithmeticException if {@code magnitude == Long.MIN_VALUE}
      * and {@code sign >= 0}.
      */
-    public static long copySign(long magnitude, long sign)
-        throws MathArithmeticException {
-        if ((magnitude >= 0 && sign >= 0) ||
-            (magnitude < 0 && sign < 0)) { // Sign is OK.
-            return magnitude;
-        } else if (sign >= 0 &&
-                   magnitude == Long.MIN_VALUE) {
-            throw new MathArithmeticException(LocalizedFormats.OVERFLOW);
-        } else {
-            return -magnitude; // Flip sign.
-        }
+    public static long copySign(long magnitude, long sign) throws MathArithmeticException {
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * Check that the argument is a real number.
      *
@@ -253,11 +225,8 @@ public final class MathUtils {
      * @throws NotFiniteNumberException if {@code x} is not a
      * finite real number.
      */
-    public static void checkFinite(final double x)
-        throws NotFiniteNumberException {
-        if (Double.isInfinite(x) || Double.isNaN(x)) {
-            throw new NotFiniteNumberException(x);
-        }
+    public static void checkFinite(final double x) throws NotFiniteNumberException {
+        // STUB: not implemented
     }
 
     /**
@@ -267,14 +236,8 @@ public final class MathUtils {
      * @throws NotFiniteNumberException if any values of the array is not a
      * finite real number.
      */
-    public static void checkFinite(final double[] val)
-        throws NotFiniteNumberException {
-        for (int i = 0; i < val.length; i++) {
-            final double x = val[i];
-            if (Double.isInfinite(x) || Double.isNaN(x)) {
-                throw new NotFiniteNumberException(LocalizedFormats.ARRAY_ELEMENT, x, i);
-            }
-        }
+    public static void checkFinite(final double[] val) throws NotFiniteNumberException {
+        // STUB: not implemented
     }
 
     /**
@@ -285,13 +248,8 @@ public final class MathUtils {
      * @param args Arguments to replace the placeholders in {@code pattern}.
      * @throws NullArgumentException if {@code o} is {@code null}.
      */
-    public static void checkNotNull(Object o,
-                                    Localizable pattern,
-                                    Object ... args)
-        throws NullArgumentException {
-        if (o == null) {
-            throw new NullArgumentException(pattern, args);
-        }
+    public static void checkNotNull(Object o, Localizable pattern, Object... args) throws NullArgumentException {
+        // STUB: not implemented
     }
 
     /**
@@ -300,10 +258,7 @@ public final class MathUtils {
      * @param o Object to be checked.
      * @throws NullArgumentException if {@code o} is {@code null}.
      */
-    public static void checkNotNull(Object o)
-        throws NullArgumentException {
-        if (o == null) {
-            throw new NullArgumentException();
-        }
+    public static void checkNotNull(Object o) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

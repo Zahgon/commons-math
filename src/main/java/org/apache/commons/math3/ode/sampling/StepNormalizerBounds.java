@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.sampling;
 
-/** {@link StepNormalizer Step normalizer} bounds settings. They influence
+/**
+ * {@link StepNormalizer Step normalizer} bounds settings. They influence
  * whether the underlying fixed step size step handler is called for the first
  * and last points. Note that if the last point coincides with a normalized
  * point, then the underlying fixed step size step handler is always called,
@@ -28,24 +28,32 @@ package org.apache.commons.math3.ode.sampling;
  * @since 3.0
  */
 public enum StepNormalizerBounds {
-    /** Do not include the first and last points. */
+
+    /**
+     * Do not include the first and last points.
+     */
     NEITHER(false, false),
-
-    /** Include the first point, but not the last point. */
+    /**
+     * Include the first point, but not the last point.
+     */
     FIRST(true, false),
-
-    /** Include the last point, but not the first point. */
+    /**
+     * Include the last point, but not the first point.
+     */
     LAST(false, true),
-
-    /** Include both the first and last points. */
+    /**
+     * Include both the first and last points.
+     */
     BOTH(true, true);
 
-    /** Whether the first point should be passed to the underlying fixed
+    /**
+     * Whether the first point should be passed to the underlying fixed
      * step size step handler.
      */
     private final boolean first;
 
-    /** Whether the last point should be passed to the underlying fixed
+    /**
+     * Whether the last point should be passed to the underlying fixed
      * step size step handler.
      */
     private final boolean last;
@@ -69,7 +77,8 @@ public enum StepNormalizerBounds {
      * to the underlying fixed step size step handler.
      */
     public boolean firstIncluded() {
-        return first;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -79,6 +88,7 @@ public enum StepNormalizerBounds {
      * to the underlying fixed step size step handler.
      */
     public boolean lastIncluded() {
-        return last;
+        // STUB: not implemented
+        return false;
     }
 }

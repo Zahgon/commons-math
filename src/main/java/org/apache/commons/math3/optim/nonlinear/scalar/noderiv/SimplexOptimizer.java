@@ -86,7 +86,10 @@ import org.apache.commons.math3.optim.nonlinear.scalar.MultivariateOptimizer;
  * @since 3.0
  */
 public class SimplexOptimizer extends MultivariateOptimizer {
-    /** Simplex update rule. */
+
+    /**
+     * Simplex update rule.
+     */
     private AbstractSimplex simplex;
 
     /**
@@ -117,64 +120,17 @@ public class SimplexOptimizer extends MultivariateOptimizer {
      */
     @Override
     public PointValuePair optimize(OptimizationData... optData) {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PointValuePair doOptimize() {
-        checkParameters();
-
-        // Indirect call to "computeObjectiveValue" in order to update the
-        // evaluations counter.
-        final MultivariateFunction evalFunc
-            = new MultivariateFunction() {
-                /** {@inheritDoc} */
-                public double value(double[] point) {
-                    return computeObjectiveValue(point);
-                }
-            };
-
-        final boolean isMinim = getGoalType() == GoalType.MINIMIZE;
-        final Comparator<PointValuePair> comparator
-            = new Comparator<PointValuePair>() {
-            /** {@inheritDoc} */
-            public int compare(final PointValuePair o1,
-                               final PointValuePair o2) {
-                final double v1 = o1.getValue();
-                final double v2 = o2.getValue();
-                return isMinim ? Double.compare(v1, v2) : Double.compare(v2, v1);
-            }
-        };
-
-        // Initialize search.
-        simplex.build(getStartPoint());
-        simplex.evaluate(evalFunc, comparator);
-
-        PointValuePair[] previous = null;
-        int iteration = 0;
-        final ConvergenceChecker<PointValuePair> checker = getConvergenceChecker();
-        while (true) {
-            if (getIterations() > 0) {
-                boolean converged = true;
-                for (int i = 0; i < simplex.getSize(); i++) {
-                    PointValuePair prev = previous[i];
-                    converged = converged &&
-                        checker.converged(iteration, prev, simplex.getPoint(i));
-                }
-                if (converged) {
-                    // We have found an optimum.
-                    return simplex.getPoint(0);
-                }
-            }
-
-            // We still need to search.
-            previous = simplex.getPoints();
-            simplex.iterate(evalFunc, comparator);
-
-            incrementIterationCount();
-        }
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -189,19 +145,7 @@ public class SimplexOptimizer extends MultivariateOptimizer {
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof AbstractSimplex) {
-                simplex = (AbstractSimplex) data;
-                // If more data must be parsed, this statement _must_ be
-                // changed to "continue".
-                break;
-            }
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -214,8 +158,7 @@ public class SimplexOptimizer extends MultivariateOptimizer {
         if (simplex == null) {
             throw new NullArgumentException();
         }
-        if (getLowerBound() != null ||
-            getUpperBound() != null) {
+        if (getLowerBound() != null || getUpperBound() != null) {
             throw new MathUnsupportedOperationException(LocalizedFormats.CONSTRAINT);
         }
     }

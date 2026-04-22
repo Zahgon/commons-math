@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.util;
 
 import java.util.NoSuchElementException;
@@ -44,22 +43,27 @@ import org.apache.commons.math3.exception.OutOfRangeException;
  * @since 2.2
  */
 public class MultidimensionalCounter implements Iterable<Integer> {
+
     /**
      * Number of dimensions.
      */
     private final int dimension;
+
     /**
      * Offset for each dimension.
      */
     private final int[] uniCounterOffset;
+
     /**
      * Counter sizes.
      */
     private final int[] size;
+
     /**
      * Total number of (one-dimensional) slots.
      */
     private final int totalSize;
+
     /**
      * Index of last dimension.
      */
@@ -69,14 +73,17 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * Perform iteration over the multidimensional counter.
      */
     public class Iterator implements java.util.Iterator<Integer> {
+
         /**
          * Multidimensional counter.
          */
         private final int[] counter = new int[dimension];
+
         /**
          * Unidimensional counter.
          */
         private int count = -1;
+
         /**
          * Maximum value for {@link #count}.
          */
@@ -94,7 +101,8 @@ public class MultidimensionalCounter implements Iterable<Integer> {
          * {@inheritDoc}
          */
         public boolean hasNext() {
-            return count < maxCount;
+            // STUB: not implemented
+            return false;
         }
 
         /**
@@ -104,20 +112,8 @@ public class MultidimensionalCounter implements Iterable<Integer> {
          * returned {@code false}.
          */
         public Integer next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-
-            for (int i = last; i >= 0; i--) {
-                if (counter[i] == size[i] - 1) {
-                    counter[i] = 0;
-                } else {
-                    ++counter[i];
-                    break;
-                }
-            }
-
-            return ++count;
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -126,15 +122,18 @@ public class MultidimensionalCounter implements Iterable<Integer> {
          * @return the index within the unidimensionl counter.
          */
         public int getCount() {
-            return count;
+            // STUB: not implemented
+            return 0;
         }
+
         /**
          * Get the current multidimensional counter slots.
          *
          * @return the indices within the multidimensional counter.
          */
         public int[] getCounts() {
-            return MathArrays.copyOf(counter);
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -149,14 +148,15 @@ public class MultidimensionalCounter implements Iterable<Integer> {
          * constructor of the enclosing class}).
          */
         public int getCount(int dim) {
-            return counter[dim];
+            // STUB: not implemented
+            return 0;
         }
 
         /**
          * @throws UnsupportedOperationException
          */
         public void remove() {
-            throw new UnsupportedOperationException();
+            // STUB: not implemented
         }
     }
 
@@ -167,12 +167,10 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * @throws NotStrictlyPositiveException if one of the sizes is
      * negative or zero.
      */
-    public MultidimensionalCounter(int ... size) throws NotStrictlyPositiveException {
+    public MultidimensionalCounter(int... size) throws NotStrictlyPositiveException {
         dimension = size.length;
         this.size = MathArrays.copyOf(size);
-
         uniCounterOffset = new int[dimension];
-
         last = dimension - 1;
         int tS = size[last];
         for (int i = 0; i < last; i++) {
@@ -184,11 +182,9 @@ public class MultidimensionalCounter implements Iterable<Integer> {
             tS *= size[i];
         }
         uniCounterOffset[last] = 0;
-
         if (tS <= 0) {
             throw new NotStrictlyPositiveException(tS);
         }
-
         totalSize = tS;
     }
 
@@ -198,7 +194,8 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * @return the iterator.
      */
     public Iterator iterator() {
-        return new Iterator();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -207,7 +204,8 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * @return the number of dimensions.
      */
     public int getDimension() {
-        return dimension;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -219,29 +217,8 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * {@code 0} and the value returned by {@link #getSize()} (excluded).
      */
     public int[] getCounts(int index) throws OutOfRangeException {
-        if (index < 0 ||
-            index >= totalSize) {
-            throw new OutOfRangeException(index, 0, totalSize);
-        }
-
-        final int[] indices = new int[dimension];
-
-        int count = 0;
-        for (int i = 0; i < last; i++) {
-            int idx = 0;
-            final int offset = uniCounterOffset[i];
-            while (count <= index) {
-                count += offset;
-                ++idx;
-            }
-            --idx;
-            count -= offset;
-            indices[i] = idx;
-        }
-
-        indices[last] = index - count;
-
-        return indices;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -255,21 +232,9 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * the range of the corresponding dimension, as defined in the
      * {@link MultidimensionalCounter#MultidimensionalCounter(int...) constructor}.
      */
-    public int getCount(int ... c)
-        throws OutOfRangeException, DimensionMismatchException {
-        if (c.length != dimension) {
-            throw new DimensionMismatchException(c.length, dimension);
-        }
-        int count = 0;
-        for (int i = 0; i < dimension; i++) {
-            final int index = c[i];
-            if (index < 0 ||
-                index >= size[i]) {
-                throw new OutOfRangeException(index, 0, size[i] - 1);
-            }
-            count += uniCounterOffset[i] * c[i];
-        }
-        return count + c[last];
+    public int getCount(int... c) throws OutOfRangeException, DimensionMismatchException {
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -278,15 +243,18 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      * @return the total size of the unidimensional counter.
      */
     public int getSize() {
-        return totalSize;
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * Get the number of multidimensional counter slots in each dimension.
      *
      * @return the sizes of the multidimensional counter in each dimension.
      */
     public int[] getSizes() {
-        return MathArrays.copyOf(size);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -294,10 +262,7 @@ public class MultidimensionalCounter implements Iterable<Integer> {
      */
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < dimension; i++) {
-            sb.append("[").append(getCount(i)).append("]");
-        }
-        return sb.toString();
+        // STUB: not implemented
+        return null;
     }
 }

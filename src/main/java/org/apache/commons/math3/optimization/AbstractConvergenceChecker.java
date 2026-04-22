@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization;
 
 import org.apache.commons.math3.util.Precision;
@@ -28,8 +27,8 @@ import org.apache.commons.math3.util.Precision;
  * @since 3.0
  */
 @Deprecated
-public abstract class AbstractConvergenceChecker<PAIR>
-    implements ConvergenceChecker<PAIR> {
+public abstract class AbstractConvergenceChecker<PAIR> implements ConvergenceChecker<PAIR> {
+
     /**
      * Default relative threshold.
      * @deprecated in 3.1 (to be removed in 4.0) because this value is too small
@@ -37,6 +36,7 @@ public abstract class AbstractConvergenceChecker<PAIR>
      */
     @Deprecated
     private static final double DEFAULT_RELATIVE_THRESHOLD = 100 * Precision.EPSILON;
+
     /**
      * Default absolute threshold.
      * @deprecated in 3.1 (to be removed in 4.0) because this value is too small
@@ -44,10 +44,12 @@ public abstract class AbstractConvergenceChecker<PAIR>
      */
     @Deprecated
     private static final double DEFAULT_ABSOLUTE_THRESHOLD = 100 * Precision.SAFE_MIN;
+
     /**
      * Relative tolerance threshold.
      */
     private final double relativeThreshold;
+
     /**
      * Absolute tolerance threshold.
      */
@@ -73,8 +75,7 @@ public abstract class AbstractConvergenceChecker<PAIR>
      * @param relativeThreshold relative tolerance threshold
      * @param absoluteThreshold absolute tolerance threshold
      */
-    public AbstractConvergenceChecker(final double relativeThreshold,
-                                      final double absoluteThreshold) {
+    public AbstractConvergenceChecker(final double relativeThreshold, final double absoluteThreshold) {
         this.relativeThreshold = relativeThreshold;
         this.absoluteThreshold = absoluteThreshold;
     }
@@ -83,20 +84,20 @@ public abstract class AbstractConvergenceChecker<PAIR>
      * @return the relative threshold.
      */
     public double getRelativeThreshold() {
-        return relativeThreshold;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * @return the absolute threshold.
      */
     public double getAbsoluteThreshold() {
-        return absoluteThreshold;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
-    public abstract boolean converged(int iteration,
-                                      PAIR previous,
-                                      PAIR current);
+    public abstract boolean converged(int iteration, PAIR previous, PAIR current);
 }

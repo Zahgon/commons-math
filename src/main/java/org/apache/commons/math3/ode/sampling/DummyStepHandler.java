@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.sampling;
 
 /**
  * This class is a step handler that does nothing.
-
+ *
  * <p>This class is provided as a convenience for users who are only
  * interested in the final state of an integration and not in the
  * intermediate steps. Its handleStep method does nothing.</p>
@@ -32,25 +31,30 @@ package org.apache.commons.math3.ode.sampling;
  * @see StepHandler
  * @since 1.2
  */
-
 public class DummyStepHandler implements StepHandler {
 
-    /** Private constructor.
+    /**
+     * Private constructor.
      * The constructor is private to prevent users from creating
      * instances (Singleton design-pattern).
      */
     private DummyStepHandler() {
     }
 
-    /** Get the only instance.
+    /**
+     * Get the only instance.
      * @return the only instance
      */
     public static DummyStepHandler getInstance() {
-        return LazyHolder.INSTANCE;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public void init(double t0, double[] y0, double t) {
+        // STUB: not implemented
     }
 
     /**
@@ -66,24 +70,29 @@ public class DummyStepHandler implements StepHandler {
      * @param isLast true if the step is the last one
      */
     public void handleStep(final StepInterpolator interpolator, final boolean isLast) {
+        // STUB: not implemented
     }
 
     // CHECKSTYLE: stop HideUtilityClassConstructor
-    /** Holder for the instance.
+    /**
+     * Holder for the instance.
      * <p>We use here the Initialization On Demand Holder Idiom.</p>
      */
     private static class LazyHolder {
-        /** Cached field instance. */
+
+        /**
+         * Cached field instance.
+         */
         private static final DummyStepHandler INSTANCE = new DummyStepHandler();
     }
-    // CHECKSTYLE: resume HideUtilityClassConstructor
 
-    /** Handle deserialization of the singleton.
+    // CHECKSTYLE: resume HideUtilityClassConstructor
+    /**
+     * Handle deserialization of the singleton.
      * @return the singleton instance
      */
     private Object readResolve() {
         // return the singleton instance
         return LazyHolder.INSTANCE;
     }
-
 }

@@ -28,7 +28,10 @@ import org.apache.commons.math3.util.MathUtils;
  * @since 3.6
  */
 public class InterpolatingMicrosphere2D extends InterpolatingMicrosphere {
-    /** Space dimension. */
+
+    /**
+     * Space dimension.
+     */
     private static final int DIMENSION = 2;
 
     /**
@@ -50,19 +53,12 @@ public class InterpolatingMicrosphere2D extends InterpolatingMicrosphere {
      * @throws org.apache.commons.math3.exception.OutOfRangeException if
      * {@code maxDarkFraction} does not belong to the interval {@code [0, 1]}.
      */
-    public InterpolatingMicrosphere2D(int size,
-                                      double maxDarkFraction,
-                                      double darkThreshold,
-                                      double background) {
+    public InterpolatingMicrosphere2D(int size, double maxDarkFraction, double darkThreshold, double background) {
         super(DIMENSION, size, maxDarkFraction, darkThreshold, background);
-
         // Generate the microsphere normals.
         for (int i = 0; i < size; i++) {
             final double angle = i * MathUtils.TWO_PI / size;
-
-            add(new double[] { FastMath.cos(angle),
-                               FastMath.sin(angle) },
-                false);
+            add(new double[] { FastMath.cos(angle), FastMath.sin(angle) }, false);
         }
     }
 
@@ -82,6 +78,7 @@ public class InterpolatingMicrosphere2D extends InterpolatingMicrosphere {
      */
     @Override
     public InterpolatingMicrosphere2D copy() {
-        return new InterpolatingMicrosphere2D(this);
+        // STUB: not implemented
+        return null;
     }
 }

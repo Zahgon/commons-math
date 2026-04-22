@@ -31,13 +31,24 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class GeometricDistribution extends AbstractIntegerDistribution {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20130507L;
-    /** The probability of success. */
+
+    /**
+     * The probability of success.
+     */
     private final double probabilityOfSuccess;
-    /** {@code log(p)} where p is the probability of success. */
+
+    /**
+     * {@code log(p)} where p is the probability of success.
+     */
     private final double logProbabilityOfSuccess;
-    /** {@code log(1 - p)} where p is the probability of success. */
+
+    /**
+     * {@code log(1 - p)} where p is the probability of success.
+     */
     private final double log1mProbabilityOfSuccess;
 
     /**
@@ -66,11 +77,9 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      */
     public GeometricDistribution(RandomGenerator rng, double p) {
         super(rng);
-
         if (p <= 0 || p > 1) {
             throw new OutOfRangeException(LocalizedFormats.OUT_OF_RANGE_LEFT, p, 0, 1);
         }
-
         probabilityOfSuccess = p;
         logProbabilityOfSuccess = FastMath.log(p);
         log1mProbabilityOfSuccess = FastMath.log1p(-p);
@@ -82,35 +91,33 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      * @return the probability of success.
      */
     public double getProbabilityOfSuccess() {
-        return probabilityOfSuccess;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(int x) {
-        if (x < 0) {
-            return 0.0;
-        } else {
-            return FastMath.exp(log1mProbabilityOfSuccess * x) * probabilityOfSuccess;
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logProbability(int x) {
-        if (x < 0) {
-            return Double.NEGATIVE_INFINITY;
-        } else {
-            return x * log1mProbabilityOfSuccess + logProbabilityOfSuccess;
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(int x) {
-        if (x < 0) {
-            return 0.0;
-        } else {
-            return -FastMath.expm1(log1mProbabilityOfSuccess * (x + 1));
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -119,7 +126,8 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      * For probability parameter {@code p}, the mean is {@code (1 - p) / p}.
      */
     public double getNumericalMean() {
-        return (1 - probabilityOfSuccess) / probabilityOfSuccess;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -129,7 +137,8 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      * {@code (1 - p) / (p * p)}.
      */
     public double getNumericalVariance() {
-        return (1 - probabilityOfSuccess) / (probabilityOfSuccess * probabilityOfSuccess);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -140,6 +149,7 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support (always 0)
      */
     public int getSupportLowerBound() {
+        // STUB: not implemented
         return 0;
     }
 
@@ -152,7 +162,8 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      * @return upper bound of the support (always Integer.MAX_VALUE)
      */
     public int getSupportUpperBound() {
-        return Integer.MAX_VALUE;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -163,7 +174,8 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -171,15 +183,7 @@ public class GeometricDistribution extends AbstractIntegerDistribution {
      */
     @Override
     public int inverseCumulativeProbability(double p) throws OutOfRangeException {
-        if (p < 0 || p > 1) {
-            throw new OutOfRangeException(p, 0, 1);
-        }
-        if (p == 1) {
-            return Integer.MAX_VALUE;
-        }
-        if (p == 0) {
-            return 0;
-        }
-        return Math.max(0, (int) Math.ceil(FastMath.log1p(-p)/log1mProbabilityOfSuccess-1));
+        // STUB: not implemented
+        return 0;
     }
 }

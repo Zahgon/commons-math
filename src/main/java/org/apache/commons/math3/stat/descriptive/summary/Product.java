@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.summary;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
@@ -36,14 +35,17 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
 public class Product extends AbstractStorelessUnivariateStatistic implements Serializable, WeightedEvaluation {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 2824226005990582538L;
 
-    /**The number of values that have been added */
+    /**
+     * The number of values that have been added
+     */
     private long n;
 
     /**
@@ -75,8 +77,7 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      */
     @Override
     public void increment(final double d) {
-        value *= d;
-        n++;
+        // STUB: not implemented
     }
 
     /**
@@ -84,14 +85,16 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      */
     @Override
     public double getResult() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -99,8 +102,7 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      */
     @Override
     public void clear() {
-        value = 1;
-        n = 0;
+        // STUB: not implemented
     }
 
     /**
@@ -118,16 +120,9 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values, final int begin, final int length)
-    throws MathIllegalArgumentException {
-        double product = Double.NaN;
-        if (test(values, begin, length, true)) {
-            product = 1.0;
-            for (int i = begin; i < begin + length; i++) {
-                product *= values[i];
-            }
-        }
-        return product;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -158,16 +153,9 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights,
-        final int begin, final int length) throws MathIllegalArgumentException {
-        double product = Double.NaN;
-        if (test(values, weights, begin, length, true)) {
-            product = 1.0;
-            for (int i = begin; i < begin + length; i++) {
-                product *= FastMath.pow(values[i], weights[i]);
-            }
-        }
-        return product;
+    public double evaluate(final double[] values, final double[] weights, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -193,21 +181,18 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights)
-    throws MathIllegalArgumentException {
-        return evaluate(values, weights, 0, values.length);
+    public double evaluate(final double[] values, final double[] weights) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
-
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Product copy() {
-        Product result = new Product();
-        // No try-catch or advertised exception because args are valid
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -218,13 +203,7 @@ public class Product extends AbstractStorelessUnivariateStatistic implements Ser
      * @param dest Product to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(Product source, Product dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.n = source.n;
-        dest.value = source.value;
+    public static void copy(Product source, Product dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

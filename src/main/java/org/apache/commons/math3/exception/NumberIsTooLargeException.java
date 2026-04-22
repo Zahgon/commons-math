@@ -25,12 +25,17 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 2.2
  */
 public class NumberIsTooLargeException extends MathIllegalNumberException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = 4330003017885151975L;
+
     /**
      * Higher bound.
      */
     private final Number max;
+
     /**
      * Whether the maximum is included in the allowed range.
      */
@@ -43,14 +48,10 @@ public class NumberIsTooLargeException extends MathIllegalNumberException {
      * @param max Maximum.
      * @param boundIsAllowed if true the maximum is included in the allowed range.
      */
-    public NumberIsTooLargeException(Number wrong,
-                                     Number max,
-                                     boolean boundIsAllowed) {
-        this(boundIsAllowed ?
-             LocalizedFormats.NUMBER_TOO_LARGE :
-             LocalizedFormats.NUMBER_TOO_LARGE_BOUND_EXCLUDED,
-             wrong, max, boundIsAllowed);
+    public NumberIsTooLargeException(Number wrong, Number max, boolean boundIsAllowed) {
+        this(boundIsAllowed ? LocalizedFormats.NUMBER_TOO_LARGE : LocalizedFormats.NUMBER_TOO_LARGE_BOUND_EXCLUDED, wrong, max, boundIsAllowed);
     }
+
     /**
      * Construct the exception with a specific context.
      *
@@ -59,12 +60,8 @@ public class NumberIsTooLargeException extends MathIllegalNumberException {
      * @param max Maximum.
      * @param boundIsAllowed if true the maximum is included in the allowed range.
      */
-    public NumberIsTooLargeException(Localizable specific,
-                                     Number wrong,
-                                     Number max,
-                                     boolean boundIsAllowed) {
+    public NumberIsTooLargeException(Localizable specific, Number wrong, Number max, boolean boundIsAllowed) {
         super(specific, wrong, max);
-
         this.max = max;
         this.boundIsAllowed = boundIsAllowed;
     }
@@ -73,13 +70,15 @@ public class NumberIsTooLargeException extends MathIllegalNumberException {
      * @return {@code true} if the maximum is included in the allowed range.
      */
     public boolean getBoundIsAllowed() {
-        return boundIsAllowed;
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * @return the maximum.
      */
     public Number getMax() {
-        return max;
+        // STUB: not implemented
+        return null;
     }
 }

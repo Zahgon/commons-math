@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.fraction;
 
 import java.io.Serializable;
@@ -22,7 +21,6 @@ import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
-
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
 
@@ -32,13 +30,19 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 public abstract class AbstractFormat extends NumberFormat implements Serializable {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -6981118387974191891L;
 
-    /** The format used for the denominator. */
+    /**
+     * The format used for the denominator.
+     */
     private NumberFormat denominatorFormat;
 
-    /** The format used for the numerator. */
+    /**
+     * The format used for the numerator.
+     */
     private NumberFormat numeratorFormat;
 
     /**
@@ -64,9 +68,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @param numeratorFormat the custom format for the numerator.
      * @param denominatorFormat the custom format for the denominator.
      */
-    protected AbstractFormat(final NumberFormat numeratorFormat,
-                             final NumberFormat denominatorFormat) {
-        this.numeratorFormat   = numeratorFormat;
+    protected AbstractFormat(final NumberFormat numeratorFormat, final NumberFormat denominatorFormat) {
+        this.numeratorFormat = numeratorFormat;
         this.denominatorFormat = denominatorFormat;
     }
 
@@ -77,7 +80,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @return the default number format.
      */
     protected static NumberFormat getDefaultNumberFormat() {
-        return getDefaultNumberFormat(Locale.getDefault());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -88,10 +92,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @return the default number format specific to the given locale.
      */
     protected static NumberFormat getDefaultNumberFormat(final Locale locale) {
-        final NumberFormat nf = NumberFormat.getNumberInstance(locale);
-        nf.setMaximumFractionDigits(0);
-        nf.setParseIntegerOnly(true);
-        return nf;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -99,7 +101,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @return the denominator format.
      */
     public NumberFormat getDenominatorFormat() {
-        return denominatorFormat;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -107,7 +110,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @return the numerator format.
      */
     public NumberFormat getNumeratorFormat() {
-        return numeratorFormat;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -116,10 +120,7 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @throws NullArgumentException if {@code format} is {@code null}.
      */
     public void setDenominatorFormat(final NumberFormat format) {
-        if (format == null) {
-            throw new NullArgumentException(LocalizedFormats.DENOMINATOR_FORMAT);
-        }
-        this.denominatorFormat = format;
+        // STUB: not implemented
     }
 
     /**
@@ -128,10 +129,7 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @throws NullArgumentException if {@code format} is {@code null}.
      */
     public void setNumeratorFormat(final NumberFormat format) {
-        if (format == null) {
-            throw new NullArgumentException(LocalizedFormats.NUMERATOR_FORMAT);
-        }
-        this.numeratorFormat = format;
+        // STUB: not implemented
     }
 
     /**
@@ -140,10 +138,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @param pos input/output parsing parameter.  On output, <code>pos</code>
      *        holds the index of the next non-whitespace character.
      */
-    protected static void parseAndIgnoreWhitespace(final String source,
-                                                   final ParsePosition pos) {
-        parseNextCharacter(source, pos);
-        pos.setIndex(pos.getIndex() - 1);
+    protected static void parseAndIgnoreWhitespace(final String source, final ParsePosition pos) {
+        // STUB: not implemented
     }
 
     /**
@@ -152,25 +148,9 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @param pos input/output parsing parameter.
      * @return the first non-whitespace character.
      */
-    protected static char parseNextCharacter(final String source,
-                                             final ParsePosition pos) {
-         int index = pos.getIndex();
-         final int n = source.length();
-         char ret = 0;
-
-         if (index < n) {
-             char c;
-             do {
-                 c = source.charAt(index++);
-             } while (Character.isWhitespace(c) && index < n);
-             pos.setIndex(index);
-
-             if (index < n) {
-                 ret = c;
-             }
-         }
-
-         return ret;
+    protected static char parseNextCharacter(final String source, final ParsePosition pos) {
+        // STUB: not implemented
+        return '\0';
     }
 
     /**
@@ -184,11 +164,10 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @see #format(Object, StringBuffer, FieldPosition)
      */
     @Override
-    public StringBuffer format(final double value,
-                               final StringBuffer buffer, final FieldPosition position) {
-        return format(Double.valueOf(value), buffer, position);
+    public StringBuffer format(final double value, final StringBuffer buffer, final FieldPosition position) {
+        // STUB: not implemented
+        return null;
     }
-
 
     /**
      * Formats a long value as a fraction and appends the result to a StringBuffer.
@@ -201,9 +180,8 @@ public abstract class AbstractFormat extends NumberFormat implements Serializabl
      * @see #format(Object, StringBuffer, FieldPosition)
      */
     @Override
-    public StringBuffer format(final long value,
-                               final StringBuffer buffer, final FieldPosition position) {
-        return format(Long.valueOf(value), buffer, position);
+    public StringBuffer format(final long value, final StringBuffer buffer, final FieldPosition position) {
+        // STUB: not implemented
+        return null;
     }
-
 }

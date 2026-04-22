@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.solvers;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -24,10 +23,11 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
  *
  * @since 3.0
  */
-public abstract class AbstractPolynomialSolver
-    extends BaseAbstractUnivariateSolver<PolynomialFunction>
-    implements PolynomialSolver {
-    /** Function. */
+public abstract class AbstractPolynomialSolver extends BaseAbstractUnivariateSolver<PolynomialFunction> implements PolynomialSolver {
+
+    /**
+     * Function.
+     */
     private PolynomialFunction polynomialFunction;
 
     /**
@@ -38,16 +38,17 @@ public abstract class AbstractPolynomialSolver
     protected AbstractPolynomialSolver(final double absoluteAccuracy) {
         super(absoluteAccuracy);
     }
+
     /**
      * Construct a solver with given accuracies.
      *
      * @param relativeAccuracy Maximum relative error.
      * @param absoluteAccuracy Maximum absolute error.
      */
-    protected AbstractPolynomialSolver(final double relativeAccuracy,
-                                       final double absoluteAccuracy) {
+    protected AbstractPolynomialSolver(final double relativeAccuracy, final double absoluteAccuracy) {
         super(relativeAccuracy, absoluteAccuracy);
     }
+
     /**
      * Construct a solver with given accuracies.
      *
@@ -55,9 +56,7 @@ public abstract class AbstractPolynomialSolver
      * @param absoluteAccuracy Maximum absolute error.
      * @param functionValueAccuracy Maximum function value error.
      */
-    protected AbstractPolynomialSolver(final double relativeAccuracy,
-                                       final double absoluteAccuracy,
-                                       final double functionValueAccuracy) {
+    protected AbstractPolynomialSolver(final double relativeAccuracy, final double absoluteAccuracy, final double functionValueAccuracy) {
         super(relativeAccuracy, absoluteAccuracy, functionValueAccuracy);
     }
 
@@ -65,16 +64,15 @@ public abstract class AbstractPolynomialSolver
      * {@inheritDoc}
      */
     @Override
-    protected void setup(int maxEval, PolynomialFunction f,
-                             double min, double max, double startValue) {
-        super.setup(maxEval, f, min, max, startValue);
-        polynomialFunction = f;
+    protected void setup(int maxEval, PolynomialFunction f, double min, double max, double startValue) {
+        // STUB: not implemented
     }
 
     /**
      * @return the coefficients of the polynomial function.
      */
     protected double[] getCoefficients() {
-        return polynomialFunction.getCoefficients();
+        // STUB: not implemented
+        return null;
     }
 }

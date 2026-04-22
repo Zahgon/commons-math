@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.general;
 
 import org.apache.commons.math3.analysis.DifferentiableMultivariateVectorFunction;
@@ -60,15 +59,15 @@ import org.apache.commons.math3.util.FastMath;
  * @since 1.2
  */
 @Deprecated
-public abstract class AbstractLeastSquaresOptimizer
-    extends BaseAbstractMultivariateVectorOptimizer<DifferentiableMultivariateVectorFunction>
-    implements DifferentiableMultivariateVectorOptimizer {
+public abstract class AbstractLeastSquaresOptimizer extends BaseAbstractMultivariateVectorOptimizer<DifferentiableMultivariateVectorFunction> implements DifferentiableMultivariateVectorOptimizer {
+
     /**
      * Singularity threshold (cf. {@link #getCovariances(double)}).
      * @deprecated As of 3.1.
      */
     @Deprecated
     private static final double DEFAULT_SINGULARITY_THRESHOLD = 1e-14;
+
     /**
      * Jacobian matrix of the weighted residuals.
      * This matrix is in canonical form just after the calls to
@@ -80,42 +79,63 @@ public abstract class AbstractLeastSquaresOptimizer
      */
     @Deprecated
     protected double[][] weightedResidualJacobian;
-    /** Number of columns of the jacobian matrix.
+
+    /**
+     * Number of columns of the jacobian matrix.
      * @deprecated As of 3.1.
      */
     @Deprecated
     protected int cols;
-    /** Number of rows of the jacobian matrix.
+
+    /**
+     * Number of rows of the jacobian matrix.
      * @deprecated As of 3.1.
      */
     @Deprecated
     protected int rows;
-    /** Current point.
+
+    /**
+     * Current point.
      * @deprecated As of 3.1.
      */
     @Deprecated
     protected double[] point;
-    /** Current objective function value.
+
+    /**
+     * Current objective function value.
      * @deprecated As of 3.1.
      */
     @Deprecated
     protected double[] objective;
-    /** Weighted residuals
+
+    /**
+     * Weighted residuals
      * @deprecated As of 3.1.
      */
     @Deprecated
     protected double[] weightedResiduals;
-    /** Cost value (square root of the sum of the residuals).
+
+    /**
+     * Cost value (square root of the sum of the residuals).
      * @deprecated As of 3.1. Field to become "private" in 4.0.
      * Please use {@link #setCost(double)}.
      */
     @Deprecated
     protected double cost;
-    /** Objective function derivatives. */
+
+    /**
+     * Objective function derivatives.
+     */
     private MultivariateDifferentiableVectorFunction jF;
-    /** Number of evaluations of the Jacobian. */
+
+    /**
+     * Number of evaluations of the Jacobian.
+     */
     private int jacobianEvaluations;
-    /** Square-root of the weight matrix. */
+
+    /**
+     * Square-root of the weight matrix.
+     */
     private RealMatrix weightMatrixSqrt;
 
     /**
@@ -125,7 +145,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @deprecated See {@link org.apache.commons.math3.optimization.SimpleValueChecker#SimpleValueChecker()}
      */
     @Deprecated
-    protected AbstractLeastSquaresOptimizer() {}
+    protected AbstractLeastSquaresOptimizer() {
+    }
 
     /**
      * @param checker Convergence checker.
@@ -138,7 +159,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @return the number of evaluations of the Jacobian function.
      */
     public int getJacobianEvaluations() {
-        return jacobianEvaluations;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -165,29 +187,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @since 3.1
      */
     protected RealMatrix computeWeightedJacobian(double[] params) {
-        ++jacobianEvaluations;
-
-        final DerivativeStructure[] dsPoint = new DerivativeStructure[params.length];
-        final int nC = params.length;
-        for (int i = 0; i < nC; ++i) {
-            dsPoint[i] = new DerivativeStructure(nC, 1, i, params[i]);
-        }
-        final DerivativeStructure[] dsValue = jF.value(dsPoint);
-        final int nR = getTarget().length;
-        if (dsValue.length != nR) {
-            throw new DimensionMismatchException(dsValue.length, nR);
-        }
-        final double[][] jacobianData = new double[nR][nC];
-        for (int i = 0; i < nR; ++i) {
-            int[] orders = new int[nC];
-            for (int j = 0; j < nC; ++j) {
-                orders[j] = 1;
-                jacobianData[i][j] = dsValue[i].getPartialDerivative(orders);
-                orders[j] = 0;
-            }
-        }
-
-        return weightMatrixSqrt.multiply(MatrixUtils.createRealMatrix(jacobianData));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -204,10 +205,8 @@ public abstract class AbstractLeastSquaresOptimizer
     protected void updateResidualsAndCost() {
         objective = computeObjectiveValue(point);
         final double[] res = computeResiduals(objective);
-
         // Compute cost.
         cost = computeCost(res);
-
         // Compute weighted residuals.
         final ArrayRealVector residuals = new ArrayRealVector(res);
         weightedResiduals = weightMatrixSqrt.operate(residuals).toArray();
@@ -222,8 +221,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @since 3.1
      */
     protected double computeCost(double[] residuals) {
-        final ArrayRealVector r = new ArrayRealVector(residuals);
-        return FastMath.sqrt(r.dotProduct(getWeight().operate(r)));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -237,7 +236,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @return RMS value
      */
     public double getRMS() {
-        return FastMath.sqrt(getChiSquare() / rows);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -247,7 +247,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @return chi-square value
      */
     public double getChiSquare() {
-        return cost * cost;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -257,7 +258,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @since 3.1
      */
     public RealMatrix getWeightSquareRoot() {
-        return weightMatrixSqrt.copy();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -267,7 +269,7 @@ public abstract class AbstractLeastSquaresOptimizer
      * @since 3.1
      */
     protected void setCost(double cost) {
-        this.cost = cost;
+        // STUB: not implemented
     }
 
     /**
@@ -324,18 +326,9 @@ public abstract class AbstractLeastSquaresOptimizer
      * if the covariance matrix cannot be computed (singular problem).
      * @since 3.1
      */
-    public double[][] computeCovariances(double[] params,
-                                         double threshold) {
-        // Set up the Jacobian.
-        final RealMatrix j = computeWeightedJacobian(params);
-
-        // Compute transpose(J)J.
-        final RealMatrix jTj = j.transpose().multiply(j);
-
-        // Compute the covariances matrix.
-        final DecompositionSolver solver
-            = new QRDecomposition(jTj, threshold).getSolver();
-        return solver.getInverse().getData();
+    public double[][] computeCovariances(double[] params, double threshold) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -370,8 +363,7 @@ public abstract class AbstractLeastSquaresOptimizer
     @Deprecated
     public double[] guessParametersErrors() {
         if (rows <= cols) {
-            throw new NumberIsTooSmallException(LocalizedFormats.NO_DEGREES_OF_FREEDOM,
-                                                rows, cols, false);
+            throw new NumberIsTooSmallException(LocalizedFormats.NO_DEGREES_OF_FREEDOM, rows, cols, false);
         }
         double[] errors = new double[cols];
         final double c = FastMath.sqrt(getChiSquare() / (rows - cols));
@@ -397,18 +389,13 @@ public abstract class AbstractLeastSquaresOptimizer
      * if the covariance matrix cannot be computed.
      * @since 3.1
      */
-    public double[] computeSigma(double[] params,
-                                 double covarianceSingularityThreshold) {
-        final int nC = params.length;
-        final double[] sig = new double[nC];
-        final double[][] cov = computeCovariances(params, covarianceSingularityThreshold);
-        for (int i = 0; i < nC; ++i) {
-            sig[i] = FastMath.sqrt(cov[i][i]);
-        }
-        return sig;
+    public double[] computeSigma(double[] params, double covarianceSingularityThreshold) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated As of 3.1. Please use
      * {@link BaseAbstractMultivariateVectorOptimizer#optimize(int,
      * org.apache.commons.math3.analysis.MultivariateVectorFunction,OptimizationData[])
@@ -417,15 +404,8 @@ public abstract class AbstractLeastSquaresOptimizer
      */
     @Override
     @Deprecated
-    public PointVectorValuePair optimize(int maxEval,
-                                         final DifferentiableMultivariateVectorFunction f,
-                                         final double[] target, final double[] weights,
-                                         final double[] startPoint) {
-        return optimizeInternal(maxEval,
-                                FunctionUtils.toMultivariateDifferentiableVectorFunction(f),
-                                new Target(target),
-                                new Weight(weights),
-                                new InitialGuess(startPoint));
+    public PointVectorValuePair optimize(int maxEval, final DifferentiableMultivariateVectorFunction f, final double[] target, final double[] weights, final double[] startPoint) {
+        return optimizeInternal(maxEval, FunctionUtils.toMultivariateDifferentiableVectorFunction(f), new Target(target), new Weight(weights), new InitialGuess(startPoint));
     }
 
     /**
@@ -454,14 +434,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * instead.
      */
     @Deprecated
-    public PointVectorValuePair optimize(final int maxEval,
-                                         final MultivariateDifferentiableVectorFunction f,
-                                         final double[] target, final double[] weights,
-                                         final double[] startPoint) {
-        return optimizeInternal(maxEval, f,
-                                new Target(target),
-                                new Weight(weights),
-                                new InitialGuess(startPoint));
+    public PointVectorValuePair optimize(final int maxEval, final MultivariateDifferentiableVectorFunction f, final double[] target, final double[] weights, final double[] startPoint) {
+        return optimizeInternal(maxEval, f, new Target(target), new Weight(weights), new InitialGuess(startPoint));
     }
 
     /**
@@ -491,37 +465,18 @@ public abstract class AbstractLeastSquaresOptimizer
      * argument is changed to {@code MultivariateDifferentiableVectorFunction}.
      */
     @Deprecated
-    protected PointVectorValuePair optimizeInternal(final int maxEval,
-                                                    final MultivariateDifferentiableVectorFunction f,
-                                                    OptimizationData... optData) {
+    protected PointVectorValuePair optimizeInternal(final int maxEval, final MultivariateDifferentiableVectorFunction f, OptimizationData... optData) {
         // XXX Conversion will be removed when the generic argument of the
         // base class becomes "MultivariateDifferentiableVectorFunction".
         return super.optimizeInternal(maxEval, FunctionUtils.toDifferentiableMultivariateVectorFunction(f), optData);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setUp() {
-        super.setUp();
-
-        // Reset counter.
-        jacobianEvaluations = 0;
-
-        // Square-root of the weight matrix.
-        weightMatrixSqrt = squareRoot(getWeight());
-
-        // Store least squares problem characteristics.
-        // XXX The conversion won't be necessary when the generic argument of
-        // the base class becomes "MultivariateDifferentiableVectorFunction".
-        // XXX "jF" is not strictly necessary anymore but is currently more
-        // efficient than converting the value returned from "getObjectiveFunction()"
-        // every time it is used.
-        jF = FunctionUtils.toMultivariateDifferentiableVectorFunction((DifferentiableMultivariateVectorFunction) getObjectiveFunction());
-
-        // Arrays shared with "private" and "protected" methods.
-        point = getStartPoint();
-        rows = getTarget().length;
-        cols = point.length;
+        // STUB: not implemented
     }
 
     /**
@@ -541,18 +496,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @since 3.1
      */
     protected double[] computeResiduals(double[] objectiveValue) {
-        final double[] target = getTarget();
-        if (objectiveValue.length != target.length) {
-            throw new DimensionMismatchException(target.length,
-                                                 objectiveValue.length);
-        }
-
-        final double[] residuals = new double[target.length];
-        for (int i = 0; i < target.length; i++) {
-            residuals[i] = target[i] - objectiveValue[i];
-        }
-
-        return residuals;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -566,7 +511,7 @@ public abstract class AbstractLeastSquaresOptimizer
             final int dim = m.getRowDimension();
             final RealMatrix sqrtM = new DiagonalMatrix(dim);
             for (int i = 0; i < dim; i++) {
-               sqrtM.setEntry(i, i, FastMath.sqrt(m.getEntry(i, i)));
+                sqrtM.setEntry(i, i, FastMath.sqrt(m.getEntry(i, i)));
             }
             return sqrtM;
         } else {

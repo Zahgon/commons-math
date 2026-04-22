@@ -22,14 +22,23 @@ package org.apache.commons.math3.optim.linear;
  * @since 2.0
  */
 public enum Relationship {
-    /** Equality relationship. */
+
+    /**
+     * Equality relationship.
+     */
     EQ("="),
-    /** Lesser than or equal relationship. */
+    /**
+     * Lesser than or equal relationship.
+     */
     LEQ("<="),
-    /** Greater than or equal relationship. */
+    /**
+     * Greater than or equal relationship.
+     */
     GEQ(">=");
 
-    /** Display string for the relationship. */
+    /**
+     * Display string for the relationship.
+     */
     private final String stringValue;
 
     /**
@@ -41,10 +50,13 @@ public enum Relationship {
         this.stringValue = stringValue;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return stringValue;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -53,13 +65,7 @@ public enum Relationship {
      * @return the opposite relationship.
      */
     public Relationship oppositeRelationship() {
-        switch (this) {
-        case LEQ :
-            return GEQ;
-        case GEQ :
-            return LEQ;
-        default :
-            return EQ;
-        }
+        // STUB: not implemented
+        return null;
     }
 }

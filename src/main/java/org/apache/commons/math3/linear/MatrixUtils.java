@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.linear;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
-
 import org.apache.commons.math3.Field;
 import org.apache.commons.math3.FieldElement;
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -41,7 +39,6 @@ import org.apache.commons.math3.util.Precision;
 
 /**
  * A collection of static methods that operate on or return matrices.
- *
  */
 public class MatrixUtils {
 
@@ -78,8 +75,8 @@ public class MatrixUtils {
      * @see #createRealMatrix(double[][])
      */
     public static RealMatrix createRealMatrix(final int rows, final int columns) {
-        return (rows * columns <= 4096) ?
-                new Array2DRowRealMatrix(rows, columns) : new BlockRealMatrix(rows, columns);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -97,11 +94,9 @@ public class MatrixUtils {
      * @see #createFieldMatrix(FieldElement[][])
      * @since 2.0
      */
-    public static <T extends FieldElement<T>> FieldMatrix<T> createFieldMatrix(final Field<T> field,
-                                                                               final int rows,
-                                                                               final int columns) {
-        return (rows * columns <= 4096) ?
-                new Array2DRowFieldMatrix<T>(field, rows, columns) : new BlockFieldMatrix<T>(field, rows, columns);
+    public static <T extends FieldElement<T>> FieldMatrix<T> createFieldMatrix(final Field<T> field, final int rows, final int columns) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -124,15 +119,9 @@ public class MatrixUtils {
      * @throws DimensionMismatchException if {@code data} is not rectangular.
      * @see #createRealMatrix(int, int)
      */
-    public static RealMatrix createRealMatrix(double[][] data)
-        throws NullArgumentException, DimensionMismatchException,
-        NoDataException {
-        if (data == null ||
-            data[0] == null) {
-            throw new NullArgumentException();
-        }
-        return (data.length * data[0].length <= 4096) ?
-                new Array2DRowRealMatrix(data) : new BlockRealMatrix(data);
+    public static RealMatrix createRealMatrix(double[][] data) throws NullArgumentException, DimensionMismatchException, NoDataException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -154,14 +143,9 @@ public class MatrixUtils {
      * @see #createFieldMatrix(Field, int, int)
      * @since 2.0
      */
-    public static <T extends FieldElement<T>> FieldMatrix<T> createFieldMatrix(T[][] data)
-        throws DimensionMismatchException, NoDataException, NullArgumentException {
-        if (data == null ||
-            data[0] == null) {
-            throw new NullArgumentException();
-        }
-        return (data.length * data[0].length <= 4096) ?
-                new Array2DRowFieldMatrix<T>(data) : new BlockFieldMatrix<T>(data);
+    public static <T extends FieldElement<T>> FieldMatrix<T> createFieldMatrix(T[][] data) throws DimensionMismatchException, NoDataException, NullArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -173,11 +157,8 @@ public class MatrixUtils {
      * @since 1.1
      */
     public static RealMatrix createRealIdentityMatrix(int dimension) {
-        final RealMatrix m = createRealMatrix(dimension, dimension);
-        for (int i = 0; i < dimension; ++i) {
-            m.setEntry(i, i, 1.0);
-        }
-        return m;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -190,17 +171,9 @@ public class MatrixUtils {
      * @throws IllegalArgumentException if dimension is not positive
      * @since 2.0
      */
-    public static <T extends FieldElement<T>> FieldMatrix<T>
-        createFieldIdentityMatrix(final Field<T> field, final int dimension) {
-        final T zero = field.getZero();
-        final T one  = field.getOne();
-        final T[][] d = MathArrays.buildArray(field, dimension, dimension);
-        for (int row = 0; row < dimension; row++) {
-            final T[] dRow = d[row];
-            Arrays.fill(dRow, zero);
-            dRow[row] = one;
-        }
-        return new Array2DRowFieldMatrix<T>(field, d, false);
+    public static <T extends FieldElement<T>> FieldMatrix<T> createFieldIdentityMatrix(final Field<T> field, final int dimension) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -212,11 +185,8 @@ public class MatrixUtils {
      * @since 2.0
      */
     public static RealMatrix createRealDiagonalMatrix(final double[] diagonal) {
-        final RealMatrix m = createRealMatrix(diagonal.length, diagonal.length);
-        for (int i = 0; i < diagonal.length; ++i) {
-            m.setEntry(i, i, diagonal[i]);
-        }
-        return m;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -228,14 +198,9 @@ public class MatrixUtils {
      * @return diagonal matrix
      * @since 2.0
      */
-    public static <T extends FieldElement<T>> FieldMatrix<T>
-        createFieldDiagonalMatrix(final T[] diagonal) {
-        final FieldMatrix<T> m =
-            createFieldMatrix(diagonal[0].getField(), diagonal.length, diagonal.length);
-        for (int i = 0; i < diagonal.length; ++i) {
-            m.setEntry(i, i, diagonal[i]);
-        }
-        return m;
+    public static <T extends FieldElement<T>> FieldMatrix<T> createFieldDiagonalMatrix(final T[] diagonal) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -246,12 +211,9 @@ public class MatrixUtils {
      * @throws NoDataException if {@code data} is empty.
      * @throws NullArgumentException if {@code data} is {@code null}.
      */
-    public static RealVector createRealVector(double[] data)
-        throws NoDataException, NullArgumentException {
-        if (data == null) {
-            throw new NullArgumentException();
-        }
-        return new ArrayRealVector(data, true);
+    public static RealVector createRealVector(double[] data) throws NoDataException, NullArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -264,15 +226,9 @@ public class MatrixUtils {
      * @throws NullArgumentException if {@code data} is {@code null}.
      * @throws ZeroException if {@code data} has 0 elements
      */
-    public static <T extends FieldElement<T>> FieldVector<T> createFieldVector(final T[] data)
-        throws NoDataException, NullArgumentException, ZeroException {
-        if (data == null) {
-            throw new NullArgumentException();
-        }
-        if (data.length == 0) {
-            throw new ZeroException(LocalizedFormats.VECTOR_MUST_HAVE_AT_LEAST_ONE_ELEMENT);
-        }
-        return new ArrayFieldVector<T>(data[0].getField(), data, true);
+    public static <T extends FieldElement<T>> FieldVector<T> createFieldVector(final T[] data) throws NoDataException, NullArgumentException, ZeroException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -284,17 +240,9 @@ public class MatrixUtils {
      * @throws NoDataException if {@code rowData} is empty.
      * @throws NullArgumentException if {@code rowData} is {@code null}.
      */
-    public static RealMatrix createRowRealMatrix(double[] rowData)
-        throws NoDataException, NullArgumentException {
-        if (rowData == null) {
-            throw new NullArgumentException();
-        }
-        final int nCols = rowData.length;
-        final RealMatrix m = createRealMatrix(1, nCols);
-        for (int i = 0; i < nCols; ++i) {
-            m.setEntry(0, i, rowData[i]);
-        }
-        return m;
+    public static RealMatrix createRowRealMatrix(double[] rowData) throws NoDataException, NullArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -307,21 +255,9 @@ public class MatrixUtils {
      * @throws NoDataException if {@code rowData} is empty.
      * @throws NullArgumentException if {@code rowData} is {@code null}.
      */
-    public static <T extends FieldElement<T>> FieldMatrix<T>
-        createRowFieldMatrix(final T[] rowData)
-        throws NoDataException, NullArgumentException {
-        if (rowData == null) {
-            throw new NullArgumentException();
-        }
-        final int nCols = rowData.length;
-        if (nCols == 0) {
-            throw new NoDataException(LocalizedFormats.AT_LEAST_ONE_COLUMN);
-        }
-        final FieldMatrix<T> m = createFieldMatrix(rowData[0].getField(), 1, nCols);
-        for (int i = 0; i < nCols; ++i) {
-            m.setEntry(0, i, rowData[i]);
-        }
-        return m;
+    public static <T extends FieldElement<T>> FieldMatrix<T> createRowFieldMatrix(final T[] rowData) throws NoDataException, NullArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -333,17 +269,9 @@ public class MatrixUtils {
      * @throws NoDataException if {@code columnData} is empty.
      * @throws NullArgumentException if {@code columnData} is {@code null}.
      */
-    public static RealMatrix createColumnRealMatrix(double[] columnData)
-        throws NoDataException, NullArgumentException {
-        if (columnData == null) {
-            throw new NullArgumentException();
-        }
-        final int nRows = columnData.length;
-        final RealMatrix m = createRealMatrix(nRows, 1);
-        for (int i = 0; i < nRows; ++i) {
-            m.setEntry(i, 0, columnData[i]);
-        }
-        return m;
+    public static RealMatrix createColumnRealMatrix(double[] columnData) throws NoDataException, NullArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -356,21 +284,9 @@ public class MatrixUtils {
      * @throws NoDataException if {@code data} is empty.
      * @throws NullArgumentException if {@code columnData} is {@code null}.
      */
-    public static <T extends FieldElement<T>> FieldMatrix<T>
-        createColumnFieldMatrix(final T[] columnData)
-        throws NoDataException, NullArgumentException {
-        if (columnData == null) {
-            throw new NullArgumentException();
-        }
-        final int nRows = columnData.length;
-        if (nRows == 0) {
-            throw new NoDataException(LocalizedFormats.AT_LEAST_ONE_ROW);
-        }
-        final FieldMatrix<T> m = createFieldMatrix(columnData[0].getField(), nRows, 1);
-        for (int i = 0; i < nRows; ++i) {
-            m.setEntry(i, 0, columnData[i]);
-        }
-        return m;
+    public static <T extends FieldElement<T>> FieldMatrix<T> createColumnFieldMatrix(final T[] columnData) throws NoDataException, NullArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -384,9 +300,7 @@ public class MatrixUtils {
      * @throws NonSquareMatrixException if the matrix is not square.
      * @throws NonSymmetricMatrixException if the matrix is not symmetric.
      */
-    private static boolean isSymmetricInternal(RealMatrix matrix,
-                                               double relativeTolerance,
-                                               boolean raiseException) {
+    private static boolean isSymmetricInternal(RealMatrix matrix, double relativeTolerance, boolean raiseException) {
         final int rows = matrix.getRowDimension();
         if (rows != matrix.getColumnDimension()) {
             if (raiseException) {
@@ -399,8 +313,7 @@ public class MatrixUtils {
             for (int j = i + 1; j < rows; j++) {
                 final double mij = matrix.getEntry(i, j);
                 final double mji = matrix.getEntry(j, i);
-                if (FastMath.abs(mij - mji) >
-                    FastMath.max(FastMath.abs(mij), FastMath.abs(mji)) * relativeTolerance) {
+                if (FastMath.abs(mij - mji) > FastMath.max(FastMath.abs(mij), FastMath.abs(mji)) * relativeTolerance) {
                     if (raiseException) {
                         throw new NonSymmetricMatrixException(i, j, relativeTolerance);
                     } else {
@@ -421,9 +334,8 @@ public class MatrixUtils {
      * @throws NonSymmetricMatrixException if the matrix is not symmetric.
      * @since 3.1
      */
-    public static void checkSymmetric(RealMatrix matrix,
-                                      double eps) {
-        isSymmetricInternal(matrix, eps, true);
+    public static void checkSymmetric(RealMatrix matrix, double eps) {
+        // STUB: not implemented
     }
 
     /**
@@ -434,9 +346,9 @@ public class MatrixUtils {
      * @return {@code true} if {@code matrix} is symmetric.
      * @since 3.1
      */
-    public static boolean isSymmetric(RealMatrix matrix,
-                                      double eps) {
-        return isSymmetricInternal(matrix, eps, false);
+    public static boolean isSymmetric(RealMatrix matrix, double eps) {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -448,11 +360,8 @@ public class MatrixUtils {
      * @throws OutOfRangeException if {@code row} or {@code column} is not
      * a valid index.
      */
-    public static void checkMatrixIndex(final AnyMatrix m,
-                                        final int row, final int column)
-        throws OutOfRangeException {
-        checkRowIndex(m, row);
-        checkColumnIndex(m, column);
+    public static void checkMatrixIndex(final AnyMatrix m, final int row, final int column) throws OutOfRangeException {
+        // STUB: not implemented
     }
 
     /**
@@ -462,13 +371,8 @@ public class MatrixUtils {
      * @param row Row index to check.
      * @throws OutOfRangeException if {@code row} is not a valid index.
      */
-    public static void checkRowIndex(final AnyMatrix m, final int row)
-        throws OutOfRangeException {
-        if (row < 0 ||
-            row >= m.getRowDimension()) {
-            throw new OutOfRangeException(LocalizedFormats.ROW_INDEX,
-                                          row, 0, m.getRowDimension() - 1);
-        }
+    public static void checkRowIndex(final AnyMatrix m, final int row) throws OutOfRangeException {
+        // STUB: not implemented
     }
 
     /**
@@ -478,12 +382,8 @@ public class MatrixUtils {
      * @param column Column index to check.
      * @throws OutOfRangeException if {@code column} is not a valid index.
      */
-    public static void checkColumnIndex(final AnyMatrix m, final int column)
-        throws OutOfRangeException {
-        if (column < 0 || column >= m.getColumnDimension()) {
-            throw new OutOfRangeException(LocalizedFormats.COLUMN_INDEX,
-                                           column, 0, m.getColumnDimension() - 1);
-        }
+    public static void checkColumnIndex(final AnyMatrix m, final int column) throws OutOfRangeException {
+        // STUB: not implemented
     }
 
     /**
@@ -499,25 +399,8 @@ public class MatrixUtils {
      * @throws NumberIsTooSmallException if {@code endRow < startRow} or
      * {@code endColumn < startColumn}.
      */
-    public static void checkSubMatrixIndex(final AnyMatrix m,
-                                           final int startRow, final int endRow,
-                                           final int startColumn, final int endColumn)
-        throws NumberIsTooSmallException, OutOfRangeException {
-        checkRowIndex(m, startRow);
-        checkRowIndex(m, endRow);
-        if (endRow < startRow) {
-            throw new NumberIsTooSmallException(LocalizedFormats.INITIAL_ROW_AFTER_FINAL_ROW,
-                                                endRow, startRow, false);
-        }
-
-        checkColumnIndex(m, startColumn);
-        checkColumnIndex(m, endColumn);
-        if (endColumn < startColumn) {
-            throw new NumberIsTooSmallException(LocalizedFormats.INITIAL_COLUMN_AFTER_FINAL_COLUMN,
-                                                endColumn, startColumn, false);
-        }
-
-
+    public static void checkSubMatrixIndex(final AnyMatrix m, final int startRow, final int endRow, final int startColumn, final int endColumn) throws NumberIsTooSmallException, OutOfRangeException {
+        // STUB: not implemented
     }
 
     /**
@@ -533,29 +416,8 @@ public class MatrixUtils {
      * length).
      * @throws OutOfRangeException if row or column selections are not valid.
      */
-    public static void checkSubMatrixIndex(final AnyMatrix m,
-                                           final int[] selectedRows,
-                                           final int[] selectedColumns)
-        throws NoDataException, NullArgumentException, OutOfRangeException {
-        if (selectedRows == null) {
-            throw new NullArgumentException();
-        }
-        if (selectedColumns == null) {
-            throw new NullArgumentException();
-        }
-        if (selectedRows.length == 0) {
-            throw new NoDataException(LocalizedFormats.EMPTY_SELECTED_ROW_INDEX_ARRAY);
-        }
-        if (selectedColumns.length == 0) {
-            throw new NoDataException(LocalizedFormats.EMPTY_SELECTED_COLUMN_INDEX_ARRAY);
-        }
-
-        for (final int row : selectedRows) {
-            checkRowIndex(m, row);
-        }
-        for (final int column : selectedColumns) {
-            checkColumnIndex(m, column);
-        }
+    public static void checkSubMatrixIndex(final AnyMatrix m, final int[] selectedRows, final int[] selectedColumns) throws NoDataException, NullArgumentException, OutOfRangeException {
+        // STUB: not implemented
     }
 
     /**
@@ -566,13 +428,8 @@ public class MatrixUtils {
      * @throws MatrixDimensionMismatchException if the matrices are not addition
      * compatible.
      */
-    public static void checkAdditionCompatible(final AnyMatrix left, final AnyMatrix right)
-        throws MatrixDimensionMismatchException {
-        if ((left.getRowDimension()    != right.getRowDimension()) ||
-            (left.getColumnDimension() != right.getColumnDimension())) {
-            throw new MatrixDimensionMismatchException(left.getRowDimension(), left.getColumnDimension(),
-                                                       right.getRowDimension(), right.getColumnDimension());
-        }
+    public static void checkAdditionCompatible(final AnyMatrix left, final AnyMatrix right) throws MatrixDimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -583,13 +440,8 @@ public class MatrixUtils {
      * @throws MatrixDimensionMismatchException if the matrices are not addition
      * compatible.
      */
-    public static void checkSubtractionCompatible(final AnyMatrix left, final AnyMatrix right)
-        throws MatrixDimensionMismatchException {
-        if ((left.getRowDimension()    != right.getRowDimension()) ||
-            (left.getColumnDimension() != right.getColumnDimension())) {
-            throw new MatrixDimensionMismatchException(left.getRowDimension(), left.getColumnDimension(),
-                                                       right.getRowDimension(), right.getColumnDimension());
-        }
+    public static void checkSubtractionCompatible(final AnyMatrix left, final AnyMatrix right) throws MatrixDimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -600,13 +452,8 @@ public class MatrixUtils {
      * @throws DimensionMismatchException if matrices are not multiplication
      * compatible.
      */
-    public static void checkMultiplicationCompatible(final AnyMatrix left, final AnyMatrix right)
-        throws DimensionMismatchException {
-
-        if (left.getColumnDimension() != right.getRowDimension()) {
-            throw new DimensionMismatchException(left.getColumnDimension(),
-                                                 right.getRowDimension());
-        }
+    public static void checkMultiplicationCompatible(final AnyMatrix left, final AnyMatrix right) throws DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -615,31 +462,41 @@ public class MatrixUtils {
      * @return the converted matrix.
      */
     public static Array2DRowRealMatrix fractionMatrixToRealMatrix(final FieldMatrix<Fraction> m) {
-        final FractionMatrixConverter converter = new FractionMatrixConverter();
-        m.walkInOptimizedOrder(converter);
-        return converter.getConvertedMatrix();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Converter for {@link FieldMatrix}/{@link Fraction}. */
+    /**
+     * Converter for {@link FieldMatrix}/{@link Fraction}.
+     */
     private static class FractionMatrixConverter extends DefaultFieldMatrixPreservingVisitor<Fraction> {
-        /** Converted array. */
+
+        /**
+         * Converted array.
+         */
         private double[][] data;
-        /** Simple constructor. */
+
+        /**
+         * Simple constructor.
+         */
         FractionMatrixConverter() {
             super(Fraction.ZERO);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
-        public void start(int rows, int columns,
-                          int startRow, int endRow, int startColumn, int endColumn) {
-            data = new double[rows][columns];
+        public void start(int rows, int columns, int startRow, int endRow, int startColumn, int endColumn) {
+            // STUB: not implemented
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void visit(int row, int column, Fraction value) {
-            data[row][column] = value.doubleValue();
+            // STUB: not implemented
         }
 
         /**
@@ -648,9 +505,9 @@ public class MatrixUtils {
          * @return the converted matrix.
          */
         Array2DRowRealMatrix getConvertedMatrix() {
-            return new Array2DRowRealMatrix(data, false);
+            // STUB: not implemented
+            return null;
         }
-
     }
 
     /**
@@ -660,31 +517,41 @@ public class MatrixUtils {
      * @return the converted matrix.
      */
     public static Array2DRowRealMatrix bigFractionMatrixToRealMatrix(final FieldMatrix<BigFraction> m) {
-        final BigFractionMatrixConverter converter = new BigFractionMatrixConverter();
-        m.walkInOptimizedOrder(converter);
-        return converter.getConvertedMatrix();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Converter for {@link FieldMatrix}/{@link BigFraction}. */
+    /**
+     * Converter for {@link FieldMatrix}/{@link BigFraction}.
+     */
     private static class BigFractionMatrixConverter extends DefaultFieldMatrixPreservingVisitor<BigFraction> {
-        /** Converted array. */
+
+        /**
+         * Converted array.
+         */
         private double[][] data;
-        /** Simple constructor. */
+
+        /**
+         * Simple constructor.
+         */
         BigFractionMatrixConverter() {
             super(BigFraction.ZERO);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
-        public void start(int rows, int columns,
-                          int startRow, int endRow, int startColumn, int endColumn) {
-            data = new double[rows][columns];
+        public void start(int rows, int columns, int startRow, int endRow, int startColumn, int endColumn) {
+            // STUB: not implemented
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public void visit(int row, int column, BigFraction value) {
-            data[row][column] = value.doubleValue();
+            // STUB: not implemented
         }
 
         /**
@@ -693,11 +560,13 @@ public class MatrixUtils {
          * @return the converted matrix.
          */
         Array2DRowRealMatrix getConvertedMatrix() {
-            return new Array2DRowRealMatrix(data, false);
+            // STUB: not implemented
+            return null;
         }
     }
 
-    /** Serialize a {@link RealVector}.
+    /**
+     * Serialize a {@link RealVector}.
      * <p>
      * This method is intended to be called from within a private
      * <code>writeObject</code> method (after a call to
@@ -737,17 +606,12 @@ public class MatrixUtils {
      * @exception IOException if object cannot be written to stream
      * @see #deserializeRealVector(Object, String, ObjectInputStream)
      */
-    public static void serializeRealVector(final RealVector vector,
-                                           final ObjectOutputStream oos)
-        throws IOException {
-        final int n = vector.getDimension();
-        oos.writeInt(n);
-        for (int i = 0; i < n; ++i) {
-            oos.writeDouble(vector.getEntry(i));
-        }
+    public static void serializeRealVector(final RealVector vector, final ObjectOutputStream oos) throws IOException {
+        // STUB: not implemented
     }
 
-    /** Deserialize  a {@link RealVector} field in a class.
+    /**
+     * Deserialize  a {@link RealVector} field in a class.
      * <p>
      * This method is intended to be called from within a private
      * <code>readObject</code> method (after a call to
@@ -764,41 +628,12 @@ public class MatrixUtils {
      * @exception IOException if object cannot be read from the stream
      * @see #serializeRealVector(RealVector, ObjectOutputStream)
      */
-    public static void deserializeRealVector(final Object instance,
-                                             final String fieldName,
-                                             final ObjectInputStream ois)
-      throws ClassNotFoundException, IOException {
-        try {
-
-            // read the vector data
-            final int n = ois.readInt();
-            final double[] data = new double[n];
-            for (int i = 0; i < n; ++i) {
-                data[i] = ois.readDouble();
-            }
-
-            // create the instance
-            final RealVector vector = new ArrayRealVector(data, false);
-
-            // set up the field
-            final java.lang.reflect.Field f =
-                instance.getClass().getDeclaredField(fieldName);
-            f.setAccessible(true);
-            f.set(instance, vector);
-
-        } catch (NoSuchFieldException nsfe) {
-            IOException ioe = new IOException();
-            ioe.initCause(nsfe);
-            throw ioe;
-        } catch (IllegalAccessException iae) {
-            IOException ioe = new IOException();
-            ioe.initCause(iae);
-            throw ioe;
-        }
-
+    public static void deserializeRealVector(final Object instance, final String fieldName, final ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        // STUB: not implemented
     }
 
-    /** Serialize a {@link RealMatrix}.
+    /**
+     * Serialize a {@link RealMatrix}.
      * <p>
      * This method is intended to be called from within a private
      * <code>writeObject</code> method (after a call to
@@ -838,21 +673,12 @@ public class MatrixUtils {
      * @exception IOException if object cannot be written to stream
      * @see #deserializeRealMatrix(Object, String, ObjectInputStream)
      */
-    public static void serializeRealMatrix(final RealMatrix matrix,
-                                           final ObjectOutputStream oos)
-        throws IOException {
-        final int n = matrix.getRowDimension();
-        final int m = matrix.getColumnDimension();
-        oos.writeInt(n);
-        oos.writeInt(m);
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < m; ++j) {
-                oos.writeDouble(matrix.getEntry(i, j));
-            }
-        }
+    public static void serializeRealMatrix(final RealMatrix matrix, final ObjectOutputStream oos) throws IOException {
+        // STUB: not implemented
     }
 
-    /** Deserialize  a {@link RealMatrix} field in a class.
+    /**
+     * Deserialize  a {@link RealMatrix} field in a class.
      * <p>
      * This method is intended to be called from within a private
      * <code>readObject</code> method (after a call to
@@ -869,88 +695,35 @@ public class MatrixUtils {
      * @exception IOException if object cannot be read from the stream
      * @see #serializeRealMatrix(RealMatrix, ObjectOutputStream)
      */
-    public static void deserializeRealMatrix(final Object instance,
-                                             final String fieldName,
-                                             final ObjectInputStream ois)
-      throws ClassNotFoundException, IOException {
-        try {
-
-            // read the matrix data
-            final int n = ois.readInt();
-            final int m = ois.readInt();
-            final double[][] data = new double[n][m];
-            for (int i = 0; i < n; ++i) {
-                final double[] dataI = data[i];
-                for (int j = 0; j < m; ++j) {
-                    dataI[j] = ois.readDouble();
-                }
-            }
-
-            // create the instance
-            final RealMatrix matrix = new Array2DRowRealMatrix(data, false);
-
-            // set up the field
-            final java.lang.reflect.Field f =
-                instance.getClass().getDeclaredField(fieldName);
-            f.setAccessible(true);
-            f.set(instance, matrix);
-
-        } catch (NoSuchFieldException nsfe) {
-            IOException ioe = new IOException();
-            ioe.initCause(nsfe);
-            throw ioe;
-        } catch (IllegalAccessException iae) {
-            IOException ioe = new IOException();
-            ioe.initCause(iae);
-            throw ioe;
-        }
+    public static void deserializeRealMatrix(final Object instance, final String fieldName, final ObjectInputStream ois) throws ClassNotFoundException, IOException {
+        // STUB: not implemented
     }
 
-    /**Solve  a  system of composed of a Lower Triangular Matrix
-     * {@link RealMatrix}.
-     * <p>
-     * This method is called to solve systems of equations which are
-     * of the lower triangular form. The matrix {@link RealMatrix}
-     * is assumed, though not checked, to be in lower triangular form.
-     * The vector {@link RealVector} is overwritten with the solution.
-     * The matrix is checked that it is square and its dimensions match
-     * the length of the vector.
-     * </p>
-     * @param rm RealMatrix which is lower triangular
-     * @param b  RealVector this is overwritten
-     * @throws DimensionMismatchException if the matrix and vector are not
-     * conformable
-     * @throws NonSquareMatrixException if the matrix {@code rm} is not square
-     * @throws MathArithmeticException if the absolute value of one of the diagonal
-     * coefficient of {@code rm} is lower than {@link Precision#SAFE_MIN}
+    /**
+     * Solve  a  system of composed of a Lower Triangular Matrix
+     *  {@link RealMatrix}.
+     *  <p>
+     *  This method is called to solve systems of equations which are
+     *  of the lower triangular form. The matrix {@link RealMatrix}
+     *  is assumed, though not checked, to be in lower triangular form.
+     *  The vector {@link RealVector} is overwritten with the solution.
+     *  The matrix is checked that it is square and its dimensions match
+     *  the length of the vector.
+     *  </p>
+     *  @param rm RealMatrix which is lower triangular
+     *  @param b  RealVector this is overwritten
+     *  @throws DimensionMismatchException if the matrix and vector are not
+     *  conformable
+     *  @throws NonSquareMatrixException if the matrix {@code rm} is not square
+     *  @throws MathArithmeticException if the absolute value of one of the diagonal
+     *  coefficient of {@code rm} is lower than {@link Precision#SAFE_MIN}
      */
-    public static void solveLowerTriangularSystem(RealMatrix rm, RealVector b)
-        throws DimensionMismatchException, MathArithmeticException,
-        NonSquareMatrixException {
-        if ((rm == null) || (b == null) || ( rm.getRowDimension() != b.getDimension())) {
-            throw new DimensionMismatchException(
-                    (rm == null) ? 0 : rm.getRowDimension(),
-                    (b == null) ? 0 : b.getDimension());
-        }
-        if( rm.getColumnDimension() != rm.getRowDimension() ){
-            throw new NonSquareMatrixException(rm.getRowDimension(),
-                                               rm.getColumnDimension());
-        }
-        int rows = rm.getRowDimension();
-        for( int i = 0 ; i < rows ; i++ ){
-            double diag = rm.getEntry(i, i);
-            if( FastMath.abs(diag) < Precision.SAFE_MIN ){
-                throw new MathArithmeticException(LocalizedFormats.ZERO_DENOMINATOR);
-            }
-            double bi = b.getEntry(i)/diag;
-            b.setEntry(i,  bi );
-            for( int j = i+1; j< rows; j++ ){
-                b.setEntry(j, b.getEntry(j)-bi*rm.getEntry(j,i)  );
-            }
-        }
+    public static void solveLowerTriangularSystem(RealMatrix rm, RealVector b) throws DimensionMismatchException, MathArithmeticException, NonSquareMatrixException {
+        // STUB: not implemented
     }
 
-    /** Solver a  system composed  of an Upper Triangular Matrix
+    /**
+     * Solver a  system composed  of an Upper Triangular Matrix
      * {@link RealMatrix}.
      * <p>
      * This method is called to solve systems of equations which are
@@ -969,30 +742,8 @@ public class MatrixUtils {
      * @throws MathArithmeticException if the absolute value of one of the diagonal
      * coefficient of {@code rm} is lower than {@link Precision#SAFE_MIN}
      */
-    public static void solveUpperTriangularSystem(RealMatrix rm, RealVector b)
-        throws DimensionMismatchException, MathArithmeticException,
-        NonSquareMatrixException {
-        if ((rm == null) || (b == null) || ( rm.getRowDimension() != b.getDimension())) {
-            throw new DimensionMismatchException(
-                    (rm == null) ? 0 : rm.getRowDimension(),
-                    (b == null) ? 0 : b.getDimension());
-        }
-        if( rm.getColumnDimension() != rm.getRowDimension() ){
-            throw new NonSquareMatrixException(rm.getRowDimension(),
-                                               rm.getColumnDimension());
-        }
-        int rows = rm.getRowDimension();
-        for( int i = rows-1 ; i >-1 ; i-- ){
-            double diag = rm.getEntry(i, i);
-            if( FastMath.abs(diag) < Precision.SAFE_MIN ){
-                throw new MathArithmeticException(LocalizedFormats.ZERO_DENOMINATOR);
-            }
-            double bi = b.getEntry(i)/diag;
-            b.setEntry(i,  bi );
-            for( int j = i-1; j>-1; j-- ){
-                b.setEntry(j, b.getEntry(j)-bi*rm.getEntry(j,i)  );
-            }
-        }
+    public static void solveUpperTriangularSystem(RealMatrix rm, RealVector b) throws DimensionMismatchException, MathArithmeticException, NonSquareMatrixException {
+        // STUB: not implemented
     }
 
     /**
@@ -1007,61 +758,9 @@ public class MatrixUtils {
      * @return the inverse of {@code m}.
      * @throws NonSquareMatrixException if {@code m} is not square.
      */
-    public static RealMatrix blockInverse(RealMatrix m,
-                                          int splitIndex) {
-        final int n = m.getRowDimension();
-        if (m.getColumnDimension() != n) {
-            throw new NonSquareMatrixException(m.getRowDimension(),
-                                               m.getColumnDimension());
-        }
-
-        final int splitIndex1 = splitIndex + 1;
-
-        final RealMatrix a = m.getSubMatrix(0, splitIndex, 0, splitIndex);
-        final RealMatrix b = m.getSubMatrix(0, splitIndex, splitIndex1, n - 1);
-        final RealMatrix c = m.getSubMatrix(splitIndex1, n - 1, 0, splitIndex);
-        final RealMatrix d = m.getSubMatrix(splitIndex1, n - 1, splitIndex1, n - 1);
-
-        final SingularValueDecomposition aDec = new SingularValueDecomposition(a);
-        final DecompositionSolver aSolver = aDec.getSolver();
-        if (!aSolver.isNonSingular()) {
-            throw new SingularMatrixException();
-        }
-        final RealMatrix aInv = aSolver.getInverse();
-
-        final SingularValueDecomposition dDec = new SingularValueDecomposition(d);
-        final DecompositionSolver dSolver = dDec.getSolver();
-        if (!dSolver.isNonSingular()) {
-            throw new SingularMatrixException();
-        }
-        final RealMatrix dInv = dSolver.getInverse();
-
-        final RealMatrix tmp1 = a.subtract(b.multiply(dInv).multiply(c));
-        final SingularValueDecomposition tmp1Dec = new SingularValueDecomposition(tmp1);
-        final DecompositionSolver tmp1Solver = tmp1Dec.getSolver();
-        if (!tmp1Solver.isNonSingular()) {
-            throw new SingularMatrixException();
-        }
-        final RealMatrix result00 = tmp1Solver.getInverse();
-
-        final RealMatrix tmp2 = d.subtract(c.multiply(aInv).multiply(b));
-        final SingularValueDecomposition tmp2Dec = new SingularValueDecomposition(tmp2);
-        final DecompositionSolver tmp2Solver = tmp2Dec.getSolver();
-        if (!tmp2Solver.isNonSingular()) {
-            throw new SingularMatrixException();
-        }
-        final RealMatrix result11 = tmp2Solver.getInverse();
-
-        final RealMatrix result01 = aInv.multiply(b).multiply(result11).scalarMultiply(-1);
-        final RealMatrix result10 = dInv.multiply(c).multiply(result00).scalarMultiply(-1);
-
-        final RealMatrix result = new Array2DRowRealMatrix(n, n);
-        result.setSubMatrix(result00.getData(), 0, 0);
-        result.setSubMatrix(result01.getData(), 0, splitIndex1);
-        result.setSubMatrix(result10.getData(), splitIndex1, 0);
-        result.setSubMatrix(result11.getData(), splitIndex1, splitIndex1);
-
-        return result;
+    public static RealMatrix blockInverse(RealMatrix m, int splitIndex) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -1080,9 +779,9 @@ public class MatrixUtils {
      * @throws NonSquareMatrixException if matrix is not square
      * @since 3.3
      */
-    public static RealMatrix inverse(RealMatrix matrix)
-            throws NullArgumentException, SingularMatrixException, NonSquareMatrixException {
-        return inverse(matrix, 0);
+    public static RealMatrix inverse(RealMatrix matrix) throws NullArgumentException, SingularMatrixException, NonSquareMatrixException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -1099,21 +798,8 @@ public class MatrixUtils {
      * @throws NonSquareMatrixException if matrix is not square
      * @since 3.3
      */
-    public static RealMatrix inverse(RealMatrix matrix, double threshold)
-            throws NullArgumentException, SingularMatrixException, NonSquareMatrixException {
-
-        MathUtils.checkNotNull(matrix);
-
-        if (!matrix.isSquare()) {
-            throw new NonSquareMatrixException(matrix.getRowDimension(),
-                                               matrix.getColumnDimension());
-        }
-
-        if (matrix instanceof DiagonalMatrix) {
-            return ((DiagonalMatrix) matrix).inverse(threshold);
-        } else {
-            QRDecomposition decomposition = new QRDecomposition(matrix, threshold);
-            return decomposition.getSolver().getInverse();
-        }
+    public static RealMatrix inverse(RealMatrix matrix, double threshold) throws NullArgumentException, SingularMatrixException, NonSquareMatrixException {
+        // STUB: not implemented
+        return null;
     }
 }

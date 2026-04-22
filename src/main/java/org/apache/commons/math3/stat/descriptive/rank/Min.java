@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.rank;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
@@ -37,17 +36,22 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
 public class Min extends AbstractStorelessUnivariateStatistic implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -2941995784909003131L;
 
-    /**Number of values that have been added */
+    /**
+     * Number of values that have been added
+     */
     private long n;
 
-    /**Current value of the statistic */
+    /**
+     * Current value of the statistic
+     */
     private double value;
 
     /**
@@ -74,10 +78,7 @@ public class Min extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public void increment(final double d) {
-        if (d < value || Double.isNaN(value)) {
-            value = d;
-        }
-        n++;
+        // STUB: not implemented
     }
 
     /**
@@ -85,8 +86,7 @@ public class Min extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public void clear() {
-        value = Double.NaN;
-        n = 0;
+        // STUB: not implemented
     }
 
     /**
@@ -94,14 +94,16 @@ public class Min extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public double getResult() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -127,18 +129,9 @@ public class Min extends AbstractStorelessUnivariateStatistic implements Seriali
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values,final int begin, final int length)
-    throws MathIllegalArgumentException {
-        double min = Double.NaN;
-        if (test(values, begin, length)) {
-            min = values[begin];
-            for (int i = begin; i < begin + length; i++) {
-                if (!Double.isNaN(values[i])) {
-                    min = (min < values[i]) ? min : values[i];
-                }
-            }
-        }
-        return min;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -146,10 +139,8 @@ public class Min extends AbstractStorelessUnivariateStatistic implements Seriali
      */
     @Override
     public Min copy() {
-        Min result = new Min();
-        // No try-catch or advertised exception - args are non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -160,12 +151,7 @@ public class Min extends AbstractStorelessUnivariateStatistic implements Seriali
      * @param dest Min to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(Min source, Min dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.n = source.n;
-        dest.value = source.value;
+    public static void copy(Min source, Min dest) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

@@ -33,19 +33,40 @@ import org.apache.commons.math3.util.MathArrays;
  * @since 3.6
  */
 public class InterpolatingMicrosphere {
-    /** Microsphere. */
+
+    /**
+     * Microsphere.
+     */
     private final List<Facet> microsphere;
-    /** Microsphere data. */
+
+    /**
+     * Microsphere data.
+     */
     private final List<FacetData> microsphereData;
-    /** Space dimension. */
+
+    /**
+     * Space dimension.
+     */
     private final int dimension;
-    /** Number of surface elements. */
+
+    /**
+     * Number of surface elements.
+     */
     private final int size;
-    /** Maximum fraction of the facets that can be dark. */
+
+    /**
+     * Maximum fraction of the facets that can be dark.
+     */
     private final double maxDarkFraction;
-    /** Lowest non-zero illumination. */
+
+    /**
+     * Lowest non-zero illumination.
+     */
     private final double darkThreshold;
-    /** Background value. */
+
+    /**
+     * Background value.
+     */
     private final double background;
 
     /**
@@ -69,25 +90,19 @@ public class InterpolatingMicrosphere {
      * @throws OutOfRangeException if {@code maxDarkFraction} does not
      * belong to the interval {@code [0, 1]}.
      */
-    protected InterpolatingMicrosphere(int dimension,
-                                       int size,
-                                       double maxDarkFraction,
-                                       double darkThreshold,
-                                       double background) {
+    protected InterpolatingMicrosphere(int dimension, int size, double maxDarkFraction, double darkThreshold, double background) {
         if (dimension <= 0) {
             throw new NotStrictlyPositiveException(dimension);
         }
         if (size <= 0) {
             throw new NotStrictlyPositiveException(size);
         }
-        if (maxDarkFraction < 0 ||
-            maxDarkFraction > 1) {
+        if (maxDarkFraction < 0 || maxDarkFraction > 1) {
             throw new OutOfRangeException(maxDarkFraction, 0, 1);
         }
         if (darkThreshold < 0) {
             throw new NotPositiveException(darkThreshold);
         }
-
         this.dimension = dimension;
         this.size = size;
         this.maxDarkFraction = maxDarkFraction;
@@ -119,14 +134,8 @@ public class InterpolatingMicrosphere {
      * @throws OutOfRangeException if {@code maxDarkFraction} does not
      * belong to the interval {@code [0, 1]}.
      */
-    public InterpolatingMicrosphere(int dimension,
-                                    int size,
-                                    double maxDarkFraction,
-                                    double darkThreshold,
-                                    double background,
-                                    UnitSphereRandomVectorGenerator rand) {
+    public InterpolatingMicrosphere(int dimension, int size, double maxDarkFraction, double darkThreshold, double background, UnitSphereRandomVectorGenerator rand) {
         this(dimension, size, maxDarkFraction, darkThreshold, background);
-
         // Generate the microsphere normals, assuming that a number of
         // randomly generated normals will represent a sphere.
         for (int i = 0; i < size; i++) {
@@ -145,10 +154,8 @@ public class InterpolatingMicrosphere {
         maxDarkFraction = other.maxDarkFraction;
         darkThreshold = other.darkThreshold;
         background = other.background;
-
         // Field can be shared.
         microsphere = other.microsphere;
-
         // Field must be copied.
         microsphereData = new ArrayList<FacetData>(size);
         for (FacetData fd : other.microsphereData) {
@@ -162,7 +169,8 @@ public class InterpolatingMicrosphere {
      * @return a copy of this instance.
      */
     public InterpolatingMicrosphere copy() {
-        return new InterpolatingMicrosphere(this);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -171,7 +179,8 @@ public class InterpolatingMicrosphere {
      * @return the number of space dimensions.
      */
     public int getDimension() {
-        return dimension;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -180,7 +189,8 @@ public class InterpolatingMicrosphere {
      * @return the number of surface elements of the microspshere.
      */
     public int getSize() {
-        return size;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -203,36 +213,9 @@ public class InterpolatingMicrosphere {
      * @return the estimated value at the given {@code point}.
      * @throws NotPositiveException if {@code exponent < 0}.
      */
-    public double value(double[] point,
-                        double[][] samplePoints,
-                        double[] sampleValues,
-                        double exponent,
-                        double noInterpolationTolerance) {
-        if (exponent < 0) {
-            throw new NotPositiveException(exponent);
-        }
-
-        clear();
-
-        // Contribution of each sample point to the illumination of the
-        // microsphere's facets.
-        final int numSamples = samplePoints.length;
-        for (int i = 0; i < numSamples; i++) {
-            // Vector between interpolation point and current sample point.
-            final double[] diff = MathArrays.ebeSubtract(samplePoints[i], point);
-            final double diffNorm = MathArrays.safeNorm(diff);
-
-            if (FastMath.abs(diffNorm) < noInterpolationTolerance) {
-                // No need to interpolate, as the interpolation point is
-                // actually (very close to) one of the sampled points.
-                return sampleValues[i];
-            }
-
-            final double weight = FastMath.pow(diffNorm, -exponent);
-            illuminate(diff, sampleValues[i], weight);
-        }
-
-        return interpolate();
+    public double value(double[] point, double[][] samplePoints, double[] sampleValues, double exponent, double noInterpolationTolerance) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -246,17 +229,8 @@ public class InterpolatingMicrosphere {
      * @throws MaxCountExceededException if the method has been called
      * more times than the size of the sphere.
      */
-    protected void add(double[] normal,
-                       boolean copy) {
-        if (microsphere.size() >= size) {
-            throw new MaxCountExceededException(size);
-        }
-        if (normal.length > dimension) {
-            throw new DimensionMismatchException(normal.length, dimension);
-        }
-
-        microsphere.add(new Facet(copy ? normal.clone() : normal));
-        microsphereData.add(new FacetData(0d, 0d));
+    protected void add(double[] normal, boolean copy) {
+        // STUB: not implemented
     }
 
     /**
@@ -268,7 +242,6 @@ public class InterpolatingMicrosphere {
     private double interpolate() {
         // Number of non-illuminated facets.
         int darkCount = 0;
-
         double value = 0;
         double totalWeight = 0;
         for (FacetData fd : microsphereData) {
@@ -280,12 +253,8 @@ public class InterpolatingMicrosphere {
                 ++darkCount;
             }
         }
-
         final double darkFraction = darkCount / (double) size;
-
-        return darkFraction <= maxDarkFraction ?
-            value / totalWeight :
-            background;
+        return darkFraction <= maxDarkFraction ? value / totalWeight : background;
     }
 
     /**
@@ -296,18 +265,13 @@ public class InterpolatingMicrosphere {
      * @param sampleValue Data value of the sample.
      * @param weight Weight.
      */
-    private void illuminate(double[] sampleDirection,
-                            double sampleValue,
-                            double weight) {
+    private void illuminate(double[] sampleDirection, double sampleValue, double weight) {
         for (int i = 0; i < size; i++) {
             final double[] n = microsphere.get(i).getNormal();
             final double cos = MathArrays.cosAngle(n, sampleDirection);
-
             if (cos > 0) {
                 final double illumination = cos * weight;
-
-                if (illumination > darkThreshold &&
-                    illumination > microsphereData.get(i).illumination()) {
+                if (illumination > darkThreshold && illumination > microsphereData.get(i).illumination()) {
                     microsphereData.set(i, new FacetData(illumination, sampleValue));
                 }
             }
@@ -327,7 +291,10 @@ public class InterpolatingMicrosphere {
      * Microsphere "facet" (surface element).
      */
     private static class Facet {
-        /** Normal vector characterizing a surface element. */
+
+        /**
+         * Normal vector characterizing a surface element.
+         */
         private final double[] normal;
 
         /**
@@ -344,7 +311,8 @@ public class InterpolatingMicrosphere {
          * @return the normal vector.
          */
         public double[] getNormal() {
-            return normal;
+            // STUB: not implemented
+            return null;
         }
     }
 
@@ -352,9 +320,15 @@ public class InterpolatingMicrosphere {
      * Data associated with each {@link Facet}.
      */
     private static class FacetData {
-        /** Illumination received from the sample. */
+
+        /**
+         * Illumination received from the sample.
+         */
         private final double illumination;
-        /** Data value of the sample. */
+
+        /**
+         * Data value of the sample.
+         */
         private final double sample;
 
         /**
@@ -371,7 +345,8 @@ public class InterpolatingMicrosphere {
          * @return the illumination.
          */
         public double illumination() {
-            return illumination;
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -379,7 +354,8 @@ public class InterpolatingMicrosphere {
          * @return the data value.
          */
         public double sample() {
-            return sample;
+            // STUB: not implemented
+            return 0.0;
         }
     }
 }

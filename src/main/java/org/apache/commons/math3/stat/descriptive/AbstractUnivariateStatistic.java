@@ -33,12 +33,12 @@ import org.apache.commons.math3.util.MathArrays;
  * <p>
  * Also includes a <code>test</code> method that performs generic parameter
  * validation for the <code>evaluate</code> methods.</p>
- *
  */
-public abstract class AbstractUnivariateStatistic
-    implements UnivariateStatistic {
+public abstract class AbstractUnivariateStatistic implements UnivariateStatistic {
 
-    /** Stored data. */
+    /**
+     * Stored data.
+     */
     private double[] storedData;
 
     /**
@@ -50,7 +50,7 @@ public abstract class AbstractUnivariateStatistic
      * @see #evaluate()
      */
     public void setData(final double[] values) {
-        storedData = (values == null) ? null : values.clone();
+        // STUB: not implemented
     }
 
     /**
@@ -58,7 +58,8 @@ public abstract class AbstractUnivariateStatistic
      * @return copy of the stored data array (may be null)
      */
     public double[] getData() {
-        return (storedData == null) ? null : storedData.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -66,7 +67,8 @@ public abstract class AbstractUnivariateStatistic
      * @return reference to the stored data array (may be null)
      */
     protected double[] getDataRef() {
-        return storedData;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -79,26 +81,8 @@ public abstract class AbstractUnivariateStatistic
      * are not valid
      * @see #evaluate()
      */
-    public void setData(final double[] values, final int begin, final int length)
-    throws MathIllegalArgumentException {
-        if (values == null) {
-            throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
-        }
-
-        if (begin < 0) {
-            throw new NotPositiveException(LocalizedFormats.START_POSITION, begin);
-        }
-
-        if (length < 0) {
-            throw new NotPositiveException(LocalizedFormats.LENGTH, length);
-        }
-
-        if (begin + length > values.length) {
-            throw new NumberIsTooLargeException(LocalizedFormats.SUBARRAY_ENDS_AFTER_ARRAY_END,
-                                                begin + length, values.length, true);
-        }
-        storedData = new double[length];
-        System.arraycopy(values, begin, storedData, 0, length);
+    public void setData(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
     }
 
     /**
@@ -110,22 +94,22 @@ public abstract class AbstractUnivariateStatistic
      * @throws MathIllegalArgumentException if the stored data array is null
      */
     public double evaluate() throws MathIllegalArgumentException {
-        return evaluate(storedData);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public double evaluate(final double[] values) throws MathIllegalArgumentException {
-        test(values, 0, 0);
-        return evaluate(values, 0, values.length);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
-    public abstract double evaluate(final double[] values, final int begin, final int length)
-    throws MathIllegalArgumentException;
+    public abstract double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException;
 
     /**
      * {@inheritDoc}
@@ -151,11 +135,9 @@ public abstract class AbstractUnivariateStatistic
      * @return true if the parameters are valid and designate a subarray of positive length
      * @throws MathIllegalArgumentException if the indices are invalid or the array is null
      */
-    protected boolean test(
-        final double[] values,
-        final int begin,
-        final int length) throws MathIllegalArgumentException {
-        return MathArrays.verifyValues(values, begin, length, false);
+    protected boolean test(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -179,9 +161,9 @@ public abstract class AbstractUnivariateStatistic
      * @throws MathIllegalArgumentException if the indices are invalid or the array is null
      * @since 3.0
      */
-    protected boolean test(final double[] values, final int begin,
-            final int length, final boolean allowEmpty) throws MathIllegalArgumentException {
-        return MathArrays.verifyValues(values, begin, length, allowEmpty);
+    protected boolean test(final double[] values, final int begin, final int length, final boolean allowEmpty) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -213,12 +195,9 @@ public abstract class AbstractUnivariateStatistic
      * @throws MathIllegalArgumentException if the indices are invalid or the array is null
      * @since 2.1
      */
-    protected boolean test(
-        final double[] values,
-        final double[] weights,
-        final int begin,
-        final int length) throws MathIllegalArgumentException {
-        return MathArrays.verifyValues(values, weights, begin, length, false);
+    protected boolean test(final double[] values, final double[] weights, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -254,10 +233,8 @@ public abstract class AbstractUnivariateStatistic
      * are no positive weights.
      * @since 3.0
      */
-    protected boolean test(final double[] values, final double[] weights,
-            final int begin, final int length, final boolean allowEmpty) throws MathIllegalArgumentException {
-
-        return MathArrays.verifyValues(values, weights, begin, length, allowEmpty);
+    protected boolean test(final double[] values, final double[] weights, final int begin, final int length, final boolean allowEmpty) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return false;
     }
 }
-

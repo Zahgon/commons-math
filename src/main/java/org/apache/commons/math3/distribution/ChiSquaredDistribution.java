@@ -26,16 +26,26 @@ import org.apache.commons.math3.random.Well19937c;
  * @see <a href="http://mathworld.wolfram.com/Chi-SquaredDistribution.html">Chi-squared Distribution (MathWorld)</a>
  */
 public class ChiSquaredDistribution extends AbstractRealDistribution {
+
     /**
      * Default inverse cumulative probability accuracy
      * @since 2.1
      */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
-    /** Serializable version identifier */
+
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -8352658048349159782L;
-    /** Internal Gamma distribution. */
+
+    /**
+     * Internal Gamma distribution.
+     */
     private final GammaDistribution gamma;
-    /** Inverse cumulative probability accuracy */
+
+    /**
+     * Inverse cumulative probability accuracy
+     */
     private final double solverAbsoluteAccuracy;
 
     /**
@@ -64,8 +74,7 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * {@link #DEFAULT_INVERSE_ABSOLUTE_ACCURACY}).
      * @since 2.1
      */
-    public ChiSquaredDistribution(double degreesOfFreedom,
-                                  double inverseCumAccuracy) {
+    public ChiSquaredDistribution(double degreesOfFreedom, double inverseCumAccuracy) {
         this(new Well19937c(), degreesOfFreedom, inverseCumAccuracy);
     }
 
@@ -91,11 +100,8 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * {@link #DEFAULT_INVERSE_ABSOLUTE_ACCURACY}).
      * @since 3.1
      */
-    public ChiSquaredDistribution(RandomGenerator rng,
-                                  double degreesOfFreedom,
-                                  double inverseCumAccuracy) {
+    public ChiSquaredDistribution(RandomGenerator rng, double degreesOfFreedom, double inverseCumAccuracy) {
         super(rng);
-
         gamma = new GammaDistribution(degreesOfFreedom / 2, 2);
         solverAbsoluteAccuracy = inverseCumAccuracy;
     }
@@ -106,29 +112,42 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * @return the degrees of freedom.
      */
     public double getDegreesOfFreedom() {
-        return gamma.getShape() * 2.0;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        return gamma.density(x);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} **/
+    /**
+     * {@inheritDoc} *
+     */
     @Override
     public double logDensity(double x) {
-        return gamma.logDensity(x);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
-    public double cumulativeProbability(double x)  {
-        return gamma.cumulativeProbability(x);
+    /**
+     * {@inheritDoc}
+     */
+    public double cumulativeProbability(double x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -137,7 +156,8 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * For {@code k} degrees of freedom, the mean is {@code k}.
      */
     public double getNumericalMean() {
-        return getDegreesOfFreedom();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -146,7 +166,8 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * @return {@code 2 * k}, where {@code k} is the number of degrees of freedom.
      */
     public double getNumericalVariance() {
-        return 2 * getDegreesOfFreedom();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -158,7 +179,8 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * @return zero.
      */
     public double getSupportLowerBound() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -170,16 +192,23 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * @return {@code Double.POSITIVE_INFINITY}.
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -191,6 +220,7 @@ public class ChiSquaredDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

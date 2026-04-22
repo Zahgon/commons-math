@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.geometry.euclidean.oned;
 
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
-
 import org.apache.commons.math3.exception.MathParseException;
 import org.apache.commons.math3.geometry.Vector;
 import org.apache.commons.math3.geometry.VectorFormat;
@@ -51,8 +49,7 @@ public class Vector1DFormat extends VectorFormat<Euclidean1D> {
      * "{", "}", and "; " and the default number format for components.</p>
      */
     public Vector1DFormat() {
-        super(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR,
-              CompositeFormat.getDefaultNumberFormat());
+        super(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR, CompositeFormat.getDefaultNumberFormat());
     }
 
     /**
@@ -79,8 +76,7 @@ public class Vector1DFormat extends VectorFormat<Euclidean1D> {
      * @param suffix suffix to use instead of the default "}"
      * @param format the custom format for components.
      */
-    public Vector1DFormat(final String prefix, final String suffix,
-                         final NumberFormat format) {
+    public Vector1DFormat(final String prefix, final String suffix, final NumberFormat format) {
         super(prefix, suffix, DEFAULT_SEPARATOR, format);
     }
 
@@ -89,7 +85,8 @@ public class Vector1DFormat extends VectorFormat<Euclidean1D> {
      * @return the default 1D vector format.
      */
     public static Vector1DFormat getInstance() {
-        return getInstance(Locale.getDefault());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -98,38 +95,34 @@ public class Vector1DFormat extends VectorFormat<Euclidean1D> {
      * @return the 1D vector format specific to the given locale.
      */
     public static Vector1DFormat getInstance(final Locale locale) {
-        return new Vector1DFormat(CompositeFormat.getDefaultNumberFormat(locale));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public StringBuffer format(final Vector<Euclidean1D> vector, final StringBuffer toAppendTo,
-                               final FieldPosition pos) {
-        final Vector1D p1 = (Vector1D) vector;
-        return format(toAppendTo, pos, p1.getX());
+    public StringBuffer format(final Vector<Euclidean1D> vector, final StringBuffer toAppendTo, final FieldPosition pos) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector1D parse(final String source) throws MathParseException {
-        ParsePosition parsePosition = new ParsePosition(0);
-        Vector1D result = parse(source, parsePosition);
-        if (parsePosition.getIndex() == 0) {
-            throw new MathParseException(source,
-                                         parsePosition.getErrorIndex(),
-                                         Vector1D.class);
-        }
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector1D parse(final String source, final ParsePosition pos) {
-        final double[] coordinates = parseCoordinates(1, source, pos);
-        if (coordinates == null) {
-            return null;
-        }
-        return new Vector1D(coordinates[0]);
+        // STUB: not implemented
+        return null;
     }
-
 }

@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
@@ -38,15 +37,17 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
-public class StandardDeviation extends AbstractStorelessUnivariateStatistic
-    implements Serializable {
+public class StandardDeviation extends AbstractStorelessUnivariateStatistic implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 5728716329662425188L;
 
-    /** Wrapped Variance instance */
+    /**
+     * Wrapped Variance instance
+     */
     private Variance variance = null;
 
     /**
@@ -100,7 +101,7 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      *
      * @param isBiasCorrected  whether or not the variance computation will use
      * the bias-corrected formula
-      * @param m2 the external moment
+     * @param m2 the external moment
      */
     public StandardDeviation(boolean isBiasCorrected, SecondMoment m2) {
         variance = new Variance(isBiasCorrected, m2);
@@ -111,14 +112,15 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public void increment(final double d) {
-        variance.increment(d);
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return variance.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -126,7 +128,8 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public double getResult() {
-        return FastMath.sqrt(variance.getResult());
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -134,7 +137,7 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public void clear() {
-        variance.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -152,8 +155,9 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      * @throws MathIllegalArgumentException if the array is null
      */
     @Override
-    public double evaluate(final double[] values) throws MathIllegalArgumentException  {
-        return FastMath.sqrt(variance.evaluate(values));
+    public double evaluate(final double[] values) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -175,9 +179,9 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values, final int begin, final int length)
-    throws MathIllegalArgumentException  {
-       return FastMath.sqrt(variance.evaluate(values, begin, length));
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -204,9 +208,9 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      * @throws MathIllegalArgumentException if the array is null or the array index
      *  parameters are not valid
      */
-    public double evaluate(final double[] values, final double mean,
-            final int begin, final int length) throws MathIllegalArgumentException  {
-        return FastMath.sqrt(variance.evaluate(values, mean, begin, length));
+    public double evaluate(final double[] values, final double mean, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -230,23 +234,24 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      * @return the standard deviation of the values or Double.NaN if length = 0
      * @throws MathIllegalArgumentException if the array is null
      */
-    public double evaluate(final double[] values, final double mean)
-    throws MathIllegalArgumentException  {
-        return FastMath.sqrt(variance.evaluate(values, mean));
+    public double evaluate(final double[] values, final double mean) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * @return Returns the isBiasCorrected.
      */
     public boolean isBiasCorrected() {
-        return variance.isBiasCorrected();
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * @param isBiasCorrected The isBiasCorrected to set.
      */
     public void setBiasCorrected(boolean isBiasCorrected) {
-        variance.setBiasCorrected(isBiasCorrected);
+        // STUB: not implemented
     }
 
     /**
@@ -254,12 +259,9 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public StandardDeviation copy() {
-        StandardDeviation result = new StandardDeviation();
-        // No try-catch or advertised exception because args are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
-
 
     /**
      * Copies source to dest.
@@ -269,12 +271,7 @@ public class StandardDeviation extends AbstractStorelessUnivariateStatistic
      * @param dest StandardDeviation to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(StandardDeviation source, StandardDeviation dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.variance = source.variance.copy();
+    public static void copy(StandardDeviation source, StandardDeviation dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

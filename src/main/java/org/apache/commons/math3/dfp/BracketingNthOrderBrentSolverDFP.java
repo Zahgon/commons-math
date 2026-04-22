@@ -16,7 +16,6 @@
  */
 package org.apache.commons.math3.dfp;
 
-
 import org.apache.commons.math3.analysis.RealFieldUnivariateFunction;
 import org.apache.commons.math3.analysis.solvers.AllowedSolution;
 import org.apache.commons.math3.analysis.solvers.FieldBracketingNthOrderBrentSolver;
@@ -52,11 +51,7 @@ public class BracketingNthOrderBrentSolverDFP extends FieldBracketingNthOrderBre
      * @param maximalOrder maximal order.
      * @exception NumberIsTooSmallException if maximal order is lower than 2
      */
-    public BracketingNthOrderBrentSolverDFP(final Dfp relativeAccuracy,
-                                            final Dfp absoluteAccuracy,
-                                            final Dfp functionValueAccuracy,
-                                            final int maximalOrder)
-        throws NumberIsTooSmallException {
+    public BracketingNthOrderBrentSolverDFP(final Dfp relativeAccuracy, final Dfp absoluteAccuracy, final Dfp functionValueAccuracy, final int maximalOrder) throws NumberIsTooSmallException {
         super(relativeAccuracy, absoluteAccuracy, functionValueAccuracy, maximalOrder);
     }
 
@@ -66,7 +61,8 @@ public class BracketingNthOrderBrentSolverDFP extends FieldBracketingNthOrderBre
      */
     @Override
     public Dfp getAbsoluteAccuracy() {
-        return super.getAbsoluteAccuracy();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -75,7 +71,8 @@ public class BracketingNthOrderBrentSolverDFP extends FieldBracketingNthOrderBre
      */
     @Override
     public Dfp getRelativeAccuracy() {
-        return super.getRelativeAccuracy();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -84,7 +81,8 @@ public class BracketingNthOrderBrentSolverDFP extends FieldBracketingNthOrderBre
      */
     @Override
     public Dfp getFunctionValueAccuracy() {
-        return super.getFunctionValueAccuracy();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -103,10 +101,9 @@ public class BracketingNthOrderBrentSolverDFP extends FieldBracketingNthOrderBre
      * @exception NullArgumentException if f is null.
      * @exception NoBracketingException if root cannot be bracketed
      */
-    public Dfp solve(final int maxEval, final UnivariateDfpFunction f,
-                     final Dfp min, final Dfp max, final AllowedSolution allowedSolution)
-        throws NullArgumentException, NoBracketingException {
-        return solve(maxEval, f, min, max, min.add(max).divide(2), allowedSolution);
+    public Dfp solve(final int maxEval, final UnivariateDfpFunction f, final Dfp min, final Dfp max, final AllowedSolution allowedSolution) throws NullArgumentException, NoBracketingException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -126,26 +123,8 @@ public class BracketingNthOrderBrentSolverDFP extends FieldBracketingNthOrderBre
      * @exception NullArgumentException if f is null.
      * @exception NoBracketingException if root cannot be bracketed
      */
-    public Dfp solve(final int maxEval, final UnivariateDfpFunction f,
-                     final Dfp min, final Dfp max, final Dfp startValue,
-                     final AllowedSolution allowedSolution)
-        throws NullArgumentException, NoBracketingException {
-
-        // checks
-        MathUtils.checkNotNull(f);
-
-        // wrap the function
-        RealFieldUnivariateFunction<Dfp> fieldF = new RealFieldUnivariateFunction<Dfp>() {
-
-            /** {@inheritDoc} */
-            public Dfp value(final Dfp x) {
-                return f.value(x);
-            }
-        };
-
-        // delegate to general field solver
-        return solve(maxEval, fieldF, min, max, startValue, allowedSolution);
-
+    public Dfp solve(final int maxEval, final UnivariateDfpFunction f, final Dfp min, final Dfp max, final Dfp startValue, final AllowedSolution allowedSolution) throws NullArgumentException, NoBracketingException {
+        // STUB: not implemented
+        return null;
     }
-
 }

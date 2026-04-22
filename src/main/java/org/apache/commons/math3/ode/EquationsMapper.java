@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 
 /**
@@ -32,66 +30,70 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
  */
 public class EquationsMapper implements Serializable {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20110925L;
 
-    /** Index of the first equation element in complete state arrays. */
+    /**
+     * Index of the first equation element in complete state arrays.
+     */
     private final int firstIndex;
 
-    /** Dimension of the secondary state parameters. */
+    /**
+     * Dimension of the secondary state parameters.
+     */
     private final int dimension;
 
-    /** simple constructor.
+    /**
+     * simple constructor.
      * @param firstIndex index of the first equation element in complete state arrays
      * @param dimension dimension of the secondary state parameters
      */
     public EquationsMapper(final int firstIndex, final int dimension) {
         this.firstIndex = firstIndex;
-        this.dimension  = dimension;
+        this.dimension = dimension;
     }
 
-    /** Get the index of the first equation element in complete state arrays.
+    /**
+     * Get the index of the first equation element in complete state arrays.
      * @return index of the first equation element in complete state arrays
      */
     public int getFirstIndex() {
-        return firstIndex;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** Get the dimension of the secondary state parameters.
+    /**
+     * Get the dimension of the secondary state parameters.
      * @return dimension of the secondary state parameters
      */
     public int getDimension() {
-        return dimension;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** Extract equation data from a complete state or derivative array.
+    /**
+     * Extract equation data from a complete state or derivative array.
      * @param complete complete state or derivative array from which
      * equation data should be retrieved
      * @param equationData placeholder where to put equation data
      * @throws DimensionMismatchException if the dimension of the equation data does not
      * match the mapper dimension
      */
-    public void extractEquationData(double[] complete, double[] equationData)
-        throws DimensionMismatchException {
-        if (equationData.length != dimension) {
-            throw new DimensionMismatchException(equationData.length, dimension);
-        }
-        System.arraycopy(complete, firstIndex, equationData, 0, dimension);
+    public void extractEquationData(double[] complete, double[] equationData) throws DimensionMismatchException {
+        // STUB: not implemented
     }
 
-    /** Insert equation data into a complete state or derivative array.
+    /**
+     * Insert equation data into a complete state or derivative array.
      * @param equationData equation data to be inserted into the complete array
      * @param complete placeholder where to put equation data (only the
      * part corresponding to the equation will be overwritten)
      * @throws DimensionMismatchException if the dimension of the equation data does not
      * match the mapper dimension
      */
-    public void insertEquationData(double[] equationData, double[] complete)
-        throws DimensionMismatchException {
-        if (equationData.length != dimension) {
-            throw new DimensionMismatchException(equationData.length, dimension);
-        }
-        System.arraycopy(equationData, 0, complete, firstIndex, dimension);
+    public void insertEquationData(double[] equationData, double[] complete) throws DimensionMismatchException {
+        // STUB: not implemented
     }
-
 }

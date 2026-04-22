@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.direct;
 
 import org.apache.commons.math3.analysis.MultivariateFunction;
@@ -61,26 +60,36 @@ import org.apache.commons.math3.util.MathUtils;
  * @deprecated As of 3.1 (to be removed in 4.0).
  * @since 3.0
  */
-
 @Deprecated
 public class MultivariateFunctionPenaltyAdapter implements MultivariateFunction {
 
-    /** Underlying bounded function. */
+    /**
+     * Underlying bounded function.
+     */
     private final MultivariateFunction bounded;
 
-    /** Lower bounds. */
+    /**
+     * Lower bounds.
+     */
     private final double[] lower;
 
-    /** Upper bounds. */
+    /**
+     * Upper bounds.
+     */
     private final double[] upper;
 
-    /** Penalty offset. */
+    /**
+     * Penalty offset.
+     */
     private final double offset;
 
-    /** Penalty scales. */
+    /**
+     * Penalty scales.
+     */
     private final double[] scale;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * <p>
      * When the optimizer provided points are out of range, the value of the
      * penalty function will be used instead of the value of the underlying
@@ -121,10 +130,7 @@ public class MultivariateFunctionPenaltyAdapter implements MultivariateFunction 
      * scales are not consistent, either according to dimension or to bounadary
      * values
      */
-    public MultivariateFunctionPenaltyAdapter(final MultivariateFunction bounded,
-                                                  final double[] lower, final double[] upper,
-                                                  final double offset, final double[] scale) {
-
+    public MultivariateFunctionPenaltyAdapter(final MultivariateFunction bounded, final double[] lower, final double[] upper, final double offset, final double[] scale) {
         // safety checks
         MathUtils.checkNotNull(lower);
         MathUtils.checkNotNull(upper);
@@ -141,16 +147,15 @@ public class MultivariateFunctionPenaltyAdapter implements MultivariateFunction 
                 throw new NumberIsTooSmallException(upper[i], lower[i], true);
             }
         }
-
         this.bounded = bounded;
-        this.lower   = lower.clone();
-        this.upper   = upper.clone();
-        this.offset  = offset;
-        this.scale   = scale.clone();
-
+        this.lower = lower.clone();
+        this.upper = upper.clone();
+        this.offset = offset;
+        this.scale = scale.clone();
     }
 
-    /** Compute the underlying function value from an unbounded point.
+    /**
+     * Compute the underlying function value from an unbounded point.
      * <p>
      * This method simply returns the value of the underlying function
      * if the unbounded point already fulfills the bounds, and compute
@@ -161,30 +166,7 @@ public class MultivariateFunctionPenaltyAdapter implements MultivariateFunction 
      * @return either underlying function value or penalty function value
      */
     public double value(double[] point) {
-
-        for (int i = 0; i < scale.length; ++i) {
-            if ((point[i] < lower[i]) || (point[i] > upper[i])) {
-                // bound violation starting at this component
-                double sum = 0;
-                for (int j = i; j < scale.length; ++j) {
-                    final double overshoot;
-                    if (point[j] < lower[j]) {
-                        overshoot = scale[j] * (lower[j] - point[j]);
-                    } else if (point[j] > upper[j]) {
-                        overshoot = scale[j] * (point[j] - upper[j]);
-                    } else {
-                        overshoot = 0;
-                    }
-                    sum += FastMath.sqrt(overshoot);
-                }
-                return offset + sum;
-            }
-        }
-
-        // all boundaries are fulfilled, we are in the expected
-        // domain of the underlying function
-        return bounded.value(point);
-
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

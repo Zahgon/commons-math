@@ -14,24 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.random;
 
 import org.apache.commons.math3.util.FastMath;
-
 
 /**
  * Generate random vectors isotropically located on the surface of a sphere.
  *
  * @since 2.1
  */
+public class UnitSphereRandomVectorGenerator implements RandomVectorGenerator {
 
-public class UnitSphereRandomVectorGenerator
-    implements RandomVectorGenerator {
     /**
      * RNG used for generating the individual components of the vectors.
      */
     private final RandomGenerator rand;
+
     /**
      * Space dimension.
      */
@@ -41,11 +39,11 @@ public class UnitSphereRandomVectorGenerator
      * @param dimension Space dimension.
      * @param rand RNG for the individual components of the vectors.
      */
-    public UnitSphereRandomVectorGenerator(final int dimension,
-                                           final RandomGenerator rand) {
+    public UnitSphereRandomVectorGenerator(final int dimension, final RandomGenerator rand) {
         this.dimension = dimension;
         this.rand = rand;
     }
+
     /**
      * Create an object that will use a default RNG ({@link MersenneTwister}),
      * in order to generate the individual components.
@@ -56,25 +54,11 @@ public class UnitSphereRandomVectorGenerator
         this(dimension, new MersenneTwister());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double[] nextVector() {
-        final double[] v = new double[dimension];
-
-        // See http://mathworld.wolfram.com/SpherePointPicking.html for example.
-        // Pick a point by choosing a standard Gaussian for each element, and then
-        // normalizing to unit length.
-        double normSq = 0;
-        for (int i = 0; i < dimension; i++) {
-            final double comp = rand.nextGaussian();
-            v[i] = comp;
-            normSq += comp * comp;
-        }
-
-        final double f = 1 / FastMath.sqrt(normSq);
-        for (int i = 0; i < dimension; i++) {
-            v[i] *= f;
-        }
-
-        return v;
+        // STUB: not implemented
+        return null;
     }
 }

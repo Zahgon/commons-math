@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization;
 
 import org.apache.commons.math3.util.FastMath;
@@ -37,8 +36,8 @@ import org.apache.commons.math3.exception.NotStrictlyPositiveException;
  * @since 3.0
  */
 @Deprecated
-public class SimpleVectorValueChecker
-    extends AbstractConvergenceChecker<PointVectorValuePair> {
+public class SimpleVectorValueChecker extends AbstractConvergenceChecker<PointVectorValuePair> {
+
     /**
      * If {@link #maxIterationCount} is set to this value, the number of
      * iterations will never cause
@@ -46,6 +45,7 @@ public class SimpleVectorValueChecker
      * to return {@code true}.
      */
     private static final int ITERATION_CHECK_DISABLED = -1;
+
     /**
      * Number of iterations after which the
      * {@link #converged(int,PointVectorValuePair,PointVectorValuePair)} method
@@ -72,8 +72,7 @@ public class SimpleVectorValueChecker
      * @param relativeThreshold relative tolerance threshold
      * @param absoluteThreshold absolute tolerance threshold
      */
-    public SimpleVectorValueChecker(final double relativeThreshold,
-                                    final double absoluteThreshold) {
+    public SimpleVectorValueChecker(final double relativeThreshold, final double absoluteThreshold) {
         super(relativeThreshold, absoluteThreshold);
         maxIterationCount = ITERATION_CHECK_DISABLED;
     }
@@ -93,11 +92,8 @@ public class SimpleVectorValueChecker
      *
      * @since 3.1
      */
-    public SimpleVectorValueChecker(final double relativeThreshold,
-                                    final double absoluteThreshold,
-                                    final int maxIter) {
+    public SimpleVectorValueChecker(final double relativeThreshold, final double absoluteThreshold, final int maxIter) {
         super(relativeThreshold, absoluteThreshold);
-
         if (maxIter <= 0) {
             throw new NotStrictlyPositiveException(maxIter);
         }
@@ -121,25 +117,8 @@ public class SimpleVectorValueChecker
      * @return {@code true} if the arguments satify the convergence criterion.
      */
     @Override
-    public boolean converged(final int iteration,
-                             final PointVectorValuePair previous,
-                             final PointVectorValuePair current) {
-        if (maxIterationCount != ITERATION_CHECK_DISABLED && iteration >= maxIterationCount) {
-            return true;
-        }
-
-        final double[] p = previous.getValueRef();
-        final double[] c = current.getValueRef();
-        for (int i = 0; i < p.length; ++i) {
-            final double pi         = p[i];
-            final double ci         = c[i];
-            final double difference = FastMath.abs(pi - ci);
-            final double size       = FastMath.max(FastMath.abs(pi), FastMath.abs(ci));
-            if (difference > size * getRelativeThreshold() &&
-                difference > getAbsoluteThreshold()) {
-                return false;
-            }
-        }
-        return true;
+    public boolean converged(final int iteration, final PointVectorValuePair previous, final PointVectorValuePair current) {
+        // STUB: not implemented
+        return false;
     }
 }

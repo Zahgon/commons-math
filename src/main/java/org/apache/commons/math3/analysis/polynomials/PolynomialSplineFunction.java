@@ -17,7 +17,6 @@
 package org.apache.commons.math3.analysis.polynomials;
 
 import java.util.Arrays;
-
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.differentiation.DerivativeStructure;
@@ -61,14 +60,15 @@ import org.apache.commons.math3.util.MathArrays;
  * <li> Let <code>j</code> be the index of the largest knot point that is less
  * than or equal to <code>x</code>.  The value returned is
  * {@code polynomials[j](x - knot[j])}</li></ol>
- *
  */
 public class PolynomialSplineFunction implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
+
     /**
      * Spline segment interval delimiters (knots).
      * Size is n + 1 for n segments.
      */
-    private final double knots[];
+    private final double[] knots;
+
     /**
      * The polynomial functions that make up the spline.  The first element
      * determines the value of the spline over the first subinterval, the
@@ -76,13 +76,13 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * evaluating these functions at {@code (x - knot[i])} where i is the
      * knot segment to which x belongs.
      */
-    private final PolynomialFunction polynomials[];
+    private final PolynomialFunction[] polynomials;
+
     /**
      * Number of spline segments. It is equal to the number of polynomials and
      * to the number of partition points - 1.
      */
     private final int n;
-
 
     /**
      * Construct a polynomial spline function with the given segment delimiters
@@ -96,25 +96,19 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @throws NumberIsTooSmallException if knots has length less than 2.
      * @throws DimensionMismatchException if {@code polynomials.length != knots.length - 1}.
      * @throws NonMonotonicSequenceException if the {@code knots} array is not strictly increasing.
-     *
      */
-    public PolynomialSplineFunction(double knots[], PolynomialFunction polynomials[])
-        throws NullArgumentException, NumberIsTooSmallException,
-               DimensionMismatchException, NonMonotonicSequenceException{
-        if (knots == null ||
-            polynomials == null) {
+    public PolynomialSplineFunction(double[] knots, PolynomialFunction[] polynomials) throws NullArgumentException, NumberIsTooSmallException, DimensionMismatchException, NonMonotonicSequenceException {
+        if (knots == null || polynomials == null) {
             throw new NullArgumentException();
         }
         if (knots.length < 2) {
-            throw new NumberIsTooSmallException(LocalizedFormats.NOT_ENOUGH_POINTS_IN_SPLINE_PARTITION,
-                                                2, knots.length, false);
+            throw new NumberIsTooSmallException(LocalizedFormats.NOT_ENOUGH_POINTS_IN_SPLINE_PARTITION, 2, knots.length, false);
         }
         if (knots.length - 1 != polynomials.length) {
             throw new DimensionMismatchException(polynomials.length, knots.length);
         }
         MathArrays.checkOrder(knots);
-
-        this.n = knots.length -1;
+        this.n = knots.length - 1;
         this.knots = new double[n + 1];
         System.arraycopy(knots, 0, this.knots, 0, n + 1);
         this.polynomials = new PolynomialFunction[n];
@@ -133,20 +127,8 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * largest knot point).
      */
     public double value(double v) {
-        if (v < knots[0] || v > knots[n]) {
-            throw new OutOfRangeException(v, knots[0], knots[n]);
-        }
-        int i = Arrays.binarySearch(knots, v);
-        if (i < 0) {
-            i = -i - 2;
-        }
-        // This will handle the case where v is the last knot value
-        // There are only n-1 polynomials, so if v is the last knot
-        // then we will use the last polynomial to calculate the value.
-        if ( i >= polynomials.length ) {
-            i--;
-        }
-        return polynomials[i].value(v - knots[i]);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -155,7 +137,8 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @return the derivative function.
      */
     public UnivariateFunction derivative() {
-        return polynomialSplineDerivative();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -164,33 +147,17 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @return the derivative function.
      */
     public PolynomialSplineFunction polynomialSplineDerivative() {
-        PolynomialFunction derivativePolynomials[] = new PolynomialFunction[n];
-        for (int i = 0; i < n; i++) {
-            derivativePolynomials[i] = polynomials[i].polynomialDerivative();
-        }
-        return new PolynomialSplineFunction(knots, derivativePolynomials);
+        // STUB: not implemented
+        return null;
     }
 
-
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
     public DerivativeStructure value(final DerivativeStructure t) {
-        final double t0 = t.getValue();
-        if (t0 < knots[0] || t0 > knots[n]) {
-            throw new OutOfRangeException(t0, knots[0], knots[n]);
-        }
-        int i = Arrays.binarySearch(knots, t0);
-        if (i < 0) {
-            i = -i - 2;
-        }
-        // This will handle the case where t is the last knot value
-        // There are only n-1 polynomials, so if t is the last knot
-        // then we will use the last polynomial to calculate the value.
-        if ( i >= polynomials.length ) {
-            i--;
-        }
-        return polynomials[i].value(t.subtract(knots[i]));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -200,7 +167,8 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @return the number of spline segments.
      */
     public int getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -211,9 +179,8 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @return the interpolating polynomials.
      */
     public PolynomialFunction[] getPolynomials() {
-        PolynomialFunction p[] = new PolynomialFunction[n];
-        System.arraycopy(polynomials, 0, p, 0, n);
-        return p;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -224,9 +191,8 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @return the knot points.
      */
     public double[] getKnots() {
-        double out[] = new double[n + 1];
-        System.arraycopy(knots, 0, out, 0, n + 1);
-        return out;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -236,11 +202,7 @@ public class PolynomialSplineFunction implements UnivariateDifferentiableFunctio
      * @return {@code true} if {@code x} is a valid point.
      */
     public boolean isValidPoint(double x) {
-        if (x < knots[0] ||
-            x > knots[n]) {
-            return false;
-        } else {
-            return true;
-        }
+        // STUB: not implemented
+        return false;
     }
 }

@@ -17,7 +17,6 @@
 package org.apache.commons.math3.analysis.differentiation;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.UnivariateMatrixFunction;
 import org.apache.commons.math3.analysis.UnivariateVectorFunction;
@@ -27,7 +26,8 @@ import org.apache.commons.math3.exception.NumberIsTooLargeException;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 import org.apache.commons.math3.util.FastMath;
 
-/** Univariate functions differentiator using finite differences.
+/**
+ * Univariate functions differentiator using finite differences.
  * <p>
  * This class creates some wrapper objects around regular
  * {@link UnivariateFunction univariate functions} (or {@link
@@ -68,26 +68,36 @@ import org.apache.commons.math3.util.FastMath;
  *
  * @since 3.1
  */
-public class FiniteDifferencesDifferentiator
-    implements UnivariateFunctionDifferentiator, UnivariateVectorFunctionDifferentiator,
-               UnivariateMatrixFunctionDifferentiator, Serializable {
+public class FiniteDifferencesDifferentiator implements UnivariateFunctionDifferentiator, UnivariateVectorFunctionDifferentiator, UnivariateMatrixFunctionDifferentiator, Serializable {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20120917L;
 
-    /** Number of points to use. */
+    /**
+     * Number of points to use.
+     */
     private final int nbPoints;
 
-    /** Step size. */
+    /**
+     * Step size.
+     */
     private final double stepSize;
 
-    /** Half sample span. */
+    /**
+     * Half sample span.
+     */
     private final double halfSampleSpan;
 
-    /** Lower bound for independent variable. */
+    /**
+     * Lower bound for independent variable.
+     */
     private final double tMin;
 
-    /** Upper bound for independent variable. */
+    /**
+     * Upper bound for independent variable.
+     */
     private final double tMax;
 
     /**
@@ -104,8 +114,7 @@ public class FiniteDifferencesDifferentiator
      * {@link NotPositiveException} extends {@link NumberIsTooSmallException})
      * @exception NumberIsTooSmallException {@code nbPoint <= 1}
      */
-    public FiniteDifferencesDifferentiator(final int nbPoints, final double stepSize)
-        throws NotPositiveException, NumberIsTooSmallException {
+    public FiniteDifferencesDifferentiator(final int nbPoints, final double stepSize) throws NotPositiveException, NumberIsTooSmallException {
         this(nbPoints, stepSize, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
     }
 
@@ -138,20 +147,15 @@ public class FiniteDifferencesDifferentiator
      * @exception NumberIsTooSmallException {@code nbPoint <= 1}
      * @exception NumberIsTooLargeException {@code stepSize * (nbPoints - 1) >= tUpper - tLower}
      */
-    public FiniteDifferencesDifferentiator(final int nbPoints, final double stepSize,
-                                           final double tLower, final double tUpper)
-            throws NotPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
-
+    public FiniteDifferencesDifferentiator(final int nbPoints, final double stepSize, final double tLower, final double tUpper) throws NotPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
         if (nbPoints <= 1) {
             throw new NumberIsTooSmallException(stepSize, 1, false);
         }
         this.nbPoints = nbPoints;
-
         if (stepSize <= 0) {
             throw new NotPositiveException(stepSize);
         }
         this.stepSize = stepSize;
-
         halfSampleSpan = 0.5 * stepSize * (nbPoints - 1);
         if (2 * halfSampleSpan >= tUpper - tLower) {
             throw new NumberIsTooLargeException(2 * halfSampleSpan, tUpper - tLower, false);
@@ -159,7 +163,6 @@ public class FiniteDifferencesDifferentiator
         final double safety = FastMath.ulp(halfSampleSpan);
         this.tMin = tLower + halfSampleSpan + safety;
         this.tMax = tUpper - halfSampleSpan - safety;
-
     }
 
     /**
@@ -167,7 +170,8 @@ public class FiniteDifferencesDifferentiator
      * @return number of points to use
      */
     public int getNbPoints() {
-        return nbPoints;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -175,7 +179,8 @@ public class FiniteDifferencesDifferentiator
      * @return step size
      */
     public double getStepSize() {
-        return stepSize;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -190,32 +195,24 @@ public class FiniteDifferencesDifferentiator
      * @exception NumberIsTooLargeException if the requested derivation order
      * is larger or equal to the number of points
      */
-    private DerivativeStructure evaluate(final DerivativeStructure t, final double t0,
-                                         final double[] y)
-        throws NumberIsTooLargeException {
-
+    private DerivativeStructure evaluate(final DerivativeStructure t, final double t0, final double[] y) throws NumberIsTooLargeException {
         // create divided differences diagonal arrays
-        final double[] top    = new double[nbPoints];
+        final double[] top = new double[nbPoints];
         final double[] bottom = new double[nbPoints];
-
         for (int i = 0; i < nbPoints; ++i) {
-
             // update the bottom diagonal of the divided differences array
             bottom[i] = y[i];
             for (int j = 1; j <= i; ++j) {
                 bottom[i - j] = (bottom[i - j + 1] - bottom[i - j]) / (j * stepSize);
             }
-
             // update the top diagonal of the divided differences array
             top[i] = bottom[0];
-
         }
-
         // evaluate interpolation polynomial (represented by top diagonal) at t
-        final int order            = t.getOrder();
-        final int parameters       = t.getFreeParameters();
+        final int order = t.getOrder();
+        final int parameters = t.getFreeParameters();
         final double[] derivatives = t.getAllDerivatives();
-        final double dt0           = t.getValue() - t0;
+        final double dt0 = t.getValue() - t0;
         DerivativeStructure interpolation = new DerivativeStructure(parameters, order, 0.0);
         DerivativeStructure monomial = null;
         for (int i = 0; i < nbPoints; ++i) {
@@ -230,155 +227,42 @@ public class FiniteDifferencesDifferentiator
             }
             interpolation = interpolation.add(monomial.multiply(top[i]));
         }
-
         return interpolation;
-
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * <p>The returned object cannot compute derivatives to arbitrary orders. The
      * value function will throw a {@link NumberIsTooLargeException} if the requested
      * derivation order is larger or equal to the number of points.
      * </p>
      */
     public UnivariateDifferentiableFunction differentiate(final UnivariateFunction function) {
-        return new UnivariateDifferentiableFunction() {
-
-            /** {@inheritDoc} */
-            public double value(final double x) throws MathIllegalArgumentException {
-                return function.value(x);
-            }
-
-            /** {@inheritDoc} */
-            public DerivativeStructure value(final DerivativeStructure t)
-                throws MathIllegalArgumentException {
-
-                // check we can achieve the requested derivation order with the sample
-                if (t.getOrder() >= nbPoints) {
-                    throw new NumberIsTooLargeException(t.getOrder(), nbPoints, false);
-                }
-
-                // compute sample position, trying to be centered if possible
-                final double t0 = FastMath.max(FastMath.min(t.getValue(), tMax), tMin) - halfSampleSpan;
-
-                // compute sample points
-                final double[] y = new double[nbPoints];
-                for (int i = 0; i < nbPoints; ++i) {
-                    y[i] = function.value(t0 + i * stepSize);
-                }
-
-                // evaluate derivatives
-                return evaluate(t, t0, y);
-
-            }
-
-        };
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * <p>The returned object cannot compute derivatives to arbitrary orders. The
      * value function will throw a {@link NumberIsTooLargeException} if the requested
      * derivation order is larger or equal to the number of points.
      * </p>
      */
     public UnivariateDifferentiableVectorFunction differentiate(final UnivariateVectorFunction function) {
-        return new UnivariateDifferentiableVectorFunction() {
-
-            /** {@inheritDoc} */
-            public double[]value(final double x) throws MathIllegalArgumentException {
-                return function.value(x);
-            }
-
-            /** {@inheritDoc} */
-            public DerivativeStructure[] value(final DerivativeStructure t)
-                throws MathIllegalArgumentException {
-
-                // check we can achieve the requested derivation order with the sample
-                if (t.getOrder() >= nbPoints) {
-                    throw new NumberIsTooLargeException(t.getOrder(), nbPoints, false);
-                }
-
-                // compute sample position, trying to be centered if possible
-                final double t0 = FastMath.max(FastMath.min(t.getValue(), tMax), tMin) - halfSampleSpan;
-
-                // compute sample points
-                double[][] y = null;
-                for (int i = 0; i < nbPoints; ++i) {
-                    final double[] v = function.value(t0 + i * stepSize);
-                    if (i == 0) {
-                        y = new double[v.length][nbPoints];
-                    }
-                    for (int j = 0; j < v.length; ++j) {
-                        y[j][i] = v[j];
-                    }
-                }
-
-                // evaluate derivatives
-                final DerivativeStructure[] value = new DerivativeStructure[y.length];
-                for (int j = 0; j < value.length; ++j) {
-                    value[j] = evaluate(t, t0, y[j]);
-                }
-
-                return value;
-
-            }
-
-        };
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * <p>The returned object cannot compute derivatives to arbitrary orders. The
      * value function will throw a {@link NumberIsTooLargeException} if the requested
      * derivation order is larger or equal to the number of points.
      * </p>
      */
     public UnivariateDifferentiableMatrixFunction differentiate(final UnivariateMatrixFunction function) {
-        return new UnivariateDifferentiableMatrixFunction() {
-
-            /** {@inheritDoc} */
-            public double[][]  value(final double x) throws MathIllegalArgumentException {
-                return function.value(x);
-            }
-
-            /** {@inheritDoc} */
-            public DerivativeStructure[][]  value(final DerivativeStructure t)
-                throws MathIllegalArgumentException {
-
-                // check we can achieve the requested derivation order with the sample
-                if (t.getOrder() >= nbPoints) {
-                    throw new NumberIsTooLargeException(t.getOrder(), nbPoints, false);
-                }
-
-                // compute sample position, trying to be centered if possible
-                final double t0 = FastMath.max(FastMath.min(t.getValue(), tMax), tMin) - halfSampleSpan;
-
-                // compute sample points
-                double[][][] y = null;
-                for (int i = 0; i < nbPoints; ++i) {
-                    final double[][] v = function.value(t0 + i * stepSize);
-                    if (i == 0) {
-                        y = new double[v.length][v[0].length][nbPoints];
-                    }
-                    for (int j = 0; j < v.length; ++j) {
-                        for (int k = 0; k < v[j].length; ++k) {
-                            y[j][k][i] = v[j][k];
-                        }
-                    }
-                }
-
-                // evaluate derivatives
-                final DerivativeStructure[][] value = new DerivativeStructure[y.length][y[0].length];
-                for (int j = 0; j < value.length; ++j) {
-                    for (int k = 0; k < y[j].length; ++k) {
-                        value[j][k] = evaluate(t, t0, y[j][k]);
-                    }
-                }
-
-                return value;
-
-            }
-
-        };
+        // STUB: not implemented
+        return null;
     }
-
 }

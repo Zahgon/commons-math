@@ -29,9 +29,15 @@ package org.apache.commons.math3.util;
  * @since 3.0
  */
 public class Pair<K, V> {
-    /** Key. */
+
+    /**
+     * Key.
+     */
     private final K key;
-    /** Value. */
+
+    /**
+     * Value.
+     */
     private final V value;
 
     /**
@@ -61,7 +67,8 @@ public class Pair<K, V> {
      * @return the key (first element of the pair).
      */
     public K getKey() {
-        return key;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -70,7 +77,8 @@ public class Pair<K, V> {
      * @return the value (second element of the pair).
      */
     public V getValue() {
-        return value;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -80,7 +88,8 @@ public class Pair<K, V> {
      * @since 3.1
      */
     public K getFirst() {
-        return key;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -90,7 +99,8 @@ public class Pair<K, V> {
      * @since 3.1
      */
     public V getSecond() {
-        return value;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -102,20 +112,8 @@ public class Pair<K, V> {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Pair)) {
-            return false;
-        } else {
-            Pair<?, ?> oP = (Pair<?, ?>) o;
-            return (key == null ?
-                    oP.key == null :
-                    key.equals(oP.key)) &&
-                (value == null ?
-                 oP.value == null :
-                 value.equals(oP.value));
-        }
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -125,18 +123,17 @@ public class Pair<K, V> {
      */
     @Override
     public int hashCode() {
-        int result = key == null ? 0 : key.hashCode();
-
-        final int h = value == null ? 0 : value.hashCode();
-        result = 37 * result + h ^ (h >>> 16);
-
-        return result;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return "[" + getKey() + ", " + getValue() + "]";
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -151,6 +148,7 @@ public class Pair<K, V> {
      * @since 3.3
      */
     public static <K, V> Pair<K, V> create(K k, V v) {
-        return new Pair<K, V>(k, v);
+        // STUB: not implemented
+        return null;
     }
 }

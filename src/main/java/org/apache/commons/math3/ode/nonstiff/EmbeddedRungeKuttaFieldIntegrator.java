@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -66,36 +65,50 @@ import org.apache.commons.math3.util.MathUtils;
  * @param <T> the type of the field elements
  * @since 3.6
  */
+public abstract class EmbeddedRungeKuttaFieldIntegrator<T extends RealFieldElement<T>> extends AdaptiveStepsizeFieldIntegrator<T> implements FieldButcherArrayProvider<T> {
 
-public abstract class EmbeddedRungeKuttaFieldIntegrator<T extends RealFieldElement<T>>
-    extends AdaptiveStepsizeFieldIntegrator<T>
-    implements FieldButcherArrayProvider<T> {
-
-    /** Index of the pre-computed derivative for <i>fsal</i> methods. */
+    /**
+     * Index of the pre-computed derivative for <i>fsal</i> methods.
+     */
     private final int fsal;
 
-    /** Time steps from Butcher array (without the first zero). */
+    /**
+     * Time steps from Butcher array (without the first zero).
+     */
     private final T[] c;
 
-    /** Internal weights from Butcher array (without the first empty row). */
+    /**
+     * Internal weights from Butcher array (without the first empty row).
+     */
     private final T[][] a;
 
-    /** External weights for the high order method from Butcher array. */
+    /**
+     * External weights for the high order method from Butcher array.
+     */
     private final T[] b;
 
-    /** Stepsize control exponent. */
+    /**
+     * Stepsize control exponent.
+     */
     private final T exp;
 
-    /** Safety factor for stepsize control. */
+    /**
+     * Safety factor for stepsize control.
+     */
     private T safety;
 
-    /** Minimal reduction factor for stepsize control. */
+    /**
+     * Minimal reduction factor for stepsize control.
+     */
     private T minReduction;
 
-    /** Maximal growth factor for stepsize control. */
+    /**
+     * Maximal growth factor for stepsize control.
+     */
     private T maxGrowth;
 
-    /** Build a Runge-Kutta integrator with the given Butcher array.
+    /**
+     * Build a Runge-Kutta integrator with the given Butcher array.
      * @param field field to which the time and state vector elements belong
      * @param name name of the method
      * @param fsal index of the pre-computed derivative for <i>fsal</i> methods
@@ -109,28 +122,21 @@ public abstract class EmbeddedRungeKuttaFieldIntegrator<T extends RealFieldEleme
      * @param scalAbsoluteTolerance allowed absolute error
      * @param scalRelativeTolerance allowed relative error
      */
-    protected EmbeddedRungeKuttaFieldIntegrator(final Field<T> field, final String name, final int fsal,
-                                                final double minStep, final double maxStep,
-                                                final double scalAbsoluteTolerance,
-                                                final double scalRelativeTolerance) {
-
+    protected EmbeddedRungeKuttaFieldIntegrator(final Field<T> field, final String name, final int fsal, final double minStep, final double maxStep, final double scalAbsoluteTolerance, final double scalRelativeTolerance) {
         super(field, name, minStep, maxStep, scalAbsoluteTolerance, scalRelativeTolerance);
-
         this.fsal = fsal;
-        this.c    = getC();
-        this.a    = getA();
-        this.b    = getB();
-
+        this.c = getC();
+        this.a = getA();
+        this.b = getB();
         exp = field.getOne().divide(-getOrder());
-
         // set the default values of the algorithm control parameters
         setSafety(field.getZero().add(0.9));
         setMinReduction(field.getZero().add(0.2));
         setMaxGrowth(field.getZero().add(10.0));
-
     }
 
-    /** Build a Runge-Kutta integrator with the given Butcher array.
+    /**
+     * Build a Runge-Kutta integrator with the given Butcher array.
      * @param field field to which the time and state vector elements belong
      * @param name name of the method
      * @param fsal index of the pre-computed derivative for <i>fsal</i> methods
@@ -142,46 +148,43 @@ public abstract class EmbeddedRungeKuttaFieldIntegrator<T extends RealFieldEleme
      * @param vecAbsoluteTolerance allowed absolute error
      * @param vecRelativeTolerance allowed relative error
      */
-    protected EmbeddedRungeKuttaFieldIntegrator(final Field<T> field, final String name, final int fsal,
-                                                final double   minStep, final double maxStep,
-                                                final double[] vecAbsoluteTolerance,
-                                                final double[] vecRelativeTolerance) {
-
+    protected EmbeddedRungeKuttaFieldIntegrator(final Field<T> field, final String name, final int fsal, final double minStep, final double maxStep, final double[] vecAbsoluteTolerance, final double[] vecRelativeTolerance) {
         super(field, name, minStep, maxStep, vecAbsoluteTolerance, vecRelativeTolerance);
-
         this.fsal = fsal;
-        this.c    = getC();
-        this.a    = getA();
-        this.b    = getB();
-
+        this.c = getC();
+        this.a = getA();
+        this.b = getB();
         exp = field.getOne().divide(-getOrder());
-
         // set the default values of the algorithm control parameters
         setSafety(field.getZero().add(0.9));
         setMinReduction(field.getZero().add(0.2));
         setMaxGrowth(field.getZero().add(10.0));
-
     }
 
-    /** Create a fraction.
+    /**
+     * Create a fraction.
      * @param p numerator
      * @param q denominator
      * @return p/q computed in the instance field
      */
     protected T fraction(final int p, final int q) {
-        return getField().getOne().multiply(p).divide(q);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create a fraction.
+    /**
+     * Create a fraction.
      * @param p numerator
      * @param q denominator
      * @return p/q computed in the instance field
      */
     protected T fraction(final double p, final double q) {
-        return getField().getOne().multiply(p).divide(q);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create an interpolator.
+    /**
+     * Create an interpolator.
      * @param forward integration direction indicator
      * @param yDotK slopes at the intermediate points
      * @param globalPreviousState start of the global step
@@ -189,191 +192,75 @@ public abstract class EmbeddedRungeKuttaFieldIntegrator<T extends RealFieldEleme
      * @param mapper equations mapper for the all equations
      * @return external weights for the high order method from Butcher array
      */
-    protected abstract RungeKuttaFieldStepInterpolator<T> createInterpolator(boolean forward, T[][] yDotK,
-                                                                             final FieldODEStateAndDerivative<T> globalPreviousState,
-                                                                             final FieldODEStateAndDerivative<T> globalCurrentState,
-                                                                             FieldEquationsMapper<T> mapper);
-    /** Get the order of the method.
+    protected abstract RungeKuttaFieldStepInterpolator<T> createInterpolator(boolean forward, T[][] yDotK, final FieldODEStateAndDerivative<T> globalPreviousState, final FieldODEStateAndDerivative<T> globalCurrentState, FieldEquationsMapper<T> mapper);
+
+    /**
+     * Get the order of the method.
      * @return order of the method
      */
     public abstract int getOrder();
 
-    /** Get the safety factor for stepsize control.
+    /**
+     * Get the safety factor for stepsize control.
      * @return safety factor
      */
     public T getSafety() {
-        return safety;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Set the safety factor for stepsize control.
+    /**
+     * Set the safety factor for stepsize control.
      * @param safety safety factor
      */
     public void setSafety(final T safety) {
-        this.safety = safety;
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
-    public FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations,
-                                                   final FieldODEState<T> initialState, final T finalTime)
-        throws NumberIsTooSmallException, DimensionMismatchException,
-        MaxCountExceededException, NoBracketingException {
-
-        sanityChecks(initialState, finalTime);
-        final T   t0 = initialState.getTime();
-        final T[] y0 = equations.getMapper().mapState(initialState);
-        setStepStart(initIntegration(equations, t0, y0, finalTime));
-        final boolean forward = finalTime.subtract(initialState.getTime()).getReal() > 0;
-
-        // create some internal working arrays
-        final int   stages = c.length + 1;
-        T[]         y      = y0;
-        final T[][] yDotK  = MathArrays.buildArray(getField(), stages, -1);
-        final T[]   yTmp   = MathArrays.buildArray(getField(), y0.length);
-
-        // set up integration control objects
-        T  hNew           = getField().getZero();
-        boolean firstTime = true;
-
-        // main integration loop
-        setIsLastStep(false);
-        do {
-
-            // iterate over step size, ensuring local normalized error is smaller than 1
-            T error = getField().getZero().add(10);
-            while (error.subtract(1.0).getReal() >= 0) {
-
-                // first stage
-                y        = equations.getMapper().mapState(getStepStart());
-                yDotK[0] = equations.getMapper().mapDerivative(getStepStart());
-
-                if (firstTime) {
-                    final T[] scale = MathArrays.buildArray(getField(), mainSetDimension);
-                    if (vecAbsoluteTolerance == null) {
-                        for (int i = 0; i < scale.length; ++i) {
-                            scale[i] = y[i].abs().multiply(scalRelativeTolerance).add(scalAbsoluteTolerance);
-                        }
-                    } else {
-                        for (int i = 0; i < scale.length; ++i) {
-                            scale[i] = y[i].abs().multiply(vecRelativeTolerance[i]).add(vecAbsoluteTolerance[i]);
-                        }
-                    }
-                    hNew = initializeStep(forward, getOrder(), scale, getStepStart(), equations.getMapper());
-                    firstTime = false;
-                }
-
-                setStepSize(hNew);
-                if (forward) {
-                    if (getStepStart().getTime().add(getStepSize()).subtract(finalTime).getReal() >= 0) {
-                        setStepSize(finalTime.subtract(getStepStart().getTime()));
-                    }
-                } else {
-                    if (getStepStart().getTime().add(getStepSize()).subtract(finalTime).getReal() <= 0) {
-                        setStepSize(finalTime.subtract(getStepStart().getTime()));
-                    }
-                }
-
-                // next stages
-                for (int k = 1; k < stages; ++k) {
-
-                    for (int j = 0; j < y0.length; ++j) {
-                        T sum = yDotK[0][j].multiply(a[k-1][0]);
-                        for (int l = 1; l < k; ++l) {
-                            sum = sum.add(yDotK[l][j].multiply(a[k-1][l]));
-                        }
-                        yTmp[j] = y[j].add(getStepSize().multiply(sum));
-                    }
-
-                    yDotK[k] = computeDerivatives(getStepStart().getTime().add(getStepSize().multiply(c[k-1])), yTmp);
-
-                }
-
-                // estimate the state at the end of the step
-                for (int j = 0; j < y0.length; ++j) {
-                    T sum    = yDotK[0][j].multiply(b[0]);
-                    for (int l = 1; l < stages; ++l) {
-                        sum = sum.add(yDotK[l][j].multiply(b[l]));
-                    }
-                    yTmp[j] = y[j].add(getStepSize().multiply(sum));
-                }
-
-                // estimate the error at the end of the step
-                error = estimateError(yDotK, y, yTmp, getStepSize());
-                if (error.subtract(1.0).getReal() >= 0) {
-                    // reject the step and attempt to reduce error by stepsize control
-                    final T factor = MathUtils.min(maxGrowth,
-                                                   MathUtils.max(minReduction, safety.multiply(error.pow(exp))));
-                    hNew = filterStep(getStepSize().multiply(factor), forward, false);
-                }
-
-            }
-            final T   stepEnd = getStepStart().getTime().add(getStepSize());
-            final T[] yDotTmp = (fsal >= 0) ? yDotK[fsal] : computeDerivatives(stepEnd, yTmp);
-            final FieldODEStateAndDerivative<T> stateTmp = new FieldODEStateAndDerivative<T>(stepEnd, yTmp, yDotTmp);
-
-            // local error is small enough: accept the step, trigger events and step handlers
-            System.arraycopy(yTmp, 0, y, 0, y0.length);
-            setStepStart(acceptStep(createInterpolator(forward, yDotK, getStepStart(), stateTmp, equations.getMapper()),
-                                    finalTime));
-
-            if (!isLastStep()) {
-
-                // stepsize control for next step
-                final T factor = MathUtils.min(maxGrowth,
-                                               MathUtils.max(minReduction, safety.multiply(error.pow(exp))));
-                final T  scaledH    = getStepSize().multiply(factor);
-                final T  nextT      = getStepStart().getTime().add(scaledH);
-                final boolean nextIsLast = forward ?
-                                           nextT.subtract(finalTime).getReal() >= 0 :
-                                           nextT.subtract(finalTime).getReal() <= 0;
-                hNew = filterStep(scaledH, forward, nextIsLast);
-
-                final T  filteredNextT      = getStepStart().getTime().add(hNew);
-                final boolean filteredNextIsLast = forward ?
-                                                   filteredNextT.subtract(finalTime).getReal() >= 0 :
-                                                   filteredNextT.subtract(finalTime).getReal() <= 0;
-                if (filteredNextIsLast) {
-                    hNew = finalTime.subtract(getStepStart().getTime());
-                }
-
-            }
-
-        } while (!isLastStep());
-
-        final FieldODEStateAndDerivative<T> finalState = getStepStart();
-        resetInternalState();
-        return finalState;
-
+    /**
+     * {@inheritDoc}
+     */
+    public FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations, final FieldODEState<T> initialState, final T finalTime) throws NumberIsTooSmallException, DimensionMismatchException, MaxCountExceededException, NoBracketingException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the minimal reduction factor for stepsize control.
+    /**
+     * Get the minimal reduction factor for stepsize control.
      * @return minimal reduction factor
      */
     public T getMinReduction() {
-        return minReduction;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Set the minimal reduction factor for stepsize control.
+    /**
+     * Set the minimal reduction factor for stepsize control.
      * @param minReduction minimal reduction factor
      */
     public void setMinReduction(final T minReduction) {
-        this.minReduction = minReduction;
+        // STUB: not implemented
     }
 
-    /** Get the maximal growth factor for stepsize control.
+    /**
+     * Get the maximal growth factor for stepsize control.
      * @return maximal growth factor
      */
     public T getMaxGrowth() {
-        return maxGrowth;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Set the maximal growth factor for stepsize control.
+    /**
+     * Set the maximal growth factor for stepsize control.
      * @param maxGrowth maximal growth factor
      */
     public void setMaxGrowth(final T maxGrowth) {
-        this.maxGrowth = maxGrowth;
+        // STUB: not implemented
     }
 
-    /** Compute the error ratio.
+    /**
+     * Compute the error ratio.
      * @param yDotK derivatives computed during the first stages
      * @param y0 estimate of the step at the start of the step
      * @param y1 estimate of the step at the end of the step
@@ -381,5 +268,4 @@ public abstract class EmbeddedRungeKuttaFieldIntegrator<T extends RealFieldEleme
      * @return error ratio, greater than 1 if step should be rejected
      */
     protected abstract T estimateError(T[][] yDotK, T[] y0, T[] y1, T h);
-
 }

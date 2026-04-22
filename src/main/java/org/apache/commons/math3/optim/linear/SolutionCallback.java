@@ -26,7 +26,10 @@ import org.apache.commons.math3.optim.PointValuePair;
  * @since 3.3
  */
 public class SolutionCallback implements OptimizationData {
-    /** The SimplexTableau used by the SimplexSolver. */
+
+    /**
+     * The SimplexTableau used by the SimplexSolver.
+     */
     private SimplexTableau tableau;
 
     /**
@@ -36,7 +39,7 @@ public class SolutionCallback implements OptimizationData {
      * @param tableau the simplex tableau containing a feasible solution
      */
     void setTableau(final SimplexTableau tableau) {
-        this.tableau = tableau;
+        // STUB: not implemented
     }
 
     /**
@@ -49,7 +52,8 @@ public class SolutionCallback implements OptimizationData {
      * no feasible solution could be found
      */
     public PointValuePair getSolution() {
-        return tableau != null ? tableau.getSolution() : null;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -57,6 +61,7 @@ public class SolutionCallback implements OptimizationData {
      * @return {@code true} if the solution is optimal, {@code false} otherwise
      */
     public boolean isSolutionOptimal() {
-        return tableau != null ? tableau.isOptimal() : false;
+        // STUB: not implemented
+        return false;
     }
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.fraction;
 
 import java.io.Serializable;
@@ -23,7 +22,6 @@ import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.MathParseException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
@@ -39,7 +37,9 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 public class BigFractionFormat extends AbstractFormat implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -2932167925527338976L;
 
     /**
@@ -64,8 +64,7 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @param numeratorFormat the custom format for the numerator.
      * @param denominatorFormat the custom format for the denominator.
      */
-    public BigFractionFormat(final NumberFormat numeratorFormat,
-                             final NumberFormat denominatorFormat) {
+    public BigFractionFormat(final NumberFormat numeratorFormat, final NumberFormat denominatorFormat) {
         super(numeratorFormat, denominatorFormat);
     }
 
@@ -75,7 +74,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return available complex format locales.
      */
     public static Locale[] getAvailableLocales() {
-        return NumberFormat.getAvailableLocales();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -86,7 +86,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return A formatted BigFraction in proper form.
      */
     public static String formatBigFraction(final BigFraction f) {
-        return getImproperInstance().format(f);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -94,7 +95,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return the default complex format.
      */
     public static BigFractionFormat getImproperInstance() {
-        return getImproperInstance(Locale.getDefault());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -103,7 +105,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return the complex format specific to the given locale.
      */
     public static BigFractionFormat getImproperInstance(final Locale locale) {
-        return new BigFractionFormat(getDefaultNumberFormat(locale));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -111,7 +114,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return the default complex format.
      */
     public static BigFractionFormat getProperInstance() {
-        return getProperInstance(Locale.getDefault());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -120,7 +124,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return the complex format specific to the given locale.
      */
     public static BigFractionFormat getProperInstance(final Locale locale) {
-        return new ProperBigFractionFormat(getDefaultNumberFormat(locale));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -133,17 +138,9 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      *            offsets of the alignment field
      * @return the value passed in as toAppendTo.
      */
-    public StringBuffer format(final BigFraction BigFraction,
-                               final StringBuffer toAppendTo, final FieldPosition pos) {
-
-        pos.setBeginIndex(0);
-        pos.setEndIndex(0);
-
-        getNumeratorFormat().format(BigFraction.getNumerator(), toAppendTo, pos);
-        toAppendTo.append(" / ");
-        getDenominatorFormat().format(BigFraction.getDenominator(), toAppendTo, pos);
-
-        return toAppendTo;
+    public StringBuffer format(final BigFraction BigFraction, final StringBuffer toAppendTo, final FieldPosition pos) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -161,22 +158,9 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @throws MathIllegalArgumentException if <code>obj</code> is not a valid type.
      */
     @Override
-    public StringBuffer format(final Object obj,
-                               final StringBuffer toAppendTo, final FieldPosition pos) {
-
-        final StringBuffer ret;
-        if (obj instanceof BigFraction) {
-            ret = format((BigFraction) obj, toAppendTo, pos);
-        } else if (obj instanceof BigInteger) {
-            ret = format(new BigFraction((BigInteger) obj), toAppendTo, pos);
-        } else if (obj instanceof Number) {
-            ret = format(new BigFraction(((Number) obj).doubleValue()),
-                         toAppendTo, pos);
-        } else {
-            throw new MathIllegalArgumentException(LocalizedFormats.CANNOT_FORMAT_OBJECT_TO_FRACTION);
-        }
-
-        return ret;
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -188,12 +172,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      */
     @Override
     public BigFraction parse(final String source) throws MathParseException {
-        final ParsePosition parsePosition = new ParsePosition(0);
-        final BigFraction result = parse(source, parsePosition);
-        if (parsePosition.getIndex() == 0) {
-            throw new MathParseException(source, parsePosition.getErrorIndex(), BigFraction.class);
-        }
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -205,55 +185,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      */
     @Override
     public BigFraction parse(final String source, final ParsePosition pos) {
-        final int initialIndex = pos.getIndex();
-
-        // parse whitespace
-        parseAndIgnoreWhitespace(source, pos);
-
-        // parse numerator
-        final BigInteger num = parseNextBigInteger(source, pos);
-        if (num == null) {
-            // invalid integer number
-            // set index back to initial, error index should already be set
-            // character examined.
-            pos.setIndex(initialIndex);
-            return null;
-        }
-
-        // parse '/'
-        final int startIndex = pos.getIndex();
-        final char c = parseNextCharacter(source, pos);
-        switch (c) {
-        case 0 :
-            // no '/'
-            // return num as a BigFraction
-            return new BigFraction(num);
-        case '/' :
-            // found '/', continue parsing denominator
-            break;
-        default :
-            // invalid '/'
-            // set index back to initial, error index should be the last
-            // character examined.
-            pos.setIndex(initialIndex);
-            pos.setErrorIndex(startIndex);
-            return null;
-        }
-
-        // parse whitespace
-        parseAndIgnoreWhitespace(source, pos);
-
-        // parse denominator
-        final BigInteger den = parseNextBigInteger(source, pos);
-        if (den == null) {
-            // invalid integer number
-            // set index back to initial, error index should already be set
-            // character examined.
-            pos.setIndex(initialIndex);
-            return null;
-        }
-
-        return new BigFraction(num, den);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -263,25 +196,8 @@ public class BigFractionFormat extends AbstractFormat implements Serializable {
      * @return a parsed <code>BigInteger</code> or null if string does not
      * contain a BigInteger at the specified position
      */
-    protected BigInteger parseNextBigInteger(final String source,
-                                             final ParsePosition pos) {
-
-        final int start = pos.getIndex();
-         int end = (source.charAt(start) == '-') ? (start + 1) : start;
-         while((end < source.length()) &&
-               Character.isDigit(source.charAt(end))) {
-             ++end;
-         }
-
-         try {
-             BigInteger n = new BigInteger(source.substring(start, end));
-             pos.setIndex(end);
-             return n;
-         } catch (NumberFormatException nfe) {
-             pos.setErrorIndex(start);
-             return null;
-         }
-
+    protected BigInteger parseNextBigInteger(final String source, final ParsePosition pos) {
+        // STUB: not implemented
+        return null;
     }
-
 }

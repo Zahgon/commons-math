@@ -20,7 +20,8 @@ import org.apache.commons.math3.geometry.partitioning.AbstractSubHyperplane;
 import org.apache.commons.math3.geometry.partitioning.Hyperplane;
 import org.apache.commons.math3.geometry.partitioning.Region;
 
-/** This class represents sub-hyperplane for {@link OrientedPoint}.
+/**
+ * This class represents sub-hyperplane for {@link OrientedPoint}.
  * <p>An hyperplane in 1D is a simple point, its orientation being a
  * boolean.</p>
  * <p>Instances of this class are guaranteed to be immutable.</p>
@@ -28,45 +29,48 @@ import org.apache.commons.math3.geometry.partitioning.Region;
  */
 public class SubOrientedPoint extends AbstractSubHyperplane<Euclidean1D, Euclidean1D> {
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param hyperplane underlying hyperplane
      * @param remainingRegion remaining region of the hyperplane
      */
-    public SubOrientedPoint(final Hyperplane<Euclidean1D> hyperplane,
-                            final Region<Euclidean1D> remainingRegion) {
+    public SubOrientedPoint(final Hyperplane<Euclidean1D> hyperplane, final Region<Euclidean1D> remainingRegion) {
         super(hyperplane, remainingRegion);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getSize() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEmpty() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected AbstractSubHyperplane<Euclidean1D, Euclidean1D> buildNew(final Hyperplane<Euclidean1D> hyperplane,
-                                                                       final Region<Euclidean1D> remainingRegion) {
-        return new SubOrientedPoint(hyperplane, remainingRegion);
+    protected AbstractSubHyperplane<Euclidean1D, Euclidean1D> buildNew(final Hyperplane<Euclidean1D> hyperplane, final Region<Euclidean1D> remainingRegion) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SplitSubHyperplane<Euclidean1D> split(final Hyperplane<Euclidean1D> hyperplane) {
-        final double global = hyperplane.getOffset(((OrientedPoint) getHyperplane()).getLocation());
-        if (global < -1.0e-10) {
-            return new SplitSubHyperplane<Euclidean1D>(null, this);
-        } else if (global > 1.0e-10) {
-            return new SplitSubHyperplane<Euclidean1D>(this, null);
-        } else {
-            return new SplitSubHyperplane<Euclidean1D>(null, null);
-        }
+        // STUB: not implemented
+        return null;
     }
-
 }

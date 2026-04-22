@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.fraction;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.Field;
 import org.apache.commons.math3.FieldElement;
 
@@ -30,53 +28,72 @@ import org.apache.commons.math3.FieldElement;
  * @see Fraction
  * @since 2.0
  */
-public class BigFractionField implements Field<BigFraction>, Serializable  {
+public class BigFractionField implements Field<BigFraction>, Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -1699294557189741703L;
 
-    /** Private constructor for the singleton.
+    /**
+     * Private constructor for the singleton.
      */
     private BigFractionField() {
     }
 
-    /** Get the unique instance.
+    /**
+     * Get the unique instance.
      * @return the unique instance
      */
     public static BigFractionField getInstance() {
-        return LazyHolder.INSTANCE;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public BigFraction getOne() {
-        return BigFraction.ONE;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public BigFraction getZero() {
-        return BigFraction.ZERO;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Class<? extends FieldElement<BigFraction>> getRuntimeClass() {
-        return BigFraction.class;
+        // STUB: not implemented
+        return null;
     }
+
     // CHECKSTYLE: stop HideUtilityClassConstructor
-    /** Holder for the instance.
+    /**
+     * Holder for the instance.
      * <p>We use here the Initialization On Demand Holder Idiom.</p>
      */
     private static class LazyHolder {
-        /** Cached field instance. */
+
+        /**
+         * Cached field instance.
+         */
         private static final BigFractionField INSTANCE = new BigFractionField();
     }
-    // CHECKSTYLE: resume HideUtilityClassConstructor
 
-    /** Handle deserialization of the singleton.
+    // CHECKSTYLE: resume HideUtilityClassConstructor
+    /**
+     * Handle deserialization of the singleton.
      * @return the singleton instance
      */
     private Object readResolve() {
         // return the singleton instance
         return LazyHolder.INSTANCE;
     }
-
 }

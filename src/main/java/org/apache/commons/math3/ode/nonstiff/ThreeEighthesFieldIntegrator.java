@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -47,11 +46,10 @@ import org.apache.commons.math3.util.MathArrays;
  * @param <T> the type of the field elements
  * @since 3.6
  */
+public class ThreeEighthesFieldIntegrator<T extends RealFieldElement<T>> extends RungeKuttaFieldIntegrator<T> {
 
-public class ThreeEighthesFieldIntegrator<T extends RealFieldElement<T>>
-    extends RungeKuttaFieldIntegrator<T> {
-
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * Build a 3/8 integrator with the given step.
      * @param field field to which the time and state vector elements belong
      * @param step integration step
@@ -60,51 +58,36 @@ public class ThreeEighthesFieldIntegrator<T extends RealFieldElement<T>>
         super(field, "3/8", step);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[] getC() {
-        final T[] c = MathArrays.buildArray(getField(), 3);
-        c[0] = fraction(1, 3);
-        c[1] = c[0].add(c[0]);
-        c[2] = getField().getOne();
-        return c;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[][] getA() {
-        final T[][] a = MathArrays.buildArray(getField(), 3, -1);
-        for (int i = 0; i < a.length; ++i) {
-            a[i] = MathArrays.buildArray(getField(), i + 1);
-        }
-        a[0][0] = fraction(1, 3);
-        a[1][0] = a[0][0].negate();
-        a[1][1] = getField().getOne();
-        a[2][0] = getField().getOne();
-        a[2][1] = getField().getOne().negate();
-        a[2][2] = getField().getOne();
-        return a;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[] getB() {
-        final T[] b = MathArrays.buildArray(getField(), 4);
-        b[0] = fraction(1, 8);
-        b[1] = fraction(3, 8);
-        b[2] = b[1];
-        b[3] = b[0];
-        return b;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected ThreeEighthesFieldStepInterpolator<T>
-        createInterpolator(final boolean forward, T[][] yDotK,
-                           final FieldODEStateAndDerivative<T> globalPreviousState,
-                           final FieldODEStateAndDerivative<T> globalCurrentState,
-                           final FieldEquationsMapper<T> mapper) {
-        return new ThreeEighthesFieldStepInterpolator<T>(getField(), forward, yDotK,
-                                                         globalPreviousState, globalCurrentState,
-                                                         globalPreviousState, globalCurrentState,
-                                                         mapper);
+    protected ThreeEighthesFieldStepInterpolator<T> createInterpolator(final boolean forward, T[][] yDotK, final FieldODEStateAndDerivative<T> globalPreviousState, final FieldODEStateAndDerivative<T> globalCurrentState, final FieldEquationsMapper<T> mapper) {
+        // STUB: not implemented
+        return null;
     }
-
 }

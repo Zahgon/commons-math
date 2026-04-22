@@ -19,7 +19,8 @@ package org.apache.commons.math3.geometry.partitioning;
 import org.apache.commons.math3.geometry.Point;
 import org.apache.commons.math3.geometry.Space;
 
-/** Class holding the result of point projection on region boundary.
+/**
+ * Class holding the result of point projection on region boundary.
  * <p>This class is a simple placeholder, it does not provide any
  * processing methods.</p>
  * <p>Instances of this class are guaranteed to be immutable</p>
@@ -29,41 +30,53 @@ import org.apache.commons.math3.geometry.Space;
  */
 public class BoundaryProjection<S extends Space> {
 
-    /** Original point. */
+    /**
+     * Original point.
+     */
     private final Point<S> original;
 
-    /** Projected point. */
+    /**
+     * Projected point.
+     */
     private final Point<S> projected;
 
-    /** Offset of the point with respect to the boundary it is projected on. */
+    /**
+     * Offset of the point with respect to the boundary it is projected on.
+     */
     private final double offset;
 
-    /** Constructor from raw elements.
+    /**
+     * Constructor from raw elements.
      * @param original original point
      * @param projected projected point
      * @param offset offset of the point with respect to the boundary it is projected on
      */
     public BoundaryProjection(final Point<S> original, final Point<S> projected, final double offset) {
-        this.original  = original;
+        this.original = original;
         this.projected = projected;
-        this.offset    = offset;
+        this.offset = offset;
     }
 
-    /** Get the original point.
+    /**
+     * Get the original point.
      * @return original point
      */
     public Point<S> getOriginal() {
-        return original;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Projected point.
+    /**
+     * Projected point.
      * @return projected point, or null if there are no boundary
      */
     public Point<S> getProjected() {
-        return projected;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Offset of the point with respect to the boundary it is projected on.
+    /**
+     * Offset of the point with respect to the boundary it is projected on.
      * <p>
      * The offset with respect to the boundary is negative if the {@link
      * #getOriginal() original point} is inside the region, and positive otherwise.
@@ -77,7 +90,7 @@ public class BoundaryProjection<S extends Space> {
      * @return offset of the point with respect to the boundary it is projected on
      */
     public double getOffset() {
-        return offset;
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

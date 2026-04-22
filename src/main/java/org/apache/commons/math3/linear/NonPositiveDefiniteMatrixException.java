@@ -26,11 +26,20 @@ import org.apache.commons.math3.exception.util.ExceptionContext;
  * @since 3.0
  */
 public class NonPositiveDefiniteMatrixException extends NumberIsTooSmallException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = 1641613838113738061L;
-    /** Index (diagonal element). */
+
+    /**
+     * Index (diagonal element).
+     */
     private final int index;
-    /** Threshold. */
+
+    /**
+     * Threshold.
+     */
     private final double threshold;
 
     /**
@@ -40,13 +49,10 @@ public class NonPositiveDefiniteMatrixException extends NumberIsTooSmallExceptio
      * @param index Row (and column) index.
      * @param threshold Absolute positivity threshold.
      */
-    public NonPositiveDefiniteMatrixException(double wrong,
-                                              int index,
-                                              double threshold) {
+    public NonPositiveDefiniteMatrixException(double wrong, int index, double threshold) {
         super(wrong, threshold, false);
         this.index = index;
         this.threshold = threshold;
-
         final ExceptionContext context = getContext();
         context.addMessage(LocalizedFormats.NOT_POSITIVE_DEFINITE_MATRIX);
         context.addMessage(LocalizedFormats.ARRAY_ELEMENT, wrong, index);
@@ -56,18 +62,23 @@ public class NonPositiveDefiniteMatrixException extends NumberIsTooSmallExceptio
      * @return the row index.
      */
     public int getRow() {
-        return index;
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * @return the column index.
      */
     public int getColumn() {
-        return index;
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * @return the absolute positivity threshold.
      */
     public double getThreshold() {
-        return threshold;
+        // STUB: not implemented
+        return 0.0;
     }
 }

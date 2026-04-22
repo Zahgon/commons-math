@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -36,26 +35,51 @@ import org.apache.commons.math3.util.FastMath;
  * @since 1.1 (changed to concrete class in 3.0)
  */
 public class WeibullDistribution extends AbstractRealDistribution {
+
     /**
      * Default inverse cumulative probability accuracy.
      * @since 2.1
      */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 8589540077390120676L;
-    /** The shape parameter. */
+
+    /**
+     * The shape parameter.
+     */
     private final double shape;
-    /** The scale parameter. */
+
+    /**
+     * The scale parameter.
+     */
     private final double scale;
-    /** Inverse cumulative probability accuracy. */
+
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double solverAbsoluteAccuracy;
-    /** Cached numerical mean */
+
+    /**
+     * Cached numerical mean
+     */
     private double numericalMean = Double.NaN;
-    /** Whether or not the numerical mean has been calculated */
+
+    /**
+     * Whether or not the numerical mean has been calculated
+     */
     private boolean numericalMeanIsCalculated = false;
-    /** Cached numerical variance */
+
+    /**
+     * Cached numerical variance
+     */
     private double numericalVariance = Double.NaN;
-    /** Whether or not the numerical variance has been calculated */
+
+    /**
+     * Whether or not the numerical variance has been calculated
+     */
     private boolean numericalVarianceIsCalculated = false;
 
     /**
@@ -74,8 +98,7 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code alpha <= 0} or
      * {@code beta <= 0}.
      */
-    public WeibullDistribution(double alpha, double beta)
-        throws NotStrictlyPositiveException {
+    public WeibullDistribution(double alpha, double beta) throws NotStrictlyPositiveException {
         this(alpha, beta, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -99,8 +122,7 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * {@code beta <= 0}.
      * @since 2.1
      */
-    public WeibullDistribution(double alpha, double beta,
-                               double inverseCumAccuracy) {
+    public WeibullDistribution(double alpha, double beta, double inverseCumAccuracy) {
         this(new Well19937c(), alpha, beta, inverseCumAccuracy);
     }
 
@@ -113,8 +135,7 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code alpha <= 0} or {@code beta <= 0}.
      * @since 3.3
      */
-    public WeibullDistribution(RandomGenerator rng, double alpha, double beta)
-        throws NotStrictlyPositiveException {
+    public WeibullDistribution(RandomGenerator rng, double alpha, double beta) throws NotStrictlyPositiveException {
         this(rng, alpha, beta, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -130,20 +151,13 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code alpha <= 0} or {@code beta <= 0}.
      * @since 3.1
      */
-    public WeibullDistribution(RandomGenerator rng,
-                               double alpha,
-                               double beta,
-                               double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public WeibullDistribution(RandomGenerator rng, double alpha, double beta, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         super(rng);
-
         if (alpha <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.SHAPE,
-                                                   alpha);
+            throw new NotStrictlyPositiveException(LocalizedFormats.SHAPE, alpha);
         }
         if (beta <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.SCALE,
-                                                   beta);
+            throw new NotStrictlyPositiveException(LocalizedFormats.SCALE, beta);
         }
         scale = beta;
         shape = alpha;
@@ -156,7 +170,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @return the shape parameter, {@code alpha}.
      */
     public double getShape() {
-        return shape;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -165,57 +180,33 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @return the scale parameter, {@code beta}.
      */
     public double getScale() {
-        return scale;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        if (x < 0) {
-            return 0;
-        }
-
-        final double xscale = x / scale;
-        final double xscalepow = FastMath.pow(xscale, shape - 1);
-
-        /*
-         * FastMath.pow(x / scale, shape) =
-         * FastMath.pow(xscale, shape) =
-         * FastMath.pow(xscale, shape - 1) * xscale
-         */
-        final double xscalepowshape = xscalepow * xscale;
-
-        return (shape / scale) * xscalepow * FastMath.exp(-xscalepowshape);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logDensity(double x) {
-        if (x < 0) {
-            return Double.NEGATIVE_INFINITY;
-        }
-
-        final double xscale = x / scale;
-        final double logxscalepow = FastMath.log(xscale) * (shape - 1);
-
-        /*
-         * FastMath.pow(x / scale, shape) =
-         * FastMath.pow(xscale, shape) =
-         * FastMath.pow(xscale, shape - 1) * xscale
-         */
-        final double xscalepowshape = FastMath.exp(logxscalepow) * xscale;
-
-        return FastMath.log(shape / scale) + logxscalepow - xscalepowshape;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(double x) {
-        double ret;
-        if (x <= 0.0) {
-            ret = 0.0;
-        } else {
-            ret = 1.0 - FastMath.exp(-FastMath.pow(x / scale, shape));
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -226,17 +217,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      */
     @Override
     public double inverseCumulativeProbability(double p) {
-        double ret;
-        if (p < 0.0 || p > 1.0) {
-            throw new OutOfRangeException(p, 0.0, 1.0);
-        } else if (p == 0) {
-            ret = 0.0;
-        } else  if (p == 1) {
-            ret = Double.POSITIVE_INFINITY;
-        } else {
-            ret = scale * FastMath.pow(-FastMath.log1p(-p), 1.0 / shape);
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -248,7 +230,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -258,11 +241,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * is the Gamma-function.
      */
     public double getNumericalMean() {
-        if (!numericalMeanIsCalculated) {
-            numericalMean = calculateNumericalMean();
-            numericalMeanIsCalculated = true;
-        }
-        return numericalMean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -271,10 +251,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @return the mean of this distribution
      */
     protected double calculateNumericalMean() {
-        final double sh = getShape();
-        final double sc = getScale();
-
-        return sc * FastMath.exp(Gamma.logGamma(1 + (1 / sh)));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -284,11 +262,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * where {@code Gamma()} is the Gamma-function.
      */
     public double getNumericalVariance() {
-        if (!numericalVarianceIsCalculated) {
-            numericalVariance = calculateNumericalVariance();
-            numericalVarianceIsCalculated = true;
-        }
-        return numericalVariance;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -297,12 +272,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @return the variance of this distribution
      */
     protected double calculateNumericalVariance() {
-        final double sh = getShape();
-        final double sc = getScale();
-        final double mn = getNumericalMean();
-
-        return (sc * sc) * FastMath.exp(Gamma.logGamma(1 + (2 / sh))) -
-               (mn * mn);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -313,7 +284,8 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @return lower bound of the support (always 0)
      */
     public double getSupportLowerBound() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -326,16 +298,23 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * {@code Double.POSITIVE_INFINITY})
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -347,7 +326,7 @@ public class WeibullDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }
-

@@ -33,7 +33,10 @@ import org.apache.commons.math3.optim.OptimizationData;
  */
 @Deprecated
 public class Target implements OptimizationData {
-    /** Target values (of the objective vector function). */
+
+    /**
+     * Target values (of the objective vector function).
+     */
     private final double[] target;
 
     /**
@@ -49,6 +52,7 @@ public class Target implements OptimizationData {
      * @return the initial guess.
      */
     public double[] getTarget() {
-        return target.clone();
+        // STUB: not implemented
+        return null;
     }
 }

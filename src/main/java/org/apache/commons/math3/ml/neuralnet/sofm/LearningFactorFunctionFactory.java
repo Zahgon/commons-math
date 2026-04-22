@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.sofm;
 
 import org.apache.commons.math3.ml.neuralnet.sofm.util.ExponentialDecayFunction;
@@ -27,8 +26,12 @@ import org.apache.commons.math3.exception.OutOfRangeException;
  * @since 3.3
  */
 public class LearningFactorFunctionFactory {
-    /** Class contains only static methods. */
-    private LearningFactorFunctionFactory() {}
+
+    /**
+     * Class contains only static methods.
+     */
+    private LearningFactorFunctionFactory() {
+    }
 
     /**
      * Creates an exponential decay {@link LearningFactorFunction function}.
@@ -54,24 +57,9 @@ public class LearningFactorFunctionFactory {
      * @throws org.apache.commons.math3.exception.NotStrictlyPositiveException
      * if {@code numCall <= 0}.
      */
-    public static LearningFactorFunction exponentialDecay(final double initValue,
-                                                          final double valueAtNumCall,
-                                                          final long numCall) {
-        if (initValue <= 0 ||
-            initValue > 1) {
-            throw new OutOfRangeException(initValue, 0, 1);
-        }
-
-        return new LearningFactorFunction() {
-            /** DecayFunction. */
-            private final ExponentialDecayFunction decay
-                = new ExponentialDecayFunction(initValue, valueAtNumCall, numCall);
-
-            /** {@inheritDoc} */
-            public double value(long n) {
-                return decay.value(n);
-            }
-        };
+    public static LearningFactorFunction exponentialDecay(final double initValue, final double valueAtNumCall, final long numCall) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -95,23 +83,8 @@ public class LearningFactorFunctionFactory {
      * @throws org.apache.commons.math3.exception.NotStrictlyPositiveException
      * if {@code numCall <= 0}.
      */
-    public static LearningFactorFunction quasiSigmoidDecay(final double initValue,
-                                                           final double slope,
-                                                           final long numCall) {
-        if (initValue <= 0 ||
-            initValue > 1) {
-            throw new OutOfRangeException(initValue, 0, 1);
-        }
-
-        return new LearningFactorFunction() {
-            /** DecayFunction. */
-            private final QuasiSigmoidDecayFunction decay
-                = new QuasiSigmoidDecayFunction(initValue, slope, numCall);
-
-            /** {@inheritDoc} */
-            public double value(long n) {
-                return decay.value(n);
-            }
-        };
+    public static LearningFactorFunction quasiSigmoidDecay(final double initValue, final double slope, final long numCall) {
+        // STUB: not implemented
+        return null;
     }
 }

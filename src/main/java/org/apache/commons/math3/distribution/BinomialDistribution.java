@@ -31,11 +31,20 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="http://mathworld.wolfram.com/BinomialDistribution.html">Binomial Distribution (MathWorld)</a>
  */
 public class BinomialDistribution extends AbstractIntegerDistribution {
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 6751309484392813623L;
-    /** The number of trials. */
+
+    /**
+     * The number of trials.
+     */
     private final int numberOfTrials;
-    /** The probability of success. */
+
+    /**
+     * The probability of success.
+     */
     private final double probabilityOfSuccess;
 
     /**
@@ -68,19 +77,14 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * @throws OutOfRangeException if {@code p < 0} or {@code p > 1}.
      * @since 3.1
      */
-    public BinomialDistribution(RandomGenerator rng,
-                                int trials,
-                                double p) {
+    public BinomialDistribution(RandomGenerator rng, int trials, double p) {
         super(rng);
-
         if (trials < 0) {
-            throw new NotPositiveException(LocalizedFormats.NUMBER_OF_TRIALS,
-                                           trials);
+            throw new NotPositiveException(LocalizedFormats.NUMBER_OF_TRIALS, trials);
         }
         if (p < 0 || p > 1) {
             throw new OutOfRangeException(p, 0, 1);
         }
-
         probabilityOfSuccess = p;
         numberOfTrials = trials;
     }
@@ -91,7 +95,8 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * @return the number of trials.
      */
     public int getNumberOfTrials() {
-        return numberOfTrials;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -100,44 +105,33 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * @return the probability of success.
      */
     public double getProbabilityOfSuccess() {
-        return probabilityOfSuccess;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(int x) {
-        final double logProbability = logProbability(x);
-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} **/
+    /**
+     * {@inheritDoc} *
+     */
     @Override
     public double logProbability(int x) {
-        if (numberOfTrials == 0) {
-            return (x == 0) ? 0. : Double.NEGATIVE_INFINITY;
-        }
-        double ret;
-        if (x < 0 || x > numberOfTrials) {
-            ret = Double.NEGATIVE_INFINITY;
-        } else {
-            ret = SaddlePointExpansion.logBinomialProbability(x,
-                    numberOfTrials, probabilityOfSuccess,
-                    1.0 - probabilityOfSuccess);
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(int x) {
-        double ret;
-        if (x < 0) {
-            ret = 0.0;
-        } else if (x >= numberOfTrials) {
-            ret = 1.0;
-        } else {
-            ret = 1.0 - Beta.regularizedBeta(probabilityOfSuccess,
-                    x + 1.0, numberOfTrials - x);
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -147,7 +141,8 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * {@code n * p}.
      */
     public double getNumericalMean() {
-        return numberOfTrials * probabilityOfSuccess;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -157,8 +152,8 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * {@code n * p * (1 - p)}.
      */
     public double getNumericalVariance() {
-        final double p = probabilityOfSuccess;
-        return numberOfTrials * p * (1 - p);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -170,7 +165,8 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support (0 or the number of trials)
      */
     public int getSupportLowerBound() {
-        return probabilityOfSuccess < 1.0 ? 0 : numberOfTrials;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -182,7 +178,8 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * @return upper bound of the support (number of trials or 0)
      */
     public int getSupportUpperBound() {
-        return probabilityOfSuccess > 0.0 ? numberOfTrials : 0;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -193,6 +190,7 @@ public class BinomialDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

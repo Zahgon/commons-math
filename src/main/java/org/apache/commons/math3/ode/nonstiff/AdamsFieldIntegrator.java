@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -29,15 +28,17 @@ import org.apache.commons.math3.ode.FieldODEState;
 import org.apache.commons.math3.ode.FieldODEStateAndDerivative;
 import org.apache.commons.math3.ode.MultistepFieldIntegrator;
 
-
-/** Base class for {@link AdamsBashforthFieldIntegrator Adams-Bashforth} and
+/**
+ * Base class for {@link AdamsBashforthFieldIntegrator Adams-Bashforth} and
  * {@link AdamsMoultonFieldIntegrator Adams-Moulton} integrators.
  * @param <T> the type of the field elements
  * @since 3.6
  */
 public abstract class AdamsFieldIntegrator<T extends RealFieldElement<T>> extends MultistepFieldIntegrator<T> {
 
-    /** Transformer. */
+    /**
+     * Transformer.
+     */
     private final AdamsNordsieckFieldTransformer<T> transformer;
 
     /**
@@ -56,14 +57,8 @@ public abstract class AdamsFieldIntegrator<T extends RealFieldElement<T>> extend
      * @param scalRelativeTolerance allowed relative error
      * @exception NumberIsTooSmallException if order is 1 or less
      */
-    public AdamsFieldIntegrator(final Field<T> field, final String name,
-                                final int nSteps, final int order,
-                                final double minStep, final double maxStep,
-                                final double scalAbsoluteTolerance,
-                                final double scalRelativeTolerance)
-        throws NumberIsTooSmallException {
-        super(field, name, nSteps, order, minStep, maxStep,
-              scalAbsoluteTolerance, scalRelativeTolerance);
+    public AdamsFieldIntegrator(final Field<T> field, final String name, final int nSteps, final int order, final double minStep, final double maxStep, final double scalAbsoluteTolerance, final double scalRelativeTolerance) throws NumberIsTooSmallException {
+        super(field, name, nSteps, order, minStep, maxStep, scalAbsoluteTolerance, scalRelativeTolerance);
         transformer = AdamsNordsieckFieldTransformer.getInstance(field, nSteps);
     }
 
@@ -83,33 +78,27 @@ public abstract class AdamsFieldIntegrator<T extends RealFieldElement<T>> extend
      * @param vecRelativeTolerance allowed relative error
      * @exception IllegalArgumentException if order is 1 or less
      */
-    public AdamsFieldIntegrator(final Field<T> field, final String name,
-                                final int nSteps, final int order,
-                                final double minStep, final double maxStep,
-                                final double[] vecAbsoluteTolerance,
-                                final double[] vecRelativeTolerance)
-        throws IllegalArgumentException {
-        super(field, name, nSteps, order, minStep, maxStep,
-              vecAbsoluteTolerance, vecRelativeTolerance);
+    public AdamsFieldIntegrator(final Field<T> field, final String name, final int nSteps, final int order, final double minStep, final double maxStep, final double[] vecAbsoluteTolerance, final double[] vecRelativeTolerance) throws IllegalArgumentException {
+        super(field, name, nSteps, order, minStep, maxStep, vecAbsoluteTolerance, vecRelativeTolerance);
         transformer = AdamsNordsieckFieldTransformer.getInstance(field, nSteps);
     }
 
-    /** {@inheritDoc} */
-    public abstract FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations,
-                                                            final FieldODEState<T> initialState,
-                                                            final T finalTime)
-        throws NumberIsTooSmallException, DimensionMismatchException,
-               MaxCountExceededException, NoBracketingException;
+    /**
+     * {@inheritDoc}
+     */
+    public abstract FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations, final FieldODEState<T> initialState, final T finalTime) throws NumberIsTooSmallException, DimensionMismatchException, MaxCountExceededException, NoBracketingException;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected Array2DRowFieldMatrix<T> initializeHighOrderDerivatives(final T h, final T[] t,
-                                                                      final T[][] y,
-                                                                      final T[][] yDot) {
-        return transformer.initializeHighOrderDerivatives(h, t, y, yDot);
+    protected Array2DRowFieldMatrix<T> initializeHighOrderDerivatives(final T h, final T[] t, final T[][] y, final T[][] yDot) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** Update the high order scaled derivatives for Adams integrators (phase 1).
+    /**
+     * Update the high order scaled derivatives for Adams integrators (phase 1).
      * <p>The complete update of high order derivatives has a form similar to:
      * <pre>
      * r<sub>n+1</sub> = (s<sub>1</sub>(n) - s<sub>1</sub>(n+1)) P<sup>-1</sup> u + P<sup>-1</sup> A P r<sub>n</sub>
@@ -121,10 +110,12 @@ public abstract class AdamsFieldIntegrator<T extends RealFieldElement<T>> extend
      * @see #updateHighOrderDerivativesPhase2(RealFieldElement[], RealFieldElement[], Array2DRowFieldMatrix)
      */
     public Array2DRowFieldMatrix<T> updateHighOrderDerivativesPhase1(final Array2DRowFieldMatrix<T> highOrder) {
-        return transformer.updateHighOrderDerivativesPhase1(highOrder);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Update the high order scaled derivatives Adams integrators (phase 2).
+    /**
+     * Update the high order scaled derivatives Adams integrators (phase 2).
      * <p>The complete update of high order derivatives has a form similar to:
      * <pre>
      * r<sub>n+1</sub> = (s<sub>1</sub>(n) - s<sub>1</sub>(n+1)) P<sup>-1</sup> u + P<sup>-1</sup> A P r<sub>n</sub>
@@ -137,9 +128,7 @@ public abstract class AdamsFieldIntegrator<T extends RealFieldElement<T>> extend
      * (h<sup>2</sup>/2 y'', ... h<sup>k</sup>/k! y(k))
      * @see #updateHighOrderDerivativesPhase1(Array2DRowFieldMatrix)
      */
-    public void updateHighOrderDerivativesPhase2(final T[] start, final T[] end,
-                                                 final Array2DRowFieldMatrix<T> highOrder) {
-        transformer.updateHighOrderDerivativesPhase2(start, end, highOrder);
+    public void updateHighOrderDerivativesPhase2(final T[] start, final T[] end, final Array2DRowFieldMatrix<T> highOrder) {
+        // STUB: not implemented
     }
-
 }

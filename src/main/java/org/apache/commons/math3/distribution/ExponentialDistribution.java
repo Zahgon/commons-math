@@ -32,13 +32,18 @@ import org.apache.commons.math3.util.ResizableDoubleArray;
  * @see <a href="http://mathworld.wolfram.com/ExponentialDistribution.html">Exponential distribution (MathWorld)</a>
  */
 public class ExponentialDistribution extends AbstractRealDistribution {
+
     /**
      * Default inverse cumulative probability accuracy.
      * @since 2.1
      */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
-    /** Serializable version identifier */
+
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 2401296428283614780L;
+
     /**
      * Used when generating Exponential samples.
      * Table containing the constants
@@ -53,11 +58,20 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * By trying, n = 16 in Java is enough to reach 1.0.
      */
     private static final double[] EXPONENTIAL_SA_QI;
-    /** The mean of this distribution. */
+
+    /**
+     * The mean of this distribution.
+     */
     private final double mean;
-    /** The logarithm of the mean, stored to reduce computing time. **/
+
+    /**
+     * The logarithm of the mean, stored to reduce computing time. *
+     */
     private final double logMean;
-    /** Inverse cumulative probability accuracy. */
+
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double solverAbsoluteAccuracy;
 
     /**
@@ -71,7 +85,6 @@ public class ExponentialDistribution extends AbstractRealDistribution {
         final double LN2 = FastMath.log(2);
         double qi = 0;
         int i = 1;
-
         /**
          * ArithmeticUtils provides factorials up to 20, so let's use that
          * limit together with Precision.EPSILON to generate the following
@@ -79,13 +92,11 @@ public class ExponentialDistribution extends AbstractRealDistribution {
          * better to not hardcode it).
          */
         final ResizableDoubleArray ra = new ResizableDoubleArray(20);
-
         while (qi < 1) {
             qi += FastMath.pow(LN2, i) / CombinatoricsUtils.factorial(i);
             ra.addElement(qi);
             ++i;
         }
-
         EXPONENTIAL_SA_QI = ra.getElements();
     }
 
@@ -134,8 +145,7 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code mean <= 0}.
      * @since 3.3
      */
-    public ExponentialDistribution(RandomGenerator rng, double mean)
-        throws NotStrictlyPositiveException {
+    public ExponentialDistribution(RandomGenerator rng, double mean) throws NotStrictlyPositiveException {
         this(rng, mean, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -150,12 +160,8 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code mean <= 0}.
      * @since 3.1
      */
-    public ExponentialDistribution(RandomGenerator rng,
-                                   double mean,
-                                   double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public ExponentialDistribution(RandomGenerator rng, double mean, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         super(rng);
-
         if (mean <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.MEAN, mean);
         }
@@ -170,22 +176,25 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * @return the mean.
      */
     public double getMean() {
-        return mean;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        final double logDensity = logDensity(x);
-        return logDensity == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logDensity);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} **/
+    /**
+     * {@inheritDoc} *
+     */
     @Override
     public double logDensity(double x) {
-        if (x < 0) {
-            return Double.NEGATIVE_INFINITY;
-        }
-        return -x / mean - logMean;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -198,14 +207,9 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * Exponential Distribution</a>, equation (1).</li>
      * </ul>
      */
-    public double cumulativeProbability(double x)  {
-        double ret;
-        if (x <= 0.0) {
-            ret = 0.0;
-        } else {
-            ret = 1.0 - FastMath.exp(-x / mean);
-        }
-        return ret;
+    public double cumulativeProbability(double x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -216,17 +220,8 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      */
     @Override
     public double inverseCumulativeProbability(double p) throws OutOfRangeException {
-        double ret;
-
-        if (p < 0.0 || p > 1.0) {
-            throw new OutOfRangeException(p, 0.0, 1.0);
-        } else if (p == 1.0) {
-            ret = Double.POSITIVE_INFINITY;
-        } else {
-            ret = -mean * FastMath.log(1.0 - p);
-        }
-
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -242,48 +237,17 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      */
     @Override
     public double sample() {
-        // Step 1:
-        double a = 0;
-        double u = random.nextDouble();
-
-        // Step 2 and 3:
-        while (u < 0.5) {
-            a += EXPONENTIAL_SA_QI[0];
-            u *= 2;
-        }
-
-        // Step 4 (now u >= 0.5):
-        u += u - 1;
-
-        // Step 5:
-        if (u <= EXPONENTIAL_SA_QI[0]) {
-            return mean * (a + u);
-        }
-
-        // Step 6:
-        int i = 0; // Should be 1, be we iterate before it in while using 0
-        double u2 = random.nextDouble();
-        double umin = u2;
-
-        // Step 7 and 8:
-        do {
-            ++i;
-            u2 = random.nextDouble();
-
-            if (u2 < umin) {
-                umin = u2;
-            }
-
-            // Step 8:
-        } while (u > EXPONENTIAL_SA_QI[i]); // Ensured to exit since EXPONENTIAL_SA_QI[MAX] = 1
-
-        return mean * (a + umin * EXPONENTIAL_SA_QI[0]);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -292,7 +256,8 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * For mean parameter {@code k}, the mean is {@code k}.
      */
     public double getNumericalMean() {
-        return getMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -301,8 +266,8 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * For mean parameter {@code k}, the variance is {@code k^2}.
      */
     public double getNumericalVariance() {
-        final double m = getMean();
-        return m * m;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -313,7 +278,8 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * @return lower bound of the support (always 0)
      */
     public double getSupportLowerBound() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -325,16 +291,23 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * @return upper bound of the support (always Double.POSITIVE_INFINITY)
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -346,6 +319,7 @@ public class ExponentialDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

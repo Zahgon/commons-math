@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.util;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.util.LocalizedFormats;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
@@ -28,11 +26,12 @@ import org.apache.commons.math3.exception.NullArgumentException;
  * provides some simple conversion capabilities to turn any java.lang.Number
  * into a primitive double or to turn a String representation of a Number into
  * a double.
- *
  */
 public class DefaultTransformer implements NumberTransformer, Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 4019938025047800455L;
 
     /**
@@ -43,39 +42,26 @@ public class DefaultTransformer implements NumberTransformer, Serializable {
      * cannot successfully be transformed
      * @see <a href="http://commons.apache.org/collections/api-release/org/apache/commons/collections/Transformer.html">Commons Collections Transformer</a>
      */
-    public double transform(Object o)
-        throws NullArgumentException, MathIllegalArgumentException {
-
-        if (o == null) {
-            throw new NullArgumentException(LocalizedFormats.OBJECT_TRANSFORMATION);
-        }
-
-        if (o instanceof Number) {
-            return ((Number)o).doubleValue();
-        }
-
-        try {
-            return Double.parseDouble(o.toString());
-        } catch (NumberFormatException e) {
-            throw new MathIllegalArgumentException(LocalizedFormats.CANNOT_TRANSFORM_TO_DOUBLE,
-                                                   o.toString());
-        }
+    public double transform(Object o) throws NullArgumentException, MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        return other instanceof DefaultTransformer;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        // some arbitrary number ...
-        return 401993047;
+        // STUB: not implemented
+        return 0;
     }
-
 }

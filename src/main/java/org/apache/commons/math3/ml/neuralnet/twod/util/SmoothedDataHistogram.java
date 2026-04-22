@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.twod.util;
 
 import org.apache.commons.math3.ml.neuralnet.MapUtils;
@@ -34,27 +33,33 @@ import org.apache.commons.math3.exception.NumberIsTooSmallException;
  * @since 3.6
  */
 public class SmoothedDataHistogram implements MapDataVisualization {
-    /** Smoothing parameter. */
+
+    /**
+     * Smoothing parameter.
+     */
     private final int smoothingBins;
-    /** Distance. */
+
+    /**
+     * Distance.
+     */
     private final DistanceMeasure distance;
-    /** Normalization factor. */
+
+    /**
+     * Normalization factor.
+     */
     private final double membershipNormalization;
 
     /**
      * @param smoothingBins Number of bins.
      * @param distance Distance.
      */
-    public SmoothedDataHistogram(int smoothingBins,
-                                 DistanceMeasure distance) {
+    public SmoothedDataHistogram(int smoothingBins, DistanceMeasure distance) {
         this.smoothingBins = smoothingBins;
         this.distance = distance;
-
         double sum = 0;
         for (int i = 0; i < smoothingBins; i++) {
             sum += smoothingBins - i;
         }
-
         this.membershipNormalization = 1d / sum;
     }
 
@@ -65,33 +70,8 @@ public class SmoothedDataHistogram implements MapDataVisualization {
      * is smaller than the number of {@link #SmoothedDataHistogram(int,DistanceMeasure)
      * smoothing bins}.
      */
-    public double[][] computeImage(NeuronSquareMesh2D map,
-                                   Iterable<double[]> data) {
-        final int nR = map.getNumberOfRows();
-        final int nC = map.getNumberOfColumns();
-
-        final int mapSize = nR * nC;
-        if (mapSize < smoothingBins) {
-            throw new NumberIsTooSmallException(mapSize, smoothingBins, true);
-        }
-
-        final LocationFinder finder = new LocationFinder(map);
-
-        // Histogram bins.
-        final double[][] histo = new double[nR][nC];
-
-        for (double[] sample : data) {
-            final Neuron[] sorted = MapUtils.sort(sample,
-                                                  map.getNetwork(),
-                                                  distance);
-            for (int i = 0; i < smoothingBins; i++) {
-                final LocationFinder.Location loc = finder.getLocation(sorted[i]);
-                final int row = loc.getRow();
-                final int col = loc.getColumn();
-                histo[row][col] += (smoothingBins - i) * membershipNormalization;
-            }
-        }
-
-        return histo;
+    public double[][] computeImage(NeuronSquareMesh2D map, Iterable<double[]> data) {
+        // STUB: not implemented
+        return null;
     }
 }

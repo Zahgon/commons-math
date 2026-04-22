@@ -28,19 +28,31 @@ import org.apache.commons.math3.util.Incrementor;
  * @param <PAIR> Type of the point/value pair returned by the optimization algorithm.
  * @since 3.3
  */
-public abstract class AbstractOptimizationProblem<PAIR>
-        implements OptimizationProblem<PAIR> {
+public abstract class AbstractOptimizationProblem<PAIR> implements OptimizationProblem<PAIR> {
 
-    /** Callback to use for the evaluation counter. */
+    /**
+     * Callback to use for the evaluation counter.
+     */
     private static final MaxEvalCallback MAX_EVAL_CALLBACK = new MaxEvalCallback();
-    /** Callback to use for the iteration counter. */
+
+    /**
+     * Callback to use for the iteration counter.
+     */
     private static final MaxIterCallback MAX_ITER_CALLBACK = new MaxIterCallback();
 
-    /** max evaluations */
+    /**
+     * max evaluations
+     */
     private final int maxEvaluations;
-    /** max iterations */
+
+    /**
+     * max iterations
+     */
     private final int maxIterations;
-    /** Convergence checker. */
+
+    /**
+     * Convergence checker.
+     */
     private final ConvergenceChecker<PAIR> checker;
 
     /**
@@ -50,53 +62,63 @@ public abstract class AbstractOptimizationProblem<PAIR>
      * @param maxIterations  the number of allowed iterations.
      * @param checker        the convergence checker.
      */
-    protected AbstractOptimizationProblem(final int maxEvaluations,
-                                          final int maxIterations,
-                                          final ConvergenceChecker<PAIR> checker) {
+    protected AbstractOptimizationProblem(final int maxEvaluations, final int maxIterations, final ConvergenceChecker<PAIR> checker) {
         this.maxEvaluations = maxEvaluations;
         this.maxIterations = maxIterations;
         this.checker = checker;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Incrementor getEvaluationCounter() {
-        return new Incrementor(this.maxEvaluations, MAX_EVAL_CALLBACK);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Incrementor getIterationCounter() {
-        return new Incrementor(this.maxIterations, MAX_ITER_CALLBACK);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public ConvergenceChecker<PAIR> getConvergenceChecker() {
-        return checker;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Defines the action to perform when reaching the maximum number of evaluations. */
-    private static class MaxEvalCallback
-            implements Incrementor.MaxCountExceededCallback {
+    /**
+     * Defines the action to perform when reaching the maximum number of evaluations.
+     */
+    private static class MaxEvalCallback implements Incrementor.MaxCountExceededCallback {
+
         /**
          * {@inheritDoc}
          *
          * @throws TooManyEvaluationsException
          */
         public void trigger(int max) {
-            throw new TooManyEvaluationsException(max);
+            // STUB: not implemented
         }
     }
 
-    /** Defines the action to perform when reaching the maximum number of evaluations. */
-    private static class MaxIterCallback
-            implements Incrementor.MaxCountExceededCallback {
+    /**
+     * Defines the action to perform when reaching the maximum number of evaluations.
+     */
+    private static class MaxIterCallback implements Incrementor.MaxCountExceededCallback {
+
         /**
          * {@inheritDoc}
          *
          * @throws TooManyIterationsException
          */
         public void trigger(int max) {
-            throw new TooManyIterationsException(max);
+            // STUB: not implemented
         }
     }
-
 }

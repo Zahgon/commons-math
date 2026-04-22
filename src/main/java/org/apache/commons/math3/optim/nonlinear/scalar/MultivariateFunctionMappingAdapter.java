@@ -77,14 +77,20 @@ import org.apache.commons.math3.util.MathUtils;
  *
  * @since 3.0
  */
-public class MultivariateFunctionMappingAdapter
-    implements MultivariateFunction {
-    /** Underlying bounded function. */
+public class MultivariateFunctionMappingAdapter implements MultivariateFunction {
+
+    /**
+     * Underlying bounded function.
+     */
     private final MultivariateFunction bounded;
-    /** Mapping functions. */
+
+    /**
+     * Mapping functions.
+     */
     private final Mapper[] mappers;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param bounded bounded function
      * @param lower lower bounds for each element of the input parameters array
      * (some elements may be set to {@code Double.NEGATIVE_INFINITY} for
@@ -95,8 +101,7 @@ public class MultivariateFunctionMappingAdapter
      * @exception DimensionMismatchException if lower and upper bounds are not
      * consistent, either according to dimension or to values
      */
-    public MultivariateFunctionMappingAdapter(final MultivariateFunction bounded,
-                                              final double[] lower, final double[] upper) {
+    public MultivariateFunctionMappingAdapter(final MultivariateFunction bounded, final double[] lower, final double[] upper) {
         // safety checks
         MathUtils.checkNotNull(lower);
         MathUtils.checkNotNull(upper);
@@ -109,7 +114,6 @@ public class MultivariateFunctionMappingAdapter
                 throw new NumberIsTooSmallException(upper[i], lower[i], true);
             }
         }
-
         this.bounded = bounded;
         this.mappers = new Mapper[lower.length];
         for (int i = 0; i < mappers.length; ++i) {
@@ -140,13 +144,8 @@ public class MultivariateFunctionMappingAdapter
      * @return the bounded values.
      */
     public double[] unboundedToBounded(double[] point) {
-        // Map unbounded input point to bounded point.
-        final double[] mapped = new double[mappers.length];
-        for (int i = 0; i < mappers.length; ++i) {
-            mapped[i] = mappers[i].unboundedToBounded(point[i]);
-        }
-
-        return mapped;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -156,13 +155,8 @@ public class MultivariateFunctionMappingAdapter
      * @return the unbounded values.
      */
     public double[] boundedToUnbounded(double[] point) {
-        // Map bounded input point to unbounded point.
-        final double[] mapped = new double[mappers.length];
-        for (int i = 0; i < mappers.length; ++i) {
-            mapped[i] = mappers[i].boundedToUnbounded(point[i]);
-        }
-
-        return mapped;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -177,11 +171,15 @@ public class MultivariateFunctionMappingAdapter
      * @see #unboundedToBounded(double[])
      */
     public double value(double[] point) {
-        return bounded.value(unboundedToBounded(point));
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Mapping interface. */
+    /**
+     * Mapping interface.
+     */
     private interface Mapper {
+
         /**
          * Maps a value from unbounded to bounded.
          *
@@ -199,22 +197,36 @@ public class MultivariateFunctionMappingAdapter
         double boundedToUnbounded(double x);
     }
 
-    /** Local class for no bounds mapping. */
+    /**
+     * Local class for no bounds mapping.
+     */
     private static class NoBoundsMapper implements Mapper {
-        /** {@inheritDoc} */
+
+        /**
+         * {@inheritDoc}
+         */
         public double unboundedToBounded(final double y) {
-            return y;
+            // STUB: not implemented
+            return 0.0;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double boundedToUnbounded(final double x) {
-            return x;
+            // STUB: not implemented
+            return 0.0;
         }
     }
 
-    /** Local class for lower bounds mapping. */
+    /**
+     * Local class for lower bounds mapping.
+     */
     private static class LowerBoundMapper implements Mapper {
-        /** Low bound. */
+
+        /**
+         * Low bound.
+         */
         private final double lower;
 
         /**
@@ -226,48 +238,71 @@ public class MultivariateFunctionMappingAdapter
             this.lower = lower;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double unboundedToBounded(final double y) {
-            return lower + FastMath.exp(y);
+            // STUB: not implemented
+            return 0.0;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double boundedToUnbounded(final double x) {
-            return FastMath.log(x - lower);
+            // STUB: not implemented
+            return 0.0;
         }
-
     }
 
-    /** Local class for upper bounds mapping. */
+    /**
+     * Local class for upper bounds mapping.
+     */
     private static class UpperBoundMapper implements Mapper {
 
-        /** Upper bound. */
+        /**
+         * Upper bound.
+         */
         private final double upper;
 
-        /** Simple constructor.
+        /**
+         * Simple constructor.
          * @param upper upper bound
          */
         UpperBoundMapper(final double upper) {
             this.upper = upper;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double unboundedToBounded(final double y) {
-            return upper - FastMath.exp(-y);
+            // STUB: not implemented
+            return 0.0;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double boundedToUnbounded(final double x) {
-            return -FastMath.log(upper - x);
+            // STUB: not implemented
+            return 0.0;
         }
-
     }
 
-    /** Local class for lower and bounds mapping. */
+    /**
+     * Local class for lower and bounds mapping.
+     */
     private static class LowerUpperBoundMapper implements Mapper {
-        /** Function from unbounded to bounded. */
+
+        /**
+         * Function from unbounded to bounded.
+         */
         private final UnivariateFunction boundingFunction;
-        /** Function from bounded to unbounded. */
+
+        /**
+         * Function from bounded to unbounded.
+         */
         private final UnivariateFunction unboundingFunction;
 
         /**
@@ -277,18 +312,24 @@ public class MultivariateFunctionMappingAdapter
          * @param upper upper bound
          */
         LowerUpperBoundMapper(final double lower, final double upper) {
-            boundingFunction   = new Sigmoid(lower, upper);
+            boundingFunction = new Sigmoid(lower, upper);
             unboundingFunction = new Logit(lower, upper);
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double unboundedToBounded(final double y) {
-            return boundingFunction.value(y);
+            // STUB: not implemented
+            return 0.0;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double boundedToUnbounded(final double x) {
-            return unboundingFunction.value(x);
+            // STUB: not implemented
+            return 0.0;
         }
     }
 }

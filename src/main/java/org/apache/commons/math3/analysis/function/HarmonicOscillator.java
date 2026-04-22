@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -34,11 +33,20 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class HarmonicOscillator implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Amplitude. */
+
+    /**
+     * Amplitude.
+     */
     private final double amplitude;
-    /** Angular frequency. */
+
+    /**
+     * Angular frequency.
+     */
     private final double omega;
-    /** Phase. */
+
+    /**
+     * Phase.
+     */
     private final double phase;
 
     /**
@@ -48,20 +56,22 @@ public class HarmonicOscillator implements UnivariateDifferentiableFunction, Dif
      * @param omega Angular frequency.
      * @param phase Phase.
      */
-    public HarmonicOscillator(double amplitude,
-                              double omega,
-                              double phase) {
+    public HarmonicOscillator(double amplitude, double omega, double phase) {
         this.amplitude = amplitude;
         this.omega = omega;
         this.phase = phase;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return value(omega * x + phase, amplitude);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -79,6 +89,7 @@ public class HarmonicOscillator implements UnivariateDifferentiableFunction, Dif
      * </ul>
      */
     public static class Parametric implements ParametricUnivariateFunction {
+
         /**
          * Computes the value of the harmonic oscillator at {@code x}.
          *
@@ -89,11 +100,9 @@ public class HarmonicOscillator implements UnivariateDifferentiableFunction, Dif
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 3.
          */
-        public double value(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
-            validateParameters(param);
-            return HarmonicOscillator.value(x * param[1] + param[2], param[0]);
+        public double value(double x, double... param) throws NullArgumentException, DimensionMismatchException {
+            // STUB: not implemented
+            return 0.0;
         }
 
         /**
@@ -109,21 +118,9 @@ public class HarmonicOscillator implements UnivariateDifferentiableFunction, Dif
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 3.
          */
-        public double[] gradient(double x, double ... param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
-            validateParameters(param);
-
-            final double amplitude = param[0];
-            final double omega = param[1];
-            final double phase = param[2];
-
-            final double xTimesOmegaPlusPhase = omega * x + phase;
-            final double a = HarmonicOscillator.value(xTimesOmegaPlusPhase, 1);
-            final double p = -amplitude * FastMath.sin(xTimesOmegaPlusPhase);
-            final double w = p * x;
-
-            return new double[] { a, w, p };
+        public double[] gradient(double x, double... param) throws NullArgumentException, DimensionMismatchException {
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -136,9 +133,7 @@ public class HarmonicOscillator implements UnivariateDifferentiableFunction, Dif
          * @throws DimensionMismatchException if the size of {@code param} is
          * not 3.
          */
-        private void validateParameters(double[] param)
-            throws NullArgumentException,
-                   DimensionMismatchException {
+        private void validateParameters(double[] param) throws NullArgumentException, DimensionMismatchException {
             if (param == null) {
                 throw new NullArgumentException();
             }
@@ -153,31 +148,16 @@ public class HarmonicOscillator implements UnivariateDifferentiableFunction, Dif
      * @param amplitude Amplitude.
      * @return the value of the harmonic oscillator function at {@code x}.
      */
-    private static double value(double xTimesOmegaPlusPhase,
-                                double amplitude) {
+    private static double value(double xTimesOmegaPlusPhase, double amplitude) {
         return amplitude * FastMath.cos(xTimesOmegaPlusPhase);
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
-    public DerivativeStructure value(final DerivativeStructure t)
-        throws DimensionMismatchException {
-        final double x = t.getValue();
-        double[] f = new double[t.getOrder() + 1];
-
-        final double alpha = omega * x + phase;
-        f[0] = amplitude * FastMath.cos(alpha);
-        if (f.length > 1) {
-            f[1] = -amplitude * omega * FastMath.sin(alpha);
-            final double mo2 = - omega * omega;
-            for (int i = 2; i < f.length; ++i) {
-                f[i] = mo2 * f[i - 2];
-            }
-        }
-
-        return t.compose(f);
-
+    public DerivativeStructure value(final DerivativeStructure t) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
-
 }

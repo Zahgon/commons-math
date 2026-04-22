@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.twod.util;
 
 import java.util.Map;
@@ -28,24 +27,32 @@ import org.apache.commons.math3.exception.MathIllegalStateException;
  * @since 3.6
  */
 public class LocationFinder {
-    /** Identifier to location mapping. */
+
+    /**
+     * Identifier to location mapping.
+     */
     private final Map<Long, Location> locations = new HashMap<Long, Location>();
 
     /**
      * Container holding a (row, column) pair.
      */
     public static class Location {
-        /** Row index. */
+
+        /**
+         * Row index.
+         */
         private final int row;
-        /** Column index. */
+
+        /**
+         * Column index.
+         */
         private final int column;
 
         /**
          * @param row Row index.
          * @param column Column index.
          */
-        public Location(int row,
-                        int column) {
+        public Location(int row, int column) {
             this.row = row;
             this.column = column;
         }
@@ -54,14 +61,16 @@ public class LocationFinder {
          * @return the row index.
          */
         public int getRow() {
-            return row;
+            // STUB: not implemented
+            return 0;
         }
 
         /**
          * @return the column index.
          */
         public int getColumn() {
-            return column;
+            // STUB: not implemented
+            return 0;
         }
     }
 
@@ -79,7 +88,6 @@ public class LocationFinder {
     public LocationFinder(NeuronSquareMesh2D map) {
         final int nR = map.getNumberOfRows();
         final int nC = map.getNumberOfColumns();
-
         for (int r = 0; r < nR; r++) {
             for (int c = 0; c < nC; c++) {
                 final Long id = map.getNeuron(r, c).getIdentifier();
@@ -100,6 +108,7 @@ public class LocationFinder {
      * map used to build this instance}.
      */
     public Location getLocation(Neuron n) {
-        return locations.get(n.getIdentifier());
+        // STUB: not implemented
+        return null;
     }
 }

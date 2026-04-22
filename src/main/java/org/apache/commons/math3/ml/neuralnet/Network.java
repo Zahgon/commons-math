@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet;
 
 import java.io.Serializable;
@@ -43,39 +42,50 @@ import org.apache.commons.math3.exception.MathIllegalStateException;
  *
  * @since 3.3
  */
-public class Network
-    implements Iterable<Neuron>,
-               Serializable {
-    /** Serializable. */
+public class Network implements Iterable<Neuron>, Serializable {
+
+    /**
+     * Serializable.
+     */
     private static final long serialVersionUID = 20130207L;
-    /** Neurons. */
-    private final ConcurrentHashMap<Long, Neuron> neuronMap
-        = new ConcurrentHashMap<Long, Neuron>();
-    /** Next available neuron identifier. */
+
+    /**
+     * Neurons.
+     */
+    private final ConcurrentHashMap<Long, Neuron> neuronMap = new ConcurrentHashMap<Long, Neuron>();
+
+    /**
+     * Next available neuron identifier.
+     */
     private final AtomicLong nextId;
-    /** Neuron's features set size. */
+
+    /**
+     * Neuron's features set size.
+     */
     private final int featureSize;
-    /** Links. */
-    private final ConcurrentHashMap<Long, Set<Long>> linkMap
-        = new ConcurrentHashMap<Long, Set<Long>>();
+
+    /**
+     * Links.
+     */
+    private final ConcurrentHashMap<Long, Set<Long>> linkMap = new ConcurrentHashMap<Long, Set<Long>>();
 
     /**
      * Comparator that prescribes an order of the neurons according
      * to the increasing order of their identifier.
      */
-    public static class NeuronIdentifierComparator
-        implements Comparator<Neuron>,
-                   Serializable {
-        /** Version identifier. */
+    public static class NeuronIdentifierComparator implements Comparator<Neuron>, Serializable {
+
+        /**
+         * Version identifier.
+         */
         private static final long serialVersionUID = 20130207L;
 
-        /** {@inheritDoc} */
-        public int compare(Neuron a,
-                           Neuron b) {
-            final long aId = a.getIdentifier();
-            final long bId = b.getIdentifier();
-            return aId < bId ? -1 :
-                aId > bId ? 1 : 0;
+        /**
+         * {@inheritDoc}
+         */
+        public int compare(Neuron a, Neuron b) {
+            // STUB: not implemented
+            return 0;
         }
     }
 
@@ -90,15 +100,11 @@ public class Network
      * @throws MathIllegalStateException if an inconsistency is detected
      * (which probably means that the serialized form has been corrupted).
      */
-    Network(long nextId,
-            int featureSize,
-            Neuron[] neuronList,
-            long[][] neighbourIdList) {
+    Network(long nextId, int featureSize, Neuron[] neuronList, long[][] neighbourIdList) {
         final int numNeurons = neuronList.length;
         if (numNeurons != neighbourIdList.length) {
             throw new MathIllegalStateException();
         }
-
         for (int i = 0; i < numNeurons; i++) {
             final Neuron n = neuronList[i];
             final long id = n.getIdentifier();
@@ -108,7 +114,6 @@ public class Network
             neuronMap.put(id, n);
             linkMap.put(id, new HashSet<Long>());
         }
-
         for (int i = 0; i < numNeurons; i++) {
             final long aId = neuronList[i].getIdentifier();
             final Set<Long> aLinks = linkMap.get(aId);
@@ -119,7 +124,6 @@ public class Network
                 addLinkToLinkSet(aLinks, bId);
             }
         }
-
         this.nextId = new AtomicLong(nextId);
         this.featureSize = featureSize;
     }
@@ -129,8 +133,7 @@ public class Network
      * will be added to this network.
      * @param featureSize Size of the neuron's features.
      */
-    public Network(long initialIdentifier,
-                   int featureSize) {
+    public Network(long initialIdentifier, int featureSize) {
         nextId = new AtomicLong(initialIdentifier);
         this.featureSize = featureSize;
     }
@@ -144,26 +147,16 @@ public class Network
      * @since 3.6
      */
     public synchronized Network copy() {
-        final Network copy = new Network(nextId.get(),
-                                         featureSize);
-
-
-        for (Map.Entry<Long, Neuron> e : neuronMap.entrySet()) {
-            copy.neuronMap.put(e.getKey(), e.getValue().copy());
-        }
-
-        for (Map.Entry<Long, Set<Long>> e : linkMap.entrySet()) {
-            copy.linkMap.put(e.getKey(), new HashSet<Long>(e.getValue()));
-        }
-
-        return copy;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public Iterator<Neuron> iterator() {
-        return neuronMap.values().iterator();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -175,12 +168,8 @@ public class Network
      * @see NeuronIdentifierComparator
      */
     public Collection<Neuron> getNeurons(Comparator<Neuron> comparator) {
-        final List<Neuron> neurons = new ArrayList<Neuron>();
-        neurons.addAll(neuronMap.values());
-
-        Collections.sort(neurons, comparator);
-
-        return neurons;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -193,14 +182,8 @@ public class Network
      * {@link #Network(long,int) constructor}).
      */
     public long createNeuron(double[] features) {
-        if (features.length != featureSize) {
-            throw new DimensionMismatchException(features.length, featureSize);
-        }
-
-        final long id = createNextId();
-        neuronMap.put(id, new Neuron(id, features));
-        linkMap.put(id, new HashSet<Long>());
-        return id;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -213,15 +196,7 @@ public class Network
      * this network.
      */
     public void deleteNeuron(Neuron neuron) {
-        final Collection<Neuron> neighbours = getNeighbours(neuron);
-
-        // Delete links to from neighbours.
-        for (Neuron n : neighbours) {
-            deleteLink(n, neuron);
-        }
-
-        // Remove neuron.
-        neuronMap.remove(neuron.getIdentifier());
+        // STUB: not implemented
     }
 
     /**
@@ -230,7 +205,8 @@ public class Network
      * @return the size of the features set.
      */
     public int getFeaturesSize() {
-        return featureSize;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -244,21 +220,8 @@ public class Network
      * @throws NoSuchElementException if the neurons do not exist in the
      * network.
      */
-    public void addLink(Neuron a,
-                        Neuron b) {
-        final long aId = a.getIdentifier();
-        final long bId = b.getIdentifier();
-
-        // Check that the neurons belong to this network.
-        if (a != getNeuron(aId)) {
-            throw new NoSuchElementException(Long.toString(aId));
-        }
-        if (b != getNeuron(bId)) {
-            throw new NoSuchElementException(Long.toString(bId));
-        }
-
-        // Add link from "a" to "b".
-        addLinkToLinkSet(linkMap.get(aId), bId);
+    public void addLink(Neuron a, Neuron b) {
+        // STUB: not implemented
     }
 
     /**
@@ -269,8 +232,7 @@ public class Network
      * @param linkSet Neuron identifier.
      * @param id Neuron identifier.
      */
-    private void addLinkToLinkSet(Set<Long> linkSet,
-                                  long id) {
+    private void addLinkToLinkSet(Set<Long> linkSet, long id) {
         linkSet.add(id);
     }
 
@@ -282,21 +244,8 @@ public class Network
      * @throws NoSuchElementException if the neurons do not exist in the
      * network.
      */
-    public void deleteLink(Neuron a,
-                           Neuron b) {
-        final long aId = a.getIdentifier();
-        final long bId = b.getIdentifier();
-
-        // Check that the neurons belong to this network.
-        if (a != getNeuron(aId)) {
-            throw new NoSuchElementException(Long.toString(aId));
-        }
-        if (b != getNeuron(bId)) {
-            throw new NoSuchElementException(Long.toString(bId));
-        }
-
-        // Delete link from "a" to "b".
-        deleteLinkFromLinkSet(linkMap.get(aId), bId);
+    public void deleteLink(Neuron a, Neuron b) {
+        // STUB: not implemented
     }
 
     /**
@@ -307,8 +256,7 @@ public class Network
      * @param linkSet Neuron identifier.
      * @param id Neuron identifier.
      */
-    private void deleteLinkFromLinkSet(Set<Long> linkSet,
-                                       long id) {
+    private void deleteLinkFromLinkSet(Set<Long> linkSet, long id) {
         linkSet.remove(id);
     }
 
@@ -321,11 +269,8 @@ public class Network
      * network.
      */
     public Neuron getNeuron(long id) {
-        final Neuron n = neuronMap.get(id);
-        if (n == null) {
-            throw new NoSuchElementException(Long.toString(id));
-        }
-        return n;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -336,7 +281,8 @@ public class Network
      * @see #getNeighbours(Iterable,Iterable)
      */
     public Collection<Neuron> getNeighbours(Iterable<Neuron> neurons) {
-        return getNeighbours(neurons, null);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -351,25 +297,9 @@ public class Network
      * Can be {@code null}.
      * @return the list of neighbours.
      */
-    public Collection<Neuron> getNeighbours(Iterable<Neuron> neurons,
-                                            Iterable<Neuron> exclude) {
-        final Set<Long> idList = new HashSet<Long>();
-
-        for (Neuron n : neurons) {
-            idList.addAll(linkMap.get(n.getIdentifier()));
-        }
-        if (exclude != null) {
-            for (Neuron n : exclude) {
-                idList.remove(n.getIdentifier());
-            }
-        }
-
-        final List<Neuron> neuronList = new ArrayList<Neuron>();
-        for (Long id : idList) {
-            neuronList.add(getNeuron(id));
-        }
-
-        return neuronList;
+    public Collection<Neuron> getNeighbours(Iterable<Neuron> neurons, Iterable<Neuron> exclude) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -380,7 +310,8 @@ public class Network
      * @see #getNeighbours(Neuron,Iterable)
      */
     public Collection<Neuron> getNeighbours(Neuron neuron) {
-        return getNeighbours(neuron, null);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -391,21 +322,9 @@ public class Network
      * Can be {@code null}.
      * @return the list of neighbours.
      */
-    public Collection<Neuron> getNeighbours(Neuron neuron,
-                                            Iterable<Neuron> exclude) {
-        final Set<Long> idList = linkMap.get(neuron.getIdentifier());
-        if (exclude != null) {
-            for (Neuron n : exclude) {
-                idList.remove(n.getIdentifier());
-            }
-        }
-
-        final List<Neuron> neuronList = new ArrayList<Neuron>();
-        for (Long id : idList) {
-            neuronList.add(getNeuron(id));
-        }
-
-        return neuronList;
+    public Collection<Neuron> getNeighbours(Neuron neuron, Iterable<Neuron> exclude) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -434,7 +353,6 @@ public class Network
     private Object writeReplace() {
         final Neuron[] neuronList = neuronMap.values().toArray(new Neuron[0]);
         final long[][] neighbourIdList = new long[neuronList.length][];
-
         for (int i = 0; i < neuronList.length; i++) {
             final Collection<Neuron> neighbours = getNeighbours(neuronList[i]);
             final long[] neighboursId = new long[neighbours.size()];
@@ -445,26 +363,37 @@ public class Network
             }
             neighbourIdList[i] = neighboursId;
         }
-
-        return new SerializationProxy(nextId.get(),
-                                      featureSize,
-                                      neuronList,
-                                      neighbourIdList);
+        return new SerializationProxy(nextId.get(), featureSize, neuronList, neighbourIdList);
     }
 
     /**
      * Serialization.
      */
     private static class SerializationProxy implements Serializable {
-        /** Serializable. */
+
+        /**
+         * Serializable.
+         */
         private static final long serialVersionUID = 20130207L;
-        /** Next identifier. */
+
+        /**
+         * Next identifier.
+         */
         private final long nextId;
-        /** Number of features. */
+
+        /**
+         * Number of features.
+         */
         private final int featureSize;
-        /** Neurons. */
+
+        /**
+         * Neurons.
+         */
         private final Neuron[] neuronList;
-        /** Links. */
+
+        /**
+         * Links.
+         */
         private final long[][] neighbourIdList;
 
         /**
@@ -474,10 +403,7 @@ public class Network
          * @param neighbourIdList Links associated to each of the neurons in
          * {@code neuronList}.
          */
-        SerializationProxy(long nextId,
-                           int featureSize,
-                           Neuron[] neuronList,
-                           long[][] neighbourIdList) {
+        SerializationProxy(long nextId, int featureSize, Neuron[] neuronList, long[][] neighbourIdList) {
             this.nextId = nextId;
             this.featureSize = featureSize;
             this.neuronList = neuronList;
@@ -490,10 +416,7 @@ public class Network
          * @return the {@link Network} for which this instance is the proxy.
          */
         private Object readResolve() {
-            return new Network(nextId,
-                               featureSize,
-                               neuronList,
-                               neighbourIdList);
+            return new Network(nextId, featureSize, neuronList, neighbourIdList);
         }
     }
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.solvers;
 
 import org.apache.commons.math3.analysis.UnivariateFunction;
@@ -38,27 +37,56 @@ import org.apache.commons.math3.util.MathUtils;
  *
  * @since 2.0
  */
-public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFunction>
-    implements BaseUnivariateSolver<FUNC> {
-    /** Default relative accuracy. */
+public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFunction> implements BaseUnivariateSolver<FUNC> {
+
+    /**
+     * Default relative accuracy.
+     */
     private static final double DEFAULT_RELATIVE_ACCURACY = 1e-14;
-    /** Default function value accuracy. */
+
+    /**
+     * Default function value accuracy.
+     */
     private static final double DEFAULT_FUNCTION_VALUE_ACCURACY = 1e-15;
-    /** Function value accuracy. */
+
+    /**
+     * Function value accuracy.
+     */
     private final double functionValueAccuracy;
-    /** Absolute accuracy. */
+
+    /**
+     * Absolute accuracy.
+     */
     private final double absoluteAccuracy;
-    /** Relative accuracy. */
+
+    /**
+     * Relative accuracy.
+     */
     private final double relativeAccuracy;
-    /** Evaluations counter. */
+
+    /**
+     * Evaluations counter.
+     */
     private IntegerSequence.Incrementor evaluations;
-    /** Lower end of search interval. */
+
+    /**
+     * Lower end of search interval.
+     */
     private double searchMin;
-    /** Higher end of search interval. */
+
+    /**
+     * Higher end of search interval.
+     */
     private double searchMax;
-    /** Initial guess. */
+
+    /**
+     * Initial guess.
+     */
     private double searchStart;
-    /** Function to solve. */
+
+    /**
+     * Function to solve.
+     */
     private FUNC function;
 
     /**
@@ -67,9 +95,7 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @param absoluteAccuracy Maximum absolute error.
      */
     protected BaseAbstractUnivariateSolver(final double absoluteAccuracy) {
-        this(DEFAULT_RELATIVE_ACCURACY,
-             absoluteAccuracy,
-             DEFAULT_FUNCTION_VALUE_ACCURACY);
+        this(DEFAULT_RELATIVE_ACCURACY, absoluteAccuracy, DEFAULT_FUNCTION_VALUE_ACCURACY);
     }
 
     /**
@@ -78,11 +104,8 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @param relativeAccuracy Maximum relative error.
      * @param absoluteAccuracy Maximum absolute error.
      */
-    protected BaseAbstractUnivariateSolver(final double relativeAccuracy,
-                                           final double absoluteAccuracy) {
-        this(relativeAccuracy,
-             absoluteAccuracy,
-             DEFAULT_FUNCTION_VALUE_ACCURACY);
+    protected BaseAbstractUnivariateSolver(final double relativeAccuracy, final double absoluteAccuracy) {
+        this(relativeAccuracy, absoluteAccuracy, DEFAULT_FUNCTION_VALUE_ACCURACY);
     }
 
     /**
@@ -92,58 +115,75 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @param absoluteAccuracy Maximum absolute error.
      * @param functionValueAccuracy Maximum function value error.
      */
-    protected BaseAbstractUnivariateSolver(final double relativeAccuracy,
-                                           final double absoluteAccuracy,
-                                           final double functionValueAccuracy) {
-        this.absoluteAccuracy      = absoluteAccuracy;
-        this.relativeAccuracy      = relativeAccuracy;
+    protected BaseAbstractUnivariateSolver(final double relativeAccuracy, final double absoluteAccuracy, final double functionValueAccuracy) {
+        this.absoluteAccuracy = absoluteAccuracy;
+        this.relativeAccuracy = relativeAccuracy;
         this.functionValueAccuracy = functionValueAccuracy;
-        this.evaluations           = IntegerSequence.Incrementor.create();
+        this.evaluations = IntegerSequence.Incrementor.create();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMaxEvaluations() {
-        return evaluations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     public int getEvaluations() {
-        return evaluations.getCount();
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * @return the lower end of the search interval.
      */
     public double getMin() {
-        return searchMin;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the higher end of the search interval.
      */
     public double getMax() {
-        return searchMax;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the initial guess.
      */
     public double getStartValue() {
-        return searchStart;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * {@inheritDoc}
      */
     public double getAbsoluteAccuracy() {
-        return absoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * {@inheritDoc}
      */
     public double getRelativeAccuracy() {
-        return relativeAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * {@inheritDoc}
      */
     public double getFunctionValueAccuracy() {
-        return functionValueAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -154,10 +194,9 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @throws TooManyEvaluationsException if the maximal number of evaluations
      * is exceeded.
      */
-    protected double computeObjectiveValue(double point)
-        throws TooManyEvaluationsException {
-        incrementEvaluationCount();
-        return function.value(point);
+    protected double computeObjectiveValue(double point) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -172,43 +211,32 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @param maxEval Maximum number of evaluations.
      * @exception NullArgumentException if f is null
      */
-    protected void setup(int maxEval,
-                         FUNC f,
-                         double min, double max,
-                         double startValue)
-        throws NullArgumentException {
-        // Checks.
-        MathUtils.checkNotNull(f);
-
-        // Reset.
-        searchMin = min;
-        searchMax = max;
-        searchStart = startValue;
-        function = f;
-        evaluations = evaluations.withMaximalCount(maxEval).withStart(0);
+    protected void setup(int maxEval, FUNC f, double min, double max, double startValue) throws NullArgumentException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
-    public double solve(int maxEval, FUNC f, double min, double max, double startValue)
-        throws TooManyEvaluationsException,
-               NoBracketingException {
-        // Initialization.
-        setup(maxEval, f, min, max, startValue);
-
-        // Perform computation.
-        return doSolve();
+    /**
+     * {@inheritDoc}
+     */
+    public double solve(int maxEval, FUNC f, double min, double max, double startValue) throws TooManyEvaluationsException, NoBracketingException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double solve(int maxEval, FUNC f, double min, double max) {
-        return solve(maxEval, f, min, max, min + 0.5 * (max - min));
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
-    public double solve(int maxEval, FUNC f, double startValue)
-        throws TooManyEvaluationsException,
-               NoBracketingException {
-        return solve(maxEval, f, Double.NaN, Double.NaN, startValue);
+    /**
+     * {@inheritDoc}
+     */
+    public double solve(int maxEval, FUNC f, double startValue) throws TooManyEvaluationsException, NoBracketingException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -221,8 +249,7 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @throws NoBracketingException if the initial search interval does not bracket
      * a root and the solver requires it.
      */
-    protected abstract double doSolve()
-        throws TooManyEvaluationsException, NoBracketingException;
+    protected abstract double doSolve() throws TooManyEvaluationsException, NoBracketingException;
 
     /**
      * Check whether the function takes opposite signs at the endpoints.
@@ -232,9 +259,9 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @return {@code true} if the function values have opposite signs at the
      * given points.
      */
-    protected boolean isBracketing(final double lower,
-                                   final double upper) {
-        return UnivariateSolverUtils.isBracketing(function, lower, upper);
+    protected boolean isBracketing(final double lower, final double upper) {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -245,10 +272,9 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @param end Third number.
      * @return {@code true} if the arguments form an increasing sequence.
      */
-    protected boolean isSequence(final double start,
-                                 final double mid,
-                                 final double end) {
-        return UnivariateSolverUtils.isSequence(start, mid, end);
+    protected boolean isSequence(final double start, final double mid, final double end) {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -258,10 +284,8 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @param upper Upper endpoint.
      * @throws NumberIsTooLargeException if {@code lower >= upper}.
      */
-    protected void verifyInterval(final double lower,
-                                  final double upper)
-        throws NumberIsTooLargeException {
-        UnivariateSolverUtils.verifyInterval(lower, upper);
+    protected void verifyInterval(final double lower, final double upper) throws NumberIsTooLargeException {
+        // STUB: not implemented
     }
 
     /**
@@ -273,11 +297,8 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @throws NumberIsTooLargeException if {@code lower >= initial} or
      * {@code initial >= upper}.
      */
-    protected void verifySequence(final double lower,
-                                  final double initial,
-                                  final double upper)
-        throws NumberIsTooLargeException {
-        UnivariateSolverUtils.verifySequence(lower, initial, upper);
+    protected void verifySequence(final double lower, final double initial, final double upper) throws NumberIsTooLargeException {
+        // STUB: not implemented
     }
 
     /**
@@ -290,11 +311,8 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @throws NoBracketingException if the function has the same sign at
      * the endpoints.
      */
-    protected void verifyBracketing(final double lower,
-                                    final double upper)
-        throws NullArgumentException,
-               NoBracketingException {
-        UnivariateSolverUtils.verifyBracketing(function, lower, upper);
+    protected void verifyBracketing(final double lower, final double upper) throws NullArgumentException, NoBracketingException {
+        // STUB: not implemented
     }
 
     /**
@@ -307,12 +325,7 @@ public abstract class BaseAbstractUnivariateSolver<FUNC extends UnivariateFuncti
      * @throws TooManyEvaluationsException when the allowed number of function
      * evaluations has been exhausted.
      */
-    protected void incrementEvaluationCount()
-        throws TooManyEvaluationsException {
-        try {
-            evaluations.increment();
-        } catch (MaxCountExceededException e) {
-            throw new TooManyEvaluationsException(e.getMax());
-        }
+    protected void incrementEvaluationCount() throws TooManyEvaluationsException {
+        // STUB: not implemented
     }
 }

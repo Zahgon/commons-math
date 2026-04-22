@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.linear;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.ArrayRealVector;
@@ -42,13 +40,19 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 @Deprecated
 public class LinearObjectiveFunction implements Serializable {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -4531815507568396090L;
 
-    /** Coefficients of the constraint (c<sub>i</sub>). */
+    /**
+     * Coefficients of the constraint (c<sub>i</sub>).
+     */
     private final transient RealVector coefficients;
 
-    /** Constant term of the linear equation. */
+    /**
+     * Constant term of the linear equation.
+     */
     private final double constantTerm;
 
     /**
@@ -73,7 +77,8 @@ public class LinearObjectiveFunction implements Serializable {
      * @return coefficients of the linear equation being optimized
      */
     public RealVector getCoefficients() {
-        return coefficients;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -81,7 +86,8 @@ public class LinearObjectiveFunction implements Serializable {
      * @return constant of the linear equation being optimized
      */
     public double getConstantTerm() {
-        return constantTerm;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -90,7 +96,8 @@ public class LinearObjectiveFunction implements Serializable {
      * @return value of the linear equation at the current point
      */
     public double getValue(final double[] point) {
-        return coefficients.dotProduct(new ArrayRealVector(point, false)) + constantTerm;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -99,29 +106,26 @@ public class LinearObjectiveFunction implements Serializable {
      * @return value of the linear equation at the current point
      */
     public double getValue(final RealVector point) {
-        return coefficients.dotProduct(point) + constantTerm;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object other) {
-
-      if (this == other) {
-        return true;
-      }
-
-      if (other instanceof LinearObjectiveFunction) {
-          LinearObjectiveFunction rhs = (LinearObjectiveFunction) other;
-          return (constantTerm == rhs.constantTerm) && coefficients.equals(rhs.coefficients);
-      }
-
-      return false;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        return Double.valueOf(constantTerm).hashCode() ^ coefficients.hashCode();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -129,8 +133,7 @@ public class LinearObjectiveFunction implements Serializable {
      * @param oos stream where object should be written
      * @throws IOException if object cannot be written to stream
      */
-    private void writeObject(ObjectOutputStream oos)
-        throws IOException {
+    private void writeObject(ObjectOutputStream oos) throws IOException {
         oos.defaultWriteObject();
         MatrixUtils.serializeRealVector(coefficients, oos);
     }
@@ -141,10 +144,8 @@ public class LinearObjectiveFunction implements Serializable {
      * @throws ClassNotFoundException if a class in the stream cannot be found
      * @throws IOException if object cannot be read from the stream
      */
-    private void readObject(ObjectInputStream ois)
-      throws ClassNotFoundException, IOException {
+    private void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
         ois.defaultReadObject();
         MatrixUtils.deserializeRealVector(this, "coefficients", ois);
     }
-
 }

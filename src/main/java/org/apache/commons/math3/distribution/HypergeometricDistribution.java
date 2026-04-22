@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NotPositiveException;
@@ -32,17 +31,35 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="http://mathworld.wolfram.com/HypergeometricDistribution.html">Hypergeometric distribution (MathWorld)</a>
  */
 public class HypergeometricDistribution extends AbstractIntegerDistribution {
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -436928820673516179L;
-    /** The number of successes in the population. */
+
+    /**
+     * The number of successes in the population.
+     */
     private final int numberOfSuccesses;
-    /** The population size. */
+
+    /**
+     * The population size.
+     */
     private final int populationSize;
-    /** The sample size. */
+
+    /**
+     * The sample size.
+     */
     private final int sampleSize;
-    /** Cached numerical variance */
+
+    /**
+     * Cached numerical variance
+     */
     private double numericalVariance = Double.NaN;
-    /** Whether or not the numerical variance has been calculated */
+
+    /**
+     * Whether or not the numerical variance has been calculated
+     */
     private boolean numericalVarianceIsCalculated = false;
 
     /**
@@ -64,8 +81,7 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @throws NumberIsTooLargeException if {@code numberOfSuccesses > populationSize},
      * or {@code sampleSize > populationSize}.
      */
-    public HypergeometricDistribution(int populationSize, int numberOfSuccesses, int sampleSize)
-    throws NotPositiveException, NotStrictlyPositiveException, NumberIsTooLargeException {
+    public HypergeometricDistribution(int populationSize, int numberOfSuccesses, int sampleSize) throws NotPositiveException, NotStrictlyPositiveException, NumberIsTooLargeException {
         this(new Well19937c(), populationSize, numberOfSuccesses, sampleSize);
     }
 
@@ -82,54 +98,34 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * or {@code sampleSize > populationSize}.
      * @since 3.1
      */
-    public HypergeometricDistribution(RandomGenerator rng,
-                                      int populationSize,
-                                      int numberOfSuccesses,
-                                      int sampleSize)
-    throws NotPositiveException, NotStrictlyPositiveException, NumberIsTooLargeException {
+    public HypergeometricDistribution(RandomGenerator rng, int populationSize, int numberOfSuccesses, int sampleSize) throws NotPositiveException, NotStrictlyPositiveException, NumberIsTooLargeException {
         super(rng);
-
         if (populationSize <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.POPULATION_SIZE,
-                                                   populationSize);
+            throw new NotStrictlyPositiveException(LocalizedFormats.POPULATION_SIZE, populationSize);
         }
         if (numberOfSuccesses < 0) {
-            throw new NotPositiveException(LocalizedFormats.NUMBER_OF_SUCCESSES,
-                                           numberOfSuccesses);
+            throw new NotPositiveException(LocalizedFormats.NUMBER_OF_SUCCESSES, numberOfSuccesses);
         }
         if (sampleSize < 0) {
-            throw new NotPositiveException(LocalizedFormats.NUMBER_OF_SAMPLES,
-                                           sampleSize);
+            throw new NotPositiveException(LocalizedFormats.NUMBER_OF_SAMPLES, sampleSize);
         }
-
         if (numberOfSuccesses > populationSize) {
-            throw new NumberIsTooLargeException(LocalizedFormats.NUMBER_OF_SUCCESS_LARGER_THAN_POPULATION_SIZE,
-                                                numberOfSuccesses, populationSize, true);
+            throw new NumberIsTooLargeException(LocalizedFormats.NUMBER_OF_SUCCESS_LARGER_THAN_POPULATION_SIZE, numberOfSuccesses, populationSize, true);
         }
         if (sampleSize > populationSize) {
-            throw new NumberIsTooLargeException(LocalizedFormats.SAMPLE_SIZE_LARGER_THAN_POPULATION_SIZE,
-                                                sampleSize, populationSize, true);
+            throw new NumberIsTooLargeException(LocalizedFormats.SAMPLE_SIZE_LARGER_THAN_POPULATION_SIZE, sampleSize, populationSize, true);
         }
-
         this.numberOfSuccesses = numberOfSuccesses;
         this.populationSize = populationSize;
         this.sampleSize = sampleSize;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(int x) {
-        double ret;
-
-        int[] domain = getDomain(populationSize, numberOfSuccesses, sampleSize);
-        if (x < domain[0]) {
-            ret = 0.0;
-        } else if (x >= domain[1]) {
-            ret = 1.0;
-        } else {
-            ret = innerCumulativeProbability(domain[0], x, 1);
-        }
-
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -164,7 +160,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return the number of successes.
      */
     public int getNumberOfSuccesses() {
-        return numberOfSuccesses;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -173,7 +170,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return the population size.
      */
     public int getPopulationSize() {
-        return populationSize;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -182,7 +180,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return the sample size.
      */
     public int getSampleSize() {
-        return sampleSize;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -197,34 +196,21 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
         return FastMath.min(k, m);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(int x) {
-        final double logProbability = logProbability(x);
-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logProbability(int x) {
-        double ret;
-
-        int[] domain = getDomain(populationSize, numberOfSuccesses, sampleSize);
-        if (x < domain[0] || x > domain[1]) {
-            ret = Double.NEGATIVE_INFINITY;
-        } else {
-            double p = (double) sampleSize / (double) populationSize;
-            double q = (double) (populationSize - sampleSize) / (double) populationSize;
-            double p1 = SaddlePointExpansion.logBinomialProbability(x,
-                    numberOfSuccesses, p, q);
-            double p2 =
-                    SaddlePointExpansion.logBinomialProbability(sampleSize - x,
-                            populationSize - numberOfSuccesses, p, q);
-            double p3 =
-                    SaddlePointExpansion.logBinomialProbability(sampleSize, populationSize, p, q);
-            ret = p1 + p2 - p3;
-        }
-
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -235,18 +221,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @since 1.1
      */
     public double upperCumulativeProbability(int x) {
-        double ret;
-
-        final int[] domain = getDomain(populationSize, numberOfSuccesses, sampleSize);
-        if (x <= domain[0]) {
-            ret = 1.0;
-        } else if (x > domain[1]) {
-            ret = 0.0;
-        } else {
-            ret = innerCumulativeProbability(domain[1], x, -1);
-        }
-
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -278,7 +254,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * size {@code n}, the mean is {@code n * m / N}.
      */
     public double getNumericalMean() {
-        return getSampleSize() * (getNumberOfSuccesses() / (double) getPopulationSize());
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -289,11 +266,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * {@code [n * m * (N - n) * (N - m)] / [N^2 * (N - 1)]}.
      */
     public double getNumericalVariance() {
-        if (!numericalVarianceIsCalculated) {
-            numericalVariance = calculateNumericalVariance();
-            numericalVarianceIsCalculated = true;
-        }
-        return numericalVariance;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -302,10 +276,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return the variance of this distribution
      */
     protected double calculateNumericalVariance() {
-        final double N = getPopulationSize();
-        final double m = getNumberOfSuccesses();
-        final double n = getSampleSize();
-        return (n * m * (N - n) * (N - m)) / (N * N * (N - 1));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -318,8 +290,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support
      */
     public int getSupportLowerBound() {
-        return FastMath.max(0,
-                            getSampleSize() + getNumberOfSuccesses() - getPopulationSize());
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -331,7 +303,8 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return upper bound of the support
      */
     public int getSupportUpperBound() {
-        return FastMath.min(getNumberOfSuccesses(), getSampleSize());
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -342,6 +315,7 @@ public class HypergeometricDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

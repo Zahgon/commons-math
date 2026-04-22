@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.util.MathUtils;
 
@@ -44,14 +43,17 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
 public class SecondMoment extends FirstMoment implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 3942403127395076445L;
 
-    /** second moment of values that have been added */
+    /**
+     * second moment of values that have been added
+     */
     protected double m2;
 
     /**
@@ -69,8 +71,7 @@ public class SecondMoment extends FirstMoment implements Serializable {
      * @param original the {@code SecondMoment} instance to copy
      * @throws NullArgumentException if original is null
      */
-    public SecondMoment(SecondMoment original)
-    throws NullArgumentException {
+    public SecondMoment(SecondMoment original) throws NullArgumentException {
         super(original);
         this.m2 = original.m2;
     }
@@ -80,11 +81,7 @@ public class SecondMoment extends FirstMoment implements Serializable {
      */
     @Override
     public void increment(final double d) {
-        if (n < 1) {
-            m1 = m2 = 0.0;
-        }
-        super.increment(d);
-        m2 += ((double) n - 1) * dev * nDev;
+        // STUB: not implemented
     }
 
     /**
@@ -92,8 +89,7 @@ public class SecondMoment extends FirstMoment implements Serializable {
      */
     @Override
     public void clear() {
-        super.clear();
-        m2 = Double.NaN;
+        // STUB: not implemented
     }
 
     /**
@@ -101,7 +97,8 @@ public class SecondMoment extends FirstMoment implements Serializable {
      */
     @Override
     public double getResult() {
-        return m2;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -109,10 +106,8 @@ public class SecondMoment extends FirstMoment implements Serializable {
      */
     @Override
     public SecondMoment copy() {
-        SecondMoment result = new SecondMoment();
-        // no try-catch or advertised NAE because args are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -123,12 +118,7 @@ public class SecondMoment extends FirstMoment implements Serializable {
      * @param dest SecondMoment to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(SecondMoment source, SecondMoment dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        FirstMoment.copy(source, dest);
-        dest.m2 = source.m2;
+    public static void copy(SecondMoment source, SecondMoment dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

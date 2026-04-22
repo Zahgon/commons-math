@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.univariate;
 
 import org.apache.commons.math3.util.Incrementor;
@@ -33,21 +32,41 @@ import org.apache.commons.math3.optimization.ConvergenceChecker;
  * @since 2.0
  */
 @Deprecated
-public abstract class BaseAbstractUnivariateOptimizer
-    implements UnivariateOptimizer {
-    /** Convergence checker. */
+public abstract class BaseAbstractUnivariateOptimizer implements UnivariateOptimizer {
+
+    /**
+     * Convergence checker.
+     */
     private final ConvergenceChecker<UnivariatePointValuePair> checker;
-    /** Evaluations counter. */
+
+    /**
+     * Evaluations counter.
+     */
     private final Incrementor evaluations = new Incrementor();
-    /** Optimization type */
+
+    /**
+     * Optimization type
+     */
     private GoalType goal;
-    /** Lower end of search interval. */
+
+    /**
+     * Lower end of search interval.
+     */
     private double searchMin;
-    /** Higher end of search interval. */
+
+    /**
+     * Higher end of search interval.
+     */
     private double searchMax;
-    /** Initial guess . */
+
+    /**
+     * Initial guess .
+     */
     private double searchStart;
-    /** Function to optimize. */
+
+    /**
+     * Function to optimize.
+     */
     private UnivariateFunction function;
 
     /**
@@ -57,39 +76,52 @@ public abstract class BaseAbstractUnivariateOptimizer
         this.checker = checker;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMaxEvaluations() {
-        return evaluations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getEvaluations() {
-        return evaluations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
      * @return the optimization type.
      */
     public GoalType getGoalType() {
-        return goal;
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return the lower end of the search interval.
      */
     public double getMin() {
-        return searchMin;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the higher end of the search interval.
      */
     public double getMax() {
-        return searchMax;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the initial guess.
      */
     public double getStartValue() {
-        return searchStart;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -101,53 +133,32 @@ public abstract class BaseAbstractUnivariateOptimizer
      * is exceeded.
      */
     protected double computeObjectiveValue(double point) {
-        try {
-            evaluations.incrementCount();
-        } catch (MaxCountExceededException e) {
-            throw new TooManyEvaluationsException(e.getMax());
-        }
-        return function.value(point);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
-    public UnivariatePointValuePair optimize(int maxEval, UnivariateFunction f,
-                                             GoalType goalType,
-                                             double min, double max,
-                                             double startValue) {
-        // Checks.
-        if (f == null) {
-            throw new NullArgumentException();
-        }
-        if (goalType == null) {
-            throw new NullArgumentException();
-        }
-
-        // Reset.
-        searchMin = min;
-        searchMax = max;
-        searchStart = startValue;
-        goal = goalType;
-        function = f;
-        evaluations.setMaximalCount(maxEval);
-        evaluations.resetCount();
-
-        // Perform computation.
-        return doOptimize();
+    /**
+     * {@inheritDoc}
+     */
+    public UnivariatePointValuePair optimize(int maxEval, UnivariateFunction f, GoalType goalType, double min, double max, double startValue) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
-    public UnivariatePointValuePair optimize(int maxEval,
-                                             UnivariateFunction f,
-                                             GoalType goalType,
-                                             double min, double max){
-        return optimize(maxEval, f, goalType, min, max, min + 0.5 * (max - min));
+    /**
+     * {@inheritDoc}
+     */
+    public UnivariatePointValuePair optimize(int maxEval, UnivariateFunction f, GoalType goalType, double min, double max) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public ConvergenceChecker<UnivariatePointValuePair> getConvergenceChecker() {
-        return checker;
+        // STUB: not implemented
+        return null;
     }
 
     /**

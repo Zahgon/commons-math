@@ -14,16 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.linear;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.math3.exception.MaxCountExceededException;
 import org.apache.commons.math3.optimization.PointValuePair;
 import org.apache.commons.math3.util.Precision;
-
 
 /**
  * Solves a linear problem using the Two-Phase Simplex Method.
@@ -34,16 +31,24 @@ import org.apache.commons.math3.util.Precision;
 @Deprecated
 public class SimplexSolver extends AbstractLinearOptimizer {
 
-    /** Default amount of error to accept for algorithm convergence. */
+    /**
+     * Default amount of error to accept for algorithm convergence.
+     */
     private static final double DEFAULT_EPSILON = 1.0e-6;
 
-    /** Default amount of error to accept in floating point comparisons (as ulps). */
+    /**
+     * Default amount of error to accept in floating point comparisons (as ulps).
+     */
     private static final int DEFAULT_ULPS = 10;
 
-    /** Amount of error to accept for algorithm convergence. */
+    /**
+     * Amount of error to accept for algorithm convergence.
+     */
     private final double epsilon;
 
-    /** Amount of error to accept in floating point comparisons (as ulps). */
+    /**
+     * Amount of error to accept in floating point comparisons (as ulps).
+     */
     private final int maxUlps;
 
     /**
@@ -96,7 +101,6 @@ public class SimplexSolver extends AbstractLinearOptimizer {
         for (int i = tableau.getNumObjectiveFunctions(); i < tableau.getHeight(); i++) {
             final double rhs = tableau.getEntry(i, tableau.getWidth() - 1);
             final double entry = tableau.getEntry(i, col);
-
             if (Precision.compareTo(entry, 0d, maxUlps) > 0) {
                 final double ratio = rhs / entry;
                 // check if the entry is strictly equal to the current min ratio
@@ -111,12 +115,10 @@ public class SimplexSolver extends AbstractLinearOptimizer {
                 }
             }
         }
-
         if (minRatioPositions.size() == 0) {
             return null;
         } else if (minRatioPositions.size() > 1) {
             // there's a degeneracy as indicated by a tie in the minimum ratio test
-
             // 1. check if there's an artificial variable that can be forced out of the basis
             if (tableau.getNumArtificialVariables() > 0) {
                 for (Integer row : minRatioPositions) {
@@ -129,7 +131,6 @@ public class SimplexSolver extends AbstractLinearOptimizer {
                     }
                 }
             }
-
             // 2. apply Bland's rule to prevent cycling:
             //    take the row for which the corresponding basic variable has the smallest index
             //
@@ -165,28 +166,8 @@ public class SimplexSolver extends AbstractLinearOptimizer {
      * @throws MaxCountExceededException if the maximal iteration count has been exceeded
      * @throws UnboundedSolutionException if the model is found not to have a bounded solution
      */
-    protected void doIteration(final SimplexTableau tableau)
-        throws MaxCountExceededException, UnboundedSolutionException {
-
-        incrementIterationsCounter();
-
-        Integer pivotCol = getPivotColumn(tableau);
-        Integer pivotRow = getPivotRow(tableau, pivotCol);
-        if (pivotRow == null) {
-            throw new UnboundedSolutionException();
-        }
-
-        // set the pivot element to 1
-        double pivotVal = tableau.getEntry(pivotRow, pivotCol);
-        tableau.divideRow(pivotRow, pivotVal);
-
-        // set the rest of the pivot column to 0
-        for (int i = 0; i < tableau.getHeight(); i++) {
-            if (i != pivotRow) {
-                final double multiplier = tableau.getEntry(i, pivotCol);
-                tableau.subtractRow(i, pivotRow, multiplier);
-            }
-        }
+    protected void doIteration(final SimplexTableau tableau) throws MaxCountExceededException, UnboundedSolutionException {
+        // STUB: not implemented
     }
 
     /**
@@ -196,43 +177,16 @@ public class SimplexSolver extends AbstractLinearOptimizer {
      * @throws UnboundedSolutionException if the model is found not to have a bounded solution
      * @throws NoFeasibleSolutionException if there is no feasible solution
      */
-    protected void solvePhase1(final SimplexTableau tableau)
-        throws MaxCountExceededException, UnboundedSolutionException, NoFeasibleSolutionException {
-
-        // make sure we're in Phase 1
-        if (tableau.getNumArtificialVariables() == 0) {
-            return;
-        }
-
-        while (!tableau.isOptimal()) {
-            doIteration(tableau);
-        }
-
-        // if W is not zero then we have no feasible solution
-        if (!Precision.equals(tableau.getEntry(0, tableau.getRhsOffset()), 0d, epsilon)) {
-            throw new NoFeasibleSolutionException();
-        }
+    protected void solvePhase1(final SimplexTableau tableau) throws MaxCountExceededException, UnboundedSolutionException, NoFeasibleSolutionException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public PointValuePair doOptimize()
-        throws MaxCountExceededException, UnboundedSolutionException, NoFeasibleSolutionException {
-        final SimplexTableau tableau =
-            new SimplexTableau(getFunction(),
-                               getConstraints(),
-                               getGoalType(),
-                               restrictToNonNegative(),
-                               epsilon,
-                               maxUlps);
-
-        solvePhase1(tableau);
-        tableau.dropPhase1Objective();
-
-        while (!tableau.isOptimal()) {
-            doIteration(tableau);
-        }
-        return tableau.getSolution();
+    public PointValuePair doOptimize() throws MaxCountExceededException, UnboundedSolutionException, NoFeasibleSolutionException {
+        // STUB: not implemented
+        return null;
     }
-
 }

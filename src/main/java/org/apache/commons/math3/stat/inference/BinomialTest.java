@@ -58,10 +58,9 @@ public class BinomialTest {
      * if {@code alternateHypothesis} is null.
      * @see AlternativeHypothesis
      */
-    public boolean binomialTest(int numberOfTrials, int numberOfSuccesses, double probability,
-                                AlternativeHypothesis alternativeHypothesis, double alpha) {
-        double pValue = binomialTest(numberOfTrials, numberOfSuccesses, probability, alternativeHypothesis);
-        return pValue < alpha;
+    public boolean binomialTest(int numberOfTrials, int numberOfSuccesses, double probability, AlternativeHypothesis alternativeHypothesis, double alpha) {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -99,62 +98,8 @@ public class BinomialTest {
      * if {@code alternateHypothesis} is null.
      * @see AlternativeHypothesis
      */
-    public double binomialTest(int numberOfTrials, int numberOfSuccesses, double probability,
-                               AlternativeHypothesis alternativeHypothesis) {
-        if (numberOfTrials < 0) {
-            throw new NotPositiveException(numberOfTrials);
-        }
-        if (numberOfSuccesses < 0) {
-            throw new NotPositiveException(numberOfSuccesses);
-        }
-        if (probability < 0 || probability > 1) {
-            throw new OutOfRangeException(probability, 0, 1);
-        }
-        if (numberOfTrials < numberOfSuccesses) {
-            throw new MathIllegalArgumentException(
-                LocalizedFormats.BINOMIAL_INVALID_PARAMETERS_ORDER,
-                numberOfTrials, numberOfSuccesses);
-        }
-        if (alternativeHypothesis == null) {
-            throw new NullArgumentException();
-        }
-
-        // pass a null rng to avoid unneeded overhead as we will not sample from this distribution
-        final BinomialDistribution distribution = new BinomialDistribution(null, numberOfTrials, probability);
-        switch (alternativeHypothesis) {
-        case GREATER_THAN:
-            return 1 - distribution.cumulativeProbability(numberOfSuccesses - 1);
-        case LESS_THAN:
-            return distribution.cumulativeProbability(numberOfSuccesses);
-        case TWO_SIDED:
-            int criticalValueLow = 0;
-            int criticalValueHigh = numberOfTrials;
-            double pTotal = 0;
-
-            while (true) {
-                double pLow = distribution.probability(criticalValueLow);
-                double pHigh = distribution.probability(criticalValueHigh);
-
-                if (pLow == pHigh) {
-                    pTotal += 2 * pLow;
-                    criticalValueLow++;
-                    criticalValueHigh--;
-                } else if (pLow < pHigh) {
-                    pTotal += pLow;
-                    criticalValueLow++;
-                } else {
-                    pTotal += pHigh;
-                    criticalValueHigh--;
-                }
-
-                if (criticalValueLow > numberOfSuccesses || criticalValueHigh < numberOfSuccesses) {
-                    break;
-                }
-            }
-            return pTotal;
-        default:
-            throw new MathInternalError(LocalizedFormats. OUT_OF_RANGE_SIMPLE, alternativeHypothesis,
-                      AlternativeHypothesis.TWO_SIDED, AlternativeHypothesis.LESS_THAN);
-        }
+    public double binomialTest(int numberOfTrials, int numberOfSuccesses, double probability, AlternativeHypothesis alternativeHypothesis) {
+        // STUB: not implemented
+        return 0.0;
     }
 }

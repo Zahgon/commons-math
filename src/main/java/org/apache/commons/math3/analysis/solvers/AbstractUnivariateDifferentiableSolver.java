@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.solvers;
 
 import org.apache.commons.math3.analysis.differentiation.DerivativeStructure;
@@ -27,11 +26,11 @@ import org.apache.commons.math3.exception.TooManyEvaluationsException;
  *
  * @since 3.1
  */
-public abstract class AbstractUnivariateDifferentiableSolver
-    extends BaseAbstractUnivariateSolver<UnivariateDifferentiableFunction>
-    implements UnivariateDifferentiableSolver {
+public abstract class AbstractUnivariateDifferentiableSolver extends BaseAbstractUnivariateSolver<UnivariateDifferentiableFunction> implements UnivariateDifferentiableSolver {
 
-    /** Function to solve. */
+    /**
+     * Function to solve.
+     */
     private UnivariateDifferentiableFunction function;
 
     /**
@@ -50,9 +49,7 @@ public abstract class AbstractUnivariateDifferentiableSolver
      * @param absoluteAccuracy Maximum absolute error.
      * @param functionValueAccuracy Maximum function value error.
      */
-    protected AbstractUnivariateDifferentiableSolver(final double relativeAccuracy,
-                                                     final double absoluteAccuracy,
-                                                     final double functionValueAccuracy) {
+    protected AbstractUnivariateDifferentiableSolver(final double relativeAccuracy, final double absoluteAccuracy, final double functionValueAccuracy) {
         super(relativeAccuracy, absoluteAccuracy, functionValueAccuracy);
     }
 
@@ -64,19 +61,16 @@ public abstract class AbstractUnivariateDifferentiableSolver
      * @throws TooManyEvaluationsException
      * if the maximal number of evaluations is exceeded.
      */
-    protected DerivativeStructure computeObjectiveValueAndDerivative(double point)
-        throws TooManyEvaluationsException {
-        incrementEvaluationCount();
-        return function.value(new DerivativeStructure(1, 1, 0, point));
+    protected DerivativeStructure computeObjectiveValueAndDerivative(double point) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void setup(int maxEval, UnivariateDifferentiableFunction f,
-                         double min, double max, double startValue) {
-        super.setup(maxEval, f, min, max, startValue);
-        function = f;
+    protected void setup(int maxEval, UnivariateDifferentiableFunction f, double min, double max, double startValue) {
+        // STUB: not implemented
     }
 }

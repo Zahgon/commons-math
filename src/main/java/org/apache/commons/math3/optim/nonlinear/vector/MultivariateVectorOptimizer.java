@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optim.nonlinear.vector;
 
 import org.apache.commons.math3.exception.TooManyEvaluationsException;
@@ -32,13 +31,21 @@ import org.apache.commons.math3.linear.RealMatrix;
  * @since 3.1
  */
 @Deprecated
-public abstract class MultivariateVectorOptimizer
-    extends BaseMultivariateOptimizer<PointVectorValuePair> {
-    /** Target values for the model function at optimum. */
+public abstract class MultivariateVectorOptimizer extends BaseMultivariateOptimizer<PointVectorValuePair> {
+
+    /**
+     * Target values for the model function at optimum.
+     */
     private double[] target;
-    /** Weight matrix. */
+
+    /**
+     * Weight matrix.
+     */
     private RealMatrix weightMatrix;
-    /** Model function. */
+
+    /**
+     * Model function.
+     */
     private MultivariateVectorFunction model;
 
     /**
@@ -59,8 +66,8 @@ public abstract class MultivariateVectorOptimizer
      * (of the model vector function) is exceeded.
      */
     protected double[] computeObjectiveValue(double[] params) {
-        super.incrementEvaluationCount();
-        return model.value(params);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -81,11 +88,9 @@ public abstract class MultivariateVectorOptimizer
      * arguments have inconsistent dimensions.
      */
     @Override
-    public PointVectorValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException,
-               DimensionMismatchException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointVectorValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException, DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -94,8 +99,10 @@ public abstract class MultivariateVectorOptimizer
      * @return the weight matrix.
      */
     public RealMatrix getWeight() {
-        return weightMatrix.copy();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * Gets the observed values to be matched by the objective vector
      * function.
@@ -103,7 +110,8 @@ public abstract class MultivariateVectorOptimizer
      * @return the target values.
      */
     public double[] getTarget() {
-        return target.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -112,7 +120,8 @@ public abstract class MultivariateVectorOptimizer
      * @return the length of the target vector.
      */
     public int getTargetSize() {
-        return target.length;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -128,28 +137,7 @@ public abstract class MultivariateVectorOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof ModelFunction) {
-                model = ((ModelFunction) data).getModelFunction();
-                continue;
-            }
-            if (data instanceof Target) {
-                target = ((Target) data).getTarget();
-                continue;
-            }
-            if (data instanceof Weight) {
-                weightMatrix = ((Weight) data).getWeight();
-                continue;
-            }
-        }
-
-        // Check input consistency.
-        checkParameters();
+        // STUB: not implemented
     }
 
     /**
@@ -160,8 +148,7 @@ public abstract class MultivariateVectorOptimizer
      */
     private void checkParameters() {
         if (target.length != weightMatrix.getColumnDimension()) {
-            throw new DimensionMismatchException(target.length,
-                                                 weightMatrix.getColumnDimension());
+            throw new DimensionMismatchException(target.length, weightMatrix.getColumnDimension());
         }
     }
 }

@@ -39,6 +39,7 @@ import org.apache.commons.math3.util.FastMath;
  */
 @Deprecated
 public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
+
     /**
      * Simple constructor.
      * @param optimizer Optimizer to use for the fitting.
@@ -60,7 +61,8 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
      * observed points (in the same order as above).
      */
     public double[] fit(double[] initialGuess) {
-        return fit(new HarmonicOscillator.Parametric(), initialGuess);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -75,7 +77,8 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
      * the abscissa range is zero.
      */
     public double[] fit() {
-        return fit((new ParameterGuesser(getObservations())).guess());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -131,7 +134,6 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
      * </pre>
      * </p>
      *
-     *
      * <p>In fact, we can assume both a and &omega; are positive and
      * compute them directly, knowing that A = a<sup>2</sup> &omega;<sup>2</sup> and that
      * B = - &omega;<sup>2</sup>. The complete algorithm is therefore:</p>
@@ -150,7 +152,6 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
      *         \  | &sum;y<sub>i</sub>y<sub>i</sub> &sum;x<sub>i</sub>z<sub>i</sub> - &sum;x<sub>i</sub>y<sub>i</sub> &sum;y<sub>i</sub>z<sub>i</sub>
      * a     =  \ | ------------------------
      *           \| &sum;x<sub>i</sub>y<sub>i</sub> &sum;x<sub>i</sub>z<sub>i</sub> - &sum;x<sub>i</sub>x<sub>i</sub> &sum;y<sub>i</sub>z<sub>i</sub>
-     *
      *
      *            |--------------------------
      *         \  | &sum;x<sub>i</sub>y<sub>i</sub> &sum;x<sub>i</sub>z<sub>i</sub> - &sum;x<sub>i</sub>x<sub>i</sub> &sum;y<sub>i</sub>z<sub>i</sub>
@@ -178,11 +179,20 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
      * number of measurements.</p>
      */
     public static class ParameterGuesser {
-        /** Amplitude. */
+
+        /**
+         * Amplitude.
+         */
         private final double a;
-        /** Angular frequency. */
+
+        /**
+         * Angular frequency.
+         */
         private final double omega;
-        /** Phase. */
+
+        /**
+         * Phase.
+         */
         private final double phi;
 
         /**
@@ -196,16 +206,12 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
          */
         public ParameterGuesser(WeightedObservedPoint[] observations) {
             if (observations.length < 4) {
-                throw new NumberIsTooSmallException(LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE,
-                                                    observations.length, 4, true);
+                throw new NumberIsTooSmallException(LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE, observations.length, 4, true);
             }
-
             final WeightedObservedPoint[] sorted = sortObservations(observations);
-
-            final double aOmega[] = guessAOmega(sorted);
+            final double[] aOmega = guessAOmega(sorted);
             a = aOmega[0];
             omega = aOmega[1];
-
             phi = guessPhi(sorted);
         }
 
@@ -220,7 +226,8 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
          * </ul>
          */
         public double[] guess() {
-            return new double[] { a, omega, phi };
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -231,7 +238,6 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
          */
         private WeightedObservedPoint[] sortObservations(WeightedObservedPoint[] unsorted) {
             final WeightedObservedPoint[] observations = unsorted.clone();
-
             // Since the samples are almost always already sorted, this
             // method is implemented as an insertion sort that reorders the
             // elements in place. Insertion sort is very efficient in this case.
@@ -253,7 +259,6 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
                     curr = observations[j];
                 }
             }
-
             return observations;
         }
 
@@ -271,14 +276,12 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
          */
         private double[] guessAOmega(WeightedObservedPoint[] observations) {
             final double[] aOmega = new double[2];
-
             // initialize the sums for the linear model between the two integrals
             double sx2 = 0;
             double sy2 = 0;
             double sxy = 0;
             double sxz = 0;
             double syz = 0;
-
             double currentX = observations[0].getX();
             double currentY = observations[0].getY();
             double f2Integral = 0;
@@ -290,26 +293,21 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
                 final double previousY = currentY;
                 currentX = observations[i].getX();
                 currentY = observations[i].getY();
-
                 // update the integrals of f<sup>2</sup> and f'<sup>2</sup>
                 // considering a linear model for f (and therefore constant f')
                 final double dx = currentX - previousX;
                 final double dy = currentY - previousY;
-                final double f2StepIntegral =
-                    dx * (previousY * previousY + previousY * currentY + currentY * currentY) / 3;
+                final double f2StepIntegral = dx * (previousY * previousY + previousY * currentY + currentY * currentY) / 3;
                 final double fPrime2StepIntegral = dy * dy / dx;
-
                 final double x = currentX - startX;
                 f2Integral += f2StepIntegral;
                 fPrime2Integral += fPrime2StepIntegral;
-
                 sx2 += x * x;
                 sy2 += f2Integral * f2Integral;
                 sxy += x * f2Integral;
                 sxz += x * fPrime2Integral;
                 syz += f2Integral * fPrime2Integral;
             }
-
             // compute the amplitude and pulsation coefficients
             double c1 = sy2 * sxz - sxy * syz;
             double c2 = sxy * sxz - sx2 * syz;
@@ -323,7 +321,6 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
                     throw new ZeroException();
                 }
                 aOmega[1] = 2 * Math.PI / xRange;
-
                 double yMin = Double.POSITIVE_INFINITY;
                 double yMax = Double.NEGATIVE_INFINITY;
                 for (int i = 1; i < observations.length; ++i) {
@@ -342,11 +339,9 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
                     // procedure cannot produce sensible results.
                     throw new MathIllegalStateException(LocalizedFormats.ZERO_DENOMINATOR);
                 }
-
                 aOmega[0] = FastMath.sqrt(c1 / c2);
                 aOmega[1] = FastMath.sqrt(c2 / c3);
             }
-
             return aOmega;
         }
 
@@ -360,7 +355,6 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
             // initialize the means
             double fcMean = 0;
             double fsMean = 0;
-
             double currentX = observations[0].getX();
             double currentY = observations[0].getY();
             for (int i = 1; i < observations.length; ++i) {
@@ -370,14 +364,12 @@ public class HarmonicFitter extends CurveFitter<HarmonicOscillator.Parametric> {
                 currentX = observations[i].getX();
                 currentY = observations[i].getY();
                 final double currentYPrime = (currentY - previousY) / (currentX - previousX);
-
                 double omegaX = omega * currentX;
                 double cosine = FastMath.cos(omegaX);
                 double sine = FastMath.sin(omegaX);
                 fcMean += omega * currentY * cosine - currentYPrime * sine;
                 fsMean += omega * currentY * sine + currentYPrime * cosine;
             }
-
             return FastMath.atan2(-fsMean, fcMean);
         }
     }

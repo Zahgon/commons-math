@@ -18,7 +18,6 @@ package org.apache.commons.math3.distribution;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NotPositiveException;
@@ -35,11 +34,16 @@ import org.apache.commons.math3.util.Pair;
  *
  * @since 3.1
  */
-public class MixtureMultivariateRealDistribution<T extends MultivariateRealDistribution>
-    extends AbstractMultivariateRealDistribution {
-    /** Normalized weight of each mixture component. */
+public class MixtureMultivariateRealDistribution<T extends MultivariateRealDistribution> extends AbstractMultivariateRealDistribution {
+
+    /**
+     * Normalized weight of each mixture component.
+     */
     private final double[] weight;
-    /** Mixture components. */
+
+    /**
+     * Mixture components.
+     */
     private final List<T> distribution;
 
     /**
@@ -69,10 +73,8 @@ public class MixtureMultivariateRealDistribution<T extends MultivariateRealDistr
      * @throws DimensionMismatchException if not all components have the same
      * number of variables.
      */
-    public MixtureMultivariateRealDistribution(RandomGenerator rng,
-                                               List<Pair<Double, T>> components) {
+    public MixtureMultivariateRealDistribution(RandomGenerator rng, List<Pair<Double, T>> components) {
         super(rng, components.get(0).getSecond().getDimension());
-
         final int numComp = components.size();
         final int dim = getDimension();
         double weightSum = 0;
@@ -86,12 +88,10 @@ public class MixtureMultivariateRealDistribution<T extends MultivariateRealDistr
             }
             weightSum += comp.getFirst();
         }
-
         // Check for overflow.
         if (Double.isInfinite(weightSum)) {
             throw new MathArithmeticException(LocalizedFormats.OVERFLOW);
         }
-
         // Store each distribution and its normalized weight.
         distribution = new ArrayList<T>();
         weight = new double[numComp];
@@ -102,56 +102,29 @@ public class MixtureMultivariateRealDistribution<T extends MultivariateRealDistr
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(final double[] values) {
-        double p = 0;
-        for (int i = 0; i < weight.length; i++) {
-            p += weight[i] * distribution.get(i).density(values);
-        }
-        return p;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double[] sample() {
-        // Sampled values.
-        double[] vals = null;
-
-        // Determine which component to sample from.
-        final double randomValue = random.nextDouble();
-        double sum = 0;
-
-        for (int i = 0; i < weight.length; i++) {
-            sum += weight[i];
-            if (randomValue <= sum) {
-                // pick model i
-                vals = distribution.get(i).sample();
-                break;
-            }
-        }
-
-        if (vals == null) {
-            // This should never happen, but it ensures we won't return a null in
-            // case the loop above has some floating point inequality problem on
-            // the final iteration.
-            vals = distribution.get(weight.length - 1).sample();
-        }
-
-        return vals;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reseedRandomGenerator(long seed) {
-        // Seed needs to be propagated to underlying components
-        // in order to maintain consistency between runs.
-        super.reseedRandomGenerator(seed);
-
-        for (int i = 0; i < distribution.size(); i++) {
-            // Make each component's seed different in order to avoid
-            // using the same sequence of random numbers.
-            distribution.get(i).reseedRandomGenerator(i + 1 + seed);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -160,12 +133,7 @@ public class MixtureMultivariateRealDistribution<T extends MultivariateRealDistr
      * @return the component distributions and associated weights.
      */
     public List<Pair<Double, T>> getComponents() {
-        final List<Pair<Double, T>> list = new ArrayList<Pair<Double, T>>(weight.length);
-
-        for (int i = 0; i < weight.length; i++) {
-            list.add(new Pair<Double, T>(weight[i], distribution.get(i)));
-        }
-
-        return list;
+        // STUB: not implemented
+        return null;
     }
 }

@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import java.util.Arrays;
-
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NoDataException;
@@ -33,9 +31,15 @@ import org.apache.commons.math3.util.MathArrays;
  * @since 3.0
  */
 public class StepFunction implements UnivariateFunction {
-    /** Abscissae. */
+
+    /**
+     * Abscissae.
+     */
     private final double[] abscissa;
-    /** Ordinates. */
+
+    /**
+     * Ordinates.
+     */
     private final double[] ordinate;
 
     /**
@@ -58,44 +62,26 @@ public class StepFunction implements UnivariateFunction {
      * @throws DimensionMismatchException if {@code x} and {@code y} do not
      * have the same length.
      */
-    public StepFunction(double[] x,
-                        double[] y)
-        throws NullArgumentException, NoDataException,
-               DimensionMismatchException, NonMonotonicSequenceException {
-        if (x == null ||
-            y == null) {
+    public StepFunction(double[] x, double[] y) throws NullArgumentException, NoDataException, DimensionMismatchException, NonMonotonicSequenceException {
+        if (x == null || y == null) {
             throw new NullArgumentException();
         }
-        if (x.length == 0 ||
-            y.length == 0) {
+        if (x.length == 0 || y.length == 0) {
             throw new NoDataException();
         }
         if (y.length != x.length) {
             throw new DimensionMismatchException(y.length, x.length);
         }
         MathArrays.checkOrder(x);
-
         abscissa = MathArrays.copyOf(x);
         ordinate = MathArrays.copyOf(y);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        int index = Arrays.binarySearch(abscissa, x);
-        double fx = 0;
-
-        if (index < -1) {
-            // "x" is between "abscissa[-index-2]" and "abscissa[-index-1]".
-            fx = ordinate[-index-2];
-        } else if (index >= 0) {
-            // "x" is exactly "abscissa[index]".
-            fx = ordinate[index];
-        } else {
-            // Otherwise, "x" is smaller than the first value in "abscissa"
-            // (hence the returned value should be "ordinate[0]").
-            fx = ordinate[0];
-        }
-
-        return fx;
+        // STUB: not implemented
+        return 0.0;
     }
 }

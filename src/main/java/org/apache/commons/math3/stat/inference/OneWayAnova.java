@@ -18,7 +18,6 @@ package org.apache.commons.math3.stat.inference;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.apache.commons.math3.distribution.FDistribution;
 import org.apache.commons.math3.exception.ConvergenceException;
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -84,12 +83,9 @@ public class OneWayAnova {
      * array is less than 2 or a contained <code>double[]</code> array does not have
      * at least two values
      */
-    public double anovaFValue(final Collection<double[]> categoryData)
-        throws NullArgumentException, DimensionMismatchException {
-
-        AnovaStats a = anovaStats(categoryData);
-        return a.F;
-
+    public double anovaFValue(final Collection<double[]> categoryData) throws NullArgumentException, DimensionMismatchException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -120,16 +116,9 @@ public class OneWayAnova {
      * @throws ConvergenceException if the p-value can not be computed due to a convergence error
      * @throws MaxCountExceededException if the maximum number of iterations is exceeded
      */
-    public double anovaPValue(final Collection<double[]> categoryData)
-        throws NullArgumentException, DimensionMismatchException,
-        ConvergenceException, MaxCountExceededException {
-
-        final AnovaStats a = anovaStats(categoryData);
-        // No try-catch or advertised exception because args are valid
-        // pass a null rng to avoid unneeded overhead as we will not sample from this distribution
-        final FDistribution fdist = new FDistribution(null, a.dfbg, a.dfwg);
-        return 1.0 - fdist.cumulativeProbability(a.F);
-
+    public double anovaPValue(final Collection<double[]> categoryData) throws NullArgumentException, DimensionMismatchException, ConvergenceException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -162,16 +151,9 @@ public class OneWayAnova {
      * @throws MaxCountExceededException if the maximum number of iterations is exceeded
      * @since 3.2
      */
-    public double anovaPValue(final Collection<SummaryStatistics> categoryData,
-                              final boolean allowOneElementData)
-        throws NullArgumentException, DimensionMismatchException,
-               ConvergenceException, MaxCountExceededException {
-
-        final AnovaStats a = anovaStats(categoryData, allowOneElementData);
-        // pass a null rng to avoid unneeded overhead as we will not sample from this distribution
-        final FDistribution fdist = new FDistribution(null, a.dfbg, a.dfwg);
-        return 1.0 - fdist.cumulativeProbability(a.F);
-
+    public double anovaPValue(final Collection<SummaryStatistics> categoryData, final boolean allowOneElementData) throws NullArgumentException, DimensionMismatchException, ConvergenceException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -189,14 +171,9 @@ public class OneWayAnova {
      *             than 2 or a contained <code>double[]</code> array does not
      *             contain at least two values
      */
-    private AnovaStats anovaStats(final Collection<double[]> categoryData)
-        throws NullArgumentException, DimensionMismatchException {
-
+    private AnovaStats anovaStats(final Collection<double[]> categoryData) throws NullArgumentException, DimensionMismatchException {
         MathUtils.checkNotNull(categoryData);
-
-        final Collection<SummaryStatistics> categoryDataSummaryStatistics =
-                new ArrayList<SummaryStatistics>(categoryData.size());
-
+        final Collection<SummaryStatistics> categoryDataSummaryStatistics = new ArrayList<SummaryStatistics>(categoryData.size());
         // convert arrays to SummaryStatistics
         for (final double[] data : categoryData) {
             final SummaryStatistics dataSummaryStatistics = new SummaryStatistics();
@@ -205,9 +182,7 @@ public class OneWayAnova {
                 dataSummaryStatistics.addValue(val);
             }
         }
-
         return anovaStats(categoryDataSummaryStatistics, false);
-
     }
 
     /**
@@ -244,18 +219,9 @@ public class OneWayAnova {
      * @throws ConvergenceException if the p-value can not be computed due to a convergence error
      * @throws MaxCountExceededException if the maximum number of iterations is exceeded
      */
-    public boolean anovaTest(final Collection<double[]> categoryData,
-                             final double alpha)
-        throws NullArgumentException, DimensionMismatchException,
-        OutOfRangeException, ConvergenceException, MaxCountExceededException {
-
-        if ((alpha <= 0) || (alpha > 0.5)) {
-            throw new OutOfRangeException(
-                    LocalizedFormats.OUT_OF_BOUND_SIGNIFICANCE_LEVEL,
-                    alpha, 0, 0.5);
-        }
-        return anovaPValue(categoryData) < alpha;
-
+    public boolean anovaTest(final Collection<double[]> categoryData, final double alpha) throws NullArgumentException, DimensionMismatchException, OutOfRangeException, ConvergenceException, MaxCountExceededException {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -271,72 +237,64 @@ public class OneWayAnova {
      * categories is less than 2 or a contained SummaryStatistics does not contain
      * at least two values
      */
-    private AnovaStats anovaStats(final Collection<SummaryStatistics> categoryData,
-                                  final boolean allowOneElementData)
-        throws NullArgumentException, DimensionMismatchException {
-
+    private AnovaStats anovaStats(final Collection<SummaryStatistics> categoryData, final boolean allowOneElementData) throws NullArgumentException, DimensionMismatchException {
         MathUtils.checkNotNull(categoryData);
-
         if (!allowOneElementData) {
             // check if we have enough categories
             if (categoryData.size() < 2) {
-                throw new DimensionMismatchException(LocalizedFormats.TWO_OR_MORE_CATEGORIES_REQUIRED,
-                                                     categoryData.size(), 2);
+                throw new DimensionMismatchException(LocalizedFormats.TWO_OR_MORE_CATEGORIES_REQUIRED, categoryData.size(), 2);
             }
-
             // check if each category has enough data
             for (final SummaryStatistics array : categoryData) {
                 if (array.getN() <= 1) {
-                    throw new DimensionMismatchException(LocalizedFormats.TWO_OR_MORE_VALUES_IN_CATEGORY_REQUIRED,
-                                                         (int) array.getN(), 2);
+                    throw new DimensionMismatchException(LocalizedFormats.TWO_OR_MORE_VALUES_IN_CATEGORY_REQUIRED, (int) array.getN(), 2);
                 }
             }
         }
-
         int dfwg = 0;
         double sswg = 0;
         double totsum = 0;
         double totsumsq = 0;
         int totnum = 0;
-
         for (final SummaryStatistics data : categoryData) {
-
             final double sum = data.getSum();
             final double sumsq = data.getSumsq();
             final int num = (int) data.getN();
             totnum += num;
             totsum += sum;
             totsumsq += sumsq;
-
             dfwg += num - 1;
             final double ss = sumsq - ((sum * sum) / num);
             sswg += ss;
         }
-
         final double sst = totsumsq - ((totsum * totsum) / totnum);
         final double ssbg = sst - sswg;
         final int dfbg = categoryData.size() - 1;
         final double msbg = ssbg / dfbg;
         final double mswg = sswg / dfwg;
         final double F = msbg / mswg;
-
         return new AnovaStats(dfbg, dfwg, F);
-
     }
 
     /**
-        Convenience class to pass dfbg,dfwg,F values around within OneWayAnova.
-        No get/set methods provided.
-    */
+     *        Convenience class to pass dfbg,dfwg,F values around within OneWayAnova.
+     *        No get/set methods provided.
+     */
     private static class AnovaStats {
 
-        /** Degrees of freedom in numerator (between groups). */
+        /**
+         * Degrees of freedom in numerator (between groups).
+         */
         private final int dfbg;
 
-        /** Degrees of freedom in denominator (within groups). */
+        /**
+         * Degrees of freedom in denominator (within groups).
+         */
         private final int dfwg;
 
-        /** Statistic. */
+        /**
+         * Statistic.
+         */
         private final double F;
 
         /**
@@ -351,5 +309,4 @@ public class OneWayAnova {
             this.F = F;
         }
     }
-
 }

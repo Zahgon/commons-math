@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.sofm;
 
 import java.util.Iterator;
@@ -26,11 +25,20 @@ import org.apache.commons.math3.ml.neuralnet.Network;
  * @since 3.3
  */
 public class KohonenTrainingTask implements Runnable {
-    /** SOFM to be trained. */
+
+    /**
+     * SOFM to be trained.
+     */
     private final Network net;
-    /** Training data. */
+
+    /**
+     * Training data.
+     */
     private final Iterator<double[]> featuresIterator;
-    /** Update procedure. */
+
+    /**
+     * Update procedure.
+     */
     private final KohonenUpdateAction updateAction;
 
     /**
@@ -40,9 +48,7 @@ public class KohonenTrainingTask implements Runnable {
      * @param featuresIterator Training data iterator.
      * @param updateAction SOFM update procedure.
      */
-    public KohonenTrainingTask(Network net,
-                               Iterator<double[]> featuresIterator,
-                               KohonenUpdateAction updateAction) {
+    public KohonenTrainingTask(Network net, Iterator<double[]> featuresIterator, KohonenUpdateAction updateAction) {
         this.net = net;
         this.featuresIterator = featuresIterator;
         this.updateAction = updateAction;
@@ -52,8 +58,6 @@ public class KohonenTrainingTask implements Runnable {
      * {@inheritDoc}
      */
     public void run() {
-        while (featuresIterator.hasNext()) {
-            updateAction.update(net, featuresIterator.next());
-        }
+        // STUB: not implemented
     }
 }

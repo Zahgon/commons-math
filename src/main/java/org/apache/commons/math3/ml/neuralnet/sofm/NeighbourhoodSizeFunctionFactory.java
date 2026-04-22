@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.sofm;
 
 import org.apache.commons.math3.ml.neuralnet.sofm.util.ExponentialDecayFunction;
@@ -27,8 +26,12 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.3
  */
 public class NeighbourhoodSizeFunctionFactory {
-    /** Class contains only static methods. */
-    private NeighbourhoodSizeFunctionFactory() {}
+
+    /**
+     * Class contains only static methods.
+     */
+    private NeighbourhoodSizeFunctionFactory() {
+    }
 
     /**
      * Creates an exponential decay {@link NeighbourhoodSizeFunction function}.
@@ -54,19 +57,9 @@ public class NeighbourhoodSizeFunctionFactory {
      * @throws org.apache.commons.math3.exception.NotStrictlyPositiveException
      * if {@code numCall <= 0}.
      */
-    public static NeighbourhoodSizeFunction exponentialDecay(final double initValue,
-                                                             final double valueAtNumCall,
-                                                             final long numCall) {
-        return new NeighbourhoodSizeFunction() {
-            /** DecayFunction. */
-            private final ExponentialDecayFunction decay
-                = new ExponentialDecayFunction(initValue, valueAtNumCall, numCall);
-
-            /** {@inheritDoc} */
-            public int value(long n) {
-                return (int) FastMath.rint(decay.value(n));
-            }
-        };
+    public static NeighbourhoodSizeFunction exponentialDecay(final double initValue, final double valueAtNumCall, final long numCall) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -90,18 +83,8 @@ public class NeighbourhoodSizeFunctionFactory {
      * @throws org.apache.commons.math3.exception.NotStrictlyPositiveException
      * if {@code numCall <= 0}.
      */
-    public static NeighbourhoodSizeFunction quasiSigmoidDecay(final double initValue,
-                                                              final double slope,
-                                                              final long numCall) {
-        return new NeighbourhoodSizeFunction() {
-            /** DecayFunction. */
-            private final QuasiSigmoidDecayFunction decay
-                = new QuasiSigmoidDecayFunction(initValue, slope, numCall);
-
-            /** {@inheritDoc} */
-            public int value(long n) {
-                return (int) FastMath.rint(decay.value(n));
-            }
-        };
+    public static NeighbourhoodSizeFunction quasiSigmoidDecay(final double initValue, final double slope, final long numCall) {
+        // STUB: not implemented
+        return null;
     }
 }

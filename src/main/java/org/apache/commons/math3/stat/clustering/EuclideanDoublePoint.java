@@ -19,7 +19,6 @@ package org.apache.commons.math3.stat.clustering;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Arrays;
-
 import org.apache.commons.math3.util.MathArrays;
 
 /**
@@ -31,10 +30,14 @@ import org.apache.commons.math3.util.MathArrays;
 @Deprecated
 public class EuclideanDoublePoint implements Clusterable<EuclideanDoublePoint>, Serializable {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 8026472786091227632L;
 
-    /** Point coordinates. */
+    /**
+     * Point coordinates.
+     */
     private final double[] point;
 
     /**
@@ -48,32 +51,29 @@ public class EuclideanDoublePoint implements Clusterable<EuclideanDoublePoint>, 
         this.point = point;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public EuclideanDoublePoint centroidOf(final Collection<EuclideanDoublePoint> points) {
-        final double[] centroid = new double[getPoint().length];
-        for (final EuclideanDoublePoint p : points) {
-            for (int i = 0; i < centroid.length; i++) {
-                centroid[i] += p.getPoint()[i];
-            }
-        }
-        for (int i = 0; i < centroid.length; i++) {
-            centroid[i] /= points.size();
-        }
-        return new EuclideanDoublePoint(centroid);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double distanceFrom(final EuclideanDoublePoint p) {
-        return MathArrays.distance(point, p.getPoint());
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object other) {
-        if (!(other instanceof EuclideanDoublePoint)) {
-            return false;
-        }
-        return Arrays.equals(point, ((EuclideanDoublePoint) other).point);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -82,19 +82,25 @@ public class EuclideanDoublePoint implements Clusterable<EuclideanDoublePoint>, 
      * @return a reference (not a copy!) to the wrapped array
      */
     public double[] getPoint() {
-        return point;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(point);
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return Arrays.toString(point);
+        // STUB: not implemented
+        return null;
     }
-
 }

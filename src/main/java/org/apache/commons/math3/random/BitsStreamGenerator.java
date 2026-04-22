@@ -17,21 +17,25 @@
 package org.apache.commons.math3.random;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 import org.apache.commons.math3.exception.OutOfRangeException;
 import org.apache.commons.math3.util.FastMath;
 
-/** Base class for random number generators that generates bits streams.
+/**
+ * Base class for random number generators that generates bits streams.
  *
  * @since 2.0
  */
-public abstract class BitsStreamGenerator
-    implements RandomGenerator,
-               Serializable {
-    /** Serializable version identifier */
+public abstract class BitsStreamGenerator implements RandomGenerator, Serializable {
+
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 20130104L;
-    /** Next gaussian. */
+
+    /**
+     * Next gaussian.
+     */
     private double nextGaussian;
 
     /**
@@ -41,16 +45,23 @@ public abstract class BitsStreamGenerator
         nextGaussian = Double.NaN;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public abstract void setSeed(int seed);
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public abstract void setSeed(int[] seed);
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public abstract void setSeed(long seed);
 
-    /** Generate next pseudorandom number.
+    /**
+     * Generate next pseudorandom number.
      * <p>This method is the core generation algorithm. It is used by all the
      * public generation methods for the various primitive types {@link
      * #nextBoolean()}, {@link #nextBytes(byte[])}, {@link #nextDouble()},
@@ -61,48 +72,44 @@ public abstract class BitsStreamGenerator
      */
     protected abstract int next(int bits);
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean nextBoolean() {
-        return next(1) != 0;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double nextDouble() {
-        final long high = ((long) next(26)) << 26;
-        final int  low  = next(26);
-        return (high | low) * 0x1.0p-52d;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public float nextFloat() {
-        return next(23) * 0x1.0p-23f;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double nextGaussian() {
-
-        final double random;
-        if (Double.isNaN(nextGaussian)) {
-            // generate a new pair of gaussian numbers
-            final double x = nextDouble();
-            final double y = nextDouble();
-            final double alpha = 2 * FastMath.PI * x;
-            final double r      = FastMath.sqrt(-2 * FastMath.log(y));
-            random       = r * FastMath.cos(alpha);
-            nextGaussian = r * FastMath.sin(alpha);
-        } else {
-            // use the second element of the pair already generated
-            random = nextGaussian;
-            nextGaussian = Double.NaN;
-        }
-
-        return random;
-
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int nextInt() {
-        return next(32);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -121,26 +128,16 @@ public abstract class BitsStreamGenerator
      * a uniform distribution.</li></ul></p>
      */
     public int nextInt(int n) throws IllegalArgumentException {
-        if (n > 0) {
-            if ((n & -n) == n) {
-                return (int) ((n * (long) next(31)) >> 31);
-            }
-            int bits;
-            int val;
-            do {
-                bits = next(31);
-                val = bits % n;
-            } while (bits - val + (n - 1) < 0);
-            return val;
-        }
-        throw new NotStrictlyPositiveException(n);
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public long nextLong() {
-        final long high  = ((long) next(32)) << 32;
-        final long  low  = ((long) next(32)) & 0xffffffffL;
-        return high | low;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -155,17 +152,8 @@ public abstract class BitsStreamGenerator
      * @throws IllegalArgumentException  if n is not positive.
      */
     public long nextLong(long n) throws IllegalArgumentException {
-        if (n > 0) {
-            long bits;
-            long val;
-            do {
-                bits = ((long) next(31)) << 32;
-                bits |= ((long) next(32)) & 0xffffffffL;
-                val  = bits % n;
-            } while (bits - val + (n - 1) < 0);
-            return val;
-        }
-        throw new NotStrictlyPositiveException(n);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -173,7 +161,7 @@ public abstract class BitsStreamGenerator
      * {@link #nextGaussian}.
      */
     public void clear() {
-        nextGaussian = Double.NaN;
+        // STUB: not implemented
     }
 
     /**
@@ -188,7 +176,7 @@ public abstract class BitsStreamGenerator
      * @param bytes Array in which to put the generated bytes. Cannot be {@code null}.
      */
     public void nextBytes(byte[] bytes) {
-        nextBytesFill(bytes, 0, bytes.length);
+        // STUB: not implemented
     }
 
     /**
@@ -206,19 +194,8 @@ public abstract class BitsStreamGenerator
      * @throws OutOfRangeException if {@code start < 0} or {@code start >= bytes.length}.
      * @throws OutOfRangeException if {@code len < 0} or {@code len > bytes.length - start}.
      */
-    public void nextBytes(byte[] bytes,
-                          int start,
-                          int len) {
-        if (start < 0 ||
-            start >= bytes.length) {
-            throw new OutOfRangeException(start, 0, bytes.length);
-        }
-        if (len < 0 ||
-            len > bytes.length - start) {
-            throw new OutOfRangeException(len, 0, bytes.length - start);
-        }
-
-        nextBytesFill(bytes, start, len);
+    public void nextBytes(byte[] bytes, int start, int len) {
+        // STUB: not implemented
     }
 
     /**
@@ -234,15 +211,12 @@ public abstract class BitsStreamGenerator
      * @param start Index at which to start inserting the generated bytes.
      * @param len Number of bytes to insert.
      */
-    private void nextBytesFill(byte[] bytes,
-                               int start,
-                               int len) {
-        int index = start; // Index of first insertion.
-
+    private void nextBytesFill(byte[] bytes, int start, int len) {
+        // Index of first insertion.
+        int index = start;
         // Index of first insertion plus multiple 4 part of length (i.e. length
         // with two least significant bits unset).
         final int indexLoopLimit = index + (len & 0x7ffffffc);
-
         // Start filling in the byte array, 4 bytes at a time.
         while (index < indexLoopLimit) {
             final int random = next(32);
@@ -251,9 +225,8 @@ public abstract class BitsStreamGenerator
             bytes[index++] = (byte) (random >>> 16);
             bytes[index++] = (byte) (random >>> 24);
         }
-
-        final int indexLimit = start + len; // Index of last insertion + 1.
-
+        // Index of last insertion + 1.
+        final int indexLimit = start + len;
         // Fill in the remaining bytes.
         if (index < indexLimit) {
             int random = next(32);

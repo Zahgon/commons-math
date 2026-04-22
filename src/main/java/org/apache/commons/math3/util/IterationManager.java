@@ -18,7 +18,6 @@ package org.apache.commons.math3.util;
 
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.apache.commons.math3.exception.MaxCountExceededException;
 
 /**
@@ -26,14 +25,17 @@ import org.apache.commons.math3.exception.MaxCountExceededException;
  * algorithms. The maximum number of iterations can be set, and methods are
  * provided to monitor the current iteration count. A lightweight event
  * framework is also provided.
- *
  */
 public class IterationManager {
 
-    /** Keeps a count of the number of iterations. */
+    /**
+     * Keeps a count of the number of iterations.
+     */
     private IntegerSequence.Incrementor iterations;
 
-    /** The collection of all listeners attached to this iterative algorithm. */
+    /**
+     * The collection of all listeners attached to this iterative algorithm.
+     */
     private final Collection<IterationListener> listeners;
 
     /**
@@ -58,10 +60,12 @@ public class IterationManager {
      * org.apache.commons.math3.util.IntegerSequence.Incrementor.MaxCountExceededCallback)}
      */
     @Deprecated
-    public IterationManager(final int maxIterations,
-                            final Incrementor.MaxCountExceededCallback callBack) {
+    public IterationManager(final int maxIterations, final Incrementor.MaxCountExceededCallback callBack) {
         this(maxIterations, new IntegerSequence.Incrementor.MaxCountExceededCallback() {
-            /** {@inheritDoc} */
+
+            /**
+             * {@inheritDoc}
+             */
             public void trigger(final int maximalCount) throws MaxCountExceededException {
                 callBack.trigger(maximalCount);
             }
@@ -77,8 +81,7 @@ public class IterationManager {
      * @throws org.apache.commons.math3.exception.NullArgumentException if {@code callBack} is {@code null}
      * @since 3.6
      */
-    public IterationManager(final int maxIterations,
-                            final IntegerSequence.Incrementor.MaxCountExceededCallback callBack) {
+    public IterationManager(final int maxIterations, final IntegerSequence.Incrementor.MaxCountExceededCallback callBack) {
         this.iterations = IntegerSequence.Incrementor.create().withMaximalCount(maxIterations).withCallback(callBack);
         this.listeners = new CopyOnWriteArrayList<IterationListener>();
     }
@@ -89,7 +92,7 @@ public class IterationManager {
      * @param listener A {@code IterationListener} object.
      */
     public void addIterationListener(final IterationListener listener) {
-        listeners.add(listener);
+        // STUB: not implemented
     }
 
     /**
@@ -99,9 +102,7 @@ public class IterationManager {
      * @param e The {@link IterationEvent} object.
      */
     public void fireInitializationEvent(final IterationEvent e) {
-        for (IterationListener l : listeners) {
-            l.initializationPerformed(e);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -111,9 +112,7 @@ public class IterationManager {
      * @param e The {@link IterationEvent} object.
      */
     public void fireIterationPerformedEvent(final IterationEvent e) {
-        for (IterationListener l : listeners) {
-            l.iterationPerformed(e);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -123,9 +122,7 @@ public class IterationManager {
      * @param e The {@link IterationEvent} object.
      */
     public void fireIterationStartedEvent(final IterationEvent e) {
-        for (IterationListener l : listeners) {
-            l.iterationStarted(e);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -135,9 +132,7 @@ public class IterationManager {
      * @param e The {@link IterationEvent} object.
      */
     public void fireTerminationEvent(final IterationEvent e) {
-        for (IterationListener l : listeners) {
-            l.terminationPerformed(e);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -147,7 +142,8 @@ public class IterationManager {
      * @return the number of iterations.
      */
     public int getIterations() {
-        return iterations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -156,7 +152,8 @@ public class IterationManager {
      * @return the maximum number of iterations.
      */
     public int getMaxIterations() {
-        return iterations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -167,9 +164,8 @@ public class IterationManager {
      * @throws MaxCountExceededException if the maximum number of iterations is
      * reached.
      */
-    public void incrementIterationCount()
-        throws MaxCountExceededException {
-        iterations.increment();
+    public void incrementIterationCount() throws MaxCountExceededException {
+        // STUB: not implemented
     }
 
     /**
@@ -181,7 +177,7 @@ public class IterationManager {
      * @param listener The {@link IterationListener} to be removed.
      */
     public void removeIterationListener(final IterationListener listener) {
-        listeners.remove(listener);
+        // STUB: not implemented
     }
 
     /**
@@ -189,6 +185,6 @@ public class IterationManager {
      * initial phase.
      */
     public void resetIterationCount() {
-        iterations = iterations.withStart(0);
+        // STUB: not implemented
     }
 }

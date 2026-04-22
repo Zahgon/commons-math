@@ -43,11 +43,16 @@ import org.apache.commons.math3.util.FastMath;
  * (cf. MATH-1008).
  */
 @Deprecated
-public abstract class AbstractLeastSquaresOptimizer
-    extends JacobianMultivariateVectorOptimizer {
-    /** Square-root of the weight matrix. */
+public abstract class AbstractLeastSquaresOptimizer extends JacobianMultivariateVectorOptimizer {
+
+    /**
+     * Square-root of the weight matrix.
+     */
     private RealMatrix weightMatrixSqrt;
-    /** Cost value (square root of the sum of the residuals). */
+
+    /**
+     * Cost value (square root of the sum of the residuals).
+     */
     private double cost;
 
     /**
@@ -66,7 +71,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * match problem dimension.
      */
     protected RealMatrix computeWeightedJacobian(double[] params) {
-        return weightMatrixSqrt.multiply(MatrixUtils.createRealMatrix(computeJacobian(params)));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -77,8 +83,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @see #computeResiduals(double[])
      */
     protected double computeCost(double[] residuals) {
-        final ArrayRealVector r = new ArrayRealVector(residuals);
-        return FastMath.sqrt(r.dotProduct(getWeight().operate(r)));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -93,7 +99,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @return the RMS value.
      */
     public double getRMS() {
-        return FastMath.sqrt(getChiSquare() / getTargetSize());
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -103,7 +110,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @return chi-square value
      */
     public double getChiSquare() {
-        return cost * cost;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -112,7 +120,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * @return the square-root of the weight matrix.
      */
     public RealMatrix getWeightSquareRoot() {
-        return weightMatrixSqrt.copy();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -121,7 +130,7 @@ public abstract class AbstractLeastSquaresOptimizer
      * @param cost Cost value.
      */
     protected void setCost(double cost) {
-        this.cost = cost;
+        // STUB: not implemented
     }
 
     /**
@@ -140,18 +149,9 @@ public abstract class AbstractLeastSquaresOptimizer
      * @throws org.apache.commons.math3.linear.SingularMatrixException
      * if the covariance matrix cannot be computed (singular problem).
      */
-    public double[][] computeCovariances(double[] params,
-                                         double threshold) {
-        // Set up the Jacobian.
-        final RealMatrix j = computeWeightedJacobian(params);
-
-        // Compute transpose(J)J.
-        final RealMatrix jTj = j.transpose().multiply(j);
-
-        // Compute the covariances matrix.
-        final DecompositionSolver solver
-            = new QRDecomposition(jTj, threshold).getSolver();
-        return solver.getInverse().getData();
+    public double[][] computeCovariances(double[] params, double threshold) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -168,15 +168,9 @@ public abstract class AbstractLeastSquaresOptimizer
      * @throws org.apache.commons.math3.linear.SingularMatrixException
      * if the covariance matrix cannot be computed.
      */
-    public double[] computeSigma(double[] params,
-                                 double covarianceSingularityThreshold) {
-        final int nC = params.length;
-        final double[] sig = new double[nC];
-        final double[][] cov = computeCovariances(params, covarianceSingularityThreshold);
-        for (int i = 0; i < nC; ++i) {
-            sig[i] = FastMath.sqrt(cov[i][i]);
-        }
-        return sig;
+    public double[] computeSigma(double[] params, double covarianceSingularityThreshold) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -195,10 +189,9 @@ public abstract class AbstractLeastSquaresOptimizer
      * arguments have inconsistent dimensions.
      */
     @Override
-    public PointVectorValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointVectorValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -217,18 +210,8 @@ public abstract class AbstractLeastSquaresOptimizer
      * length.
      */
     protected double[] computeResiduals(double[] objectiveValue) {
-        final double[] target = getTarget();
-        if (objectiveValue.length != target.length) {
-            throw new DimensionMismatchException(target.length,
-                                                 objectiveValue.length);
-        }
-
-        final double[] residuals = new double[target.length];
-        for (int i = 0; i < target.length; i++) {
-            residuals[i] = target[i] - objectiveValue[i];
-        }
-
-        return residuals;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -244,19 +227,7 @@ public abstract class AbstractLeastSquaresOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof Weight) {
-                weightMatrixSqrt = squareRoot(((Weight) data).getWeight());
-                // If more data must be parsed, this statement _must_ be
-                // changed to "continue".
-                break;
-            }
-        }
+        // STUB: not implemented
     }
 
     /**

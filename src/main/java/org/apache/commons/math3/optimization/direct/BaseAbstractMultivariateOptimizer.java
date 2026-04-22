@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.direct;
 
 import org.apache.commons.math3.util.Incrementor;
@@ -44,21 +43,41 @@ import org.apache.commons.math3.exception.NumberIsTooLargeException;
  * @since 2.2
  */
 @Deprecated
-public abstract class BaseAbstractMultivariateOptimizer<FUNC extends MultivariateFunction>
-    implements BaseMultivariateOptimizer<FUNC> {
-    /** Evaluations counter. */
+public abstract class BaseAbstractMultivariateOptimizer<FUNC extends MultivariateFunction> implements BaseMultivariateOptimizer<FUNC> {
+
+    /**
+     * Evaluations counter.
+     */
     protected final Incrementor evaluations = new Incrementor();
-    /** Convergence checker. */
+
+    /**
+     * Convergence checker.
+     */
     private ConvergenceChecker<PointValuePair> checker;
-    /** Type of optimization. */
+
+    /**
+     * Type of optimization.
+     */
     private GoalType goal;
-    /** Initial guess. */
+
+    /**
+     * Initial guess.
+     */
     private double[] start;
-    /** Lower bounds. */
+
+    /**
+     * Lower bounds.
+     */
     private double[] lowerBound;
-    /** Upper bounds. */
+
+    /**
+     * Upper bounds.
+     */
     private double[] upperBound;
-    /** Objective function. */
+
+    /**
+     * Objective function.
+     */
     private MultivariateFunction function;
 
     /**
@@ -70,6 +89,7 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
     protected BaseAbstractMultivariateOptimizer() {
         this(new SimpleValueChecker());
     }
+
     /**
      * @param checker Convergence checker.
      */
@@ -77,19 +97,28 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
         this.checker = checker;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getMaxEvaluations() {
-        return evaluations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getEvaluations() {
-        return evaluations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public ConvergenceChecker<PointValuePair> getConvergenceChecker() {
-        return checker;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -101,12 +130,8 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
      * evaluations is exceeded.
      */
     protected double computeObjectiveValue(double[] point) {
-        try {
-            evaluations.incrementCount();
-        } catch (MaxCountExceededException e) {
-            throw new TooManyEvaluationsException(e.getMax());
-        }
-        return function.value(point);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -117,8 +142,7 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
      * instead.
      */
     @Deprecated
-    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType,
-                                   double[] startPoint) {
+    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType, double[] startPoint) {
         return optimizeInternal(maxEval, f, goalType, new InitialGuess(startPoint));
     }
 
@@ -137,11 +161,9 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
      * function.
      * @since 3.1
      */
-    public PointValuePair optimize(int maxEval,
-                                   FUNC f,
-                                   GoalType goalType,
-                                   OptimizationData... optData) {
-        return optimizeInternal(maxEval, f, goalType, optData);
+    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType, OptimizationData... optData) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -165,8 +187,7 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
      * instead.
      */
     @Deprecated
-    protected PointValuePair optimizeInternal(int maxEval, FUNC f, GoalType goalType,
-                                              double[] startPoint) {
+    protected PointValuePair optimizeInternal(int maxEval, FUNC f, GoalType goalType, double[] startPoint) {
         return optimizeInternal(maxEval, f, goalType, new InitialGuess(startPoint));
     }
 
@@ -187,22 +208,9 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
      * evaluations is exceeded.
      * @since 3.1
      */
-    protected PointValuePair optimizeInternal(int maxEval,
-                                              FUNC f,
-                                              GoalType goalType,
-                                              OptimizationData... optData)
-        throws TooManyEvaluationsException {
-        // Set internal state.
-        evaluations.setMaximalCount(maxEval);
-        evaluations.resetCount();
-        function = f;
-        goal = goalType;
-        // Retrieve other settings.
-        parseOptimizationData(optData);
-        // Check input consistency.
-        checkParameters();
-        // Perform computation.
-        return doOptimize();
+    protected PointValuePair optimizeInternal(int maxEval, FUNC f, GoalType goalType, OptimizationData... optData) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -236,28 +244,34 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
      * @return the optimization type.
      */
     public GoalType getGoalType() {
-        return goal;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * @return the initial guess.
      */
     public double[] getStartPoint() {
-        return start == null ? null : start.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return the lower bounds.
      * @since 3.1
      */
     public double[] getLowerBound() {
-        return lowerBound == null ? null : lowerBound.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return the upper bounds.
      * @since 3.1
      */
     public double[] getUpperBound() {
-        return upperBound == null ? null : upperBound.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -298,7 +312,6 @@ public abstract class BaseAbstractMultivariateOptimizer<FUNC extends Multivariat
                     }
                 }
             }
-
             // If the bounds were not specified, the allowed interval is
             // assumed to be [-inf, +inf].
             if (lowerBound == null) {

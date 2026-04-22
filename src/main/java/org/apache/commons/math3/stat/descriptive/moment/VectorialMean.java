@@ -18,7 +18,6 @@ package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
 import java.util.Arrays;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 
 /**
@@ -27,13 +26,18 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
  */
 public class VectorialMean implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 8223009086481006892L;
 
-    /** Means for each component. */
+    /**
+     * Means for each component.
+     */
     private final Mean[] means;
 
-    /** Constructs a VectorialMean.
+    /**
+     * Constructs a VectorialMean.
      * @param dimension vectors dimension
      */
     public VectorialMean(int dimension) {
@@ -49,12 +53,7 @@ public class VectorialMean implements Serializable {
      * @throws DimensionMismatchException if the vector does not have the right dimension
      */
     public void increment(double[] v) throws DimensionMismatchException {
-        if (v.length != means.length) {
-            throw new DimensionMismatchException(v.length, means.length);
-        }
-        for (int i = 0; i < v.length; ++i) {
-            means[i].increment(v[i]);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -62,11 +61,8 @@ public class VectorialMean implements Serializable {
      * @return mean vector
      */
     public double[] getResult() {
-        double[] result = new double[means.length];
-        for (int i = 0; i < result.length; ++i) {
-            result[i] = means[i].getResult();
-        }
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -74,32 +70,25 @@ public class VectorialMean implements Serializable {
      * @return number of vectors in the sample
      */
     public long getN() {
-        return (means.length == 0) ? 0 : means[0].getN();
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Arrays.hashCode(means);
-        return result;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof VectorialMean)) {
-            return false;
-        }
-        VectorialMean other = (VectorialMean) obj;
-        if (!Arrays.equals(means, other.means)) {
-            return false;
-        }
-        return true;
+        // STUB: not implemented
+        return false;
     }
-
 }

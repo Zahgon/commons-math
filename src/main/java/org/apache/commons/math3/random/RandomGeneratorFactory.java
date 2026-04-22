@@ -25,10 +25,12 @@ import org.apache.commons.math3.exception.NotStrictlyPositiveException;
  * @since 3.3
  */
 public class RandomGeneratorFactory {
+
     /**
      * Class contains only static methods.
      */
-    private RandomGeneratorFactory() {}
+    private RandomGeneratorFactory() {
+    }
 
     /**
      * Creates a {@link RandomDataGenerator} instance that wraps a
@@ -39,65 +41,8 @@ public class RandomGeneratorFactory {
      * @return the given RNG, wrapped in a {@link RandomGenerator}.
      */
     public static RandomGenerator createRandomGenerator(final Random rng) {
-        return new RandomGenerator() {
-            /** {@inheritDoc} */
-            public void setSeed(int seed) {
-                rng.setSeed((long) seed);
-            }
-
-            /** {@inheritDoc} */
-            public void setSeed(int[] seed) {
-                rng.setSeed(convertToLong(seed));
-            }
-
-            /** {@inheritDoc} */
-            public void setSeed(long seed) {
-                rng.setSeed(seed);
-            }
-
-            /** {@inheritDoc} */
-            public void nextBytes(byte[] bytes) {
-                rng.nextBytes(bytes);
-            }
-
-            /** {@inheritDoc} */
-            public int nextInt() {
-                return rng.nextInt();
-            }
-
-            /** {@inheritDoc} */
-            public int nextInt(int n) {
-                if (n <= 0) {
-                    throw new NotStrictlyPositiveException(n);
-                }
-                return rng.nextInt(n);
-            }
-
-            /** {@inheritDoc} */
-            public long nextLong() {
-                return rng.nextLong();
-            }
-
-            /** {@inheritDoc} */
-            public boolean nextBoolean() {
-                return rng.nextBoolean();
-            }
-
-            /** {@inheritDoc} */
-            public float nextFloat() {
-                return rng.nextFloat();
-            }
-
-            /** {@inheritDoc} */
-            public double nextDouble() {
-                return rng.nextDouble();
-            }
-
-            /** {@inheritDoc} */
-            public double nextGaussian() {
-                return rng.nextGaussian();
-            }
-        };
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -107,15 +52,7 @@ public class RandomGeneratorFactory {
      * @return the converted seed.
      */
     public static long convertToLong(int[] seed) {
-        // The following number is the largest prime that fits
-        // in 32 bits (i.e. 2^32 - 5).
-        final long prime = 4294967291l;
-
-        long combined = 0l;
-        for (int s : seed) {
-            combined = combined * prime + s;
-        }
-
-        return combined;
+        // STUB: not implemented
+        return 0;
     }
 }

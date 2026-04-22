@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.clustering.evaluation;
 
 import java.util.List;
-
 import org.apache.commons.math3.ml.clustering.Cluster;
 import org.apache.commons.math3.ml.clustering.Clusterable;
 import org.apache.commons.math3.ml.distance.DistanceMeasure;
@@ -38,32 +36,18 @@ import org.apache.commons.math3.stat.descriptive.moment.Variance;
 public class SumOfClusterVariances<T extends Clusterable> extends ClusterEvaluator<T> {
 
     /**
-     *
      * @param measure the distance measure to use
      */
     public SumOfClusterVariances(final DistanceMeasure measure) {
         super(measure);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double score(final List<? extends Cluster<T>> clusters) {
-        double varianceSum = 0.0;
-        for (final Cluster<T> cluster : clusters) {
-            if (!cluster.getPoints().isEmpty()) {
-
-                final Clusterable center = centroidOf(cluster);
-
-                // compute the distance variance of the current cluster
-                final Variance stat = new Variance();
-                for (final T point : cluster.getPoints()) {
-                    stat.increment(distance(point, center));
-                }
-                varianceSum += stat.getResult();
-
-            }
-        }
-        return varianceSum;
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

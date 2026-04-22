@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.twod.util;
 
 import org.apache.commons.math3.ml.neuralnet.MapUtils;
@@ -29,7 +28,10 @@ import org.apache.commons.math3.ml.distance.DistanceMeasure;
  * @since 3.6
  */
 public class QuantizationError implements MapDataVisualization {
-    /** Distance. */
+
+    /**
+     * Distance.
+     */
     private final DistanceMeasure distance;
 
     /**
@@ -39,38 +41,11 @@ public class QuantizationError implements MapDataVisualization {
         this.distance = distance;
     }
 
-    /** {@inheritDoc} */
-    public double[][] computeImage(NeuronSquareMesh2D map,
-                                   Iterable<double[]> data) {
-        final int nR = map.getNumberOfRows();
-        final int nC = map.getNumberOfColumns();
-
-        final LocationFinder finder = new LocationFinder(map);
-
-        // Hit bins.
-        final int[][] hit = new int[nR][nC];
-        // Error bins.
-        final double[][] error = new double[nR][nC];
-
-        for (double[] sample : data) {
-            final Neuron best = MapUtils.findBest(sample, map, distance);
-
-            final LocationFinder.Location loc = finder.getLocation(best);
-            final int row = loc.getRow();
-            final int col = loc.getColumn();
-            hit[row][col] += 1;
-            error[row][col] += distance.compute(sample, best.getFeatures());
-        }
-
-        for (int r = 0; r < nR; r++) {
-            for (int c = 0; c < nC; c++) {
-                final int count = hit[r][c];
-                if (count != 0) {
-                    error[r][c] /= count;
-                }
-            }
-        }
-
-        return error;
+    /**
+     * {@inheritDoc}
+     */
+    public double[][] computeImage(NeuronSquareMesh2D map, Iterable<double[]> data) {
+        // STUB: not implemented
+        return null;
     }
 }

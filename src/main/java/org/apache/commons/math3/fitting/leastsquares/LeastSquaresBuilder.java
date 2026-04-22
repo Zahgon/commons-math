@@ -33,32 +33,54 @@ import org.apache.commons.math3.optim.PointVectorValuePair;
  */
 public class LeastSquaresBuilder {
 
-    /** max evaluations */
+    /**
+     * max evaluations
+     */
     private int maxEvaluations;
-    /** max iterations */
+
+    /**
+     * max iterations
+     */
     private int maxIterations;
-    /** convergence checker */
+
+    /**
+     * convergence checker
+     */
     private ConvergenceChecker<Evaluation> checker;
-    /** model function */
+
+    /**
+     * model function
+     */
     private MultivariateJacobianFunction model;
-    /** observed values */
+
+    /**
+     * observed values
+     */
     private RealVector target;
-    /** initial guess */
+
+    /**
+     * initial guess
+     */
     private RealVector start;
-    /** weight matrix */
+
+    /**
+     * weight matrix
+     */
     private RealMatrix weight;
+
     /**
      * Lazy evaluation.
      *
      * @since 3.4
      */
     private boolean lazyEvaluation;
-    /** Validator.
+
+    /**
+     * Validator.
      *
      * @since 3.4
      */
     private ParameterValidator paramValidator;
-
 
     /**
      * Construct a {@link LeastSquaresProblem} from the data in this builder.
@@ -66,15 +88,8 @@ public class LeastSquaresBuilder {
      * @return a new {@link LeastSquaresProblem}.
      */
     public LeastSquaresProblem build() {
-        return LeastSquaresFactory.create(model,
-                                          target,
-                                          start,
-                                          weight,
-                                          checker,
-                                          maxEvaluations,
-                                          maxIterations,
-                                          lazyEvaluation,
-                                          paramValidator);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -84,8 +99,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder maxEvaluations(final int newMaxEvaluations) {
-        this.maxEvaluations = newMaxEvaluations;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -95,8 +110,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder maxIterations(final int newMaxIterations) {
-        this.maxIterations = newMaxIterations;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -106,8 +121,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder checker(final ConvergenceChecker<Evaluation> newChecker) {
-        this.checker = newChecker;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -119,7 +134,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder checkerPair(final ConvergenceChecker<PointVectorValuePair> newChecker) {
-        return this.checker(LeastSquaresFactory.evaluationChecker(newChecker));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -129,9 +145,9 @@ public class LeastSquaresBuilder {
      * @param jacobian the Jacobian of {@code value}
      * @return this
      */
-    public LeastSquaresBuilder model(final MultivariateVectorFunction value,
-                                     final MultivariateMatrixFunction jacobian) {
-        return model(LeastSquaresFactory.model(value, jacobian));
+    public LeastSquaresBuilder model(final MultivariateVectorFunction value, final MultivariateMatrixFunction jacobian) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -141,8 +157,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder model(final MultivariateJacobianFunction newModel) {
-        this.model = newModel;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -152,8 +168,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder target(final RealVector newTarget) {
-        this.target = newTarget;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -163,7 +179,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder target(final double[] newTarget) {
-        return target(new ArrayRealVector(newTarget, false));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -173,8 +190,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder start(final RealVector newStart) {
-        this.start = newStart;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -184,7 +201,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder start(final double[] newStart) {
-        return start(new ArrayRealVector(newStart, false));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -194,8 +212,8 @@ public class LeastSquaresBuilder {
      * @return this
      */
     public LeastSquaresBuilder weight(final RealMatrix newWeight) {
-        this.weight = newWeight;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -207,8 +225,8 @@ public class LeastSquaresBuilder {
      * @since 3.4
      */
     public LeastSquaresBuilder lazyEvaluation(final boolean newValue) {
-        lazyEvaluation = newValue;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -220,7 +238,7 @@ public class LeastSquaresBuilder {
      * @since 3.4
      */
     public LeastSquaresBuilder parameterValidator(final ParameterValidator newValidator) {
-        paramValidator = newValidator;
-        return this;
+        // STUB: not implemented
+        return null;
     }
 }

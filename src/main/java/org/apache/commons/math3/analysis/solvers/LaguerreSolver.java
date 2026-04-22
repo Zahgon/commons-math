@@ -42,9 +42,15 @@ import org.apache.commons.math3.util.FastMath;
  * @since 1.2
  */
 public class LaguerreSolver extends AbstractPolynomialSolver {
-    /** Default absolute accuracy. */
+
+    /**
+     * Default absolute accuracy.
+     */
     private static final double DEFAULT_ABSOLUTE_ACCURACY = 1e-6;
-    /** Complex solver. */
+
+    /**
+     * Complex solver.
+     */
     private final ComplexSolver complexSolver = new ComplexSolver();
 
     /**
@@ -53,6 +59,7 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
     public LaguerreSolver() {
         this(DEFAULT_ABSOLUTE_ACCURACY);
     }
+
     /**
      * Construct a solver.
      *
@@ -61,16 +68,17 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
     public LaguerreSolver(double absoluteAccuracy) {
         super(absoluteAccuracy);
     }
+
     /**
      * Construct a solver.
      *
      * @param relativeAccuracy Relative accuracy.
      * @param absoluteAccuracy Absolute accuracy.
      */
-    public LaguerreSolver(double relativeAccuracy,
-                          double absoluteAccuracy) {
+    public LaguerreSolver(double relativeAccuracy, double absoluteAccuracy) {
         super(relativeAccuracy, absoluteAccuracy);
     }
+
     /**
      * Construct a solver.
      *
@@ -78,9 +86,7 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * @param absoluteAccuracy Absolute accuracy.
      * @param functionValueAccuracy Function value accuracy.
      */
-    public LaguerreSolver(double relativeAccuracy,
-                          double absoluteAccuracy,
-                          double functionValueAccuracy) {
+    public LaguerreSolver(double relativeAccuracy, double absoluteAccuracy, double functionValueAccuracy) {
         super(relativeAccuracy, absoluteAccuracy, functionValueAccuracy);
     }
 
@@ -88,46 +94,9 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * {@inheritDoc}
      */
     @Override
-    public double doSolve()
-        throws TooManyEvaluationsException,
-               NumberIsTooLargeException,
-               NoBracketingException {
-        final double min = getMin();
-        final double max = getMax();
-        final double initial = getStartValue();
-        final double functionValueAccuracy = getFunctionValueAccuracy();
-
-        verifySequence(min, initial, max);
-
-        // Return the initial guess if it is good enough.
-        final double yInitial = computeObjectiveValue(initial);
-        if (FastMath.abs(yInitial) <= functionValueAccuracy) {
-            return initial;
-        }
-
-        // Return the first endpoint if it is good enough.
-        final double yMin = computeObjectiveValue(min);
-        if (FastMath.abs(yMin) <= functionValueAccuracy) {
-            return min;
-        }
-
-        // Reduce interval if min and initial bracket the root.
-        if (yInitial * yMin < 0) {
-            return laguerre(min, initial, yMin, yInitial);
-        }
-
-        // Return the second endpoint if it is good enough.
-        final double yMax = computeObjectiveValue(max);
-        if (FastMath.abs(yMax) <= functionValueAccuracy) {
-            return max;
-        }
-
-        // Reduce interval if initial and max bracket the root.
-        if (yInitial * yMax < 0) {
-            return laguerre(initial, max, yInitial, yMax);
-        }
-
-        throw new NoBracketingException(min, max, yMin, yMax);
+    public double doSolve() throws TooManyEvaluationsException, NumberIsTooLargeException, NoBracketingException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -151,10 +120,8 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * be made private in version 4.0.
      */
     @Deprecated
-    public double laguerre(double lo, double hi,
-                           double fLo, double fHi) {
-        final Complex c[] = ComplexUtils.convertToComplex(getCoefficients());
-
+    public double laguerre(double lo, double hi, double fLo, double fHi) {
+        final Complex[] c = ComplexUtils.convertToComplex(getCoefficients());
         final Complex initial = new Complex(0.5 * (lo + hi), 0);
         final Complex z = complexSolver.solve(c, initial);
         if (complexSolver.isRoot(lo, hi, z)) {
@@ -189,12 +156,9 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * @throws NoDataException if the {@code coefficients} array is empty.
      * @since 3.1
      */
-    public Complex[] solveAllComplex(double[] coefficients,
-                                     double initial)
-        throws NullArgumentException,
-               NoDataException,
-               TooManyEvaluationsException {
-       return solveAllComplex(coefficients, initial, Integer.MAX_VALUE);
+    public Complex[] solveAllComplex(double[] coefficients, double initial) throws NullArgumentException, NoDataException, TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -214,18 +178,9 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * @throws NoDataException if the {@code coefficients} array is empty
      * @since 3.5
      */
-    public Complex[] solveAllComplex(double[] coefficients,
-                                     double initial, int maxEval)
-        throws NullArgumentException,
-               NoDataException,
-               TooManyEvaluationsException {
-        setup(maxEval,
-              new PolynomialFunction(coefficients),
-              Double.NEGATIVE_INFINITY,
-              Double.POSITIVE_INFINITY,
-              initial);
-        return complexSolver.solveAll(ComplexUtils.convertToComplex(coefficients),
-                                      new Complex(initial, 0d));
+    public Complex[] solveAllComplex(double[] coefficients, double initial, int maxEval) throws NullArgumentException, NoDataException, TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -244,12 +199,9 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * @throws NoDataException if the {@code coefficients} array is empty.
      * @since 3.1
      */
-    public Complex solveComplex(double[] coefficients,
-                                double initial)
-        throws NullArgumentException,
-               NoDataException,
-               TooManyEvaluationsException {
-       return solveComplex(coefficients, initial, Integer.MAX_VALUE);
+    public Complex solveComplex(double[] coefficients, double initial) throws NullArgumentException, NoDataException, TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -269,24 +221,16 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
      * @throws NoDataException if the {@code coefficients} array is empty
      * @since 3.1
      */
-    public Complex solveComplex(double[] coefficients,
-                                double initial, int maxEval)
-        throws NullArgumentException,
-               NoDataException,
-               TooManyEvaluationsException {
-        setup(maxEval,
-              new PolynomialFunction(coefficients),
-              Double.NEGATIVE_INFINITY,
-              Double.POSITIVE_INFINITY,
-              initial);
-        return complexSolver.solve(ComplexUtils.convertToComplex(coefficients),
-                                   new Complex(initial, 0d));
+    public Complex solveComplex(double[] coefficients, double initial, int maxEval) throws NullArgumentException, NoDataException, TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * Class for searching all (complex) roots.
      */
     private class ComplexSolver {
+
         /**
          * Check whether the given complex root is actually a real zero
          * in the given interval, within the solver tolerance level.
@@ -297,11 +241,7 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
          * @return {@code true} if z is a real zero.
          */
         public boolean isRoot(double min, double max, Complex z) {
-            if (isSequence(min, z.getReal(), max)) {
-                double tolerance = FastMath.max(getRelativeAccuracy() * z.abs(), getAbsoluteAccuracy());
-                return (FastMath.abs(z.getImaginary()) <= tolerance) ||
-                     (z.abs() <= getFunctionValueAccuracy());
-            }
+            // STUB: not implemented
             return false;
         }
 
@@ -318,40 +258,9 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
          * {@code null}.
          * @throws NoDataException if the {@code coefficients} array is empty.
          */
-        public Complex[] solveAll(Complex coefficients[], Complex initial)
-            throws NullArgumentException,
-                   NoDataException,
-                   TooManyEvaluationsException {
-            if (coefficients == null) {
-                throw new NullArgumentException();
-            }
-            final int n = coefficients.length - 1;
-            if (n == 0) {
-                throw new NoDataException(LocalizedFormats.POLYNOMIAL);
-            }
-            // Coefficients for deflated polynomial.
-            final Complex c[] = new Complex[n + 1];
-            for (int i = 0; i <= n; i++) {
-                c[i] = coefficients[i];
-            }
-
-            // Solve individual roots successively.
-            final Complex root[] = new Complex[n];
-            for (int i = 0; i < n; i++) {
-                final Complex subarray[] = new Complex[n - i + 1];
-                System.arraycopy(c, 0, subarray, 0, subarray.length);
-                root[i] = solve(subarray, initial);
-                // Polynomial deflation using synthetic division.
-                Complex newc = c[n - i];
-                Complex oldc = null;
-                for (int j = n - i - 1; j >= 0; j--) {
-                    oldc = c[j];
-                    c[j] = newc;
-                    newc = oldc.add(newc.multiply(root[i]));
-                }
-            }
-
-            return root;
+        public Complex[] solveAll(Complex[] coefficients, Complex initial) throws NullArgumentException, NoDataException, TooManyEvaluationsException {
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -367,74 +276,9 @@ public class LaguerreSolver extends AbstractPolynomialSolver {
          * {@code null}.
          * @throws NoDataException if the {@code coefficients} array is empty.
          */
-        public Complex solve(Complex coefficients[], Complex initial)
-            throws NullArgumentException,
-                   NoDataException,
-                   TooManyEvaluationsException {
-            if (coefficients == null) {
-                throw new NullArgumentException();
-            }
-
-            final int n = coefficients.length - 1;
-            if (n == 0) {
-                throw new NoDataException(LocalizedFormats.POLYNOMIAL);
-            }
-
-            final double absoluteAccuracy = getAbsoluteAccuracy();
-            final double relativeAccuracy = getRelativeAccuracy();
-            final double functionValueAccuracy = getFunctionValueAccuracy();
-
-            final Complex nC  = new Complex(n, 0);
-            final Complex n1C = new Complex(n - 1, 0);
-
-            Complex z = initial;
-            Complex oldz = new Complex(Double.POSITIVE_INFINITY,
-                                       Double.POSITIVE_INFINITY);
-            while (true) {
-                // Compute pv (polynomial value), dv (derivative value), and
-                // d2v (second derivative value) simultaneously.
-                Complex pv = coefficients[n];
-                Complex dv = Complex.ZERO;
-                Complex d2v = Complex.ZERO;
-                for (int j = n-1; j >= 0; j--) {
-                    d2v = dv.add(z.multiply(d2v));
-                    dv = pv.add(z.multiply(dv));
-                    pv = coefficients[j].add(z.multiply(pv));
-                }
-                d2v = d2v.multiply(new Complex(2.0, 0.0));
-
-                // Check for convergence.
-                final double tolerance = FastMath.max(relativeAccuracy * z.abs(),
-                                                      absoluteAccuracy);
-                if ((z.subtract(oldz)).abs() <= tolerance) {
-                    return z;
-                }
-                if (pv.abs() <= functionValueAccuracy) {
-                    return z;
-                }
-
-                // Now pv != 0, calculate the new approximation.
-                final Complex G = dv.divide(pv);
-                final Complex G2 = G.multiply(G);
-                final Complex H = G2.subtract(d2v.divide(pv));
-                final Complex delta = n1C.multiply((nC.multiply(H)).subtract(G2));
-                // Choose a denominator larger in magnitude.
-                final Complex deltaSqrt = delta.sqrt();
-                final Complex dplus = G.add(deltaSqrt);
-                final Complex dminus = G.subtract(deltaSqrt);
-                final Complex denominator = dplus.abs() > dminus.abs() ? dplus : dminus;
-                // Perturb z if denominator is zero, for instance,
-                // p(x) = x^3 + 1, z = 0.
-                if (denominator.equals(new Complex(0.0, 0.0))) {
-                    z = z.add(new Complex(absoluteAccuracy, absoluteAccuracy));
-                    oldz = new Complex(Double.POSITIVE_INFINITY,
-                                       Double.POSITIVE_INFINITY);
-                } else {
-                    oldz = z;
-                    z = z.subtract(nC.divide(denominator));
-                }
-                incrementEvaluationCount();
-            }
+        public Complex solve(Complex[] coefficients, Complex initial) throws NullArgumentException, NoDataException, TooManyEvaluationsException {
+            // STUB: not implemented
+            return null;
         }
     }
 }

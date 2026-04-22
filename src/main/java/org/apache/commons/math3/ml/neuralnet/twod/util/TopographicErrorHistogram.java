@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.twod.util;
 
 import org.apache.commons.math3.ml.neuralnet.MapUtils;
@@ -31,9 +30,15 @@ import org.apache.commons.math3.util.Pair;
  * @since 3.6
  */
 public class TopographicErrorHistogram implements MapDataVisualization {
-    /** Distance. */
+
+    /**
+     * Distance.
+     */
     private final DistanceMeasure distance;
-    /** Whether to compute relative bin counts. */
+
+    /**
+     * Whether to compute relative bin counts.
+     */
     private final boolean relativeCount;
 
     /**
@@ -42,50 +47,16 @@ public class TopographicErrorHistogram implements MapDataVisualization {
      * number of samples mapped to the neuron represented by that bin.
      * @param distance Distance.
      */
-    public TopographicErrorHistogram(boolean relativeCount,
-                                     DistanceMeasure distance) {
+    public TopographicErrorHistogram(boolean relativeCount, DistanceMeasure distance) {
         this.relativeCount = relativeCount;
         this.distance = distance;
     }
 
-    /** {@inheritDoc} */
-    public double[][] computeImage(NeuronSquareMesh2D map,
-                                   Iterable<double[]> data) {
-        final int nR = map.getNumberOfRows();
-        final int nC = map.getNumberOfColumns();
-
-        final Network net = map.getNetwork();
-        final LocationFinder finder = new LocationFinder(map);
-
-        // Hit bins.
-        final int[][] hit = new int[nR][nC];
-        // Error bins.
-        final double[][] error = new double[nR][nC];
-
-        for (double[] sample : data) {
-            final Pair<Neuron, Neuron> p = MapUtils.findBestAndSecondBest(sample, map, distance);
-            final Neuron best = p.getFirst();
-
-            final LocationFinder.Location loc = finder.getLocation(best);
-            final int row = loc.getRow();
-            final int col = loc.getColumn();
-            hit[row][col] += 1;
-
-            if (!net.getNeighbours(best).contains(p.getSecond())) {
-                // Increment count if first and second best matching units
-                // are not neighbours.
-                error[row][col] += 1;
-            }
-        }
-
-        if (relativeCount) {
-            for (int r = 0; r < nR; r++) {
-                for (int c = 0; c < nC; c++) {
-                    error[r][c] /= hit[r][c];
-                }
-            }
-        }
-
-        return error;
+    /**
+     * {@inheritDoc}
+     */
+    public double[][] computeImage(NeuronSquareMesh2D map, Iterable<double[]> data) {
+        // STUB: not implemented
+        return null;
     }
 }

@@ -32,12 +32,19 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class LaplaceDistribution extends AbstractRealDistribution {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20141003;
 
-    /** The location parameter. */
+    /**
+     * The location parameter.
+     */
     private final double mu;
-    /** The scale parameter. */
+
+    /**
+     * The scale parameter.
+     */
     private final double beta;
 
     /**
@@ -68,11 +75,9 @@ public class LaplaceDistribution extends AbstractRealDistribution {
      */
     public LaplaceDistribution(RandomGenerator rng, double mu, double beta) {
         super(rng);
-
         if (beta <= 0.0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.NOT_POSITIVE_SCALE, beta);
         }
-
         this.mu = mu;
         this.beta = beta;
     }
@@ -83,7 +88,8 @@ public class LaplaceDistribution extends AbstractRealDistribution {
      * @return the location parameter.
      */
     public double getLocation() {
-        return mu;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -92,70 +98,88 @@ public class LaplaceDistribution extends AbstractRealDistribution {
      * @return the scale parameter.
      */
     public double getScale() {
-        return beta;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        return FastMath.exp(-FastMath.abs(x - mu) / beta) / (2.0 * beta);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(double x) {
-        if (x <= mu) {
-            return FastMath.exp((x - mu) / beta) / 2.0;
-        } else {
-            return 1.0 - FastMath.exp((mu - x) / beta) / 2.0;
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double inverseCumulativeProbability(double p) throws OutOfRangeException {
-        if (p < 0.0 || p > 1.0) {
-            throw new OutOfRangeException(p, 0.0, 1.0);
-        } else if (p == 0) {
-            return Double.NEGATIVE_INFINITY;
-        } else if (p == 1) {
-            return Double.POSITIVE_INFINITY;
-        }
-        double x = (p > 0.5) ? -Math.log(2.0 - 2.0 * p) : Math.log(2.0 * p);
-        return mu + beta * x;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getNumericalMean() {
-        return mu;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getNumericalVariance() {
-        return 2.0 * beta * beta;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getSupportLowerBound() {
-        return Double.NEGATIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
-
 }

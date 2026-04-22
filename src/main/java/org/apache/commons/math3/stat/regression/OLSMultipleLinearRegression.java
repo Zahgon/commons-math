@@ -53,10 +53,14 @@ import org.apache.commons.math3.stat.descriptive.moment.SecondMoment;
  */
 public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegression {
 
-    /** Cached QR decomposition of X matrix */
+    /**
+     * Cached QR decomposition of X matrix
+     */
     private QRDecomposition qr = null;
 
-    /** Singularity threshold for QR decomposition */
+    /**
+     * Singularity threshold for QR decomposition
+     */
     private final double threshold;
 
     /**
@@ -87,9 +91,7 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      *             compatible for the regression
      */
     public void newSampleData(double[] y, double[][] x) throws MathIllegalArgumentException {
-        validateSampleData(x, y);
-        newYSampleData(y);
-        newXSampleData(x);
+        // STUB: not implemented
     }
 
     /**
@@ -98,8 +100,7 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     public void newSampleData(double[] data, int nobs, int nvars) {
-        super.newSampleData(data, nobs, nvars);
-        qr = new QRDecomposition(getX(), threshold);
+        // STUB: not implemented
     }
 
     /**
@@ -124,26 +125,8 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      * called beforehand.
      */
     public RealMatrix calculateHat() {
-        // Create augmented identity matrix
-        RealMatrix Q = qr.getQ();
-        final int p = qr.getR().getColumnDimension();
-        final int n = Q.getColumnDimension();
-        // No try-catch or advertised NotStrictlyPositiveException - NPE above if n < 3
-        Array2DRowRealMatrix augI = new Array2DRowRealMatrix(n, n);
-        double[][] augIData = augI.getDataRef();
-        for (int i = 0; i < n; i++) {
-            for (int j =0; j < n; j++) {
-                if (i == j && i < p) {
-                    augIData[i][j] = 1d;
-                } else {
-                    augIData[i][j] = 0d;
-                }
-            }
-        }
-
-        // Compute and return Hat matrix
-        // No DME advertised - args valid if we get here
-        return Q.multiply(augI).multiply(Q.transpose());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -161,11 +144,8 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      * @since 2.2
      */
     public double calculateTotalSumOfSquares() {
-        if (isNoIntercept()) {
-            return StatUtils.sumSq(getY().toArray());
-        } else {
-            return new SecondMoment().evaluate(getY().toArray());
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -177,9 +157,8 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      * @throws NullPointerException if the data for the model have not been loaded
      */
     public double calculateResidualSumOfSquares() {
-        final RealVector residuals = calculateResiduals();
-        // No advertised DME, args are valid
-        return residuals.dotProduct(residuals);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -197,7 +176,8 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      * @since 2.2
      */
     public double calculateRSquared() {
-        return 1 - calculateResidualSumOfSquares() / calculateTotalSumOfSquares();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -221,13 +201,8 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      * @since 2.2
      */
     public double calculateAdjustedRSquared() {
-        final double n = getX().getRowDimension();
-        if (isNoIntercept()) {
-            return 1 - (1 - calculateRSquared()) * (n / (n - getX().getColumnDimension()));
-        } else {
-            return 1 - (calculateResidualSumOfSquares() * (n - 1)) /
-                (calculateTotalSumOfSquares() * (n - getX().getColumnDimension()));
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -237,8 +212,7 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     protected void newXSampleData(double[][] x) {
-        super.newXSampleData(x);
-        qr = new QRDecomposition(getX(), threshold);
+        // STUB: not implemented
     }
 
     /**
@@ -254,7 +228,8 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     protected RealVector calculateBeta() {
-        return qr.getSolver().solve(getY());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -276,10 +251,7 @@ public class OLSMultipleLinearRegression extends AbstractMultipleLinearRegressio
      */
     @Override
     protected RealMatrix calculateBetaVariance() {
-        int p = getX().getColumnDimension();
-        RealMatrix Raug = qr.getR().getSubMatrix(0, p - 1 , 0, p - 1);
-        RealMatrix Rinv = new LUDecomposition(Raug).getSolver().getInverse();
-        return Rinv.multiply(Rinv.transpose());
+        // STUB: not implemented
+        return null;
     }
-
 }

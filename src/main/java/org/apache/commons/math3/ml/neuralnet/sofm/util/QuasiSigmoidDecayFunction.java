@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet.sofm.util;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -29,9 +28,15 @@ import org.apache.commons.math3.analysis.function.Logistic;
  * @since 3.3
  */
 public class QuasiSigmoidDecayFunction {
-    /** Sigmoid. */
+
+    /**
+     * Sigmoid.
+     */
     private final Logistic sigmoid;
-    /** See {@link #value(long)}. */
+
+    /**
+     * See {@link #value(long)}.
+     */
     private final double scale;
 
     /**
@@ -50,9 +55,7 @@ public class QuasiSigmoidDecayFunction {
      * @throws NumberIsTooLargeException if {@code slope >= 0}.
      * @throws NotStrictlyPositiveException if {@code numCall <= 0}.
      */
-    public QuasiSigmoidDecayFunction(double initValue,
-                                     double slope,
-                                     long numCall) {
+    public QuasiSigmoidDecayFunction(double initValue, double slope, long numCall) {
         if (initValue <= 0) {
             throw new NotStrictlyPositiveException(initValue);
         }
@@ -62,7 +65,6 @@ public class QuasiSigmoidDecayFunction {
         if (numCall <= 1) {
             throw new NotStrictlyPositiveException(numCall);
         }
-
         final double k = initValue;
         final double m = numCall;
         final double b = 4 * slope / initValue;
@@ -70,7 +72,6 @@ public class QuasiSigmoidDecayFunction {
         final double a = 0;
         final double n = 1;
         sigmoid = new Logistic(k, m, b, q, a, n);
-
         final double y0 = sigmoid.value(0);
         scale = k / y0;
     }
@@ -82,6 +83,7 @@ public class QuasiSigmoidDecayFunction {
      * @return the value of the function at {@code numCall}.
      */
     public double value(long numCall) {
-        return scale * sigmoid.value(numCall);
+        // STUB: not implemented
+        return 0.0;
     }
 }

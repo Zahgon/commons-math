@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.direct;
 
 import org.apache.commons.math3.analysis.MultivariateFunction;
@@ -41,10 +40,8 @@ import org.apache.commons.math3.optimization.ConvergenceChecker;
  * base class} contains similar functionality.
  */
 @Deprecated
-public abstract class BaseAbstractMultivariateSimpleBoundsOptimizer<FUNC extends MultivariateFunction>
-    extends BaseAbstractMultivariateOptimizer<FUNC>
-    implements BaseMultivariateOptimizer<FUNC>,
-               BaseMultivariateSimpleBoundsOptimizer<FUNC> {
+public abstract class BaseAbstractMultivariateSimpleBoundsOptimizer<FUNC extends MultivariateFunction> extends BaseAbstractMultivariateOptimizer<FUNC> implements BaseMultivariateOptimizer<FUNC>, BaseMultivariateSimpleBoundsOptimizer<FUNC> {
+
     /**
      * Simple constructor with default settings.
      * The convergence checker is set to a
@@ -54,7 +51,8 @@ public abstract class BaseAbstractMultivariateSimpleBoundsOptimizer<FUNC extends
      * @deprecated See {@link org.apache.commons.math3.optimization.SimpleValueChecker#SimpleValueChecker()}
      */
     @Deprecated
-    protected BaseAbstractMultivariateSimpleBoundsOptimizer() {}
+    protected BaseAbstractMultivariateSimpleBoundsOptimizer() {
+    }
 
     /**
      * @param checker Convergence checker.
@@ -63,20 +61,20 @@ public abstract class BaseAbstractMultivariateSimpleBoundsOptimizer<FUNC extends
         super(checker);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType,
-                                   double[] startPoint) {
-        return super.optimizeInternal(maxEval, f, goalType,
-                                      new InitialGuess(startPoint));
+    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType, double[] startPoint) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
-    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType,
-                                   double[] startPoint,
-                                   double[] lower, double[] upper) {
-        return super.optimizeInternal(maxEval, f, goalType,
-                                      new InitialGuess(startPoint),
-                                      new SimpleBounds(lower, upper));
+    /**
+     * {@inheritDoc}
+     */
+    public PointValuePair optimize(int maxEval, FUNC f, GoalType goalType, double[] startPoint, double[] lower, double[] upper) {
+        // STUB: not implemented
+        return null;
     }
 }

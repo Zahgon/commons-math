@@ -21,7 +21,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.apache.commons.math3.exception.MathArithmeticException;
 import org.apache.commons.math3.exception.NotANumberException;
 import org.apache.commons.math3.exception.NotFiniteNumberException;
@@ -53,7 +52,9 @@ import org.apache.commons.math3.util.Pair;
  */
 public class EnumeratedDistribution<T> implements Serializable {
 
-    /** Serializable UID. */
+    /**
+     * Serializable UID.
+     */
     private static final long serialVersionUID = 20123308L;
 
     /**
@@ -96,8 +97,7 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @throws NotANumberException if any of the probabilities are NaN.
      * @throws MathArithmeticException all of the probabilities are 0.
      */
-    public EnumeratedDistribution(final List<Pair<T, Double>> pmf)
-        throws NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
+    public EnumeratedDistribution(final List<Pair<T, Double>> pmf) throws NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
         this(new Well19937c(), pmf);
     }
 
@@ -113,13 +113,10 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @throws NotANumberException if any of the probabilities are NaN.
      * @throws MathArithmeticException all of the probabilities are 0.
      */
-    public EnumeratedDistribution(final RandomGenerator rng, final List<Pair<T, Double>> pmf)
-        throws NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
+    public EnumeratedDistribution(final RandomGenerator rng, final List<Pair<T, Double>> pmf) throws NotPositiveException, MathArithmeticException, NotFiniteNumberException, NotANumberException {
         random = rng;
-
         singletons = new ArrayList<T>(pmf.size());
         final double[] probs = new double[pmf.size()];
-
         for (int i = 0; i < pmf.size(); i++) {
             final Pair<T, Double> sample = pmf.get(i);
             singletons.add(sample.getKey());
@@ -135,9 +132,7 @@ public class EnumeratedDistribution<T> implements Serializable {
             }
             probs[i] = p;
         }
-
         probabilities = MathArrays.normalizeArray(probs, 1.0);
-
         cumulativeProbabilities = new double[probabilities.length];
         double sum = 0;
         for (int i = 0; i < probabilities.length; i++) {
@@ -152,7 +147,7 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @param seed the new seed
      */
     public void reseedRandomGenerator(long seed) {
-        random.setSeed(seed);
+        // STUB: not implemented
     }
 
     /**
@@ -168,16 +163,8 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @return the value of the probability mass function at {@code x}
      */
     double probability(final T x) {
-        double probability = 0;
-
-        for (int i = 0; i < probabilities.length; i++) {
-            if ((x == null && singletons.get(i) == null) ||
-                (x != null && x.equals(singletons.get(i)))) {
-                probability += probabilities[i];
-            }
-        }
-
-        return probability;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -191,13 +178,8 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @return the probability mass function.
      */
     public List<Pair<T, Double>> getPmf() {
-        final List<Pair<T, Double>> samples = new ArrayList<Pair<T, Double>>(probabilities.length);
-
-        for (int i = 0; i < probabilities.length; i++) {
-            samples.add(new Pair<T, Double>(singletons.get(i), probabilities[i]));
-        }
-
-        return samples;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -206,23 +188,8 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @return a random value.
      */
     public T sample() {
-        final double randomValue = random.nextDouble();
-
-        int index = Arrays.binarySearch(cumulativeProbabilities, randomValue);
-        if (index < 0) {
-            index = -index-1;
-        }
-
-        if (index >= 0 &&
-            index < probabilities.length &&
-            randomValue < cumulativeProbabilities[index]) {
-            return singletons.get(index);
-        }
-
-        /* This should never happen, but it ensures we will return a correct
-         * object in case there is some floating point inequality problem
-         * wrt the cumulative probabilities. */
-        return singletons.get(singletons.size() - 1);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -234,19 +201,8 @@ public class EnumeratedDistribution<T> implements Serializable {
      * positive.
      */
     public Object[] sample(int sampleSize) throws NotStrictlyPositiveException {
-        if (sampleSize <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.NUMBER_OF_SAMPLES,
-                    sampleSize);
-        }
-
-        final Object[] out = new Object[sampleSize];
-
-        for (int i = 0; i < sampleSize; i++) {
-            out[i] = sample();
-        }
-
-        return out;
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -263,29 +219,7 @@ public class EnumeratedDistribution<T> implements Serializable {
      * @throws NullArgumentException if {@code array} is null
      */
     public T[] sample(int sampleSize, final T[] array) throws NotStrictlyPositiveException {
-        if (sampleSize <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.NUMBER_OF_SAMPLES, sampleSize);
-        }
-
-        if (array == null) {
-            throw new NullArgumentException(LocalizedFormats.INPUT_ARRAY);
-        }
-
-        T[] out;
-        if (array.length < sampleSize) {
-            @SuppressWarnings("unchecked") // safe as both are of type T
-            final T[] unchecked = (T[]) Array.newInstance(array.getClass().getComponentType(), sampleSize);
-            out = unchecked;
-        } else {
-            out = array;
-        }
-
-        for (int i = 0; i < sampleSize; i++) {
-            out[i] = sample();
-        }
-
-        return out;
-
+        // STUB: not implemented
+        return null;
     }
-
 }

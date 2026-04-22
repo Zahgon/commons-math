@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.FunctionUtils;
@@ -30,7 +29,10 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class Power implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Power. */
+
+    /**
+     * Power.
+     */
     private final double p;
 
     /**
@@ -40,12 +42,16 @@ public class Power implements UnivariateDifferentiableFunction, DifferentiableUn
         this.p = p;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return FastMath.pow(x, p);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -53,11 +59,12 @@ public class Power implements UnivariateDifferentiableFunction, DifferentiableUn
         return FunctionUtils.toDifferentiableUnivariateFunction(this).derivative();
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
     public DerivativeStructure value(final DerivativeStructure t) {
-        return t.pow(p);
+        // STUB: not implemented
+        return null;
     }
-
 }

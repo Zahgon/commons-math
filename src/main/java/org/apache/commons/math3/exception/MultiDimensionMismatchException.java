@@ -25,12 +25,20 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 3.0
  */
 public class MultiDimensionMismatchException extends MathIllegalArgumentException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = -8415396756375798143L;
 
-    /** Wrong dimensions. */
+    /**
+     * Wrong dimensions.
+     */
     private final Integer[] wrong;
-    /** Correct dimensions. */
+
+    /**
+     * Correct dimensions.
+     */
     private final Integer[] expected;
 
     /**
@@ -39,8 +47,7 @@ public class MultiDimensionMismatchException extends MathIllegalArgumentExceptio
      * @param wrong Wrong dimensions.
      * @param expected Expected dimensions.
      */
-    public MultiDimensionMismatchException(Integer[] wrong,
-                                           Integer[] expected) {
+    public MultiDimensionMismatchException(Integer[] wrong, Integer[] expected) {
         this(LocalizedFormats.DIMENSIONS_MISMATCH, wrong, expected);
     }
 
@@ -52,9 +59,7 @@ public class MultiDimensionMismatchException extends MathIllegalArgumentExceptio
      * @param wrong Wrong dimensions.
      * @param expected Expected dimensions.
      */
-    public MultiDimensionMismatchException(Localizable specific,
-                                           Integer[] wrong,
-                                           Integer[] expected) {
+    public MultiDimensionMismatchException(Localizable specific, Integer[] wrong, Integer[] expected) {
         super(specific, wrong, expected);
         this.wrong = wrong.clone();
         this.expected = expected.clone();
@@ -64,13 +69,16 @@ public class MultiDimensionMismatchException extends MathIllegalArgumentExceptio
      * @return an array containing the wrong dimensions.
      */
     public Integer[] getWrongDimensions() {
-        return wrong.clone();
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return an array containing the expected dimensions.
      */
     public Integer[] getExpectedDimensions() {
-        return expected.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -78,13 +86,16 @@ public class MultiDimensionMismatchException extends MathIllegalArgumentExceptio
      * @return the wrong dimension stored at {@code index}.
      */
     public int getWrongDimension(int index) {
-        return wrong[index].intValue();
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * @param index Dimension index.
      * @return the expected dimension stored at {@code index}.
      */
     public int getExpectedDimension(int index) {
-        return expected[index].intValue();
+        // STUB: not implemented
+        return 0;
     }
 }

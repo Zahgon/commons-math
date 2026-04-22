@@ -23,41 +23,51 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
-
 import org.apache.commons.math3.geometry.Point;
 import org.apache.commons.math3.geometry.Space;
 import org.apache.commons.math3.geometry.Vector;
 
-/** Abstract class for all regions, independently of geometry type or dimension.
-
+/**
+ * Abstract class for all regions, independently of geometry type or dimension.
+ *
  * @param <S> Type of the space.
  * @param <T> Type of the sub-space.
-
+ *
  * @since 3.0
  */
 public abstract class AbstractRegion<S extends Space, T extends Space> implements Region<S> {
 
-    /** Inside/Outside BSP tree. */
+    /**
+     * Inside/Outside BSP tree.
+     */
     private BSPTree<S> tree;
 
-    /** Tolerance below which points are considered to belong to hyperplanes. */
+    /**
+     * Tolerance below which points are considered to belong to hyperplanes.
+     */
     private final double tolerance;
 
-    /** Size of the instance. */
+    /**
+     * Size of the instance.
+     */
     private double size;
 
-    /** Barycenter. */
+    /**
+     * Barycenter.
+     */
     private Point<S> barycenter;
 
-    /** Build a region representing the whole space.
+    /**
+     * Build a region representing the whole space.
      * @param tolerance tolerance below which points are considered identical.
      */
     protected AbstractRegion(final double tolerance) {
-        this.tree      = new BSPTree<S>(Boolean.TRUE);
+        this.tree = new BSPTree<S>(Boolean.TRUE);
         this.tolerance = tolerance;
     }
 
-    /** Build a region from an inside/outside BSP tree.
+    /**
+     * Build a region from an inside/outside BSP tree.
      * <p>The leaf nodes of the BSP tree <em>must</em> have a
      * {@code Boolean} attribute representing the inside status of
      * the corresponding cell (true for inside cells, false for outside
@@ -71,11 +81,12 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
      * @param tolerance tolerance below which points are considered identical.
      */
     protected AbstractRegion(final BSPTree<S> tree, final double tolerance) {
-        this.tree      = tree;
+        this.tree = tree;
         this.tolerance = tolerance;
     }
 
-    /** Build a Region from a Boundary REPresentation (B-rep).
+    /**
+     * Build a Region from a Boundary REPresentation (B-rep).
      * <p>The boundary is provided as a collection of {@link
      * SubHyperplane sub-hyperplanes}. Each sub-hyperplane has the
      * interior part of the region on its minus side and the exterior on
@@ -96,21 +107,19 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
      * @param tolerance tolerance below which points are considered identical.
      */
     protected AbstractRegion(final Collection<SubHyperplane<S>> boundary, final double tolerance) {
-
         this.tolerance = tolerance;
-
         if (boundary.size() == 0) {
-
             // the tree represents the whole space
             tree = new BSPTree<S>(Boolean.TRUE);
-
         } else {
-
             // sort the boundary elements in decreasing size order
             // (we don't want equal size elements to be removed, so
             // we use a trick to fool the TreeSet)
             final TreeSet<SubHyperplane<S>> ordered = new TreeSet<SubHyperplane<S>>(new Comparator<SubHyperplane<S>>() {
-                /** {@inheritDoc} */
+
+                /**
+                 * {@inheritDoc}
+                 */
                 public int compare(final SubHyperplane<S> o1, final SubHyperplane<S> o2) {
                     final double size1 = o1.getSize();
                     final double size2 = o2.getSize();
@@ -118,24 +127,28 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
                 }
             });
             ordered.addAll(boundary);
-
             // build the tree top-down
             tree = new BSPTree<S>();
             insertCuts(tree, ordered);
-
             // set up the inside/outside flags
             tree.visit(new BSPTreeVisitor<S>() {
 
-                /** {@inheritDoc} */
+                /**
+                 * {@inheritDoc}
+                 */
                 public Order visitOrder(final BSPTree<S> node) {
                     return Order.PLUS_SUB_MINUS;
                 }
 
-                /** {@inheritDoc} */
+                /**
+                 * {@inheritDoc}
+                 */
                 public void visitInternalNode(final BSPTree<S> node) {
                 }
 
-                /** {@inheritDoc} */
+                /**
+                 * {@inheritDoc}
+                 */
                 public void visitLeafNode(final BSPTree<S> node) {
                     if (node.getParent() == null || node == node.getParent().getMinus()) {
                         node.setAttribute(Boolean.TRUE);
@@ -144,12 +157,11 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
                     }
                 }
             });
-
         }
-
     }
 
-    /** Build a convex region from an array of bounding hyperplanes.
+    /**
+     * Build a convex region from an array of bounding hyperplanes.
      * @param hyperplanes array of bounding hyperplanes (if null, an
      * empty region will be built)
      * @param tolerance tolerance below which points are considered identical.
@@ -159,10 +171,8 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
         if ((hyperplanes == null) || (hyperplanes.length == 0)) {
             tree = new BSPTree<S>(Boolean.FALSE);
         } else {
-
             // use the first hyperplane to build the right class
             tree = hyperplanes[0].wholeSpace().getTree(false);
-
             // chop off parts of the space
             BSPTree<S> node = tree;
             node.setAttribute(Boolean.TRUE);
@@ -174,31 +184,32 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
                     node.setAttribute(Boolean.TRUE);
                 }
             }
-
         }
-
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public abstract AbstractRegion<S, T> buildNew(BSPTree<S> newTree);
 
-    /** Get the tolerance below which points are considered to belong to hyperplanes.
+    /**
+     * Get the tolerance below which points are considered to belong to hyperplanes.
      * @return tolerance below which points are considered to belong to hyperplanes
      */
     public double getTolerance() {
-        return tolerance;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Recursively build a tree by inserting cut sub-hyperplanes.
+    /**
+     * Recursively build a tree by inserting cut sub-hyperplanes.
      * @param node current tree node (it is a leaf node at the beginning
      * of the call)
      * @param boundary collection of edges belonging to the cell defined
      * by the node
      */
     private void insertCuts(final BSPTree<S> node, final Collection<SubHyperplane<S>> boundary) {
-
         final Iterator<SubHyperplane<S>> iterator = boundary.iterator();
-
         // build the current level
         Hyperplane<S> inserted = null;
         while ((inserted == null) && iterator.hasNext()) {
@@ -207,118 +218,113 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
                 inserted = null;
             }
         }
-
         if (!iterator.hasNext()) {
             return;
         }
-
         // distribute the remaining edges in the two sub-trees
-        final ArrayList<SubHyperplane<S>> plusList  = new ArrayList<SubHyperplane<S>>();
+        final ArrayList<SubHyperplane<S>> plusList = new ArrayList<SubHyperplane<S>>();
         final ArrayList<SubHyperplane<S>> minusList = new ArrayList<SubHyperplane<S>>();
         while (iterator.hasNext()) {
             final SubHyperplane<S> other = iterator.next();
             final SubHyperplane.SplitSubHyperplane<S> split = other.split(inserted);
-            switch (split.getSide()) {
-            case PLUS:
-                plusList.add(other);
-                break;
-            case MINUS:
-                minusList.add(other);
-                break;
-            case BOTH:
-                plusList.add(split.getPlus());
-                minusList.add(split.getMinus());
-                break;
-            default:
-                // ignore the sub-hyperplanes belonging to the cut hyperplane
+            switch(split.getSide()) {
+                case PLUS:
+                    plusList.add(other);
+                    break;
+                case MINUS:
+                    minusList.add(other);
+                    break;
+                case BOTH:
+                    plusList.add(split.getPlus());
+                    minusList.add(split.getMinus());
+                    break;
+                default:
             }
         }
-
         // recurse through lower levels
-        insertCuts(node.getPlus(),  plusList);
+        insertCuts(node.getPlus(), plusList);
         insertCuts(node.getMinus(), minusList);
-
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public AbstractRegion<S, T> copySelf() {
-        return buildNew(tree.copySelf());
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isEmpty() {
-        return isEmpty(tree);
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isEmpty(final BSPTree<S> node) {
-
-        // we use a recursive function rather than the BSPTreeVisitor
-        // interface because we can stop visiting the tree as soon as we
-        // have found an inside cell
-
-        if (node.getCut() == null) {
-            // if we find an inside node, the region is not empty
-            return !((Boolean) node.getAttribute());
-        }
-
-        // check both sides of the sub-tree
-        return isEmpty(node.getMinus()) && isEmpty(node.getPlus());
-
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isFull() {
-        return isFull(tree);
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isFull(final BSPTree<S> node) {
-
-        // we use a recursive function rather than the BSPTreeVisitor
-        // interface because we can stop visiting the tree as soon as we
-        // have found an outside cell
-
-        if (node.getCut() == null) {
-            // if we find an outside node, the region does not cover full space
-            return (Boolean) node.getAttribute();
-        }
-
-        // check both sides of the sub-tree
-        return isFull(node.getMinus()) && isFull(node.getPlus());
-
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean contains(final Region<S> region) {
-        return new RegionFactory<S>().difference(region, this).isEmpty();
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.3
      */
     public BoundaryProjection<S> projectToBoundary(final Point<S> point) {
-        final BoundaryProjector<S, T> projector = new BoundaryProjector<S, T>(point);
-        getTree(true).visit(projector);
-        return projector.getProjection();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Check a point with respect to the region.
+    /**
+     * Check a point with respect to the region.
      * @param point point to check
      * @return a code representing the point status: either {@link
      * Region.Location#INSIDE}, {@link Region.Location#OUTSIDE} or
      * {@link Region.Location#BOUNDARY}
      */
     public Location checkPoint(final Vector<S> point) {
-        return checkPoint((Point<S>) point);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Location checkPoint(final Point<S> point) {
-        return checkPoint(tree, point);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Check a point with respect to the region starting at a given node.
+    /**
+     * Check a point with respect to the region starting at a given node.
      * @param node root node of the region
      * @param point point to check
      * @return a code representing the point status: either {@link
@@ -326,10 +332,12 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
      * OUTSIDE} or {@link Region.Location#BOUNDARY BOUNDARY}
      */
     protected Location checkPoint(final BSPTree<S> node, final Vector<S> point) {
-        return checkPoint(node, (Point<S>) point);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Check a point with respect to the region starting at a given node.
+    /**
+     * Check a point with respect to the region starting at a given node.
      * @param node root node of the region
      * @param point point to check
      * @return a code representing the point status: either {@link
@@ -337,110 +345,107 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
      * OUTSIDE} or {@link Region.Location#BOUNDARY BOUNDARY}
      */
     protected Location checkPoint(final BSPTree<S> node, final Point<S> point) {
-        final BSPTree<S> cell = node.getCell(point, tolerance);
-        if (cell.getCut() == null) {
-            // the point is in the interior of a cell, just check the attribute
-            return ((Boolean) cell.getAttribute()) ? Location.INSIDE : Location.OUTSIDE;
-        }
-
-        // the point is on a cut-sub-hyperplane, is it on a boundary ?
-        final Location minusCode = checkPoint(cell.getMinus(), point);
-        final Location plusCode  = checkPoint(cell.getPlus(),  point);
-        return (minusCode == plusCode) ? minusCode : Location.BOUNDARY;
-
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public BSPTree<S> getTree(final boolean includeBoundaryAttributes) {
-        if (includeBoundaryAttributes && (tree.getCut() != null) && (tree.getAttribute() == null)) {
-            // compute the boundary attributes
-            tree.visit(new BoundaryBuilder<S>());
-        }
-        return tree;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getBoundarySize() {
-        final BoundarySizeVisitor<S> visitor = new BoundarySizeVisitor<S>();
-        getTree(true).visit(visitor);
-        return visitor.getSize();
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getSize() {
-        if (barycenter == null) {
-            computeGeometricalProperties();
-        }
-        return size;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** Set the size of the instance.
+    /**
+     * Set the size of the instance.
      * @param size size of the instance
      */
     protected void setSize(final double size) {
-        this.size = size;
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Point<S> getBarycenter() {
-        if (barycenter == null) {
-            computeGeometricalProperties();
-        }
-        return barycenter;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Set the barycenter of the instance.
+    /**
+     * Set the barycenter of the instance.
      * @param barycenter barycenter of the instance
      */
     protected void setBarycenter(final Vector<S> barycenter) {
-        setBarycenter((Point<S>) barycenter);
+        // STUB: not implemented
     }
 
-    /** Set the barycenter of the instance.
+    /**
+     * Set the barycenter of the instance.
      * @param barycenter barycenter of the instance
      */
     protected void setBarycenter(final Point<S> barycenter) {
-        this.barycenter = barycenter;
+        // STUB: not implemented
     }
 
-    /** Compute some geometrical properties.
+    /**
+     * Compute some geometrical properties.
      * <p>The properties to compute are the barycenter and the size.</p>
      */
     protected abstract void computeGeometricalProperties();
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Deprecated
     public Side side(final Hyperplane<S> hyperplane) {
         final InsideFinder<S> finder = new InsideFinder<S>(this);
         finder.recurseSides(tree, hyperplane.wholeHyperplane());
-        return finder.plusFound() ?
-              (finder.minusFound() ? Side.BOTH  : Side.PLUS) :
-              (finder.minusFound() ? Side.MINUS : Side.HYPER);
+        return finder.plusFound() ? (finder.minusFound() ? Side.BOTH : Side.PLUS) : (finder.minusFound() ? Side.MINUS : Side.HYPER);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public SubHyperplane<S> intersection(final SubHyperplane<S> sub) {
-        return recurseIntersection(tree, sub);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Recursively compute the parts of a sub-hyperplane that are
+    /**
+     * Recursively compute the parts of a sub-hyperplane that are
      * contained in the region.
      * @param node current BSP tree node
      * @param sub sub-hyperplane traversing the region
      * @return filtered sub-hyperplane
      */
     private SubHyperplane<S> recurseIntersection(final BSPTree<S> node, final SubHyperplane<S> sub) {
-
         if (node.getCut() == null) {
             return (Boolean) node.getAttribute() ? sub.copySelf() : null;
         }
-
         final Hyperplane<S> hyperplane = node.getCut().getHyperplane();
         final SubHyperplane.SplitSubHyperplane<S> split = sub.split(hyperplane);
         if (split.getPlus() != null) {
             if (split.getMinus() != null) {
                 // both sides
-                final SubHyperplane<S> plus  = recurseIntersection(node.getPlus(),  split.getPlus());
+                final SubHyperplane<S> plus = recurseIntersection(node.getPlus(), split.getPlus());
                 final SubHyperplane<S> minus = recurseIntersection(node.getMinus(), split.getMinus());
                 if (plus == null) {
                     return minus;
@@ -458,13 +463,12 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
             return recurseIntersection(node.getMinus(), sub);
         } else {
             // on hyperplane
-            return recurseIntersection(node.getPlus(),
-                                       recurseIntersection(node.getMinus(), sub));
+            return recurseIntersection(node.getPlus(), recurseIntersection(node.getMinus(), sub));
         }
-
     }
 
-    /** Transform a region.
+    /**
+     * Transform a region.
      * <p>Applying a transform to a region consist in applying the
      * transform to all the hyperplanes of the underlying BSP tree and
      * of the boundary (and also to the sub-hyperplanes embedded in
@@ -475,66 +479,35 @@ public abstract class AbstractRegion<S extends Space, T extends Space> implement
      * transform to the instance
      */
     public AbstractRegion<S, T> applyTransform(final Transform<S, T> transform) {
-
-        // transform the tree, except for boundary attribute splitters
-        final Map<BSPTree<S>, BSPTree<S>> map = new HashMap<BSPTree<S>, BSPTree<S>>();
-        final BSPTree<S> transformedTree = recurseTransform(getTree(false), transform, map);
-
-        // set up the boundary attributes splitters
-        for (final Map.Entry<BSPTree<S>, BSPTree<S>> entry : map.entrySet()) {
-            if (entry.getKey().getCut() != null) {
-                @SuppressWarnings("unchecked")
-                BoundaryAttribute<S> original = (BoundaryAttribute<S>) entry.getKey().getAttribute();
-                if (original != null) {
-                    @SuppressWarnings("unchecked")
-                    BoundaryAttribute<S> transformed = (BoundaryAttribute<S>) entry.getValue().getAttribute();
-                    for (final BSPTree<S> splitter : original.getSplitters()) {
-                        transformed.getSplitters().add(map.get(splitter));
-                    }
-                }
-            }
-        }
-
-        return buildNew(transformedTree);
-
+        // STUB: not implemented
+        return null;
     }
 
-    /** Recursively transform an inside/outside BSP-tree.
+    /**
+     * Recursively transform an inside/outside BSP-tree.
      * @param node current BSP tree node
      * @param transform transform to apply
      * @param map transformed nodes map
      * @return a new tree
      */
     @SuppressWarnings("unchecked")
-    private BSPTree<S> recurseTransform(final BSPTree<S> node, final Transform<S, T> transform,
-                                        final Map<BSPTree<S>, BSPTree<S>> map) {
-
+    private BSPTree<S> recurseTransform(final BSPTree<S> node, final Transform<S, T> transform, final Map<BSPTree<S>, BSPTree<S>> map) {
         final BSPTree<S> transformedNode;
         if (node.getCut() == null) {
             transformedNode = new BSPTree<S>(node.getAttribute());
         } else {
-
-            final SubHyperplane<S>  sub = node.getCut();
+            final SubHyperplane<S> sub = node.getCut();
             final SubHyperplane<S> tSub = ((AbstractSubHyperplane<S, T>) sub).applyTransform(transform);
             BoundaryAttribute<S> attribute = (BoundaryAttribute<S>) node.getAttribute();
             if (attribute != null) {
-                final SubHyperplane<S> tPO = (attribute.getPlusOutside() == null) ?
-                    null : ((AbstractSubHyperplane<S, T>) attribute.getPlusOutside()).applyTransform(transform);
-                final SubHyperplane<S> tPI = (attribute.getPlusInside()  == null) ?
-                    null  : ((AbstractSubHyperplane<S, T>) attribute.getPlusInside()).applyTransform(transform);
+                final SubHyperplane<S> tPO = (attribute.getPlusOutside() == null) ? null : ((AbstractSubHyperplane<S, T>) attribute.getPlusOutside()).applyTransform(transform);
+                final SubHyperplane<S> tPI = (attribute.getPlusInside() == null) ? null : ((AbstractSubHyperplane<S, T>) attribute.getPlusInside()).applyTransform(transform);
                 // we start with an empty list of splitters, it will be filled in out of recursion
                 attribute = new BoundaryAttribute<S>(tPO, tPI, new NodesSet<S>());
             }
-
-            transformedNode = new BSPTree<S>(tSub,
-                                             recurseTransform(node.getPlus(),  transform, map),
-                                             recurseTransform(node.getMinus(), transform, map),
-                                             attribute);
+            transformedNode = new BSPTree<S>(tSub, recurseTransform(node.getPlus(), transform, map), recurseTransform(node.getMinus(), transform, map), attribute);
         }
-
         map.put(node, transformedNode);
         return transformedNode;
-
     }
-
 }

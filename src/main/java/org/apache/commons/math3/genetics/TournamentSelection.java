@@ -18,7 +18,6 @@ package org.apache.commons.math3.genetics;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
 
@@ -32,7 +31,9 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 public class TournamentSelection implements SelectionPolicy {
 
-    /** number of chromosomes included in the tournament selections */
+    /**
+     * number of chromosomes included in the tournament selections
+     */
     private int arity;
 
     /**
@@ -55,8 +56,8 @@ public class TournamentSelection implements SelectionPolicy {
      * @throws MathIllegalArgumentException if the tournament arity is bigger than the population size
      */
     public ChromosomePair select(final Population population) throws MathIllegalArgumentException {
-        return new ChromosomePair(tournament((ListPopulation) population),
-                                  tournament((ListPopulation) population));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -69,21 +70,22 @@ public class TournamentSelection implements SelectionPolicy {
      */
     private Chromosome tournament(final ListPopulation population) throws MathIllegalArgumentException {
         if (population.getPopulationSize() < this.arity) {
-            throw new MathIllegalArgumentException(LocalizedFormats.TOO_LARGE_TOURNAMENT_ARITY,
-                                                   arity, population.getPopulationSize());
+            throw new MathIllegalArgumentException(LocalizedFormats.TOO_LARGE_TOURNAMENT_ARITY, arity, population.getPopulationSize());
         }
         // auxiliary population
         ListPopulation tournamentPopulation = new ListPopulation(this.arity) {
-            /** {@inheritDoc} */
+
+            /**
+             * {@inheritDoc}
+             */
             public Population nextGeneration() {
                 // not useful here
                 return null;
             }
         };
-
         // create a copy of the chromosome list
-        List<Chromosome> chromosomes = new ArrayList<Chromosome> (population.getChromosomes());
-        for (int i=0; i<this.arity; i++) {
+        List<Chromosome> chromosomes = new ArrayList<Chromosome>(population.getChromosomes());
+        for (int i = 0; i < this.arity; i++) {
             // select a random individual and add it to the tournament
             int rind = GeneticAlgorithm.getRandomGenerator().nextInt(chromosomes.size());
             tournamentPopulation.addChromosome(chromosomes.get(rind));
@@ -100,7 +102,8 @@ public class TournamentSelection implements SelectionPolicy {
      * @return arity of the tournament
      */
     public int getArity() {
-        return arity;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -109,7 +112,6 @@ public class TournamentSelection implements SelectionPolicy {
      * @param arity arity of the tournament
      */
     public void setArity(final int arity) {
-        this.arity = arity;
+        // STUB: not implemented
     }
-
 }

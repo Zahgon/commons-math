@@ -27,10 +27,14 @@ import org.apache.commons.math3.FieldElement;
  */
 public class Decimal64Field implements Field<Decimal64> {
 
-    /** The unique instance of this class. */
+    /**
+     * The unique instance of this class.
+     */
     private static final Decimal64Field INSTANCE = new Decimal64Field();
 
-    /** Default constructor. */
+    /**
+     * Default constructor.
+     */
     private Decimal64Field() {
         // Do nothing
     }
@@ -41,21 +45,31 @@ public class Decimal64Field implements Field<Decimal64> {
      * @return the unique instance of this class
      */
     public static final Decimal64Field getInstance() {
-        return INSTANCE;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Decimal64 getZero() {
-        return Decimal64.ZERO;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Decimal64 getOne() {
-        return Decimal64.ONE;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Class<? extends FieldElement<Decimal64>> getRuntimeClass() {
-        return Decimal64.class;
+        // STUB: not implemented
+        return null;
     }
 }

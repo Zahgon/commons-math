@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.random;
 
 /**
@@ -23,24 +22,27 @@ package org.apache.commons.math3.random;
  * RandomGenerator#nextGaussian} method.</p>
  * @since 1.2
  */
-
 public class GaussianRandomGenerator implements NormalizedRandomGenerator {
 
-    /** Underlying generator. */
+    /**
+     * Underlying generator.
+     */
     private final RandomGenerator generator;
 
-    /** Create a new generator.
+    /**
+     * Create a new generator.
      * @param generator underlying random generator to use
      */
     public GaussianRandomGenerator(final RandomGenerator generator) {
         this.generator = generator;
     }
 
-    /** Generate a random scalar with null mean and unit standard deviation.
+    /**
+     * Generate a random scalar with null mean and unit standard deviation.
      * @return a random scalar with null mean and unit standard deviation
      */
     public double nextNormalizedDouble() {
-        return generator.nextGaussian();
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

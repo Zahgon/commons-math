@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.geometry.euclidean.oned;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathUnsupportedOperationException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
 import org.apache.commons.math3.geometry.Space;
@@ -29,27 +27,36 @@ import org.apache.commons.math3.geometry.Space;
  */
 public class Euclidean1D implements Serializable, Space {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -1178039568877797126L;
 
-    /** Private constructor for the singleton.
+    /**
+     * Private constructor for the singleton.
      */
     private Euclidean1D() {
     }
 
-    /** Get the unique instance.
+    /**
+     * Get the unique instance.
      * @return the unique instance
      */
     public static Euclidean1D getInstance() {
-        return LazyHolder.INSTANCE;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getDimension() {
-        return 1;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * <p>
      * As the 1-dimension Euclidean space does not have proper sub-spaces,
      * this method always throws a {@link NoSubSpaceException}
@@ -58,20 +65,26 @@ public class Euclidean1D implements Serializable, Space {
      * @throws NoSubSpaceException in all cases
      */
     public Space getSubSpace() throws NoSubSpaceException {
-        throw new NoSubSpaceException();
+        // STUB: not implemented
+        return null;
     }
 
     // CHECKSTYLE: stop HideUtilityClassConstructor
-    /** Holder for the instance.
+    /**
+     * Holder for the instance.
      * <p>We use here the Initialization On Demand Holder Idiom.</p>
      */
     private static class LazyHolder {
-        /** Cached field instance. */
+
+        /**
+         * Cached field instance.
+         */
         private static final Euclidean1D INSTANCE = new Euclidean1D();
     }
-    // CHECKSTYLE: resume HideUtilityClassConstructor
 
-    /** Handle deserialization of the singleton.
+    // CHECKSTYLE: resume HideUtilityClassConstructor
+    /**
+     * Handle deserialization of the singleton.
      * @return the singleton instance
      */
     private Object readResolve() {
@@ -79,22 +92,24 @@ public class Euclidean1D implements Serializable, Space {
         return LazyHolder.INSTANCE;
     }
 
-    /** Specialized exception for inexistent sub-space.
+    /**
+     * Specialized exception for inexistent sub-space.
      * <p>
      * This exception is thrown when attempting to get the sub-space of a one-dimensional space
      * </p>
      */
     public static class NoSubSpaceException extends MathUnsupportedOperationException {
 
-        /** Serializable UID. */
+        /**
+         * Serializable UID.
+         */
         private static final long serialVersionUID = 20140225L;
 
-        /** Simple constructor.
+        /**
+         * Simple constructor.
          */
         public NoSubSpaceException() {
             super(LocalizedFormats.NOT_SUPPORTED_IN_DIMENSION_N, 1);
         }
-
     }
-
 }

@@ -28,11 +28,20 @@ import org.apache.commons.math3.exception.OutOfRangeException;
  * @since 3.1
  */
 public class SearchInterval implements OptimizationData {
-    /** Lower bound. */
+
+    /**
+     * Lower bound.
+     */
     private final double lower;
-    /** Upper bound. */
+
+    /**
+     * Upper bound.
+     */
     private final double upper;
-    /** Start value. */
+
+    /**
+     * Start value.
+     */
     private final double start;
 
     /**
@@ -42,17 +51,13 @@ public class SearchInterval implements OptimizationData {
      * @throws NumberIsTooLargeException if {@code lo >= hi}.
      * @throws OutOfRangeException if {@code init < lo} or {@code init > hi}.
      */
-    public SearchInterval(double lo,
-                          double hi,
-                          double init) {
+    public SearchInterval(double lo, double hi, double init) {
         if (lo >= hi) {
             throw new NumberIsTooLargeException(lo, hi, false);
         }
-        if (init < lo ||
-            init > hi) {
+        if (init < lo || init > hi) {
             throw new OutOfRangeException(init, lo, hi);
         }
-
         lower = lo;
         upper = hi;
         start = init;
@@ -63,8 +68,7 @@ public class SearchInterval implements OptimizationData {
      * @param hi Upper bound.
      * @throws NumberIsTooLargeException if {@code lo >= hi}.
      */
-    public SearchInterval(double lo,
-                          double hi) {
+    public SearchInterval(double lo, double hi) {
         this(lo, hi, 0.5 * (lo + hi));
     }
 
@@ -74,22 +78,27 @@ public class SearchInterval implements OptimizationData {
      * @return the lower bound.
      */
     public double getMin() {
-        return lower;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * Gets the upper bound.
      *
      * @return the upper bound.
      */
     public double getMax() {
-        return upper;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * Gets the start value.
      *
      * @return the start value.
      */
     public double getStartValue() {
-        return start;
+        // STUB: not implemented
+        return 0.0;
     }
 }

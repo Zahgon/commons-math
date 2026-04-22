@@ -24,7 +24,6 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
-
 import org.apache.commons.math3.exception.MathInternalError;
 import org.apache.commons.math3.exception.MathParseException;
 import org.apache.commons.math3.exception.NotPositiveException;
@@ -55,31 +54,49 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class SobolSequenceGenerator implements RandomVectorGenerator {
 
-    /** The number of bits to use. */
+    /**
+     * The number of bits to use.
+     */
     private static final int BITS = 52;
 
-    /** The scaling factor. */
+    /**
+     * The scaling factor.
+     */
     private static final double SCALE = FastMath.pow(2, BITS);
 
-    /** The maximum supported space dimension. */
+    /**
+     * The maximum supported space dimension.
+     */
     private static final int MAX_DIMENSION = 1000;
 
-    /** The resource containing the direction numbers. */
+    /**
+     * The resource containing the direction numbers.
+     */
     private static final String RESOURCE_NAME = "/assets/org/apache/commons/math3/random/new-joe-kuo-6.1000";
 
-    /** Character set for file input. */
+    /**
+     * Character set for file input.
+     */
     private static final String FILE_CHARSET = "US-ASCII";
 
-    /** Space dimension. */
+    /**
+     * Space dimension.
+     */
     private final int dimension;
 
-    /** The current index in the sequence. */
+    /**
+     * The current index in the sequence.
+     */
     private int count = 0;
 
-    /** The direction vector for each component. */
+    /**
+     * The direction vector for each component.
+     */
     private final long[][] direction;
 
-    /** The current state. */
+    /**
+     * The current state.
+     */
     private final long[] x;
 
     /**
@@ -92,19 +109,15 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
         if (dimension < 1 || dimension > MAX_DIMENSION) {
             throw new OutOfRangeException(dimension, 1, MAX_DIMENSION);
         }
-
         // initialize the other dimensions with direction numbers from a resource
         final InputStream is = getClass().getResourceAsStream(RESOURCE_NAME);
         if (is == null) {
             throw new MathInternalError();
         }
-
         this.dimension = dimension;
-
         // init data structures
         direction = new long[dimension][BITS + 1];
         x = new long[dimension];
-
         try {
             initFromStream(is);
         } catch (IOException e) {
@@ -116,7 +129,8 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
         } finally {
             try {
                 is.close();
-            } catch (IOException e) { // NOPMD
+            } catch (IOException e) {
+                // NOPMD
                 // ignore
             }
         }
@@ -153,19 +167,14 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
      * @throws MathParseException if the content in the stream could not be parsed successfully
      * @throws IOException if an error occurs while reading from the input stream
      */
-    public SobolSequenceGenerator(final int dimension, final InputStream is)
-            throws NotStrictlyPositiveException, MathParseException, IOException {
-
+    public SobolSequenceGenerator(final int dimension, final InputStream is) throws NotStrictlyPositiveException, MathParseException, IOException {
         if (dimension < 1) {
             throw new NotStrictlyPositiveException(dimension);
         }
-
         this.dimension = dimension;
-
         // init data structures
         direction = new long[dimension][BITS + 1];
         x = new long[dimension];
-
         // initialize the other dimensions with direction numbers from the stream
         int lastDimension = initFromStream(is);
         if (lastDimension < dimension) {
@@ -185,28 +194,25 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
      * @throws MathParseException if the content could not be parsed successfully
      */
     private int initFromStream(final InputStream is) throws MathParseException, IOException {
-
         // special case: dimension 1 -> use unit initialization
         for (int i = 1; i <= BITS; i++) {
             direction[0][i] = 1l << (BITS - i);
         }
-
         final Charset charset = Charset.forName(FILE_CHARSET);
         final BufferedReader reader = new BufferedReader(new InputStreamReader(is, charset));
         int dim = -1;
-
         try {
             // ignore first line
             reader.readLine();
-
             int lineNumber = 2;
             int index = 1;
             String line = null;
-            while ( (line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 StringTokenizer st = new StringTokenizer(line, " ");
                 try {
                     dim = Integer.parseInt(st.nextToken());
-                    if (dim >= 2 && dim <= dimension) { // we have found the right dimension
+                    if (dim >= 2 && dim <= dimension) {
+                        // we have found the right dimension
                         final int s = Integer.parseInt(st.nextToken());
                         final int a = Integer.parseInt(st.nextToken());
                         final int[] m = new int[s + 1];
@@ -215,7 +221,6 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
                         }
                         initDirectionVector(index++, a, m);
                     }
-
                     if (dim > dimension) {
                         return dim;
                     }
@@ -229,7 +234,6 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
         } finally {
             reader.close();
         }
-
         return dim;
     }
 
@@ -253,28 +257,12 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double[] nextVector() {
-        final double[] v = new double[dimension];
-        if (count == 0) {
-            count++;
-            return v;
-        }
-
-        // find the index c of the rightmost 0
-        int c = 1;
-        int value = count - 1;
-        while ((value & 1) == 1) {
-            value >>= 1;
-            c++;
-        }
-
-        for (int i = 0; i < dimension; i++) {
-            x[i] ^= direction[i][c];
-            v[i] = (double) x[i] / SCALE;
-        }
-        count++;
-        return v;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -287,29 +275,8 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
      * @throws NotPositiveException if index &lt; 0
      */
     public double[] skipTo(final int index) throws NotPositiveException {
-        if (index == 0) {
-            // reset x vector
-            Arrays.fill(x, 0);
-        } else {
-            final int i = index - 1;
-            final long grayCode = i ^ (i >> 1); // compute the gray code of i = i XOR floor(i / 2)
-            for (int j = 0; j < dimension; j++) {
-                long result = 0;
-                for (int k = 1; k <= BITS; k++) {
-                    final long shift = grayCode >> (k - 1);
-                    if (shift == 0) {
-                        // stop, as all remaining bits will be zero
-                        break;
-                    }
-                    // the k-th bit of i
-                    final long ik = shift & 1;
-                    result ^= ik * direction[j][k];
-                }
-                x[j] = result;
-            }
-        }
-        count = index;
-        return nextVector();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -319,7 +286,7 @@ public class SobolSequenceGenerator implements RandomVectorGenerator {
      * @return the index of the next point
      */
     public int getNextIndex() {
-        return count;
+        // STUB: not implemented
+        return 0;
     }
-
 }

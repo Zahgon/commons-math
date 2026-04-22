@@ -17,7 +17,6 @@
 package org.apache.commons.math3.fitting;
 
 import java.util.Collection;
-
 import org.apache.commons.math3.analysis.MultivariateVectorFunction;
 import org.apache.commons.math3.analysis.MultivariateMatrixFunction;
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
@@ -50,6 +49,7 @@ import org.apache.commons.math3.fitting.leastsquares.LevenbergMarquardtOptimizer
  * @since 3.3
  */
 public abstract class AbstractCurveFitter {
+
     /**
      * Fits a curve.
      * This method computes the coefficients of the curve that best
@@ -59,8 +59,8 @@ public abstract class AbstractCurveFitter {
      * @return the fitted parameters.
      */
     public double[] fit(Collection<WeightedObservedPoint> points) {
-        // Perform the fit.
-        return getOptimizer().optimize(getProblem(points)).getPoint().toArray();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -73,7 +73,8 @@ public abstract class AbstractCurveFitter {
      * given {@code points}.
      */
     protected LeastSquaresOptimizer getOptimizer() {
-        return new LevenbergMarquardtOptimizer();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -89,19 +90,23 @@ public abstract class AbstractCurveFitter {
      * Vector function for computing function theoretical values.
      */
     protected static class TheoreticalValuesFunction {
-        /** Function to fit. */
+
+        /**
+         * Function to fit.
+         */
         private final ParametricUnivariateFunction f;
-        /** Observations. */
+
+        /**
+         * Observations.
+         */
         private final double[] points;
 
         /**
          * @param f function to fit.
          * @param observations Observations.
          */
-        public TheoreticalValuesFunction(final ParametricUnivariateFunction f,
-                                         final Collection<WeightedObservedPoint> observations) {
+        public TheoreticalValuesFunction(final ParametricUnivariateFunction f, final Collection<WeightedObservedPoint> observations) {
             this.f = f;
-
             final int len = observations.size();
             this.points = new double[len];
             int i = 0;
@@ -114,35 +119,16 @@ public abstract class AbstractCurveFitter {
          * @return the model function values.
          */
         public MultivariateVectorFunction getModelFunction() {
-            return new MultivariateVectorFunction() {
-                /** {@inheritDoc} */
-                public double[] value(double[] p) {
-                    final int len = points.length;
-                    final double[] values = new double[len];
-                    for (int i = 0; i < len; i++) {
-                        values[i] = f.value(points[i], p);
-                    }
-
-                    return values;
-                }
-            };
+            // STUB: not implemented
+            return null;
         }
 
         /**
          * @return the model function Jacobian.
          */
         public MultivariateMatrixFunction getModelFunctionJacobian() {
-            return new MultivariateMatrixFunction() {
-                /** {@inheritDoc} */
-                public double[][] value(double[] p) {
-                    final int len = points.length;
-                    final double[][] jacobian = new double[len][];
-                    for (int i = 0; i < len; i++) {
-                        jacobian[i] = f.gradient(points[i], p);
-                    }
-                    return jacobian;
-                }
-            };
+            // STUB: not implemented
+            return null;
         }
     }
 }

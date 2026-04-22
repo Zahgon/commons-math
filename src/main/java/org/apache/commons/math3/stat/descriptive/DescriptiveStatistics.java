@@ -19,7 +19,6 @@ package org.apache.commons.math3.stat.descriptive;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.exception.MathIllegalStateException;
@@ -38,7 +37,6 @@ import org.apache.commons.math3.util.MathUtils;
 import org.apache.commons.math3.util.ResizableDoubleArray;
 import org.apache.commons.math3.util.FastMath;
 
-
 /**
  * Maintains a dataset of values of a single variable and computes descriptive
  * statistics based on stored data. The {@link #getWindowSize() windowSize}
@@ -55,7 +53,6 @@ import org.apache.commons.math3.util.FastMath;
  * <p>Note: this class is not threadsafe.  Use
  * {@link SynchronizedDescriptiveStatistics} if concurrent access from multiple
  * threads is required.</p>
- *
  */
 public class DescriptiveStatistics implements StatisticalSummary, Serializable {
 
@@ -66,13 +63,19 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      */
     public static final int INFINITE_WINDOW = -1;
 
-    /** Serialization UID */
+    /**
+     * Serialization UID
+     */
     private static final long serialVersionUID = 4133067267405273064L;
 
-    /** Name of the setQuantile method. */
+    /**
+     * Name of the setQuantile method.
+     */
     private static final String SET_QUANTILE_METHOD_NAME = "setQuantile";
 
-    /** hold the window size **/
+    /**
+     * hold the window size *
+     */
     protected int windowSize = INFINITE_WINDOW;
 
     /**
@@ -80,34 +83,54 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      */
     private ResizableDoubleArray eDA = new ResizableDoubleArray();
 
-    /** Mean statistic implementation - can be reset by setter. */
+    /**
+     * Mean statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic meanImpl = new Mean();
 
-    /** Geometric mean statistic implementation - can be reset by setter. */
+    /**
+     * Geometric mean statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic geometricMeanImpl = new GeometricMean();
 
-    /** Kurtosis statistic implementation - can be reset by setter. */
+    /**
+     * Kurtosis statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic kurtosisImpl = new Kurtosis();
 
-    /** Maximum statistic implementation - can be reset by setter. */
+    /**
+     * Maximum statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic maxImpl = new Max();
 
-    /** Minimum statistic implementation - can be reset by setter. */
+    /**
+     * Minimum statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic minImpl = new Min();
 
-    /** Percentile statistic implementation - can be reset by setter. */
+    /**
+     * Percentile statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic percentileImpl = new Percentile();
 
-    /** Skewness statistic implementation - can be reset by setter. */
+    /**
+     * Skewness statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic skewnessImpl = new Skewness();
 
-    /** Variance statistic implementation - can be reset by setter. */
+    /**
+     * Variance statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic varianceImpl = new Variance();
 
-    /** Sum of squares statistic implementation - can be reset by setter. */
+    /**
+     * Sum of squares statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic sumsqImpl = new SumOfSquares();
 
-    /** Sum statistic implementation - can be reset by setter. */
+    /**
+     * Sum statistic implementation - can be reset by setter.
+     */
     private UnivariateStatistic sumImpl = new Sum();
 
     /**
@@ -161,15 +184,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @param v the value to be added
      */
     public void addValue(double v) {
-        if (windowSize != INFINITE_WINDOW) {
-            if (getN() == windowSize) {
-                eDA.addElementRolling(v);
-            } else if (getN() < windowSize) {
-                eDA.addElement(v);
-            }
-        } else {
-            eDA.addElement(v);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -178,11 +193,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @throws MathIllegalStateException if there are no elements stored
      */
     public void removeMostRecentValue() throws MathIllegalStateException {
-        try {
-            eDA.discardMostRecentElements(1);
-        } catch (MathIllegalArgumentException ex) {
-            throw new MathIllegalStateException(LocalizedFormats.NO_DATA);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -194,7 +205,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @throws MathIllegalStateException if there are no elements stored
      */
     public double replaceMostRecentValue(double v) throws MathIllegalStateException {
-        return eDA.substituteMostRecentElement(v);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -203,7 +215,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The mean or Double.NaN if no values have been added.
      */
     public double getMean() {
-        return apply(meanImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -216,7 +229,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * or if any negative values have been added.
      */
     public double getGeometricMean() {
-        return apply(geometricMeanImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -230,7 +244,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * or 0.0 for a single value set.
      */
     public double getVariance() {
-        return apply(varianceImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -241,7 +256,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * or 0.0 for a single value set.
      */
     public double getPopulationVariance() {
-        return apply(new Variance(false));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -250,15 +266,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * or 0.0 for a single value set.
      */
     public double getStandardDeviation() {
-        double stdDev = Double.NaN;
-        if (getN() > 0) {
-            if (getN() > 1) {
-                stdDev = FastMath.sqrt(getVariance());
-            } else {
-                stdDev = 0.0;
-            }
-        }
-        return stdDev;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -269,8 +278,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * have been added.
      */
     public double getQuadraticMean() {
-        final long n = getN();
-        return n > 0 ? FastMath.sqrt(getSumsq() / n) : Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -280,7 +289,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The skewness, Double.NaN if less than 3 values have been added.
      */
     public double getSkewness() {
-        return apply(skewnessImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -290,7 +300,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The kurtosis, Double.NaN if less than 4 values have been added.
      */
     public double getKurtosis() {
-        return apply(kurtosisImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -298,15 +309,17 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The max or Double.NaN if no values have been added.
      */
     public double getMax() {
-        return apply(maxImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
-    * Returns the minimum of the available values
-    * @return The min or Double.NaN if no values have been added.
-    */
+     * Returns the minimum of the available values
+     * @return The min or Double.NaN if no values have been added.
+     */
     public double getMin() {
-        return apply(minImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -314,7 +327,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The number of available values
      */
     public long getN() {
-        return eDA.getNumElements();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -322,7 +336,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The sum or Double.NaN if no values have been added
      */
     public double getSum() {
-        return apply(sumImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -331,16 +346,16 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * values have been added.
      */
     public double getSumsq() {
-        return apply(sumsqImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * Resets all statistics and storage
      */
     public void clear() {
-        eDA.clear();
+        // STUB: not implemented
     }
-
 
     /**
      * Returns the maximum number of values that can be stored in the
@@ -349,7 +364,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return The current window size or -1 if its Infinite.
      */
     public int getWindowSize() {
-        return windowSize;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -367,19 +383,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * not equal to {@link #INFINITE_WINDOW}
      */
     public void setWindowSize(int windowSize) throws MathIllegalArgumentException {
-        if (windowSize < 1 && windowSize != INFINITE_WINDOW) {
-            throw new MathIllegalArgumentException(
-                    LocalizedFormats.NOT_POSITIVE_WINDOW_SIZE, windowSize);
-        }
-
-        this.windowSize = windowSize;
-
-        // We need to check to see if we need to discard elements
-        // from the front of the array.  If the windowSize is less than
-        // the current number of elements.
-        if (windowSize != INFINITE_WINDOW && windowSize < eDA.getNumElements()) {
-            eDA.discardFrontElements(eDA.getNumElements() - windowSize);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -392,7 +396,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      *         were added to this set
      */
     public double[] getValues() {
-        return eDA.getElements();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -404,9 +409,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * numbers sorted in ascending order
      */
     public double[] getSortedValues() {
-        double[] sort = getValues();
-        Arrays.sort(sort);
-        return sort;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -415,7 +419,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return return the element at the specified index
      */
     public double getElement(int index) {
-        return eDA.getElement(index);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -438,26 +443,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @throws MathIllegalArgumentException if p is not a valid quantile
      */
     public double getPercentile(double p) throws MathIllegalStateException, MathIllegalArgumentException {
-        if (percentileImpl instanceof Percentile) {
-            ((Percentile) percentileImpl).setQuantile(p);
-        } else {
-            try {
-                percentileImpl.getClass().getMethod(SET_QUANTILE_METHOD_NAME,
-                        new Class[] {Double.TYPE}).invoke(percentileImpl,
-                                new Object[] {Double.valueOf(p)});
-            } catch (NoSuchMethodException e1) { // Setter guard should prevent
-                throw new MathIllegalStateException(
-                      LocalizedFormats.PERCENTILE_IMPLEMENTATION_UNSUPPORTED_METHOD,
-                      percentileImpl.getClass().getName(), SET_QUANTILE_METHOD_NAME);
-            } catch (IllegalAccessException e2) {
-                throw new MathIllegalStateException(
-                      LocalizedFormats.PERCENTILE_IMPLEMENTATION_CANNOT_ACCESS_METHOD,
-                      SET_QUANTILE_METHOD_NAME, percentileImpl.getClass().getName());
-            } catch (InvocationTargetException e3) {
-                throw new IllegalStateException(e3.getCause());
-            }
-        }
-        return apply(percentileImpl);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -469,24 +456,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder outBuffer = new StringBuilder();
-        String endl = "\n";
-        outBuffer.append("DescriptiveStatistics:").append(endl);
-        outBuffer.append("n: ").append(getN()).append(endl);
-        outBuffer.append("min: ").append(getMin()).append(endl);
-        outBuffer.append("max: ").append(getMax()).append(endl);
-        outBuffer.append("mean: ").append(getMean()).append(endl);
-        outBuffer.append("std dev: ").append(getStandardDeviation())
-            .append(endl);
-        try {
-            // No catch for MIAE because actual parameter is valid below
-            outBuffer.append("median: ").append(getPercentile(50)).append(endl);
-        } catch (MathIllegalStateException ex) {
-            outBuffer.append("median: unavailable").append(endl);
-        }
-        outBuffer.append("skewness: ").append(getSkewness()).append(endl);
-        outBuffer.append("kurtosis: ").append(getKurtosis()).append(endl);
-        return outBuffer.toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -495,12 +466,11 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return the computed value of the statistic.
      */
     public double apply(UnivariateStatistic stat) {
-        // No try-catch or advertised exception here because arguments are guaranteed valid
-        return eDA.compute(stat);
+        // STUB: not implemented
+        return 0.0;
     }
 
     // Implementation getters and setter
-
     /**
      * Returns the currently configured mean implementation.
      *
@@ -508,7 +478,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getMeanImpl() {
-        return meanImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -519,7 +490,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized void setMeanImpl(UnivariateStatistic meanImpl) {
-        this.meanImpl = meanImpl;
+        // STUB: not implemented
     }
 
     /**
@@ -529,7 +500,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getGeometricMeanImpl() {
-        return geometricMeanImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -539,9 +511,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * for computing the geometric mean
      * @since 1.2
      */
-    public synchronized void setGeometricMeanImpl(
-            UnivariateStatistic geometricMeanImpl) {
-        this.geometricMeanImpl = geometricMeanImpl;
+    public synchronized void setGeometricMeanImpl(UnivariateStatistic geometricMeanImpl) {
+        // STUB: not implemented
     }
 
     /**
@@ -551,7 +522,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getKurtosisImpl() {
-        return kurtosisImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -562,7 +534,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized void setKurtosisImpl(UnivariateStatistic kurtosisImpl) {
-        this.kurtosisImpl = kurtosisImpl;
+        // STUB: not implemented
     }
 
     /**
@@ -572,7 +544,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getMaxImpl() {
-        return maxImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -583,7 +556,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized void setMaxImpl(UnivariateStatistic maxImpl) {
-        this.maxImpl = maxImpl;
+        // STUB: not implemented
     }
 
     /**
@@ -593,7 +566,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getMinImpl() {
-        return minImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -604,7 +578,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized void setMinImpl(UnivariateStatistic minImpl) {
-        this.minImpl = minImpl;
+        // STUB: not implemented
     }
 
     /**
@@ -614,7 +588,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getPercentileImpl() {
-        return percentileImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -628,24 +603,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      *  provide a <code>setQuantile</code> method
      * @since 1.2
      */
-    public synchronized void setPercentileImpl(UnivariateStatistic percentileImpl)
-    throws MathIllegalArgumentException {
-        try {
-            percentileImpl.getClass().getMethod(SET_QUANTILE_METHOD_NAME,
-                    new Class[] {Double.TYPE}).invoke(percentileImpl,
-                            new Object[] {Double.valueOf(50.0d)});
-        } catch (NoSuchMethodException e1) {
-            throw new MathIllegalArgumentException(
-                  LocalizedFormats.PERCENTILE_IMPLEMENTATION_UNSUPPORTED_METHOD,
-                  percentileImpl.getClass().getName(), SET_QUANTILE_METHOD_NAME);
-        } catch (IllegalAccessException e2) {
-            throw new MathIllegalArgumentException(
-                  LocalizedFormats.PERCENTILE_IMPLEMENTATION_CANNOT_ACCESS_METHOD,
-                  SET_QUANTILE_METHOD_NAME, percentileImpl.getClass().getName());
-        } catch (InvocationTargetException e3) {
-            throw new IllegalArgumentException(e3.getCause());
-        }
-        this.percentileImpl = percentileImpl;
+    public synchronized void setPercentileImpl(UnivariateStatistic percentileImpl) throws MathIllegalArgumentException {
+        // STUB: not implemented
     }
 
     /**
@@ -655,7 +614,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getSkewnessImpl() {
-        return skewnessImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -665,9 +625,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * for computing the skewness
      * @since 1.2
      */
-    public synchronized void setSkewnessImpl(
-            UnivariateStatistic skewnessImpl) {
-        this.skewnessImpl = skewnessImpl;
+    public synchronized void setSkewnessImpl(UnivariateStatistic skewnessImpl) {
+        // STUB: not implemented
     }
 
     /**
@@ -677,7 +636,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getVarianceImpl() {
-        return varianceImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -687,9 +647,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * for computing the variance
      * @since 1.2
      */
-    public synchronized void setVarianceImpl(
-            UnivariateStatistic varianceImpl) {
-        this.varianceImpl = varianceImpl;
+    public synchronized void setVarianceImpl(UnivariateStatistic varianceImpl) {
+        // STUB: not implemented
     }
 
     /**
@@ -699,7 +658,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getSumsqImpl() {
-        return sumsqImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -710,7 +670,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized void setSumsqImpl(UnivariateStatistic sumsqImpl) {
-        this.sumsqImpl = sumsqImpl;
+        // STUB: not implemented
     }
 
     /**
@@ -720,7 +680,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized UnivariateStatistic getSumImpl() {
-        return sumImpl;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -731,7 +692,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @since 1.2
      */
     public synchronized void setSumImpl(UnivariateStatistic sumImpl) {
-        this.sumImpl = sumImpl;
+        // STUB: not implemented
     }
 
     /**
@@ -740,10 +701,8 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @return a copy of this
      */
     public DescriptiveStatistics copy() {
-        DescriptiveStatistics result = new DescriptiveStatistics();
-        // No try-catch or advertised exception because parms are guaranteed valid
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -754,24 +713,7 @@ public class DescriptiveStatistics implements StatisticalSummary, Serializable {
      * @param dest DescriptiveStatistics to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(DescriptiveStatistics source, DescriptiveStatistics dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        // Copy data and window size
-        dest.eDA = source.eDA.copy();
-        dest.windowSize = source.windowSize;
-
-        // Copy implementations
-        dest.maxImpl = source.maxImpl.copy();
-        dest.meanImpl = source.meanImpl.copy();
-        dest.minImpl = source.minImpl.copy();
-        dest.sumImpl = source.sumImpl.copy();
-        dest.varianceImpl = source.varianceImpl.copy();
-        dest.sumsqImpl = source.sumsqImpl.copy();
-        dest.geometricMeanImpl = source.geometricMeanImpl.copy();
-        dest.kurtosisImpl = source.kurtosisImpl;
-        dest.skewnessImpl = source.skewnessImpl;
-        dest.percentileImpl = source.percentileImpl;
+    public static void copy(DescriptiveStatistics source, DescriptiveStatistics dest) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

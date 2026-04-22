@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization;
 
 /**
@@ -29,7 +28,10 @@ package org.apache.commons.math3.optimization;
  */
 @Deprecated
 public class Target implements OptimizationData {
-    /** Target values (of the objective vector function). */
+
+    /**
+     * Target values (of the objective vector function).
+     */
     private final double[] target;
 
     /**
@@ -45,6 +47,7 @@ public class Target implements OptimizationData {
      * @return the initial guess.
      */
     public double[] getTarget() {
-        return target.clone();
+        // STUB: not implemented
+        return null;
     }
 }

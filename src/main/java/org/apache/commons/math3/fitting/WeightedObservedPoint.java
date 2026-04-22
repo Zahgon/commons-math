@@ -25,13 +25,25 @@ import java.io.Serializable;
  * @since 2.0
  */
 public class WeightedObservedPoint implements Serializable {
-    /** Serializable version id. */
+
+    /**
+     * Serializable version id.
+     */
     private static final long serialVersionUID = 5306874947404636157L;
-    /** Weight of the measurement in the fitting process. */
+
+    /**
+     * Weight of the measurement in the fitting process.
+     */
     private final double weight;
-    /** Abscissa of the point. */
+
+    /**
+     * Abscissa of the point.
+     */
     private final double x;
-    /** Observed value of the function at x. */
+
+    /**
+     * Observed value of the function at x.
+     */
     private final double y;
 
     /**
@@ -43,8 +55,8 @@ public class WeightedObservedPoint implements Serializable {
      */
     public WeightedObservedPoint(final double weight, final double x, final double y) {
         this.weight = weight;
-        this.x      = x;
-        this.y      = y;
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -53,7 +65,8 @@ public class WeightedObservedPoint implements Serializable {
      * @return the weight of the measurement in the fitting process.
      */
     public double getWeight() {
-        return weight;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -62,7 +75,8 @@ public class WeightedObservedPoint implements Serializable {
      * @return the abscissa of the point.
      */
     public double getX() {
-        return x;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -71,8 +85,7 @@ public class WeightedObservedPoint implements Serializable {
      * @return the observed value of the function at x.
      */
     public double getY() {
-        return y;
+        // STUB: not implemented
+        return 0.0;
     }
-
 }
-

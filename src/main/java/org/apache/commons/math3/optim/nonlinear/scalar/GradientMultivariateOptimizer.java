@@ -29,8 +29,8 @@ import org.apache.commons.math3.exception.TooManyEvaluationsException;
  *
  * @since 3.1
  */
-public abstract class GradientMultivariateOptimizer
-    extends MultivariateOptimizer {
+public abstract class GradientMultivariateOptimizer extends MultivariateOptimizer {
+
     /**
      * Gradient of the objective function.
      */
@@ -50,7 +50,8 @@ public abstract class GradientMultivariateOptimizer
      * @return the gradient at the specified point.
      */
     protected double[] computeObjectiveGradient(final double[] params) {
-        return gradient.value(params);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -67,10 +68,9 @@ public abstract class GradientMultivariateOptimizer
      * evaluations (of the objective function) is exceeded.
      */
     @Override
-    public PointValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -85,18 +85,6 @@ public abstract class GradientMultivariateOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if  (data instanceof ObjectiveFunctionGradient) {
-                gradient = ((ObjectiveFunctionGradient) data).getObjectiveFunctionGradient();
-                // If more data must be parsed, this statement _must_ be
-                // changed to "continue".
-                break;
-            }
-        }
+        // STUB: not implemented
     }
 }

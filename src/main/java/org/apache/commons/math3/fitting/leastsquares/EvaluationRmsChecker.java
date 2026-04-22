@@ -27,9 +27,14 @@ import org.apache.commons.math3.util.Precision;
  */
 public class EvaluationRmsChecker implements ConvergenceChecker<Evaluation> {
 
-    /** relative tolerance for comparisons. */
+    /**
+     * relative tolerance for comparisons.
+     */
     private final double relTol;
-    /** absolute tolerance for comparisons. */
+
+    /**
+     * absolute tolerance for comparisons.
+     */
     private final double absTol;
 
     /**
@@ -62,14 +67,11 @@ public class EvaluationRmsChecker implements ConvergenceChecker<Evaluation> {
         this.absTol = absTol;
     }
 
-    /** {@inheritDoc} */
-    public boolean converged(final int iteration,
-                             final Evaluation previous,
-                             final Evaluation current) {
-        final double prevRms = previous.getRMS();
-        final double currRms = current.getRMS();
-        return Precision.equals(prevRms, currRms, this.absTol) ||
-                Precision.equalsWithRelativeTolerance(prevRms, currRms, this.relTol);
+    /**
+     * {@inheritDoc}
+     */
+    public boolean converged(final int iteration, final Evaluation previous, final Evaluation current) {
+        // STUB: not implemented
+        return false;
     }
-
 }

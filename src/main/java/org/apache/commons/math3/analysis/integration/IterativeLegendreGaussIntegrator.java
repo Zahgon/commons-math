@@ -43,13 +43,16 @@ import org.apache.commons.math3.util.FastMath;
  *
  * @since 3.1
  */
+public class IterativeLegendreGaussIntegrator extends BaseAbstractUnivariateIntegrator {
 
-public class IterativeLegendreGaussIntegrator
-    extends BaseAbstractUnivariateIntegrator {
-    /** Factory that computes the points and weights. */
-    private static final GaussIntegratorFactory FACTORY
-        = new GaussIntegratorFactory();
-    /** Number of integration points (per interval). */
+    /**
+     * Factory that computes the points and weights.
+     */
+    private static final GaussIntegratorFactory FACTORY = new GaussIntegratorFactory();
+
+    /**
+     * Number of integration points (per interval).
+     */
     private final int numberOfPoints;
 
     /**
@@ -65,17 +68,12 @@ public class IterativeLegendreGaussIntegrator
      * @throws NumberIsTooSmallException if maximal number of iterations
      * is smaller than or equal to the minimal number of iterations.
      */
-    public IterativeLegendreGaussIntegrator(final int n,
-                                            final double relativeAccuracy,
-                                            final double absoluteAccuracy,
-                                            final int minimalIterationCount,
-                                            final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException {
+    public IterativeLegendreGaussIntegrator(final int n, final double relativeAccuracy, final double absoluteAccuracy, final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException {
         super(relativeAccuracy, absoluteAccuracy, minimalIterationCount, maximalIterationCount);
         if (n <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.NUMBER_OF_POINTS, n);
         }
-       numberOfPoints = n;
+        numberOfPoints = n;
     }
 
     /**
@@ -86,12 +84,8 @@ public class IterativeLegendreGaussIntegrator
      * @param absoluteAccuracy Absolute accuracy of the result.
      * @throws NotStrictlyPositiveException if {@code n < 1}.
      */
-    public IterativeLegendreGaussIntegrator(final int n,
-                                            final double relativeAccuracy,
-                                            final double absoluteAccuracy)
-        throws NotStrictlyPositiveException {
-        this(n, relativeAccuracy, absoluteAccuracy,
-             DEFAULT_MIN_ITERATIONS_COUNT, DEFAULT_MAX_ITERATIONS_COUNT);
+    public IterativeLegendreGaussIntegrator(final int n, final double relativeAccuracy, final double absoluteAccuracy) throws NotStrictlyPositiveException {
+        this(n, relativeAccuracy, absoluteAccuracy, DEFAULT_MIN_ITERATIONS_COUNT, DEFAULT_MAX_ITERATIONS_COUNT);
     }
 
     /**
@@ -106,44 +100,17 @@ public class IterativeLegendreGaussIntegrator
      * is smaller than or equal to the minimal number of iterations.
      * @throws NotStrictlyPositiveException if {@code n < 1}.
      */
-    public IterativeLegendreGaussIntegrator(final int n,
-                                            final int minimalIterationCount,
-                                            final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException {
-        this(n, DEFAULT_RELATIVE_ACCURACY, DEFAULT_ABSOLUTE_ACCURACY,
-             minimalIterationCount, maximalIterationCount);
+    public IterativeLegendreGaussIntegrator(final int n, final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException {
+        this(n, DEFAULT_RELATIVE_ACCURACY, DEFAULT_ABSOLUTE_ACCURACY, minimalIterationCount, maximalIterationCount);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected double doIntegrate()
-        throws MathIllegalArgumentException, TooManyEvaluationsException, MaxCountExceededException {
-        // Compute first estimate with a single step.
-        double oldt = stage(1);
-
-        int n = 2;
-        while (true) {
-            // Improve integral with a larger number of steps.
-            final double t = stage(n);
-
-            // Estimate the error.
-            final double delta = FastMath.abs(t - oldt);
-            final double limit =
-                FastMath.max(getAbsoluteAccuracy(),
-                             getRelativeAccuracy() * (FastMath.abs(oldt) + FastMath.abs(t)) * 0.5);
-
-            // check convergence
-            if (getIterations() + 1 >= getMinimalIterationCount() &&
-                delta <= limit) {
-                return t;
-            }
-
-            // Prepare next iteration.
-            final double ratio = FastMath.min(4, FastMath.pow(delta / limit, 0.5 / numberOfPoints));
-            n = FastMath.max((int) (ratio * n), n + 1);
-            oldt = t;
-            incrementCount();
-        }
+    protected double doIntegrate() throws MathIllegalArgumentException, TooManyEvaluationsException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -154,21 +121,20 @@ public class IterativeLegendreGaussIntegrator
      * @throws TooManyEvaluationsException if the maximum number of evaluations
      * is exceeded.
      */
-    private double stage(final int n)
-        throws TooManyEvaluationsException {
+    private double stage(final int n) throws TooManyEvaluationsException {
         // Function to be integrated is stored in the base class.
         final UnivariateFunction f = new UnivariateFunction() {
-                /** {@inheritDoc} */
-                public double value(double x)
-                    throws MathIllegalArgumentException, TooManyEvaluationsException {
-                    return computeObjectiveValue(x);
-                }
-            };
 
+            /**
+             * {@inheritDoc}
+             */
+            public double value(double x) throws MathIllegalArgumentException, TooManyEvaluationsException {
+                return computeObjectiveValue(x);
+            }
+        };
         final double min = getMin();
         final double max = getMax();
         final double step = (max - min) / n;
-
         double sum = 0;
         for (int i = 0; i < n; i++) {
             // Integrate over each sub-interval [a, b].
@@ -177,7 +143,6 @@ public class IterativeLegendreGaussIntegrator
             final GaussIntegrator g = FACTORY.legendreHighPrecision(numberOfPoints, a, b);
             sum += g.integrate(f);
         }
-
         return sum;
     }
 }

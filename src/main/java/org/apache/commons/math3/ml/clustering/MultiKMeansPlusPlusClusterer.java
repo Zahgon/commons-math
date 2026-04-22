@@ -14,12 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.clustering;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.apache.commons.math3.exception.ConvergenceException;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.ml.clustering.evaluation.ClusterEvaluator;
@@ -33,33 +31,38 @@ import org.apache.commons.math3.ml.clustering.evaluation.SumOfClusterVariances;
  */
 public class MultiKMeansPlusPlusClusterer<T extends Clusterable> extends Clusterer<T> {
 
-    /** The underlying k-means clusterer. */
+    /**
+     * The underlying k-means clusterer.
+     */
     private final KMeansPlusPlusClusterer<T> clusterer;
 
-    /** The number of trial runs. */
+    /**
+     * The number of trial runs.
+     */
     private final int numTrials;
 
-    /** The cluster evaluator to use. */
+    /**
+     * The cluster evaluator to use.
+     */
     private final ClusterEvaluator<T> evaluator;
 
-    /** Build a clusterer.
+    /**
+     * Build a clusterer.
      * @param clusterer the k-means clusterer to use
      * @param numTrials number of trial runs
      */
-    public MultiKMeansPlusPlusClusterer(final KMeansPlusPlusClusterer<T> clusterer,
-                                        final int numTrials) {
+    public MultiKMeansPlusPlusClusterer(final KMeansPlusPlusClusterer<T> clusterer, final int numTrials) {
         this(clusterer, numTrials, new SumOfClusterVariances<T>(clusterer.getDistanceMeasure()));
     }
 
-    /** Build a clusterer.
+    /**
+     * Build a clusterer.
      * @param clusterer the k-means clusterer to use
      * @param numTrials number of trial runs
      * @param evaluator the cluster evaluator to use
      * @since 3.3
      */
-    public MultiKMeansPlusPlusClusterer(final KMeansPlusPlusClusterer<T> clusterer,
-                                        final int numTrials,
-                                        final ClusterEvaluator<T> evaluator) {
+    public MultiKMeansPlusPlusClusterer(final KMeansPlusPlusClusterer<T> clusterer, final int numTrials, final ClusterEvaluator<T> evaluator) {
         super(clusterer.getDistanceMeasure());
         this.clusterer = clusterer;
         this.numTrials = numTrials;
@@ -71,7 +74,8 @@ public class MultiKMeansPlusPlusClusterer<T extends Clusterable> extends Cluster
      * @return the embedded clusterer
      */
     public KMeansPlusPlusClusterer<T> getClusterer() {
-        return clusterer;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -79,7 +83,8 @@ public class MultiKMeansPlusPlusClusterer<T extends Clusterable> extends Cluster
      * @return the number of trials
      */
     public int getNumTrials() {
-        return numTrials;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -88,7 +93,8 @@ public class MultiKMeansPlusPlusClusterer<T extends Clusterable> extends Cluster
      * @since 3.3
      */
     public ClusterEvaluator<T> getClusterEvaluator() {
-       return evaluator;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -103,33 +109,8 @@ public class MultiKMeansPlusPlusClusterer<T extends Clusterable> extends Cluster
      *   {@link KMeansPlusPlusClusterer.EmptyClusterStrategy} is set to {@code ERROR}.
      */
     @Override
-    public List<CentroidCluster<T>> cluster(final Collection<T> points)
-        throws MathIllegalArgumentException, ConvergenceException {
-
-        // at first, we have not found any clusters list yet
-        List<CentroidCluster<T>> best = null;
-        double bestVarianceSum = Double.POSITIVE_INFINITY;
-
-        // do several clustering trials
-        for (int i = 0; i < numTrials; ++i) {
-
-            // compute a clusters list
-            List<CentroidCluster<T>> clusters = clusterer.cluster(points);
-
-            // compute the variance of the current list
-            final double varianceSum = evaluator.score(clusters);
-
-            if (evaluator.isBetterScore(varianceSum, bestVarianceSum)) {
-                // this one is the best we have found so far, remember it
-                best            = clusters;
-                bestVarianceSum = varianceSum;
-            }
-
-        }
-
-        // return the best clusters list found
-        return best;
-
+    public List<CentroidCluster<T>> cluster(final Collection<T> points) throws MathIllegalArgumentException, ConvergenceException {
+        // STUB: not implemented
+        return null;
     }
-
 }

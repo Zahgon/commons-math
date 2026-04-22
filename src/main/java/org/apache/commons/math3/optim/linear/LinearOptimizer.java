@@ -28,16 +28,18 @@ import org.apache.commons.math3.optim.nonlinear.scalar.MultivariateOptimizer;
  *
  * @since 3.1
  */
-public abstract class LinearOptimizer
-    extends MultivariateOptimizer {
+public abstract class LinearOptimizer extends MultivariateOptimizer {
+
     /**
      * Linear objective function.
      */
     private LinearObjectiveFunction function;
+
     /**
      * Linear constraints.
      */
     private Collection<LinearConstraint> linearConstraints;
+
     /**
      * Whether to restrict the variables to non-negative values.
      */
@@ -45,31 +47,34 @@ public abstract class LinearOptimizer
 
     /**
      * Simple constructor with default settings.
-     *
      */
     protected LinearOptimizer() {
-        super(null); // No convergence checker.
+        // No convergence checker.
+        super(null);
     }
 
     /**
      * @return {@code true} if the variables are restricted to non-negative values.
      */
     protected boolean isRestrictedToNonNegative() {
-        return nonNegative;
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * @return the optimization type.
      */
     protected LinearObjectiveFunction getFunction() {
-        return function;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * @return the optimization type.
      */
     protected Collection<LinearConstraint> getConstraints() {
-        return Collections.unmodifiableCollection(linearConstraints);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -88,10 +93,9 @@ public abstract class LinearOptimizer
      * iterations is exceeded.
      */
     @Override
-    public PointValuePair optimize(OptimizationData... optData)
-        throws TooManyIterationsException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointValuePair optimize(OptimizationData... optData) throws TooManyIterationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -108,24 +112,6 @@ public abstract class LinearOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof LinearObjectiveFunction) {
-                function = (LinearObjectiveFunction) data;
-                continue;
-            }
-            if (data instanceof LinearConstraintSet) {
-                linearConstraints = ((LinearConstraintSet) data).getConstraints();
-                continue;
-            }
-            if  (data instanceof NonNegativeConstraint) {
-                nonNegative = ((NonNegativeConstraint) data).isRestrictedToNonNegative();
-                continue;
-            }
-        }
+        // STUB: not implemented
     }
 }

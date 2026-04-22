@@ -31,18 +31,31 @@ import org.apache.commons.math3.util.FastMath;
  * @see "<a href='http://mathworld.wolfram.com/Studentst-Distribution.html'>Student's t-distribution (MathWorld)</a>"
  */
 public class TDistribution extends AbstractRealDistribution {
+
     /**
      * Default inverse cumulative probability accuracy.
      * @since 2.1
      */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
-    /** Serializable version identifier */
+
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -5852615386664158222L;
-    /** The degrees of freedom. */
+
+    /**
+     * The degrees of freedom.
+     */
     private final double degreesOfFreedom;
-    /** Inverse cumulative probability accuracy. */
+
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double solverAbsoluteAccuracy;
-    /** Static computation factor based on degreesOfFreedom. */
+
+    /**
+     * Static computation factor based on degreesOfFreedom.
+     */
     private final double factor;
 
     /**
@@ -58,8 +71,7 @@ public class TDistribution extends AbstractRealDistribution {
      * @param degreesOfFreedom Degrees of freedom.
      * @throws NotStrictlyPositiveException if {@code degreesOfFreedom <= 0}
      */
-    public TDistribution(double degreesOfFreedom)
-        throws NotStrictlyPositiveException {
+    public TDistribution(double degreesOfFreedom) throws NotStrictlyPositiveException {
         this(degreesOfFreedom, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -81,8 +93,7 @@ public class TDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code degreesOfFreedom <= 0}
      * @since 2.1
      */
-    public TDistribution(double degreesOfFreedom, double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public TDistribution(double degreesOfFreedom, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         this(new Well19937c(), degreesOfFreedom, inverseCumAccuracy);
     }
 
@@ -94,8 +105,7 @@ public class TDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code degreesOfFreedom <= 0}
      * @since 3.3
      */
-    public TDistribution(RandomGenerator rng, double degreesOfFreedom)
-        throws NotStrictlyPositiveException {
+    public TDistribution(RandomGenerator rng, double degreesOfFreedom) throws NotStrictlyPositiveException {
         this(rng, degreesOfFreedom, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -110,24 +120,16 @@ public class TDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code degreesOfFreedom <= 0}
      * @since 3.1
      */
-    public TDistribution(RandomGenerator rng,
-                         double degreesOfFreedom,
-                         double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public TDistribution(RandomGenerator rng, double degreesOfFreedom, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         super(rng);
-
         if (degreesOfFreedom <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.DEGREES_OF_FREEDOM,
-                                                   degreesOfFreedom);
+            throw new NotStrictlyPositiveException(LocalizedFormats.DEGREES_OF_FREEDOM, degreesOfFreedom);
         }
         this.degreesOfFreedom = degreesOfFreedom;
         solverAbsoluteAccuracy = inverseCumAccuracy;
-
         final double n = degreesOfFreedom;
         final double nPlus1Over2 = (n + 1) / 2;
-        factor = Gamma.logGamma(nPlus1Over2) -
-                 0.5 * (FastMath.log(FastMath.PI) + FastMath.log(n)) -
-                 Gamma.logGamma(n / 2);
+        factor = Gamma.logGamma(nPlus1Over2) - 0.5 * (FastMath.log(FastMath.PI) + FastMath.log(n)) - Gamma.logGamma(n / 2);
     }
 
     /**
@@ -136,47 +138,42 @@ public class TDistribution extends AbstractRealDistribution {
      * @return the degrees of freedom.
      */
     public double getDegreesOfFreedom() {
-        return degreesOfFreedom;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        return FastMath.exp(logDensity(x));
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logDensity(double x) {
-        final double n = degreesOfFreedom;
-        final double nPlus1Over2 = (n + 1) / 2;
-        return factor - nPlus1Over2 * FastMath.log(1 + x * x / n);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(double x) {
-        double ret;
-        if (x == 0) {
-            ret = 0.5;
-        } else {
-            double t =
-                Beta.regularizedBeta(
-                    degreesOfFreedom / (degreesOfFreedom + (x * x)),
-                    0.5 * degreesOfFreedom,
-                    0.5);
-            if (x < 0.0) {
-                ret = 0.5 * t;
-            } else {
-                ret = 1.0 - 0.5 * t;
-            }
-        }
-
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -189,13 +186,8 @@ public class TDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double getNumericalMean() {
-        final double df = getDegreesOfFreedom();
-
-        if (df > 1) {
-            return 0;
-        }
-
-        return Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -210,17 +202,8 @@ public class TDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double getNumericalVariance() {
-        final double df = getDegreesOfFreedom();
-
-        if (df > 2) {
-            return df / (df - 2);
-        }
-
-        if (df > 1 && df <= 2) {
-            return Double.POSITIVE_INFINITY;
-        }
-
-        return Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -233,7 +216,8 @@ public class TDistribution extends AbstractRealDistribution {
      * {@code Double.NEGATIVE_INFINITY})
      */
     public double getSupportLowerBound() {
-        return Double.NEGATIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -246,16 +230,23 @@ public class TDistribution extends AbstractRealDistribution {
      * {@code Double.POSITIVE_INFINITY})
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -267,6 +258,7 @@ public class TDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

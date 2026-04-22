@@ -28,17 +28,31 @@ import org.apache.commons.math3.exception.TooManyEvaluationsException;
  *
  * @since 3.1
  */
-public abstract class UnivariateOptimizer
-    extends BaseOptimizer<UnivariatePointValuePair> {
-    /** Objective function. */
+public abstract class UnivariateOptimizer extends BaseOptimizer<UnivariatePointValuePair> {
+
+    /**
+     * Objective function.
+     */
     private UnivariateFunction function;
-    /** Type of optimization. */
+
+    /**
+     * Type of optimization.
+     */
     private GoalType goal;
-    /** Initial guess. */
+
+    /**
+     * Initial guess.
+     */
     private double start;
-    /** Lower bound. */
+
+    /**
+     * Lower bound.
+     */
     private double min;
-    /** Upper bound. */
+
+    /**
+     * Upper bound.
+     */
     private double max;
 
     /**
@@ -64,17 +78,17 @@ public abstract class UnivariateOptimizer
      * evaluations is exceeded.
      */
     @Override
-    public UnivariatePointValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException {
-        // Perform computation.
-        return super.optimize(optData);
+    public UnivariatePointValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * @return the optimization type.
      */
     public GoalType getGoalType() {
-        return goal;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -91,47 +105,31 @@ public abstract class UnivariateOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof SearchInterval) {
-                final SearchInterval interval = (SearchInterval) data;
-                min = interval.getMin();
-                max = interval.getMax();
-                start = interval.getStartValue();
-                continue;
-            }
-            if (data instanceof UnivariateObjectiveFunction) {
-                function = ((UnivariateObjectiveFunction) data).getObjectiveFunction();
-                continue;
-            }
-            if (data instanceof GoalType) {
-                goal = (GoalType) data;
-                continue;
-            }
-        }
+        // STUB: not implemented
     }
 
     /**
      * @return the initial guess.
      */
     public double getStartValue() {
-        return start;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the lower bounds.
      */
     public double getMin() {
-        return min;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * @return the upper bounds.
      */
     public double getMax() {
-        return max;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -145,7 +143,7 @@ public abstract class UnivariateOptimizer
      * evaluations is exceeded.
      */
     protected double computeObjectiveValue(double x) {
-        super.incrementEvaluationCount();
-        return function.value(x);
+        // STUB: not implemented
+        return 0.0;
     }
 }

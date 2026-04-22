@@ -25,11 +25,20 @@ import org.apache.commons.math3.exception.util.Localizable;
  * @since 2.2
  */
 public class OutOfRangeException extends MathIllegalNumberException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = 111601815794403609L;
-    /** Lower bound. */
+
+    /**
+     * Lower bound.
+     */
     private final Number lo;
-    /** Higher bound. */
+
+    /**
+     * Higher bound.
+     */
     private final Number hi;
 
     /**
@@ -39,9 +48,7 @@ public class OutOfRangeException extends MathIllegalNumberException {
      * @param lo Lower bound.
      * @param hi Higher bound.
      */
-    public OutOfRangeException(Number wrong,
-                               Number lo,
-                               Number hi) {
+    public OutOfRangeException(Number wrong, Number lo, Number hi) {
         this(LocalizedFormats.OUT_OF_RANGE_SIMPLE, wrong, lo, hi);
     }
 
@@ -54,10 +61,7 @@ public class OutOfRangeException extends MathIllegalNumberException {
      * @param lo Lower bound.
      * @param hi Higher bound.
      */
-    public OutOfRangeException(Localizable specific,
-                               Number wrong,
-                               Number lo,
-                               Number hi) {
+    public OutOfRangeException(Localizable specific, Number wrong, Number lo, Number hi) {
         super(specific, wrong, lo, hi);
         this.lo = lo;
         this.hi = hi;
@@ -67,12 +71,15 @@ public class OutOfRangeException extends MathIllegalNumberException {
      * @return the lower bound.
      */
     public Number getLo() {
-        return lo;
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return the higher bound.
      */
     public Number getHi() {
-        return hi;
+        // STUB: not implemented
+        return null;
     }
 }

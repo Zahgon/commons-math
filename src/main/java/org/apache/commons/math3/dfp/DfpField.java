@@ -14,156 +14,232 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.dfp;
 
 import org.apache.commons.math3.Field;
 import org.apache.commons.math3.FieldElement;
 
-/** Field for Decimal floating point instances.
+/**
+ * Field for Decimal floating point instances.
  * @since 2.2
  */
 public class DfpField implements Field<Dfp> {
 
-    /** Enumerate for rounding modes. */
+    /**
+     * Enumerate for rounding modes.
+     */
     public enum RoundingMode {
 
-        /** Rounds toward zero (truncation). */
+        /**
+         * Rounds toward zero (truncation).
+         */
         ROUND_DOWN,
-
-        /** Rounds away from zero if discarded digit is non-zero. */
+        /**
+         * Rounds away from zero if discarded digit is non-zero.
+         */
         ROUND_UP,
-
-        /** Rounds towards nearest unless both are equidistant in which case it rounds away from zero. */
+        /**
+         * Rounds towards nearest unless both are equidistant in which case it rounds away from zero.
+         */
         ROUND_HALF_UP,
-
-        /** Rounds towards nearest unless both are equidistant in which case it rounds toward zero. */
+        /**
+         * Rounds towards nearest unless both are equidistant in which case it rounds toward zero.
+         */
         ROUND_HALF_DOWN,
-
-        /** Rounds towards nearest unless both are equidistant in which case it rounds toward the even neighbor.
+        /**
+         * Rounds towards nearest unless both are equidistant in which case it rounds toward the even neighbor.
          * This is the default as  specified by IEEE 854-1987
          */
         ROUND_HALF_EVEN,
-
-        /** Rounds towards nearest unless both are equidistant in which case it rounds toward the odd neighbor.  */
+        /**
+         * Rounds towards nearest unless both are equidistant in which case it rounds toward the odd neighbor.
+         */
         ROUND_HALF_ODD,
-
-        /** Rounds towards positive infinity. */
+        /**
+         * Rounds towards positive infinity.
+         */
         ROUND_CEIL,
-
-        /** Rounds towards negative infinity. */
-        ROUND_FLOOR;
-
+        /**
+         * Rounds towards negative infinity.
+         */
+        ROUND_FLOOR
     }
 
-    /** IEEE 854-1987 flag for invalid operation. */
-    public static final int FLAG_INVALID   =  1;
+    /**
+     * IEEE 854-1987 flag for invalid operation.
+     */
+    public static final int FLAG_INVALID = 1;
 
-    /** IEEE 854-1987 flag for division by zero. */
-    public static final int FLAG_DIV_ZERO  =  2;
+    /**
+     * IEEE 854-1987 flag for division by zero.
+     */
+    public static final int FLAG_DIV_ZERO = 2;
 
-    /** IEEE 854-1987 flag for overflow. */
-    public static final int FLAG_OVERFLOW  =  4;
+    /**
+     * IEEE 854-1987 flag for overflow.
+     */
+    public static final int FLAG_OVERFLOW = 4;
 
-    /** IEEE 854-1987 flag for underflow. */
-    public static final int FLAG_UNDERFLOW =  8;
+    /**
+     * IEEE 854-1987 flag for underflow.
+     */
+    public static final int FLAG_UNDERFLOW = 8;
 
-    /** IEEE 854-1987 flag for inexact result. */
-    public static final int FLAG_INEXACT   = 16;
+    /**
+     * IEEE 854-1987 flag for inexact result.
+     */
+    public static final int FLAG_INEXACT = 16;
 
-    /** High precision string representation of &radic;2. */
+    /**
+     * High precision string representation of &radic;2.
+     */
     private static String sqr2String;
 
     // Note: the static strings are set up (once) by the ctor and @GuardedBy("DfpField.class")
-
-    /** High precision string representation of &radic;2 / 2. */
+    /**
+     * High precision string representation of &radic;2 / 2.
+     */
     private static String sqr2ReciprocalString;
 
-    /** High precision string representation of &radic;3. */
+    /**
+     * High precision string representation of &radic;3.
+     */
     private static String sqr3String;
 
-    /** High precision string representation of &radic;3 / 3. */
+    /**
+     * High precision string representation of &radic;3 / 3.
+     */
     private static String sqr3ReciprocalString;
 
-    /** High precision string representation of &pi;. */
+    /**
+     * High precision string representation of &pi;.
+     */
     private static String piString;
 
-    /** High precision string representation of e. */
+    /**
+     * High precision string representation of e.
+     */
     private static String eString;
 
-    /** High precision string representation of ln(2). */
+    /**
+     * High precision string representation of ln(2).
+     */
     private static String ln2String;
 
-    /** High precision string representation of ln(5). */
+    /**
+     * High precision string representation of ln(5).
+     */
     private static String ln5String;
 
-    /** High precision string representation of ln(10). */
+    /**
+     * High precision string representation of ln(10).
+     */
     private static String ln10String;
 
-    /** The number of radix digits.
+    /**
+     * The number of radix digits.
      * Note these depend on the radix which is 10000 digits,
      * so each one is equivalent to 4 decimal digits.
      */
     private final int radixDigits;
 
-    /** A {@link Dfp} with value 0. */
+    /**
+     * A {@link Dfp} with value 0.
+     */
     private final Dfp zero;
 
-    /** A {@link Dfp} with value 1. */
+    /**
+     * A {@link Dfp} with value 1.
+     */
     private final Dfp one;
 
-    /** A {@link Dfp} with value 2. */
+    /**
+     * A {@link Dfp} with value 2.
+     */
     private final Dfp two;
 
-    /** A {@link Dfp} with value &radic;2. */
+    /**
+     * A {@link Dfp} with value &radic;2.
+     */
     private final Dfp sqr2;
 
-    /** A two elements {@link Dfp} array with value &radic;2 split in two pieces. */
+    /**
+     * A two elements {@link Dfp} array with value &radic;2 split in two pieces.
+     */
     private final Dfp[] sqr2Split;
 
-    /** A {@link Dfp} with value &radic;2 / 2. */
+    /**
+     * A {@link Dfp} with value &radic;2 / 2.
+     */
     private final Dfp sqr2Reciprocal;
 
-    /** A {@link Dfp} with value &radic;3. */
+    /**
+     * A {@link Dfp} with value &radic;3.
+     */
     private final Dfp sqr3;
 
-    /** A {@link Dfp} with value &radic;3 / 3. */
+    /**
+     * A {@link Dfp} with value &radic;3 / 3.
+     */
     private final Dfp sqr3Reciprocal;
 
-    /** A {@link Dfp} with value &pi;. */
+    /**
+     * A {@link Dfp} with value &pi;.
+     */
     private final Dfp pi;
 
-    /** A two elements {@link Dfp} array with value &pi; split in two pieces. */
+    /**
+     * A two elements {@link Dfp} array with value &pi; split in two pieces.
+     */
     private final Dfp[] piSplit;
 
-    /** A {@link Dfp} with value e. */
+    /**
+     * A {@link Dfp} with value e.
+     */
     private final Dfp e;
 
-    /** A two elements {@link Dfp} array with value e split in two pieces. */
+    /**
+     * A two elements {@link Dfp} array with value e split in two pieces.
+     */
     private final Dfp[] eSplit;
 
-    /** A {@link Dfp} with value ln(2). */
+    /**
+     * A {@link Dfp} with value ln(2).
+     */
     private final Dfp ln2;
 
-    /** A two elements {@link Dfp} array with value ln(2) split in two pieces. */
+    /**
+     * A two elements {@link Dfp} array with value ln(2) split in two pieces.
+     */
     private final Dfp[] ln2Split;
 
-    /** A {@link Dfp} with value ln(5). */
+    /**
+     * A {@link Dfp} with value ln(5).
+     */
     private final Dfp ln5;
 
-    /** A two elements {@link Dfp} array with value ln(5) split in two pieces. */
+    /**
+     * A two elements {@link Dfp} array with value ln(5) split in two pieces.
+     */
     private final Dfp[] ln5Split;
 
-    /** A {@link Dfp} with value ln(10). */
+    /**
+     * A {@link Dfp} with value ln(10).
+     */
     private final Dfp ln10;
 
-    /** Current rounding mode. */
+    /**
+     * Current rounding mode.
+     */
     private RoundingMode rMode;
 
-    /** IEEE 854-1987 signals. */
+    /**
+     * IEEE 854-1987 signals.
+     */
     private int ieeeFlags;
 
-    /** Create a factory for the specified number of radix digits.
+    /**
+     * Create a factory for the specified number of radix digits.
      * <p>
      * Note that since the {@link Dfp} class uses 10000 as its radix, each radix
      * digit is equivalent to 4 decimal digits. This implies that asking for
@@ -176,7 +252,8 @@ public class DfpField implements Field<Dfp> {
         this(decimalDigits, true);
     }
 
-    /** Create a factory for the specified number of radix digits.
+    /**
+     * Create a factory for the specified number of radix digits.
      * <p>
      * Note that since the {@link Dfp} class uses 10000 as its radix, each radix
      * digit is equivalent to 4 decimal digits. This implies that asking for
@@ -188,69 +265,66 @@ public class DfpField implements Field<Dfp> {
      * must be computed (setting this flag to false is RESERVED for the internal recursive call)
      */
     private DfpField(final int decimalDigits, final boolean computeConstants) {
-
         this.radixDigits = (decimalDigits < 13) ? 4 : (decimalDigits + 3) / 4;
-        this.rMode       = RoundingMode.ROUND_HALF_EVEN;
-        this.ieeeFlags   = 0;
-        this.zero        = new Dfp(this, 0);
-        this.one         = new Dfp(this, 1);
-        this.two         = new Dfp(this, 2);
-
+        this.rMode = RoundingMode.ROUND_HALF_EVEN;
+        this.ieeeFlags = 0;
+        this.zero = new Dfp(this, 0);
+        this.one = new Dfp(this, 1);
+        this.two = new Dfp(this, 2);
         if (computeConstants) {
             // set up transcendental constants
             synchronized (DfpField.class) {
-
                 // as a heuristic to circumvent Table-Maker's Dilemma, we set the string
                 // representation of the constants to be at least 3 times larger than the
                 // number of decimal digits, also as an attempt to really compute these
                 // constants only once, we set a minimum number of digits
                 computeStringConstants((decimalDigits < 67) ? 200 : (3 * decimalDigits));
-
                 // set up the constants at current field accuracy
-                sqr2           = new Dfp(this, sqr2String);
-                sqr2Split      = split(sqr2String);
+                sqr2 = new Dfp(this, sqr2String);
+                sqr2Split = split(sqr2String);
                 sqr2Reciprocal = new Dfp(this, sqr2ReciprocalString);
-                sqr3           = new Dfp(this, sqr3String);
+                sqr3 = new Dfp(this, sqr3String);
                 sqr3Reciprocal = new Dfp(this, sqr3ReciprocalString);
-                pi             = new Dfp(this, piString);
-                piSplit        = split(piString);
-                e              = new Dfp(this, eString);
-                eSplit         = split(eString);
-                ln2            = new Dfp(this, ln2String);
-                ln2Split       = split(ln2String);
-                ln5            = new Dfp(this, ln5String);
-                ln5Split       = split(ln5String);
-                ln10           = new Dfp(this, ln10String);
-
+                pi = new Dfp(this, piString);
+                piSplit = split(piString);
+                e = new Dfp(this, eString);
+                eSplit = split(eString);
+                ln2 = new Dfp(this, ln2String);
+                ln2Split = split(ln2String);
+                ln5 = new Dfp(this, ln5String);
+                ln5Split = split(ln5String);
+                ln10 = new Dfp(this, ln10String);
             }
         } else {
             // dummy settings for unused constants
-            sqr2           = null;
-            sqr2Split      = null;
+            sqr2 = null;
+            sqr2Split = null;
             sqr2Reciprocal = null;
-            sqr3           = null;
+            sqr3 = null;
             sqr3Reciprocal = null;
-            pi             = null;
-            piSplit        = null;
-            e              = null;
-            eSplit         = null;
-            ln2            = null;
-            ln2Split       = null;
-            ln5            = null;
-            ln5Split       = null;
-            ln10           = null;
+            pi = null;
+            piSplit = null;
+            e = null;
+            eSplit = null;
+            ln2 = null;
+            ln2Split = null;
+            ln5 = null;
+            ln5Split = null;
+            ln10 = null;
         }
-
     }
 
-    /** Get the number of radix digits of the {@link Dfp} instances built by this factory.
+    /**
+     * Get the number of radix digits of the {@link Dfp} instances built by this factory.
      * @return number of radix digits
      */
     public int getRadixDigits() {
-        return radixDigits;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** Set the rounding mode.
+    /**
+     * Set the rounding mode.
      *  If not set, the default value is {@link RoundingMode#ROUND_HALF_EVEN}.
      * @param mode desired rounding mode
      * Note that the rounding mode is common to all {@link Dfp} instances
@@ -258,17 +332,20 @@ public class DfpField implements Field<Dfp> {
      * affect all future calculations.
      */
     public void setRoundingMode(final RoundingMode mode) {
-        rMode = mode;
+        // STUB: not implemented
     }
 
-    /** Get the current rounding mode.
+    /**
+     * Get the current rounding mode.
      * @return current rounding mode
      */
     public RoundingMode getRoundingMode() {
-        return rMode;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the IEEE 854 status flags.
+    /**
+     * Get the IEEE 854 status flags.
      * @return IEEE 854 status flags
      * @see #clearIEEEFlags()
      * @see #setIEEEFlags(int)
@@ -280,10 +357,12 @@ public class DfpField implements Field<Dfp> {
      * @see #FLAG_INEXACT
      */
     public int getIEEEFlags() {
-        return ieeeFlags;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** Clears the IEEE 854 status flags.
+    /**
+     * Clears the IEEE 854 status flags.
      * @see #getIEEEFlags()
      * @see #setIEEEFlags(int)
      * @see #setIEEEFlagsBits(int)
@@ -294,10 +373,11 @@ public class DfpField implements Field<Dfp> {
      * @see #FLAG_INEXACT
      */
     public void clearIEEEFlags() {
-        ieeeFlags = 0;
+        // STUB: not implemented
     }
 
-    /** Sets the IEEE 854 status flags.
+    /**
+     * Sets the IEEE 854 status flags.
      * @param flags desired value for the flags
      * @see #getIEEEFlags()
      * @see #clearIEEEFlags()
@@ -309,10 +389,11 @@ public class DfpField implements Field<Dfp> {
      * @see #FLAG_INEXACT
      */
     public void setIEEEFlags(final int flags) {
-        ieeeFlags = flags & (FLAG_INVALID | FLAG_DIV_ZERO | FLAG_OVERFLOW | FLAG_UNDERFLOW | FLAG_INEXACT);
+        // STUB: not implemented
     }
 
-    /** Sets some bits in the IEEE 854 status flags, without changing the already set bits.
+    /**
+     * Sets some bits in the IEEE 854 status flags, without changing the already set bits.
      * <p>
      * Calling this method is equivalent to call {@code setIEEEFlags(getIEEEFlags() | bits)}
      * </p>
@@ -327,292 +408,330 @@ public class DfpField implements Field<Dfp> {
      * @see #FLAG_INEXACT
      */
     public void setIEEEFlagsBits(final int bits) {
-        ieeeFlags |= bits & (FLAG_INVALID | FLAG_DIV_ZERO | FLAG_OVERFLOW | FLAG_UNDERFLOW | FLAG_INEXACT);
+        // STUB: not implemented
     }
 
-    /** Makes a {@link Dfp} with a value of 0.
+    /**
+     * Makes a {@link Dfp} with a value of 0.
      * @return a new {@link Dfp} with a value of 0
      */
     public Dfp newDfp() {
-        return new Dfp(this);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create an instance from a byte value.
+    /**
+     * Create an instance from a byte value.
      * @param x value to convert to an instance
      * @return a new {@link Dfp} with the same value as x
      */
     public Dfp newDfp(final byte x) {
-        return new Dfp(this, x);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create an instance from an int value.
+    /**
+     * Create an instance from an int value.
      * @param x value to convert to an instance
      * @return a new {@link Dfp} with the same value as x
      */
     public Dfp newDfp(final int x) {
-        return new Dfp(this, x);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create an instance from a long value.
+    /**
+     * Create an instance from a long value.
      * @param x value to convert to an instance
      * @return a new {@link Dfp} with the same value as x
      */
     public Dfp newDfp(final long x) {
-        return new Dfp(this, x);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create an instance from a double value.
+    /**
+     * Create an instance from a double value.
      * @param x value to convert to an instance
      * @return a new {@link Dfp} with the same value as x
      */
     public Dfp newDfp(final double x) {
-        return new Dfp(this, x);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Copy constructor.
+    /**
+     * Copy constructor.
      * @param d instance to copy
      * @return a new {@link Dfp} with the same value as d
      */
     public Dfp newDfp(Dfp d) {
-        return new Dfp(d);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Create a {@link Dfp} given a String representation.
+    /**
+     * Create a {@link Dfp} given a String representation.
      * @param s string representation of the instance
      * @return a new {@link Dfp} parsed from specified string
      */
     public Dfp newDfp(final String s) {
-        return new Dfp(this, s);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Creates a {@link Dfp} with a non-finite value.
+    /**
+     * Creates a {@link Dfp} with a non-finite value.
      * @param sign sign of the Dfp to create
      * @param nans code of the value, must be one of {@link Dfp#INFINITE},
      * {@link Dfp#SNAN},  {@link Dfp#QNAN}
      * @return a new {@link Dfp} with a non-finite value
      */
     public Dfp newDfp(final byte sign, final byte nans) {
-        return new Dfp(this, sign, nans);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant 0.
+    /**
+     * Get the constant 0.
      * @return a {@link Dfp} with value 0
      */
     public Dfp getZero() {
-        return zero;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant 1.
+    /**
+     * Get the constant 1.
      * @return a {@link Dfp} with value 1
      */
     public Dfp getOne() {
-        return one;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Class<? extends FieldElement<Dfp>> getRuntimeClass() {
-        return Dfp.class;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant 2.
+    /**
+     * Get the constant 2.
      * @return a {@link Dfp} with value 2
      */
     public Dfp getTwo() {
-        return two;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &radic;2.
+    /**
+     * Get the constant &radic;2.
      * @return a {@link Dfp} with value &radic;2
      */
     public Dfp getSqr2() {
-        return sqr2;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &radic;2 split in two pieces.
+    /**
+     * Get the constant &radic;2 split in two pieces.
      * @return a {@link Dfp} with value &radic;2 split in two pieces
      */
     public Dfp[] getSqr2Split() {
-        return sqr2Split.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &radic;2 / 2.
+    /**
+     * Get the constant &radic;2 / 2.
      * @return a {@link Dfp} with value &radic;2 / 2
      */
     public Dfp getSqr2Reciprocal() {
-        return sqr2Reciprocal;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &radic;3.
+    /**
+     * Get the constant &radic;3.
      * @return a {@link Dfp} with value &radic;3
      */
     public Dfp getSqr3() {
-        return sqr3;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &radic;3 / 3.
+    /**
+     * Get the constant &radic;3 / 3.
      * @return a {@link Dfp} with value &radic;3 / 3
      */
     public Dfp getSqr3Reciprocal() {
-        return sqr3Reciprocal;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &pi;.
+    /**
+     * Get the constant &pi;.
      * @return a {@link Dfp} with value &pi;
      */
     public Dfp getPi() {
-        return pi;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant &pi; split in two pieces.
+    /**
+     * Get the constant &pi; split in two pieces.
      * @return a {@link Dfp} with value &pi; split in two pieces
      */
     public Dfp[] getPiSplit() {
-        return piSplit.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant e.
+    /**
+     * Get the constant e.
      * @return a {@link Dfp} with value e
      */
     public Dfp getE() {
-        return e;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant e split in two pieces.
+    /**
+     * Get the constant e split in two pieces.
      * @return a {@link Dfp} with value e split in two pieces
      */
     public Dfp[] getESplit() {
-        return eSplit.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant ln(2).
+    /**
+     * Get the constant ln(2).
      * @return a {@link Dfp} with value ln(2)
      */
     public Dfp getLn2() {
-        return ln2;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant ln(2) split in two pieces.
+    /**
+     * Get the constant ln(2) split in two pieces.
      * @return a {@link Dfp} with value ln(2) split in two pieces
      */
     public Dfp[] getLn2Split() {
-        return ln2Split.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant ln(5).
+    /**
+     * Get the constant ln(5).
      * @return a {@link Dfp} with value ln(5)
      */
     public Dfp getLn5() {
-        return ln5;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant ln(5) split in two pieces.
+    /**
+     * Get the constant ln(5) split in two pieces.
      * @return a {@link Dfp} with value ln(5) split in two pieces
      */
     public Dfp[] getLn5Split() {
-        return ln5Split.clone();
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the constant ln(10).
+    /**
+     * Get the constant ln(10).
      * @return a {@link Dfp} with value ln(10)
      */
     public Dfp getLn10() {
-        return ln10;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Breaks a string representation up into two {@link Dfp}'s.
+    /**
+     * Breaks a string representation up into two {@link Dfp}'s.
      * The split is such that the sum of them is equivalent to the input string,
      * but has higher precision than using a single Dfp.
      * @param a string representation of the number to split
      * @return an array of two {@link Dfp Dfp} instances which sum equals a
      */
     private Dfp[] split(final String a) {
-      Dfp result[] = new Dfp[2];
-      boolean leading = true;
-      int sp = 0;
-      int sig = 0;
-
-      char[] buf = new char[a.length()];
-
-      for (int i = 0; i < buf.length; i++) {
-        buf[i] = a.charAt(i);
-
-        if (buf[i] >= '1' && buf[i] <= '9') {
-            leading = false;
+        Dfp[] result = new Dfp[2];
+        boolean leading = true;
+        int sp = 0;
+        int sig = 0;
+        char[] buf = new char[a.length()];
+        for (int i = 0; i < buf.length; i++) {
+            buf[i] = a.charAt(i);
+            if (buf[i] >= '1' && buf[i] <= '9') {
+                leading = false;
+            }
+            if (buf[i] == '.') {
+                sig += (400 - sig) % 4;
+                leading = false;
+            }
+            if (sig == (radixDigits / 2) * 4) {
+                sp = i;
+                break;
+            }
+            if (buf[i] >= '0' && buf[i] <= '9' && !leading) {
+                sig++;
+            }
         }
-
-        if (buf[i] == '.') {
-          sig += (400 - sig) % 4;
-          leading = false;
+        result[0] = new Dfp(this, new String(buf, 0, sp));
+        for (int i = 0; i < buf.length; i++) {
+            buf[i] = a.charAt(i);
+            if (buf[i] >= '0' && buf[i] <= '9' && i < sp) {
+                buf[i] = '0';
+            }
         }
-
-        if (sig == (radixDigits / 2) * 4) {
-          sp = i;
-          break;
-        }
-
-        if (buf[i] >= '0' && buf[i] <= '9' && !leading) {
-            sig ++;
-        }
-      }
-
-      result[0] = new Dfp(this, new String(buf, 0, sp));
-
-      for (int i = 0; i < buf.length; i++) {
-        buf[i] = a.charAt(i);
-        if (buf[i] >= '0' && buf[i] <= '9' && i < sp) {
-            buf[i] = '0';
-        }
-      }
-
-      result[1] = new Dfp(this, new String(buf));
-
-      return result;
-
+        result[1] = new Dfp(this, new String(buf));
+        return result;
     }
 
-    /** Recompute the high precision string constants.
+    /**
+     * Recompute the high precision string constants.
      * @param highPrecisionDecimalDigits precision at which the string constants mus be computed
      */
     private static void computeStringConstants(final int highPrecisionDecimalDigits) {
         if (sqr2String == null || sqr2String.length() < highPrecisionDecimalDigits - 3) {
-
             // recompute the string representation of the transcendental constants
             final DfpField highPrecisionField = new DfpField(highPrecisionDecimalDigits, false);
-            final Dfp highPrecisionOne        = new Dfp(highPrecisionField, 1);
-            final Dfp highPrecisionTwo        = new Dfp(highPrecisionField, 2);
-            final Dfp highPrecisionThree      = new Dfp(highPrecisionField, 3);
-
+            final Dfp highPrecisionOne = new Dfp(highPrecisionField, 1);
+            final Dfp highPrecisionTwo = new Dfp(highPrecisionField, 2);
+            final Dfp highPrecisionThree = new Dfp(highPrecisionField, 3);
             final Dfp highPrecisionSqr2 = highPrecisionTwo.sqrt();
-            sqr2String           = highPrecisionSqr2.toString();
+            sqr2String = highPrecisionSqr2.toString();
             sqr2ReciprocalString = highPrecisionOne.divide(highPrecisionSqr2).toString();
-
             final Dfp highPrecisionSqr3 = highPrecisionThree.sqrt();
-            sqr3String           = highPrecisionSqr3.toString();
+            sqr3String = highPrecisionSqr3.toString();
             sqr3ReciprocalString = highPrecisionOne.divide(highPrecisionSqr3).toString();
-
-            piString   = computePi(highPrecisionOne, highPrecisionTwo, highPrecisionThree).toString();
-            eString    = computeExp(highPrecisionOne, highPrecisionOne).toString();
-            ln2String  = computeLn(highPrecisionTwo, highPrecisionOne, highPrecisionTwo).toString();
-            ln5String  = computeLn(new Dfp(highPrecisionField, 5),  highPrecisionOne, highPrecisionTwo).toString();
+            piString = computePi(highPrecisionOne, highPrecisionTwo, highPrecisionThree).toString();
+            eString = computeExp(highPrecisionOne, highPrecisionOne).toString();
+            ln2String = computeLn(highPrecisionTwo, highPrecisionOne, highPrecisionTwo).toString();
+            ln5String = computeLn(new Dfp(highPrecisionField, 5), highPrecisionOne, highPrecisionTwo).toString();
             ln10String = computeLn(new Dfp(highPrecisionField, 10), highPrecisionOne, highPrecisionTwo).toString();
-
         }
     }
 
-    /** Compute &pi; using Jonathan and Peter Borwein quartic formula.
+    /**
+     * Compute &pi; using Jonathan and Peter Borwein quartic formula.
      * @param one constant with value 1 at desired precision
      * @param two constant with value 2 at desired precision
      * @param three constant with value 3 at desired precision
      * @return &pi;
      */
     private static Dfp computePi(final Dfp one, final Dfp two, final Dfp three) {
-
-        Dfp sqrt2   = two.sqrt();
-        Dfp yk      = sqrt2.subtract(one);
-        Dfp four    = two.add(two);
+        Dfp sqrt2 = two.sqrt();
+        Dfp yk = sqrt2.subtract(one);
+        Dfp four = two.add(two);
         Dfp two2kp3 = two;
-        Dfp ak      = two.multiply(three.subtract(two.multiply(sqrt2)));
-
+        Dfp ak = two.multiply(three.subtract(two.multiply(sqrt2)));
         // The formula converges quartically. This means the number of correct
         // digits is multiplied by 4 at each iteration! Five iterations are
         // sufficient for about 160 digits, eight iterations give about
@@ -621,57 +740,34 @@ public class DfpField implements Field<Dfp> {
         // So the limit here is considered sufficient for most purposes ...
         for (int i = 1; i < 20; i++) {
             final Dfp ykM1 = yk;
-
-            final Dfp y2         = yk.multiply(yk);
+            final Dfp y2 = yk.multiply(yk);
             final Dfp oneMinusY4 = one.subtract(y2.multiply(y2));
-            final Dfp s          = oneMinusY4.sqrt().sqrt();
+            final Dfp s = oneMinusY4.sqrt().sqrt();
             yk = one.subtract(s).divide(one.add(s));
-
             two2kp3 = two2kp3.multiply(four);
-
             final Dfp p = one.add(yk);
             final Dfp p2 = p.multiply(p);
             ak = ak.multiply(p2.multiply(p2)).subtract(two2kp3.multiply(yk).multiply(one.add(yk).add(yk.multiply(yk))));
-
             if (yk.equals(ykM1)) {
                 break;
             }
         }
-
         return one.divide(ak);
-
     }
 
-    /** Compute exp(a).
+    /**
+     * Compute exp(a).
      * @param a number for which we want the exponential
      * @param one constant with value 1 at desired precision
      * @return exp(a)
      */
     public static Dfp computeExp(final Dfp a, final Dfp one) {
-
-        Dfp y  = new Dfp(one);
-        Dfp py = new Dfp(one);
-        Dfp f  = new Dfp(one);
-        Dfp fi = new Dfp(one);
-        Dfp x  = new Dfp(one);
-
-        for (int i = 0; i < 10000; i++) {
-            x = x.multiply(a);
-            y = y.add(x.divide(f));
-            fi = fi.add(one);
-            f = f.multiply(fi);
-            if (y.equals(py)) {
-                break;
-            }
-            py = new Dfp(y);
-        }
-
-        return y;
-
+        // STUB: not implemented
+        return null;
     }
 
-
-    /** Compute ln(a).
+    /**
+     * Compute ln(a).
      *
      *  Let f(x) = ln(x),
      *
@@ -729,29 +825,8 @@ public class DfpField implements Field<Dfp> {
      * @param two constant with value 2 at desired precision
      * @return ln(a)
      */
-
     public static Dfp computeLn(final Dfp a, final Dfp one, final Dfp two) {
-
-        int den = 1;
-        Dfp x = a.add(new Dfp(a.getField(), -1)).divide(a.add(one));
-
-        Dfp y = new Dfp(x);
-        Dfp num = new Dfp(x);
-        Dfp py = new Dfp(y);
-        for (int i = 0; i < 10000; i++) {
-            num = num.multiply(x);
-            num = num.multiply(x);
-            den += 2;
-            Dfp t = num.divide(den);
-            y = y.add(t);
-            if (y.equals(py)) {
-                break;
-            }
-            py = new Dfp(y);
-        }
-
-        return y.multiply(two);
-
+        // STUB: not implemented
+        return null;
     }
-
 }

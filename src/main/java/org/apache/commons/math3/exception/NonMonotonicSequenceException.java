@@ -26,20 +26,27 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 2.2 (name changed to "NonMonotonicSequenceException" in 3.0)
  */
 public class NonMonotonicSequenceException extends MathIllegalNumberException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = 3596849179428944575L;
+
     /**
      * Direction (positive for increasing, negative for decreasing).
      */
     private final MathArrays.OrderDirection direction;
+
     /**
      * Whether the sequence must be strictly increasing or decreasing.
      */
     private final boolean strict;
+
     /**
      * Index of the wrong value.
      */
     private final int index;
+
     /**
      * Previous value.
      */
@@ -54,9 +61,7 @@ public class NonMonotonicSequenceException extends MathIllegalNumberException {
      * @param previous Previous value in the sequence.
      * @param index Index of the value that did not match the requirements.
      */
-    public NonMonotonicSequenceException(Number wrong,
-                                         Number previous,
-                                         int index) {
+    public NonMonotonicSequenceException(Number wrong, Number previous, int index) {
         this(wrong, previous, index, MathArrays.OrderDirection.INCREASING, true);
     }
 
@@ -71,20 +76,8 @@ public class NonMonotonicSequenceException extends MathIllegalNumberException {
      * @param strict Whether the sequence must be strictly increasing or
      * decreasing.
      */
-    public NonMonotonicSequenceException(Number wrong,
-                                         Number previous,
-                                         int index,
-                                         MathArrays.OrderDirection direction,
-                                         boolean strict) {
-        super(direction == MathArrays.OrderDirection.INCREASING ?
-              (strict ?
-               LocalizedFormats.NOT_STRICTLY_INCREASING_SEQUENCE :
-               LocalizedFormats.NOT_INCREASING_SEQUENCE) :
-              (strict ?
-               LocalizedFormats.NOT_STRICTLY_DECREASING_SEQUENCE :
-               LocalizedFormats.NOT_DECREASING_SEQUENCE),
-              wrong, previous, Integer.valueOf(index), Integer.valueOf(index - 1));
-
+    public NonMonotonicSequenceException(Number wrong, Number previous, int index, MathArrays.OrderDirection direction, boolean strict) {
+        super(direction == MathArrays.OrderDirection.INCREASING ? (strict ? LocalizedFormats.NOT_STRICTLY_INCREASING_SEQUENCE : LocalizedFormats.NOT_INCREASING_SEQUENCE) : (strict ? LocalizedFormats.NOT_STRICTLY_DECREASING_SEQUENCE : LocalizedFormats.NOT_DECREASING_SEQUENCE), wrong, previous, Integer.valueOf(index), Integer.valueOf(index - 1));
         this.direction = direction;
         this.strict = strict;
         this.index = index;
@@ -93,28 +86,35 @@ public class NonMonotonicSequenceException extends MathIllegalNumberException {
 
     /**
      * @return the order direction.
-     **/
+     */
     public MathArrays.OrderDirection getDirection() {
-        return direction;
+        // STUB: not implemented
+        return null;
     }
+
     /**
      * @return {@code true} is the sequence should be strictly monotonic.
-     **/
+     */
     public boolean getStrict() {
-        return strict;
+        // STUB: not implemented
+        return false;
     }
+
     /**
      * Get the index of the wrong value.
      *
      * @return the current index.
      */
     public int getIndex() {
-        return index;
+        // STUB: not implemented
+        return 0;
     }
+
     /**
      * @return the previous value.
      */
     public Number getPrevious() {
-        return previous;
+        // STUB: not implemented
+        return null;
     }
 }

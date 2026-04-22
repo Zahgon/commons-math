@@ -32,14 +32,17 @@ import org.apache.commons.math3.exception.NullArgumentException;
  */
 @Deprecated
 public class Incrementor {
+
     /**
      * Upper limit for the counter.
      */
     private int maximalCount;
+
     /**
      * Current count.
      */
     private int count = 0;
+
     /**
      * Function called at counter exhaustion.
      */
@@ -60,13 +63,15 @@ public class Incrementor {
      * @param max Maximal count.
      */
     public Incrementor(int max) {
-        this(max,
-             new MaxCountExceededCallback() {
-                 /** {@inheritDoc} */
-                 public void trigger(int max) throws MaxCountExceededException {
-                     throw new MaxCountExceededException(max);
-                 }
-             });
+        this(max, new MaxCountExceededCallback() {
+
+            /**
+             * {@inheritDoc}
+             */
+            public void trigger(int max) throws MaxCountExceededException {
+                throw new MaxCountExceededException(max);
+            }
+        });
     }
 
     /**
@@ -77,9 +82,8 @@ public class Incrementor {
      * @param cb Function to be called when the maximal count has been reached.
      * @throws NullArgumentException if {@code cb} is {@code null}
      */
-    public Incrementor(int max, MaxCountExceededCallback cb)
-        throws NullArgumentException {
-        if (cb == null){
+    public Incrementor(int max, MaxCountExceededCallback cb) throws NullArgumentException {
+        if (cb == null) {
             throw new NullArgumentException();
         }
         maximalCount = max;
@@ -94,7 +98,7 @@ public class Incrementor {
      * @param max Upper limit of the counter.
      */
     public void setMaximalCount(int max) {
-        maximalCount = max;
+        // STUB: not implemented
     }
 
     /**
@@ -103,7 +107,8 @@ public class Incrementor {
      * @return the counter upper limit.
      */
     public int getMaximalCount() {
-        return maximalCount;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -112,7 +117,8 @@ public class Incrementor {
      * @return the current count.
      */
     public int getCount() {
-        return count;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -123,7 +129,8 @@ public class Incrementor {
      * {@code true} otherwise.
      */
     public boolean canIncrement() {
-        return count < maximalCount;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -134,9 +141,7 @@ public class Incrementor {
      * @throws MaxCountExceededException at counter exhaustion.
      */
     public void incrementCount(int value) throws MaxCountExceededException {
-        for (int i = 0; i < value; i++) {
-            incrementCount();
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -153,16 +158,14 @@ public class Incrementor {
      * construction.
      */
     public void incrementCount() throws MaxCountExceededException {
-        if (++count > maximalCount) {
-            maxCountCallback.trigger(maximalCount);
-        }
+        // STUB: not implemented
     }
 
     /**
      * Resets the counter to 0.
      */
     public void resetCount() {
-        count = 0;
+        // STUB: not implemented
     }
 
     /**
@@ -170,6 +173,7 @@ public class Incrementor {
      * The {@link #trigger(int) trigger} method should usually throw an exception.
      */
     public interface MaxCountExceededCallback {
+
         /**
          * Function called when the maximal count has been reached.
          *
@@ -179,7 +183,8 @@ public class Incrementor {
         void trigger(int maximalCount) throws MaxCountExceededException;
     }
 
-    /** Create an instance that delegates everything to a {@link IntegerSequence.Incrementor}.
+    /**
+     * Create an instance that delegates everything to a {@link IntegerSequence.Incrementor}.
      * <p>
      * This factory method is intended only as a temporary hack for internal use in
      * Apache Commons Math 3.X series, when {@code Incrementor} is required in
@@ -199,40 +204,7 @@ public class Incrementor {
      * @since 3.6
      */
     public static Incrementor wrap(final IntegerSequence.Incrementor incrementor) {
-        return new Incrementor() {
-
-            /** Underlying incrementor. */
-            private IntegerSequence.Incrementor delegate;
-
-            {
-                // set up matching values at initialization
-                delegate = incrementor;
-                super.setMaximalCount(delegate.getMaximalCount());
-                super.incrementCount(delegate.getCount());
-            }
-
-            /** {@inheritDoc} */
-            @Override
-            public void setMaximalCount(int max) {
-                super.setMaximalCount(max);
-                delegate = delegate.withMaximalCount(max);
-            }
-
-            /** {@inheritDoc} */
-            @Override
-            public void resetCount() {
-                super.resetCount();
-                delegate = delegate.withStart(0);
-            }
-
-            /** {@inheritDoc} */
-            @Override
-            public void incrementCount() {
-                super.incrementCount();
-                delegate.increment();
-            }
-
-        };
+        // STUB: not implemented
+        return null;
     }
-
 }

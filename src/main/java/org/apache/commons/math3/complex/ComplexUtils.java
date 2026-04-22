@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.complex;
 
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
@@ -24,14 +23,14 @@ import org.apache.commons.math3.util.FastMath;
 /**
  * Static implementations of common
  * {@link org.apache.commons.math3.complex.Complex} utilities functions.
- *
  */
 public class ComplexUtils {
 
     /**
      * Default constructor.
      */
-    private ComplexUtils() {}
+    private ComplexUtils() {
+    }
 
     /**
      * Creates a complex number from the given polar representation.
@@ -59,11 +58,8 @@ public class ComplexUtils {
      * @since 1.1
      */
     public static Complex polar2Complex(double r, double theta) throws MathIllegalArgumentException {
-        if (r < 0) {
-            throw new MathIllegalArgumentException(
-                  LocalizedFormats.NEGATIVE_COMPLEX_MODULE, r);
-        }
-        return new Complex(r * FastMath.cos(theta), r * FastMath.sin(theta));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -76,11 +72,7 @@ public class ComplexUtils {
      * @since 3.1
      */
     public static Complex[] convertToComplex(double[] real) {
-        final Complex c[] = new Complex[real.length];
-        for (int i = 0; i < real.length; i++) {
-            c[i] = new Complex(real[i], 0);
-        }
-
-        return c;
+        // STUB: not implemented
+        return null;
     }
 }

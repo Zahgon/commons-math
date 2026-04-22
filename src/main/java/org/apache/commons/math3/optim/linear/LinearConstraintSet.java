@@ -20,7 +20,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.Collection;
 import java.util.Collections;
-
 import org.apache.commons.math3.optim.OptimizationData;
 
 /**
@@ -29,7 +28,10 @@ import org.apache.commons.math3.optim.OptimizationData;
  * @since 3.1
  */
 public class LinearConstraintSet implements OptimizationData {
-    /** Set of constraints. */
+
+    /**
+     * Set of constraints.
+     */
     private final Set<LinearConstraint> linearConstraints = new LinkedHashSet<LinearConstraint>();
 
     /**
@@ -58,6 +60,7 @@ public class LinearConstraintSet implements OptimizationData {
      * @return the constraints.
      */
     public Collection<LinearConstraint> getConstraints() {
-        return Collections.unmodifiableSet(linearConstraints);
+        // STUB: not implemented
+        return null;
     }
 }

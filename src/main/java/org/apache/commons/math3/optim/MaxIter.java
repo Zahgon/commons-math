@@ -24,7 +24,10 @@ import org.apache.commons.math3.exception.NotStrictlyPositiveException;
  * @since 3.1
  */
 public class MaxIter implements OptimizationData {
-    /** Allowed number of evalutations. */
+
+    /**
+     * Allowed number of evalutations.
+     */
     private final int maxIter;
 
     /**
@@ -35,7 +38,6 @@ public class MaxIter implements OptimizationData {
         if (max <= 0) {
             throw new NotStrictlyPositiveException(max);
         }
-
         maxIter = max;
     }
 
@@ -45,7 +47,8 @@ public class MaxIter implements OptimizationData {
      * @return the allowed number of evaluations.
      */
     public int getMaxIter() {
-        return maxIter;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -56,6 +59,7 @@ public class MaxIter implements OptimizationData {
      * evaluations.
      */
     public static MaxIter unlimited() {
-        return new MaxIter(Integer.MAX_VALUE);
+        // STUB: not implemented
+        return null;
     }
 }

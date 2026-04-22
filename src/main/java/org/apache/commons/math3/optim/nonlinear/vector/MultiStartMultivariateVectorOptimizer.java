@@ -39,11 +39,16 @@ import org.apache.commons.math3.optim.PointVectorValuePair;
  * @since 3.0
  */
 @Deprecated
-public class MultiStartMultivariateVectorOptimizer
-    extends BaseMultiStartMultivariateOptimizer<PointVectorValuePair> {
-    /** Underlying optimizer. */
+public class MultiStartMultivariateVectorOptimizer extends BaseMultiStartMultivariateOptimizer<PointVectorValuePair> {
+
+    /**
+     * Underlying optimizer.
+     */
     private final MultivariateVectorOptimizer optimizer;
-    /** Found optima. */
+
+    /**
+     * Found optima.
+     */
     private final List<PointVectorValuePair> optima = new ArrayList<PointVectorValuePair>();
 
     /**
@@ -58,11 +63,7 @@ public class MultiStartMultivariateVectorOptimizer
      * is {@code null}.
      * @throws NotStrictlyPositiveException if {@code starts < 1}.
      */
-    public MultiStartMultivariateVectorOptimizer(final MultivariateVectorOptimizer optimizer,
-                                                 final int starts,
-                                                 final RandomVectorGenerator generator)
-        throws NullArgumentException,
-        NotStrictlyPositiveException {
+    public MultiStartMultivariateVectorOptimizer(final MultivariateVectorOptimizer optimizer, final int starts, final RandomVectorGenerator generator) throws NullArgumentException, NotStrictlyPositiveException {
         super(optimizer, starts, generator);
         this.optimizer = optimizer;
     }
@@ -72,8 +73,8 @@ public class MultiStartMultivariateVectorOptimizer
      */
     @Override
     public PointVectorValuePair[] getOptima() {
-        Collections.sort(optima, getPairComparator());
-        return optima.toArray(new PointVectorValuePair[0]);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -81,7 +82,7 @@ public class MultiStartMultivariateVectorOptimizer
      */
     @Override
     protected void store(PointVectorValuePair optimum) {
-        optima.add(optimum);
+        // STUB: not implemented
     }
 
     /**
@@ -89,7 +90,7 @@ public class MultiStartMultivariateVectorOptimizer
      */
     @Override
     protected void clear() {
-        optima.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -97,21 +98,27 @@ public class MultiStartMultivariateVectorOptimizer
      */
     private Comparator<PointVectorValuePair> getPairComparator() {
         return new Comparator<PointVectorValuePair>() {
-            /** Observed value to be matched. */
+
+            /**
+             * Observed value to be matched.
+             */
             private final RealVector target = new ArrayRealVector(optimizer.getTarget(), false);
-            /** Observations weights. */
+
+            /**
+             * Observations weights.
+             */
             private final RealMatrix weight = optimizer.getWeight();
 
-            /** {@inheritDoc} */
-            public int compare(final PointVectorValuePair o1,
-                               final PointVectorValuePair o2) {
+            /**
+             * {@inheritDoc}
+             */
+            public int compare(final PointVectorValuePair o1, final PointVectorValuePair o2) {
                 if (o1 == null) {
                     return (o2 == null) ? 0 : 1;
                 } else if (o2 == null) {
                     return -1;
                 }
-                return Double.compare(weightedResidual(o1),
-                                      weightedResidual(o2));
+                return Double.compare(weightedResidual(o1), weightedResidual(o2));
             }
 
             private double weightedResidual(final PointVectorValuePair pv) {

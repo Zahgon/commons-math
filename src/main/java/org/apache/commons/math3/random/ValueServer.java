@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.random;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.MathIllegalStateException;
 import org.apache.commons.math3.exception.NullArgumentException;
@@ -45,53 +44,78 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  *                       mean = <code>mu</code> and
  *                       standard deviation = <code>sigma</code></li>
  * <li> CONSTANT_MODE -- returns <code>mu</code> every time.</li></ul></p>
- *
- *
  */
 public class ValueServer {
 
-    /** Use empirical distribution.  */
+    /**
+     * Use empirical distribution.
+     */
     public static final int DIGEST_MODE = 0;
 
-    /** Replay data from valuesFilePath. */
+    /**
+     * Replay data from valuesFilePath.
+     */
     public static final int REPLAY_MODE = 1;
 
-    /** Uniform random deviates with mean = &mu;. */
+    /**
+     * Uniform random deviates with mean = &mu;.
+     */
     public static final int UNIFORM_MODE = 2;
 
-    /** Exponential random deviates with mean = &mu;. */
+    /**
+     * Exponential random deviates with mean = &mu;.
+     */
     public static final int EXPONENTIAL_MODE = 3;
 
-    /** Gaussian random deviates with mean = &mu;, std dev = &sigma;. */
+    /**
+     * Gaussian random deviates with mean = &mu;, std dev = &sigma;.
+     */
     public static final int GAUSSIAN_MODE = 4;
 
-    /** Always return mu */
+    /**
+     * Always return mu
+     */
     public static final int CONSTANT_MODE = 5;
 
-    /** mode determines how values are generated. */
+    /**
+     * mode determines how values are generated.
+     */
     private int mode = 5;
 
-    /** URI to raw data values. */
+    /**
+     * URI to raw data values.
+     */
     private URL valuesFileURL = null;
 
-    /** Mean for use with non-data-driven modes. */
+    /**
+     * Mean for use with non-data-driven modes.
+     */
     private double mu = 0.0;
 
-    /** Standard deviation for use with GAUSSIAN_MODE. */
+    /**
+     * Standard deviation for use with GAUSSIAN_MODE.
+     */
     private double sigma = 0.0;
 
-    /** Empirical probability distribution for use with DIGEST_MODE. */
+    /**
+     * Empirical probability distribution for use with DIGEST_MODE.
+     */
     private EmpiricalDistribution empiricalDistribution = null;
 
-    /** File pointer for REPLAY_MODE. */
+    /**
+     * File pointer for REPLAY_MODE.
+     */
     private BufferedReader filePointer = null;
 
-    /** RandomDataImpl to use for random data generation. */
+    /**
+     * RandomDataImpl to use for random data generation.
+     */
     private final RandomDataGenerator randomData;
 
     // Data generation modes ======================================
-
-    /** Creates new ValueServer */
+    /**
+     * Creates new ValueServer
+     */
     public ValueServer() {
         randomData = new RandomDataGenerator();
     }
@@ -130,20 +154,8 @@ public class ValueServer {
      * @throws MathIllegalArgumentException if the underlying random generator thwrows one
      */
     public double getNext() throws IOException, MathIllegalStateException, MathIllegalArgumentException {
-        switch (mode) {
-            case DIGEST_MODE: return getNextDigest();
-            case REPLAY_MODE: return getNextReplay();
-            case UNIFORM_MODE: return getNextUniform();
-            case EXPONENTIAL_MODE: return getNextExponential();
-            case GAUSSIAN_MODE: return getNextGaussian();
-            case CONSTANT_MODE: return mu;
-            default: throw new MathIllegalStateException(
-                    LocalizedFormats.UNKNOWN_MODE,
-                    mode,
-                    "DIGEST_MODE",   DIGEST_MODE,   "REPLAY_MODE",      REPLAY_MODE,
-                    "UNIFORM_MODE",  UNIFORM_MODE,  "EXPONENTIAL_MODE", EXPONENTIAL_MODE,
-                    "GAUSSIAN_MODE", GAUSSIAN_MODE, "CONSTANT_MODE",    CONSTANT_MODE);
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -154,11 +166,8 @@ public class ValueServer {
      * @throws MathIllegalStateException if mode is not recognized
      * @throws MathIllegalArgumentException if the underlying random generator thwrows one
      */
-    public void fill(double[] values)
-        throws IOException, MathIllegalStateException, MathIllegalArgumentException {
-        for (int i = 0; i < values.length; i++) {
-            values[i] = getNext();
-        }
+    public void fill(double[] values) throws IOException, MathIllegalStateException, MathIllegalArgumentException {
+        // STUB: not implemented
     }
 
     /**
@@ -171,13 +180,9 @@ public class ValueServer {
      * @throws MathIllegalStateException if mode is not recognized
      * @throws MathIllegalArgumentException if the underlying random generator thwrows one
      */
-    public double[] fill(int length)
-        throws IOException, MathIllegalStateException, MathIllegalArgumentException {
-        double[] out = new double[length];
-        for (int i = 0; i < length; i++) {
-            out[i] = getNext();
-        }
-        return out;
+    public double[] fill(int length) throws IOException, MathIllegalStateException, MathIllegalArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -195,7 +200,7 @@ public class ValueServer {
      * @throws ZeroException if URL contains no data
      */
     public void computeDistribution() throws IOException, ZeroException, NullArgumentException {
-        computeDistribution(EmpiricalDistribution.DEFAULT_BIN_COUNT);
+        // STUB: not implemented
     }
 
     /**
@@ -215,10 +220,7 @@ public class ValueServer {
      * @throws ZeroException if URL contains no data
      */
     public void computeDistribution(int binCount) throws NullArgumentException, IOException, ZeroException {
-        empiricalDistribution = new EmpiricalDistribution(binCount, randomData.getRandomGenerator());
-        empiricalDistribution.load(valuesFileURL);
-        mu = empiricalDistribution.getSampleStats().getMean();
-        sigma = empiricalDistribution.getSampleStats().getStandardDeviation();
+        // STUB: not implemented
     }
 
     /**
@@ -228,7 +230,8 @@ public class ValueServer {
      * @return Value of property mode.
      */
     public int getMode() {
-        return mode;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -237,7 +240,7 @@ public class ValueServer {
      * @param mode New value of the data generation mode.
      */
     public void setMode(int mode) {
-        this.mode = mode;
+        // STUB: not implemented
     }
 
     /**
@@ -247,7 +250,8 @@ public class ValueServer {
      * @return Values file URL.
      */
     public URL getValuesFileURL() {
-        return valuesFileURL;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -258,7 +262,7 @@ public class ValueServer {
      * @throws MalformedURLException if url is not well formed
      */
     public void setValuesFileURL(String url) throws MalformedURLException {
-        this.valuesFileURL = new URL(url);
+        // STUB: not implemented
     }
 
     /**
@@ -270,7 +274,7 @@ public class ValueServer {
      * @param url URL of the values file.
      */
     public void setValuesFileURL(URL url) {
-        this.valuesFileURL = url;
+        // STUB: not implemented
     }
 
     /**
@@ -279,7 +283,8 @@ public class ValueServer {
      * @return EmpircalDistribution built by {@link #computeDistribution()}
      */
     public EmpiricalDistribution getEmpiricalDistribution() {
-        return empiricalDistribution;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -289,15 +294,7 @@ public class ValueServer {
      * @throws NullPointerException if the {@code valuesFileURL} has not been set.
      */
     public void resetReplayFile() throws IOException {
-        if (filePointer != null) {
-            try {
-                filePointer.close();
-                filePointer = null;
-            } catch (IOException ex) { //NOPMD
-                // ignore
-            }
-        }
-        filePointer = new BufferedReader(new InputStreamReader(valuesFileURL.openStream(), "UTF-8"));
+        // STUB: not implemented
     }
 
     /**
@@ -306,10 +303,7 @@ public class ValueServer {
      * @throws IOException if an error occurs closing the file
      */
     public void closeReplayFile() throws IOException {
-        if (filePointer != null) {
-            filePointer.close();
-            filePointer = null;
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -321,7 +315,8 @@ public class ValueServer {
      * @return Mean used in data generation.
      */
     public double getMu() {
-        return mu;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -332,7 +327,7 @@ public class ValueServer {
      * @param mu new Mean value.
      */
     public void setMu(double mu) {
-        this.mu = mu;
+        // STUB: not implemented
     }
 
     /**
@@ -345,7 +340,8 @@ public class ValueServer {
      * @return Standard deviation used when operating in {@link #GAUSSIAN_MODE}.
      */
     public double getSigma() {
-        return sigma;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -354,7 +350,7 @@ public class ValueServer {
      * @param sigma New standard deviation.
      */
     public void setSigma(double sigma) {
-        this.sigma = sigma;
+        // STUB: not implemented
     }
 
     /**
@@ -364,11 +360,10 @@ public class ValueServer {
      * used to generate random data.
      */
     public void reSeed(long seed) {
-        randomData.reSeed(seed);
+        // STUB: not implemented
     }
 
     //------------- private methods ---------------------------------
-
     /**
      * Gets a random value in DIGEST_MODE.
      * <p>
@@ -381,8 +376,7 @@ public class ValueServer {
      * @throws MathIllegalStateException if digest has not been initialized
      */
     private double getNextDigest() throws MathIllegalStateException {
-        if ((empiricalDistribution == null) ||
-            (empiricalDistribution.getBinStats().size() == 0)) {
+        if ((empiricalDistribution == null) || (empiricalDistribution.getBinStats().size() == 0)) {
             throw new MathIllegalStateException(LocalizedFormats.DIGEST_NOT_INITIALIZED);
         }
         return empiricalDistribution.getNextValue();
@@ -417,8 +411,7 @@ public class ValueServer {
             closeReplayFile();
             resetReplayFile();
             if ((str = filePointer.readLine()) == null) {
-                throw new MathIllegalStateException(LocalizedFormats.URL_CONTAINS_NO_DATA,
-                                                    valuesFileURL);
+                throw new MathIllegalStateException(LocalizedFormats.URL_CONTAINS_NO_DATA, valuesFileURL);
             }
         }
         return Double.parseDouble(str);
@@ -454,5 +447,4 @@ public class ValueServer {
     private double getNextGaussian() throws MathIllegalArgumentException {
         return randomData.nextGaussian(mu, sigma);
     }
-
 }

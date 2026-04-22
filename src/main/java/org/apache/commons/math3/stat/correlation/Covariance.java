@@ -45,13 +45,17 @@ import org.apache.commons.math3.stat.descriptive.moment.Variance;
  */
 public class Covariance {
 
-    /** covariance matrix */
+    /**
+     * covariance matrix
+     */
     private final RealMatrix covarianceMatrix;
 
     /**
      * Create an empty covariance matrix.
      */
-    /** Number of observations (length of covariate vectors) */
+    /**
+     * Number of observations (length of covariate vectors)
+     */
     private final int n;
 
     /**
@@ -80,8 +84,7 @@ public class Covariance {
      * @throws NotStrictlyPositiveException if the input data array is not
      * rectangular with at least one row and one column.
      */
-    public Covariance(double[][] data, boolean biasCorrected)
-    throws MathIllegalArgumentException, NotStrictlyPositiveException {
+    public Covariance(double[][] data, boolean biasCorrected) throws MathIllegalArgumentException, NotStrictlyPositiveException {
         this(new BlockRealMatrix(data), biasCorrected);
     }
 
@@ -98,8 +101,7 @@ public class Covariance {
      * @throws NotStrictlyPositiveException if the input data array is not
      * rectangular with at least one row and one column.
      */
-    public Covariance(double[][] data)
-    throws MathIllegalArgumentException, NotStrictlyPositiveException {
+    public Covariance(double[][] data) throws MathIllegalArgumentException, NotStrictlyPositiveException {
         this(data, true);
     }
 
@@ -117,11 +119,10 @@ public class Covariance {
      * @throws MathIllegalArgumentException if the input matrix does not have
      * at least two rows and one column
      */
-    public Covariance(RealMatrix matrix, boolean biasCorrected)
-    throws MathIllegalArgumentException {
-       checkSufficientData(matrix);
-       n = matrix.getRowDimension();
-       covarianceMatrix = computeCovarianceMatrix(matrix, biasCorrected);
+    public Covariance(RealMatrix matrix, boolean biasCorrected) throws MathIllegalArgumentException {
+        checkSufficientData(matrix);
+        n = matrix.getRowDimension();
+        covarianceMatrix = computeCovarianceMatrix(matrix, biasCorrected);
     }
 
     /**
@@ -144,7 +145,8 @@ public class Covariance {
      * @return covariance matrix
      */
     public RealMatrix getCovarianceMatrix() {
-        return covarianceMatrix;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -153,7 +155,8 @@ public class Covariance {
      * @return number of observations
      */
     public int getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -164,20 +167,9 @@ public class Covariance {
      * @return covariance matrix
      * @throws MathIllegalArgumentException if the matrix does not contain sufficient data
      */
-    protected RealMatrix computeCovarianceMatrix(RealMatrix matrix, boolean biasCorrected)
-    throws MathIllegalArgumentException {
-        int dimension = matrix.getColumnDimension();
-        Variance variance = new Variance(biasCorrected);
-        RealMatrix outMatrix = new BlockRealMatrix(dimension, dimension);
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < i; j++) {
-              double cov = covariance(matrix.getColumn(i), matrix.getColumn(j), biasCorrected);
-              outMatrix.setEntry(i, j, cov);
-              outMatrix.setEntry(j, i, cov);
-            }
-            outMatrix.setEntry(i, i, variance.evaluate(matrix.getColumn(i)));
-        }
-        return outMatrix;
+    protected RealMatrix computeCovarianceMatrix(RealMatrix matrix, boolean biasCorrected) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -188,9 +180,9 @@ public class Covariance {
      * @throws MathIllegalArgumentException if matrix does not contain sufficient data
      * @see #Covariance
      */
-    protected RealMatrix computeCovarianceMatrix(RealMatrix matrix)
-    throws MathIllegalArgumentException {
-        return computeCovarianceMatrix(matrix, true);
+    protected RealMatrix computeCovarianceMatrix(RealMatrix matrix) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -204,9 +196,9 @@ public class Covariance {
      * @throws NotStrictlyPositiveException if the input data array is not
      * rectangular with at least one row and one column.
      */
-    protected RealMatrix computeCovarianceMatrix(double[][] data, boolean biasCorrected)
-    throws MathIllegalArgumentException, NotStrictlyPositiveException {
-        return computeCovarianceMatrix(new BlockRealMatrix(data), biasCorrected);
+    protected RealMatrix computeCovarianceMatrix(double[][] data, boolean biasCorrected) throws MathIllegalArgumentException, NotStrictlyPositiveException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -219,9 +211,9 @@ public class Covariance {
      * rectangular with at least one row and one column.
      * @see #Covariance
      */
-    protected RealMatrix computeCovarianceMatrix(double[][] data)
-    throws MathIllegalArgumentException, NotStrictlyPositiveException {
-        return computeCovarianceMatrix(data, true);
+    protected RealMatrix computeCovarianceMatrix(double[][] data) throws MathIllegalArgumentException, NotStrictlyPositiveException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -236,27 +228,9 @@ public class Covariance {
      * @throws  MathIllegalArgumentException if the arrays lengths do not match or
      * there is insufficient data
      */
-    public double covariance(final double[] xArray, final double[] yArray, boolean biasCorrected)
-        throws MathIllegalArgumentException {
-        Mean mean = new Mean();
-        double result = 0d;
-        int length = xArray.length;
-        if (length != yArray.length) {
-            throw new MathIllegalArgumentException(
-                  LocalizedFormats.DIMENSIONS_MISMATCH_SIMPLE, length, yArray.length);
-        } else if (length < 2) {
-            throw new MathIllegalArgumentException(
-                  LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE, length, 2);
-        } else {
-            double xMean = mean.evaluate(xArray);
-            double yMean = mean.evaluate(yArray);
-            for (int i = 0; i < length; i++) {
-                double xDev = xArray[i] - xMean;
-                double yDev = yArray[i] - yMean;
-                result += (xDev * yDev - result) / (i + 1);
-            }
-        }
-        return biasCorrected ? result * ((double) length / (double)(length - 1)) : result;
+    public double covariance(final double[] xArray, final double[] yArray, boolean biasCorrected) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -271,9 +245,9 @@ public class Covariance {
      * @throws  MathIllegalArgumentException if the arrays lengths do not match or
      * there is insufficient data
      */
-    public double covariance(final double[] xArray, final double[] yArray)
-        throws MathIllegalArgumentException {
-        return covariance(xArray, yArray, true);
+    public double covariance(final double[] xArray, final double[] yArray) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -287,9 +261,7 @@ public class Covariance {
         int nRows = matrix.getRowDimension();
         int nCols = matrix.getColumnDimension();
         if (nRows < 2 || nCols < 1) {
-            throw new MathIllegalArgumentException(
-                    LocalizedFormats.INSUFFICIENT_ROWS_AND_COLUMNS,
-                    nRows, nCols);
+            throw new MathIllegalArgumentException(LocalizedFormats.INSUFFICIENT_ROWS_AND_COLUMNS, nRows, nCols);
         }
     }
 }

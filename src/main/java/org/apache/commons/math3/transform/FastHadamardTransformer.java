@@ -17,7 +17,6 @@
 package org.apache.commons.math3.transform;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.analysis.FunctionUtils;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
@@ -38,7 +37,9 @@ import org.apache.commons.math3.util.ArithmeticUtils;
  */
 public class FastHadamardTransformer implements RealTransformer, Serializable {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     static final long serialVersionUID = 20120211L;
 
     /**
@@ -48,10 +49,8 @@ public class FastHadamardTransformer implements RealTransformer, Serializable {
      * not a power of two
      */
     public double[] transform(final double[] f, final TransformType type) {
-        if (type == TransformType.FORWARD) {
-            return fht(f);
-        }
-        return TransformUtils.scaleArray(fht(f), 1.0 / f.length);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -63,11 +62,9 @@ public class FastHadamardTransformer implements RealTransformer, Serializable {
      *   if the number of sample points is negative
      * @throws MathIllegalArgumentException if the number of sample points is not a power of two
      */
-    public double[] transform(final UnivariateFunction f,
-        final double min, final double max, final int n,
-        final TransformType type) {
-
-        return transform(FunctionUtils.sample(f, min, max, n), type);
+    public double[] transform(final UnivariateFunction f, final double min, final double max, final int n, final TransformType type) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -80,7 +77,8 @@ public class FastHadamardTransformer implements RealTransformer, Serializable {
      * @throws MathIllegalArgumentException if the length of the data array is not a power of two
      */
     public int[] transform(final int[] f) {
-        return fht(f);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -226,46 +224,8 @@ public class FastHadamardTransformer implements RealTransformer, Serializable {
      * @throws MathIllegalArgumentException if the length of the data array is not a power of two
      */
     protected double[] fht(double[] x) throws MathIllegalArgumentException {
-
-        final int n     = x.length;
-        final int halfN = n / 2;
-
-        if (!ArithmeticUtils.isPowerOfTwo(n)) {
-            throw new MathIllegalArgumentException(
-                    LocalizedFormats.NOT_POWER_OF_TWO,
-                    Integer.valueOf(n));
-        }
-
-        /*
-         * Instead of creating a matrix with p+1 columns and n rows, we use two
-         * one dimension arrays which we are used in an alternating way.
-         */
-        double[] yPrevious = new double[n];
-        double[] yCurrent  = x.clone();
-
-        // iterate from left to right (column)
-        for (int j = 1; j < n; j <<= 1) {
-
-            // switch columns
-            final double[] yTmp = yCurrent;
-            yCurrent  = yPrevious;
-            yPrevious = yTmp;
-
-            // iterate from top to bottom (row)
-            for (int i = 0; i < halfN; ++i) {
-                // Dtop: the top part works with addition
-                final int twoI = 2 * i;
-                yCurrent[i] = yPrevious[twoI] + yPrevious[twoI + 1];
-            }
-            for (int i = halfN; i < n; ++i) {
-                // Dbottom: the bottom part works with subtraction
-                final int twoI = 2 * i;
-                yCurrent[i] = yPrevious[twoI - n] - yPrevious[twoI - n + 1];
-            }
-        }
-
-        return yCurrent;
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -277,47 +237,7 @@ public class FastHadamardTransformer implements RealTransformer, Serializable {
      * @throws MathIllegalArgumentException if the length of the data array is not a power of two
      */
     protected int[] fht(int[] x) throws MathIllegalArgumentException {
-
-        final int n     = x.length;
-        final int halfN = n / 2;
-
-        if (!ArithmeticUtils.isPowerOfTwo(n)) {
-            throw new MathIllegalArgumentException(
-                    LocalizedFormats.NOT_POWER_OF_TWO,
-                    Integer.valueOf(n));
-        }
-
-        /*
-         * Instead of creating a matrix with p+1 columns and n rows, we use two
-         * one dimension arrays which we are used in an alternating way.
-         */
-        int[] yPrevious = new int[n];
-        int[] yCurrent  = x.clone();
-
-        // iterate from left to right (column)
-        for (int j = 1; j < n; j <<= 1) {
-
-            // switch columns
-            final int[] yTmp = yCurrent;
-            yCurrent  = yPrevious;
-            yPrevious = yTmp;
-
-            // iterate from top to bottom (row)
-            for (int i = 0; i < halfN; ++i) {
-                // Dtop: the top part works with addition
-                final int twoI = 2 * i;
-                yCurrent[i] = yPrevious[twoI] + yPrevious[twoI + 1];
-            }
-            for (int i = halfN; i < n; ++i) {
-                // Dbottom: the bottom part works with subtraction
-                final int twoI = 2 * i;
-                yCurrent[i] = yPrevious[twoI - n] - yPrevious[twoI - n + 1];
-            }
-        }
-
-        // return the last computed output vector y
-        return yCurrent;
-
+        // STUB: not implemented
+        return null;
     }
-
 }

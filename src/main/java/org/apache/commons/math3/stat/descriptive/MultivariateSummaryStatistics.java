@@ -18,7 +18,6 @@ package org.apache.commons.math3.stat.descriptive;
 
 import java.io.Serializable;
 import java.util.Arrays;
-
 import org.apache.commons.math3.exception.util.LocalizedFormats;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.MathIllegalStateException;
@@ -68,40 +67,61 @@ import org.apache.commons.math3.util.FastMath;
  *
  * @since 1.2
  */
-public class MultivariateSummaryStatistics
-    implements StatisticalMultivariateSummary, Serializable {
+public class MultivariateSummaryStatistics implements StatisticalMultivariateSummary, Serializable {
 
-    /** Serialization UID */
+    /**
+     * Serialization UID
+     */
     private static final long serialVersionUID = 2271900808994826718L;
 
-    /** Dimension of the data. */
+    /**
+     * Dimension of the data.
+     */
     private int k;
 
-    /** Count of values that have been added */
+    /**
+     * Count of values that have been added
+     */
     private long n = 0;
 
-    /** Sum statistic implementation - can be reset by setter. */
+    /**
+     * Sum statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] sumImpl;
 
-    /** Sum of squares statistic implementation - can be reset by setter. */
+    /**
+     * Sum of squares statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] sumSqImpl;
 
-    /** Minimum statistic implementation - can be reset by setter. */
+    /**
+     * Minimum statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] minImpl;
 
-    /** Maximum statistic implementation - can be reset by setter. */
+    /**
+     * Maximum statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] maxImpl;
 
-    /** Sum of log statistic implementation - can be reset by setter. */
+    /**
+     * Sum of log statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] sumLogImpl;
 
-    /** Geometric mean statistic implementation - can be reset by setter. */
+    /**
+     * Geometric mean statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] geoMeanImpl;
 
-    /** Mean statistic implementation - can be reset by setter. */
+    /**
+     * Mean statistic implementation - can be reset by setter.
+     */
     private StorelessUnivariateStatistic[] meanImpl;
 
-    /** Covariance statistic implementation - cannot be reset. */
+    /**
+     * Covariance statistic implementation - cannot be reset.
+     */
     private VectorialCovariance covarianceImpl;
 
     /**
@@ -113,28 +133,23 @@ public class MultivariateSummaryStatistics
      */
     public MultivariateSummaryStatistics(int k, boolean isCovarianceBiasCorrected) {
         this.k = k;
-
-        sumImpl     = new StorelessUnivariateStatistic[k];
-        sumSqImpl   = new StorelessUnivariateStatistic[k];
-        minImpl     = new StorelessUnivariateStatistic[k];
-        maxImpl     = new StorelessUnivariateStatistic[k];
-        sumLogImpl  = new StorelessUnivariateStatistic[k];
+        sumImpl = new StorelessUnivariateStatistic[k];
+        sumSqImpl = new StorelessUnivariateStatistic[k];
+        minImpl = new StorelessUnivariateStatistic[k];
+        maxImpl = new StorelessUnivariateStatistic[k];
+        sumLogImpl = new StorelessUnivariateStatistic[k];
         geoMeanImpl = new StorelessUnivariateStatistic[k];
-        meanImpl    = new StorelessUnivariateStatistic[k];
-
+        meanImpl = new StorelessUnivariateStatistic[k];
         for (int i = 0; i < k; ++i) {
-            sumImpl[i]     = new Sum();
-            sumSqImpl[i]   = new SumOfSquares();
-            minImpl[i]     = new Min();
-            maxImpl[i]     = new Max();
-            sumLogImpl[i]  = new SumOfLogs();
+            sumImpl[i] = new Sum();
+            sumSqImpl[i] = new SumOfSquares();
+            minImpl[i] = new Min();
+            maxImpl[i] = new Max();
+            sumLogImpl[i] = new SumOfLogs();
             geoMeanImpl[i] = new GeometricMean();
-            meanImpl[i]    = new Mean();
+            meanImpl[i] = new Mean();
         }
-
-        covarianceImpl =
-            new VectorialCovariance(k, isCovarianceBiasCorrected);
-
+        covarianceImpl = new VectorialCovariance(k, isCovarianceBiasCorrected);
     }
 
     /**
@@ -145,19 +160,7 @@ public class MultivariateSummaryStatistics
      * does not match the one used at construction
      */
     public void addValue(double[] value) throws DimensionMismatchException {
-        checkDimension(value.length);
-        for (int i = 0; i < k; ++i) {
-            double v = value[i];
-            sumImpl[i].increment(v);
-            sumSqImpl[i].increment(v);
-            minImpl[i].increment(v);
-            maxImpl[i].increment(v);
-            sumLogImpl[i].increment(v);
-            geoMeanImpl[i].increment(v);
-            meanImpl[i].increment(v);
-        }
-        covarianceImpl.increment(value);
-        n++;
+        // STUB: not implemented
     }
 
     /**
@@ -165,7 +168,8 @@ public class MultivariateSummaryStatistics
      * @return The dimension of the data
      */
     public int getDimension() {
-        return k;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -173,7 +177,8 @@ public class MultivariateSummaryStatistics
      * @return The number of available values
      */
     public long getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -197,7 +202,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component sums
      */
     public double[] getSum() {
-        return getResults(sumImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -208,7 +214,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component sums of squares
      */
     public double[] getSumSq() {
-        return getResults(sumSqImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -219,7 +226,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component log sums
      */
     public double[] getSumLog() {
-        return getResults(sumLogImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -230,7 +238,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component means
      */
     public double[] getMean() {
-        return getResults(meanImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -241,18 +250,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component standard deviations
      */
     public double[] getStandardDeviation() {
-        double[] stdDev = new double[k];
-        if (getN() < 1) {
-            Arrays.fill(stdDev, Double.NaN);
-        } else if (getN() < 2) {
-            Arrays.fill(stdDev, 0.0);
-        } else {
-            RealMatrix matrix = covarianceImpl.getResult();
-            for (int i = 0; i < k; ++i) {
-                stdDev[i] = FastMath.sqrt(matrix.getEntry(i, i));
-            }
-        }
-        return stdDev;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -261,7 +260,8 @@ public class MultivariateSummaryStatistics
      * @return the covariance matrix
      */
     public RealMatrix getCovariance() {
-        return covarianceImpl.getResult();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -272,7 +272,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component maxima
      */
     public double[] getMax() {
-        return getResults(maxImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -283,7 +284,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component minima
      */
     public double[] getMin() {
-        return getResults(minImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -294,7 +296,8 @@ public class MultivariateSummaryStatistics
      * @return the array of component geometric means
      */
     public double[] getGeometricMean() {
-        return getResults(geoMeanImpl);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -305,20 +308,8 @@ public class MultivariateSummaryStatistics
      */
     @Override
     public String toString() {
-        final String separator = ", ";
-        final String suffix = System.getProperty("line.separator");
-        StringBuilder outBuffer = new StringBuilder();
-        outBuffer.append("MultivariateSummaryStatistics:" + suffix);
-        outBuffer.append("n: " + getN() + suffix);
-        append(outBuffer, getMin(), "min: ", separator, suffix);
-        append(outBuffer, getMax(), "max: ", separator, suffix);
-        append(outBuffer, getMean(), "mean: ", separator, suffix);
-        append(outBuffer, getGeometricMean(), "geometric mean: ", separator, suffix);
-        append(outBuffer, getSumSq(), "sum of squares: ", separator, suffix);
-        append(outBuffer, getSumLog(), "sum of logarithms: ", separator, suffix);
-        append(outBuffer, getStandardDeviation(), "standard deviation: ", separator, suffix);
-        outBuffer.append("covariance: " + getCovariance().toString() + suffix);
-        return outBuffer.toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -329,8 +320,7 @@ public class MultivariateSummaryStatistics
      * @param separator elements separator
      * @param suffix text suffix
      */
-    private void append(StringBuilder buffer, double[] data,
-                        String prefix, String separator, String suffix) {
+    private void append(StringBuilder buffer, double[] data, String prefix, String separator, String suffix) {
         buffer.append(prefix);
         for (int i = 0; i < data.length; ++i) {
             if (i > 0) {
@@ -345,17 +335,7 @@ public class MultivariateSummaryStatistics
      * Resets all statistics and storage
      */
     public void clear() {
-        this.n = 0;
-        for (int i = 0; i < k; ++i) {
-            minImpl[i].clear();
-            maxImpl[i].clear();
-            sumImpl[i].clear();
-            sumLogImpl[i].clear();
-            sumSqImpl[i].clear();
-            geoMeanImpl[i].clear();
-            meanImpl[i].clear();
-        }
-        covarianceImpl.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -366,22 +346,8 @@ public class MultivariateSummaryStatistics
      */
     @Override
     public boolean equals(Object object) {
-        if (object == this ) {
-            return true;
-        }
-        if (object instanceof MultivariateSummaryStatistics == false) {
-            return false;
-        }
-        MultivariateSummaryStatistics stat = (MultivariateSummaryStatistics) object;
-        return MathArrays.equalsIncludingNaN(stat.getGeometricMean(), getGeometricMean()) &&
-               MathArrays.equalsIncludingNaN(stat.getMax(),           getMax())           &&
-               MathArrays.equalsIncludingNaN(stat.getMean(),          getMean())          &&
-               MathArrays.equalsIncludingNaN(stat.getMin(),           getMin())           &&
-               Precision.equalsIncludingNaN(stat.getN(),             getN())             &&
-               MathArrays.equalsIncludingNaN(stat.getSum(),           getSum())           &&
-               MathArrays.equalsIncludingNaN(stat.getSumSq(),         getSumSq())         &&
-               MathArrays.equalsIncludingNaN(stat.getSumLog(),        getSumLog())        &&
-               stat.getCovariance().equals( getCovariance());
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -391,17 +357,8 @@ public class MultivariateSummaryStatistics
      */
     @Override
     public int hashCode() {
-        int result = 31 + MathUtils.hash(getGeometricMean());
-        result = result * 31 + MathUtils.hash(getGeometricMean());
-        result = result * 31 + MathUtils.hash(getMax());
-        result = result * 31 + MathUtils.hash(getMean());
-        result = result * 31 + MathUtils.hash(getMin());
-        result = result * 31 + MathUtils.hash(getN());
-        result = result * 31 + MathUtils.hash(getSum());
-        result = result * 31 + MathUtils.hash(getSumSq());
-        result = result * 31 + MathUtils.hash(getSumLog());
-        result = result * 31 + getCovariance().hashCode();
-        return result;
+        // STUB: not implemented
+        return 0;
     }
 
     // Getters and setters for statistics implementations
@@ -414,9 +371,7 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      * (i.e. if n > 0)
      */
-    private void setImpl(StorelessUnivariateStatistic[] newImpl,
-                         StorelessUnivariateStatistic[] oldImpl) throws MathIllegalStateException,
-                         DimensionMismatchException {
+    private void setImpl(StorelessUnivariateStatistic[] newImpl, StorelessUnivariateStatistic[] oldImpl) throws MathIllegalStateException, DimensionMismatchException {
         checkEmpty();
         checkDimension(newImpl.length);
         System.arraycopy(newImpl, 0, oldImpl, 0, newImpl.length);
@@ -428,7 +383,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the sum
      */
     public StorelessUnivariateStatistic[] getSumImpl() {
-        return sumImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -444,9 +400,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setSumImpl(StorelessUnivariateStatistic[] sumImpl)
-    throws MathIllegalStateException, DimensionMismatchException {
-        setImpl(sumImpl, this.sumImpl);
+    public void setSumImpl(StorelessUnivariateStatistic[] sumImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -455,7 +410,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the sum of squares
      */
     public StorelessUnivariateStatistic[] getSumsqImpl() {
-        return sumSqImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -471,9 +427,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setSumsqImpl(StorelessUnivariateStatistic[] sumsqImpl)
-    throws MathIllegalStateException, DimensionMismatchException {
-        setImpl(sumsqImpl, this.sumSqImpl);
+    public void setSumsqImpl(StorelessUnivariateStatistic[] sumsqImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -482,7 +437,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the minimum
      */
     public StorelessUnivariateStatistic[] getMinImpl() {
-        return minImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -498,9 +454,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setMinImpl(StorelessUnivariateStatistic[] minImpl)
-    throws MathIllegalStateException, DimensionMismatchException {
-        setImpl(minImpl, this.minImpl);
+    public void setMinImpl(StorelessUnivariateStatistic[] minImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -509,7 +464,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the maximum
      */
     public StorelessUnivariateStatistic[] getMaxImpl() {
-        return maxImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -525,9 +481,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setMaxImpl(StorelessUnivariateStatistic[] maxImpl)
-    throws MathIllegalStateException, DimensionMismatchException{
-        setImpl(maxImpl, this.maxImpl);
+    public void setMaxImpl(StorelessUnivariateStatistic[] maxImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -536,7 +491,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the log sum
      */
     public StorelessUnivariateStatistic[] getSumLogImpl() {
-        return sumLogImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -552,9 +508,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setSumLogImpl(StorelessUnivariateStatistic[] sumLogImpl)
-    throws MathIllegalStateException, DimensionMismatchException{
-        setImpl(sumLogImpl, this.sumLogImpl);
+    public void setSumLogImpl(StorelessUnivariateStatistic[] sumLogImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -563,7 +518,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the geometric mean
      */
     public StorelessUnivariateStatistic[] getGeoMeanImpl() {
-        return geoMeanImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -579,9 +535,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setGeoMeanImpl(StorelessUnivariateStatistic[] geoMeanImpl)
-    throws MathIllegalStateException, DimensionMismatchException {
-        setImpl(geoMeanImpl, this.geoMeanImpl);
+    public void setGeoMeanImpl(StorelessUnivariateStatistic[] geoMeanImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -590,7 +545,8 @@ public class MultivariateSummaryStatistics
      * @return the StorelessUnivariateStatistic implementing the mean
      */
     public StorelessUnivariateStatistic[] getMeanImpl() {
-        return meanImpl.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -606,9 +562,8 @@ public class MultivariateSummaryStatistics
      * @throws MathIllegalStateException if data has already been added
      *  (i.e if n > 0)
      */
-    public void setMeanImpl(StorelessUnivariateStatistic[] meanImpl)
-    throws MathIllegalStateException, DimensionMismatchException{
-        setImpl(meanImpl, this.meanImpl);
+    public void setMeanImpl(StorelessUnivariateStatistic[] meanImpl) throws MathIllegalStateException, DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -617,8 +572,7 @@ public class MultivariateSummaryStatistics
      */
     private void checkEmpty() throws MathIllegalStateException {
         if (n > 0) {
-            throw new MathIllegalStateException(
-                    LocalizedFormats.VALUES_ADDED_BEFORE_CONFIGURING_STATISTIC, n);
+            throw new MathIllegalStateException(LocalizedFormats.VALUES_ADDED_BEFORE_CONFIGURING_STATISTIC, n);
         }
     }
 

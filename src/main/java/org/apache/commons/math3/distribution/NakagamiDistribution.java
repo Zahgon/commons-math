@@ -33,17 +33,29 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class NakagamiDistribution extends AbstractRealDistribution {
 
-    /** Default inverse cumulative probability accuracy. */
+    /**
+     * Default inverse cumulative probability accuracy.
+     */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20141003;
 
-    /** The shape parameter. */
+    /**
+     * The shape parameter.
+     */
     private final double mu;
-    /** The scale parameter. */
+
+    /**
+     * The scale parameter.
+     */
     private final double omega;
-    /** Inverse cumulative probability accuracy. */
+
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double inverseAbsoluteAccuracy;
 
     /**
@@ -99,14 +111,12 @@ public class NakagamiDistribution extends AbstractRealDistribution {
      */
     public NakagamiDistribution(RandomGenerator rng, double mu, double omega, double inverseAbsoluteAccuracy) {
         super(rng);
-
         if (mu < 0.5) {
             throw new NumberIsTooSmallException(mu, 0.5, true);
         }
         if (omega <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.NOT_POSITIVE_SCALE, omega);
         }
-
         this.mu = mu;
         this.omega = omega;
         this.inverseAbsoluteAccuracy = inverseAbsoluteAccuracy;
@@ -118,7 +128,8 @@ public class NakagamiDistribution extends AbstractRealDistribution {
      * @return the shape parameter.
      */
     public double getShape() {
-        return mu;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -127,63 +138,88 @@ public class NakagamiDistribution extends AbstractRealDistribution {
      * @return the scale parameter.
      */
     public double getScale() {
-        return omega;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return inverseAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double density(double x) {
-        if (x <= 0) {
-            return 0.0;
-        }
-        return 2.0 * FastMath.pow(mu, mu) / (Gamma.gamma(mu) * FastMath.pow(omega, mu)) *
-                     FastMath.pow(x, 2 * mu - 1) * FastMath.exp(-mu * x * x / omega);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(double x) {
-        return Gamma.regularizedGammaP(mu, mu * x * x / omega);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getNumericalMean() {
-        return Gamma.gamma(mu + 0.5) / Gamma.gamma(mu) * FastMath.sqrt(omega / mu);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getNumericalVariance() {
-        double v = Gamma.gamma(mu + 0.5) / Gamma.gamma(mu);
-        return omega * (1 - 1 / mu * v * v);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getSupportLowerBound() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
-    }
-
-    /** {@inheritDoc} */
-    public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
-    public boolean isSupportConnected() {
-        return true;
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
+        return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isSupportConnected() {
+        // STUB: not implemented
+        return false;
+    }
 }

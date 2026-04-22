@@ -48,9 +48,12 @@ import org.apache.commons.math3.util.Pair;
  */
 public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
 
-    /** The decomposition algorithm to use to solve the normal equations. */
+    /**
+     * The decomposition algorithm to use to solve the normal equations.
+     */
     //TODO move to linear package and expand options?
     public enum Decomposition {
+
         /**
          * Solve by forming the normal equations (J<sup>T</sup>Jx=J<sup>T</sup>r) and
          * using the {@link LUDecomposition}.
@@ -60,22 +63,14 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
          * the LU decomposition. </p>
          */
         LU {
+
             @Override
-            protected RealVector solve(final RealMatrix jacobian,
-                                       final RealVector residuals) {
-                try {
-                    final Pair<RealMatrix, RealVector> normalEquation =
-                            computeNormalMatrix(jacobian, residuals);
-                    final RealMatrix normal = normalEquation.getFirst();
-                    final RealVector jTr = normalEquation.getSecond();
-                    return new LUDecomposition(normal, SINGULARITY_THRESHOLD)
-                            .getSolver()
-                            .solve(jTr);
-                } catch (SingularMatrixException e) {
-                    throw new ConvergenceException(LocalizedFormats.UNABLE_TO_SOLVE_SINGULAR_PROBLEM, e);
-                }
+            protected RealVector solve(final RealMatrix jacobian, final RealVector residuals) {
+                // STUB: not implemented
+                return null;
             }
-        },
+        }
+        ,
         /**
          * Solve the linear least squares problem (Jx=r) using the {@link
          * QRDecomposition}.
@@ -85,18 +80,14 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
          * equations. </p>
          */
         QR {
+
             @Override
-            protected RealVector solve(final RealMatrix jacobian,
-                                       final RealVector residuals) {
-                try {
-                    return new QRDecomposition(jacobian, SINGULARITY_THRESHOLD)
-                            .getSolver()
-                            .solve(residuals);
-                } catch (SingularMatrixException e) {
-                    throw new ConvergenceException(LocalizedFormats.UNABLE_TO_SOLVE_SINGULAR_PROBLEM, e);
-                }
+            protected RealVector solve(final RealMatrix jacobian, final RealVector residuals) {
+                // STUB: not implemented
+                return null;
             }
-        },
+        }
+        ,
         /**
          * Solve by forming the normal equations (J<sup>T</sup>Jx=J<sup>T</sup>r) and
          * using the {@link CholeskyDecomposition}.
@@ -106,23 +97,14 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
          * the Cholesky decomposition. </p>
          */
         CHOLESKY {
+
             @Override
-            protected RealVector solve(final RealMatrix jacobian,
-                                       final RealVector residuals) {
-                try {
-                    final Pair<RealMatrix, RealVector> normalEquation =
-                            computeNormalMatrix(jacobian, residuals);
-                    final RealMatrix normal = normalEquation.getFirst();
-                    final RealVector jTr = normalEquation.getSecond();
-                    return new CholeskyDecomposition(
-                            normal, SINGULARITY_THRESHOLD, SINGULARITY_THRESHOLD)
-                            .getSolver()
-                            .solve(jTr);
-                } catch (NonPositiveDefiniteMatrixException e) {
-                    throw new ConvergenceException(LocalizedFormats.UNABLE_TO_SOLVE_SINGULAR_PROBLEM, e);
-                }
+            protected RealVector solve(final RealMatrix jacobian, final RealVector residuals) {
+                // STUB: not implemented
+                return null;
             }
-        },
+        }
+        ,
         /**
          * Solve the linear least squares problem using the {@link
          * SingularValueDecomposition}.
@@ -131,14 +113,14 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
          * nearly singular systems.
          */
         SVD {
+
             @Override
-            protected RealVector solve(final RealMatrix jacobian,
-                                       final RealVector residuals) {
-                return new SingularValueDecomposition(jacobian)
-                        .getSolver()
-                        .solve(residuals);
+            protected RealVector solve(final RealMatrix jacobian, final RealVector residuals) {
+                // STUB: not implemented
+                return null;
             }
-        };
+        }
+        ;
 
         /**
          * Solve the linear least squares problem Jx=r.
@@ -150,8 +132,7 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
          * @throws ConvergenceException if the matrix properties (e.g. singular) do not
          *                              permit a solution.
          */
-        protected abstract RealVector solve(RealMatrix jacobian,
-                                            RealVector residuals);
+        protected abstract RealVector solve(RealMatrix jacobian, RealVector residuals);
     }
 
     /**
@@ -161,7 +142,9 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
      */
     private static final double SINGULARITY_THRESHOLD = 1e-11;
 
-    /** Indicator for using LU decomposition. */
+    /**
+     * Indicator for using LU decomposition.
+     */
     private final Decomposition decomposition;
 
     /**
@@ -190,7 +173,8 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
      * @return the matrix {@link Decomposition} algoritm.
      */
     public Decomposition getDecomposition() {
-        return this.decomposition;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -200,59 +184,25 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
      * @return a new instance.
      */
     public GaussNewtonOptimizer withDecomposition(final Decomposition newDecomposition) {
-        return new GaussNewtonOptimizer(newDecomposition);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Optimum optimize(final LeastSquaresProblem lsp) {
-        //create local evaluation and iteration counts
-        final Incrementor evaluationCounter = lsp.getEvaluationCounter();
-        final Incrementor iterationCounter = lsp.getIterationCounter();
-        final ConvergenceChecker<Evaluation> checker
-                = lsp.getConvergenceChecker();
-
-        // Computation will be useless without a checker (see "for-loop").
-        if (checker == null) {
-            throw new NullArgumentException();
-        }
-
-        RealVector currentPoint = lsp.getStart();
-
-        // iterate until convergence is reached
-        Evaluation current = null;
-        while (true) {
-            iterationCounter.incrementCount();
-
-            // evaluate the objective function and its jacobian
-            Evaluation previous = current;
-            // Value of the objective function at "currentPoint".
-            evaluationCounter.incrementCount();
-            current = lsp.evaluate(currentPoint);
-            final RealVector currentResiduals = current.getResiduals();
-            final RealMatrix weightedJacobian = current.getJacobian();
-            currentPoint = current.getPoint();
-
-            // Check convergence.
-            if (previous != null &&
-                checker.converged(iterationCounter.getCount(), previous, current)) {
-                return new OptimumImpl(current,
-                                       evaluationCounter.getCount(),
-                                       iterationCounter.getCount());
-            }
-
-            // solve the linearized least squares problem
-            final RealVector dX = this.decomposition.solve(weightedJacobian, currentResiduals);
-            // update the estimated parameters
-            currentPoint = currentPoint.add(dX);
-        }
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return "GaussNewtonOptimizer{" +
-                "decomposition=" + decomposition +
-                '}';
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -262,8 +212,7 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
      * @param residuals the m by 1 residual vector, r. Input.
      * @return  the n by n normal matrix and  the n by 1 J<sup>Tr vector.
      */
-    private static Pair<RealMatrix, RealVector> computeNormalMatrix(final RealMatrix jacobian,
-                                                                    final RealVector residuals) {
+    private static Pair<RealMatrix, RealVector> computeNormalMatrix(final RealMatrix jacobian, final RealVector residuals) {
         //since the normal matrix is symmetric, we only need to compute half of it.
         final int nR = jacobian.getRowDimension();
         final int nC = jacobian.getColumnDimension();
@@ -274,16 +223,13 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
         for (int i = 0; i < nR; ++i) {
             //compute JTr for measurement i
             for (int j = 0; j < nC; j++) {
-                jTr.setEntry(j, jTr.getEntry(j) +
-                        residuals.getEntry(i) * jacobian.getEntry(i, j));
+                jTr.setEntry(j, jTr.getEntry(j) + residuals.getEntry(i) * jacobian.getEntry(i, j));
             }
-
             // add the the contribution to the normal matrix for measurement i
             for (int k = 0; k < nC; ++k) {
                 //only compute the upper triangular part
                 for (int l = k; l < nC; ++l) {
-                    normal.setEntry(k, l, normal.getEntry(k, l) +
-                            jacobian.getEntry(i, k) * jacobian.getEntry(i, l));
+                    normal.setEntry(k, l, normal.getEntry(k, l) + jacobian.getEntry(i, k) * jacobian.getEntry(i, l));
                 }
             }
         }
@@ -295,5 +241,4 @@ public class GaussNewtonOptimizer implements LeastSquaresOptimizer {
         }
         return new Pair<RealMatrix, RealVector>(normal, jTr);
     }
-
 }

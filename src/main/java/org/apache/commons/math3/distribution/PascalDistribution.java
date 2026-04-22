@@ -61,17 +61,32 @@ import org.apache.commons.math3.util.FastMath;
  * @since 1.2 (changed to concrete class in 3.0)
  */
 public class PascalDistribution extends AbstractIntegerDistribution {
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 6751309484392813623L;
-    /** The number of successes. */
+
+    /**
+     * The number of successes.
+     */
     private final int numberOfSuccesses;
-    /** The probability of success. */
+
+    /**
+     * The probability of success.
+     */
     private final double probabilityOfSuccess;
-    /** The value of {@code log(p)}, where {@code p} is the probability of success,
-     * stored for faster computation. */
+
+    /**
+     * The value of {@code log(p)}, where {@code p} is the probability of success,
+     * stored for faster computation.
+     */
     private final double logProbabilityOfSuccess;
-    /** The value of {@code log(1-p)}, where {@code p} is the probability of success,
-     * stored for faster computation. */
+
+    /**
+     * The value of {@code log(1-p)}, where {@code p} is the probability of success,
+     * stored for faster computation.
+     */
     private final double log1mProbabilityOfSuccess;
 
     /**
@@ -91,8 +106,7 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * @throws OutOfRangeException if the probability of success is not in the
      * range {@code [0, 1]}.
      */
-    public PascalDistribution(int r, double p)
-        throws NotStrictlyPositiveException, OutOfRangeException {
+    public PascalDistribution(int r, double p) throws NotStrictlyPositiveException, OutOfRangeException {
         this(new Well19937c(), r, p);
     }
 
@@ -108,20 +122,14 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * range {@code [0, 1]}.
      * @since 3.1
      */
-    public PascalDistribution(RandomGenerator rng,
-                              int r,
-                              double p)
-        throws NotStrictlyPositiveException, OutOfRangeException {
+    public PascalDistribution(RandomGenerator rng, int r, double p) throws NotStrictlyPositiveException, OutOfRangeException {
         super(rng);
-
         if (r <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.NUMBER_OF_SUCCESSES,
-                                                   r);
+            throw new NotStrictlyPositiveException(LocalizedFormats.NUMBER_OF_SUCCESSES, r);
         }
         if (p < 0 || p > 1) {
             throw new OutOfRangeException(p, 0, 1);
         }
-
         numberOfSuccesses = r;
         probabilityOfSuccess = p;
         logProbabilityOfSuccess = FastMath.log(p);
@@ -134,7 +142,8 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * @return the number of successes.
      */
     public int getNumberOfSuccesses() {
-        return numberOfSuccesses;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -143,48 +152,33 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * @return the probability of success.
      */
     public double getProbabilityOfSuccess() {
-        return probabilityOfSuccess;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(int x) {
-        double ret;
-        if (x < 0) {
-            ret = 0.0;
-        } else {
-            ret = CombinatoricsUtils.binomialCoefficientDouble(x +
-                  numberOfSuccesses - 1, numberOfSuccesses - 1) *
-                  FastMath.pow(probabilityOfSuccess, numberOfSuccesses) *
-                  FastMath.pow(1.0 - probabilityOfSuccess, x);
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logProbability(int x) {
-        double ret;
-        if (x < 0) {
-            ret = Double.NEGATIVE_INFINITY;
-        } else {
-            ret = CombinatoricsUtils.binomialCoefficientLog(x +
-                  numberOfSuccesses - 1, numberOfSuccesses - 1) +
-                  logProbabilityOfSuccess * numberOfSuccesses +
-                  log1mProbabilityOfSuccess * x;
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(int x) {
-        double ret;
-        if (x < 0) {
-            ret = 0.0;
-        } else {
-            ret = Beta.regularizedBeta(probabilityOfSuccess,
-                    numberOfSuccesses, x + 1.0);
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -194,9 +188,8 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * the mean is {@code r * (1 - p) / p}.
      */
     public double getNumericalMean() {
-        final double p = getProbabilityOfSuccess();
-        final double r = getNumberOfSuccesses();
-        return (r * (1 - p)) / p;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -206,9 +199,8 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * the variance is {@code r * (1 - p) / p^2}.
      */
     public double getNumericalVariance() {
-        final double p = getProbabilityOfSuccess();
-        final double r = getNumberOfSuccesses();
-        return r * (1 - p) / (p * p);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -219,6 +211,7 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support (always 0)
      */
     public int getSupportLowerBound() {
+        // STUB: not implemented
         return 0;
     }
 
@@ -232,7 +225,8 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * for positive infinity)
      */
     public int getSupportUpperBound() {
-        return Integer.MAX_VALUE;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -243,6 +237,7 @@ public class PascalDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

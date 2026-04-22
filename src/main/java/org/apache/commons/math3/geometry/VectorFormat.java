@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.geometry;
 
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
-
 import org.apache.commons.math3.util.CompositeFormat;
 import org.apache.commons.math3.exception.MathParseException;
 
@@ -44,34 +42,54 @@ import org.apache.commons.math3.exception.MathParseException;
  */
 public abstract class VectorFormat<S extends Space> {
 
-    /** The default prefix: "{". */
+    /**
+     * The default prefix: "{".
+     */
     public static final String DEFAULT_PREFIX = "{";
 
-    /** The default suffix: "}". */
+    /**
+     * The default suffix: "}".
+     */
     public static final String DEFAULT_SUFFIX = "}";
 
-    /** The default separator: ", ". */
+    /**
+     * The default separator: ", ".
+     */
     public static final String DEFAULT_SEPARATOR = "; ";
 
-    /** Prefix. */
+    /**
+     * Prefix.
+     */
     private final String prefix;
 
-    /** Suffix. */
+    /**
+     * Suffix.
+     */
     private final String suffix;
 
-    /** Separator. */
+    /**
+     * Separator.
+     */
     private final String separator;
 
-    /** Trimmed prefix. */
+    /**
+     * Trimmed prefix.
+     */
     private final String trimmedPrefix;
 
-    /** Trimmed suffix. */
+    /**
+     * Trimmed suffix.
+     */
     private final String trimmedSuffix;
 
-    /** Trimmed separator. */
+    /**
+     * Trimmed separator.
+     */
     private final String trimmedSeparator;
 
-    /** The format used for components. */
+    /**
+     * The format used for components.
+     */
     private final NumberFormat format;
 
     /**
@@ -80,8 +98,7 @@ public abstract class VectorFormat<S extends Space> {
      * "{", "}", and "; " and the default number format for components.</p>
      */
     protected VectorFormat() {
-        this(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR,
-             CompositeFormat.getDefaultNumberFormat());
+        this(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR, CompositeFormat.getDefaultNumberFormat());
     }
 
     /**
@@ -98,8 +115,7 @@ public abstract class VectorFormat<S extends Space> {
      * @param suffix suffix to use instead of the default "}"
      * @param separator separator to use instead of the default "; "
      */
-    protected VectorFormat(final String prefix, final String suffix,
-                          final String separator) {
+    protected VectorFormat(final String prefix, final String suffix, final String separator) {
         this(prefix, suffix, separator, CompositeFormat.getDefaultNumberFormat());
     }
 
@@ -111,15 +127,14 @@ public abstract class VectorFormat<S extends Space> {
      * @param separator separator to use instead of the default "; "
      * @param format the custom format for components.
      */
-    protected VectorFormat(final String prefix, final String suffix,
-                          final String separator, final NumberFormat format) {
-        this.prefix      = prefix;
-        this.suffix      = suffix;
-        this.separator   = separator;
-        trimmedPrefix    = prefix.trim();
-        trimmedSuffix    = suffix.trim();
+    protected VectorFormat(final String prefix, final String suffix, final String separator, final NumberFormat format) {
+        this.prefix = prefix;
+        this.suffix = suffix;
+        this.separator = separator;
+        trimmedPrefix = prefix.trim();
+        trimmedSuffix = suffix.trim();
         trimmedSeparator = separator.trim();
-        this.format      = format;
+        this.format = format;
     }
 
     /**
@@ -128,7 +143,8 @@ public abstract class VectorFormat<S extends Space> {
      * @return available point/vector format locales.
      */
     public static Locale[] getAvailableLocales() {
-        return NumberFormat.getAvailableLocales();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -136,7 +152,8 @@ public abstract class VectorFormat<S extends Space> {
      * @return format prefix.
      */
     public String getPrefix() {
-        return prefix;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -144,7 +161,8 @@ public abstract class VectorFormat<S extends Space> {
      * @return format suffix.
      */
     public String getSuffix() {
-        return suffix;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -152,7 +170,8 @@ public abstract class VectorFormat<S extends Space> {
      * @return format separator.
      */
     public String getSeparator() {
-        return separator;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -160,7 +179,8 @@ public abstract class VectorFormat<S extends Space> {
      * @return components format.
      */
     public NumberFormat getFormat() {
-        return format;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -169,7 +189,8 @@ public abstract class VectorFormat<S extends Space> {
      * @return a formatted string.
      */
     public String format(Vector<S> vector) {
-        return format(vector, new StringBuffer(), new FieldPosition(0)).toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -180,8 +201,7 @@ public abstract class VectorFormat<S extends Space> {
      *            offsets of the alignment field
      * @return the value passed in as toAppendTo.
      */
-    public abstract StringBuffer format(Vector<S> vector,
-                                        StringBuffer toAppendTo, FieldPosition pos);
+    public abstract StringBuffer format(Vector<S> vector, StringBuffer toAppendTo, FieldPosition pos);
 
     /**
      * Formats the coordinates of a {@link Vector} to produce a string.
@@ -191,28 +211,9 @@ public abstract class VectorFormat<S extends Space> {
      * @param coordinates coordinates of the object to format.
      * @return the value passed in as toAppendTo.
      */
-    protected StringBuffer format(StringBuffer toAppendTo, FieldPosition pos,
-                                  double ... coordinates) {
-
-        pos.setBeginIndex(0);
-        pos.setEndIndex(0);
-
-        // format prefix
-        toAppendTo.append(prefix);
-
-        // format components
-        for (int i = 0; i < coordinates.length; ++i) {
-            if (i > 0) {
-                toAppendTo.append(separator);
-            }
-            CompositeFormat.formatDouble(coordinates[i], format, toAppendTo, pos);
-        }
-
-        // format suffix
-        toAppendTo.append(suffix);
-
-        return toAppendTo;
-
+    protected StringBuffer format(StringBuffer toAppendTo, FieldPosition pos, double... coordinates) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -240,51 +241,7 @@ public abstract class VectorFormat<S extends Space> {
      * @return coordinates array.
      */
     protected double[] parseCoordinates(int dimension, String source, ParsePosition pos) {
-
-        int initialIndex = pos.getIndex();
-        double[] coordinates = new double[dimension];
-
-        // parse prefix
-        CompositeFormat.parseAndIgnoreWhitespace(source, pos);
-        if (!CompositeFormat.parseFixedstring(source, trimmedPrefix, pos)) {
-            return null;
-        }
-
-        for (int i = 0; i < dimension; ++i) {
-
-            // skip whitespace
-            CompositeFormat.parseAndIgnoreWhitespace(source, pos);
-
-            // parse separator
-            if (i > 0 && !CompositeFormat.parseFixedstring(source, trimmedSeparator, pos)) {
-                return null;
-            }
-
-            // skip whitespace
-            CompositeFormat.parseAndIgnoreWhitespace(source, pos);
-
-            // parse coordinate
-            Number c = CompositeFormat.parseNumber(source, format, pos);
-            if (c == null) {
-                // invalid coordinate
-                // set index back to initial, error index should already be set
-                pos.setIndex(initialIndex);
-                return null;
-            }
-
-            // store coordinate
-            coordinates[i] = c.doubleValue();
-
-        }
-
-        // parse suffix
-        CompositeFormat.parseAndIgnoreWhitespace(source, pos);
-        if (!CompositeFormat.parseFixedstring(source, trimmedSuffix, pos)) {
-            return null;
-        }
-
-        return coordinates;
-
+        // STUB: not implemented
+        return null;
     }
-
 }

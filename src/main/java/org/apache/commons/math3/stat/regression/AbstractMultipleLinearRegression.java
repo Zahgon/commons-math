@@ -34,30 +34,37 @@ import org.apache.commons.math3.util.FastMath;
  * Abstract base class for implementations of MultipleLinearRegression.
  * @since 2.0
  */
-public abstract class AbstractMultipleLinearRegression implements
-        MultipleLinearRegression {
+public abstract class AbstractMultipleLinearRegression implements MultipleLinearRegression {
 
-    /** X sample data. */
+    /**
+     * X sample data.
+     */
     private RealMatrix xMatrix;
 
-    /** Y sample data. */
+    /**
+     * Y sample data.
+     */
     private RealVector yVector;
 
-    /** Whether or not the regression model includes an intercept.  True means no intercept. */
+    /**
+     * Whether or not the regression model includes an intercept.  True means no intercept.
+     */
     private boolean noIntercept = false;
 
     /**
      * @return the X sample data.
      */
     protected RealMatrix getX() {
-        return xMatrix;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * @return the Y sample data.
      */
     protected RealVector getY() {
-        return yVector;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -65,7 +72,8 @@ public abstract class AbstractMultipleLinearRegression implements
      * @since 2.2
      */
     public boolean isNoIntercept() {
-        return noIntercept;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -73,7 +81,7 @@ public abstract class AbstractMultipleLinearRegression implements
      * @since 2.2
      */
     public void setNoIntercept(boolean noIntercept) {
-        this.noIntercept = noIntercept;
+        // STUB: not implemented
     }
 
     /**
@@ -112,30 +120,7 @@ public abstract class AbstractMultipleLinearRegression implements
      * <code>nvars + 1</code>
      */
     public void newSampleData(double[] data, int nobs, int nvars) {
-        if (data == null) {
-            throw new NullArgumentException();
-        }
-        if (data.length != nobs * (nvars + 1)) {
-            throw new DimensionMismatchException(data.length, nobs * (nvars + 1));
-        }
-        if (nobs <= nvars) {
-            throw new InsufficientDataException(LocalizedFormats.INSUFFICIENT_OBSERVED_POINTS_IN_SAMPLE, nobs, nvars + 1);
-        }
-        double[] y = new double[nobs];
-        final int cols = noIntercept ? nvars: nvars + 1;
-        double[][] x = new double[nobs][cols];
-        int pointer = 0;
-        for (int i = 0; i < nobs; i++) {
-            y[i] = data[pointer++];
-            if (!noIntercept) {
-                x[i][0] = 1.0d;
-            }
-            for (int j = noIntercept ? 0 : 1; j < cols; j++) {
-                x[i][j] = data[pointer++];
-            }
-        }
-        this.xMatrix = new Array2DRowRealMatrix(x);
-        this.yVector = new ArrayRealVector(y);
+        // STUB: not implemented
     }
 
     /**
@@ -146,13 +131,7 @@ public abstract class AbstractMultipleLinearRegression implements
      * @throws NoDataException if y is empty
      */
     protected void newYSampleData(double[] y) {
-        if (y == null) {
-            throw new NullArgumentException();
-        }
-        if (y.length == 0) {
-            throw new NoDataException();
-        }
-        this.yVector = new ArrayRealVector(y);
+        // STUB: not implemented
     }
 
     /**
@@ -181,26 +160,7 @@ public abstract class AbstractMultipleLinearRegression implements
      * @throws DimensionMismatchException if x is not rectangular
      */
     protected void newXSampleData(double[][] x) {
-        if (x == null) {
-            throw new NullArgumentException();
-        }
-        if (x.length == 0) {
-            throw new NoDataException();
-        }
-        if (noIntercept) {
-            this.xMatrix = new Array2DRowRealMatrix(x, true);
-        } else { // Augment design matrix with initial unitary column
-            final int nVars = x[0].length;
-            final double[][] xAug = new double[x.length][nVars + 1];
-            for (int i = 0; i < x.length; i++) {
-                if (x[i].length != nVars) {
-                    throw new DimensionMismatchException(x[i].length, nVars);
-                }
-                xAug[i][0] = 1.0d;
-                System.arraycopy(x[i], 0, xAug[i], 1, nVars);
-            }
-            this.xMatrix = new Array2DRowRealMatrix(xAug, false);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -222,20 +182,7 @@ public abstract class AbstractMultipleLinearRegression implements
      * is not larger than the number of columns + 1
      */
     protected void validateSampleData(double[][] x, double[] y) throws MathIllegalArgumentException {
-        if ((x == null) || (y == null)) {
-            throw new NullArgumentException();
-        }
-        if (x.length != y.length) {
-            throw new DimensionMismatchException(y.length, x.length);
-        }
-        if (x.length == 0) {  // Must be no y data either
-            throw new NoDataException();
-        }
-        if (x[0].length + 1 > x.length) {
-            throw new MathIllegalArgumentException(
-                    LocalizedFormats.NOT_ENOUGH_DATA_FOR_NUMBER_OF_PREDICTORS,
-                    x.length, x[0].length);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -249,57 +196,47 @@ public abstract class AbstractMultipleLinearRegression implements
      * @throws NonSquareMatrixException if the covariance matrix is not square
      */
     protected void validateCovarianceData(double[][] x, double[][] covariance) {
-        if (x.length != covariance.length) {
-            throw new DimensionMismatchException(x.length, covariance.length);
-        }
-        if (covariance.length > 0 && covariance.length != covariance[0].length) {
-            throw new NonSquareMatrixException(covariance.length, covariance[0].length);
-        }
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public double[] estimateRegressionParameters() {
-        RealVector b = calculateBeta();
-        return b.toArray();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public double[] estimateResiduals() {
-        RealVector b = calculateBeta();
-        RealVector e = yVector.subtract(xMatrix.operate(b));
-        return e.toArray();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public double[][] estimateRegressionParametersVariance() {
-        return calculateBetaVariance().getData();
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public double[] estimateRegressionParametersStandardErrors() {
-        double[][] betaVariance = estimateRegressionParametersVariance();
-        double sigma = calculateErrorVariance();
-        int length = betaVariance[0].length;
-        double[] result = new double[length];
-        for (int i = 0; i < length; i++) {
-            result[i] = FastMath.sqrt(sigma * betaVariance[i][i]);
-        }
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public double estimateRegressandVariance() {
-        return calculateYVariance();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -309,8 +246,8 @@ public abstract class AbstractMultipleLinearRegression implements
      * @since 2.2
      */
     public double estimateErrorVariance() {
-        return calculateErrorVariance();
-
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -320,7 +257,8 @@ public abstract class AbstractMultipleLinearRegression implements
      * @since 2.2
      */
     public double estimateRegressionStandardError() {
-        return FastMath.sqrt(estimateErrorVariance());
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -338,14 +276,14 @@ public abstract class AbstractMultipleLinearRegression implements
      */
     protected abstract RealMatrix calculateBetaVariance();
 
-
     /**
      * Calculates the variance of the y values.
      *
      * @return Y variance
      */
     protected double calculateYVariance() {
-        return new Variance().evaluate(yVector.toArray());
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -360,9 +298,8 @@ public abstract class AbstractMultipleLinearRegression implements
      * @since 2.2
      */
     protected double calculateErrorVariance() {
-        RealVector residuals = calculateResiduals();
-        return residuals.dotProduct(residuals) /
-               (xMatrix.getRowDimension() - xMatrix.getColumnDimension());
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -376,8 +313,7 @@ public abstract class AbstractMultipleLinearRegression implements
      * @return The residuals [n,1] matrix
      */
     protected RealVector calculateResiduals() {
-        RealVector b = calculateBeta();
-        return yVector.subtract(xMatrix.operate(b));
+        // STUB: not implemented
+        return null;
     }
-
 }

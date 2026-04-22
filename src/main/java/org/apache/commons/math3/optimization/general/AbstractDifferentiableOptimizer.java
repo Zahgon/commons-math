@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.general;
 
 import org.apache.commons.math3.analysis.MultivariateVectorFunction;
@@ -36,8 +35,8 @@ import org.apache.commons.math3.optimization.direct.BaseAbstractMultivariateOpti
  * @since 3.1
  */
 @Deprecated
-public abstract class AbstractDifferentiableOptimizer
-    extends BaseAbstractMultivariateOptimizer<MultivariateDifferentiableFunction> {
+public abstract class AbstractDifferentiableOptimizer extends BaseAbstractMultivariateOptimizer<MultivariateDifferentiableFunction> {
+
     /**
      * Objective function gradient.
      */
@@ -57,7 +56,8 @@ public abstract class AbstractDifferentiableOptimizer
      * @return the gradient at the specified point.
      */
     protected double[] computeObjectiveGradient(final double[] evaluationPoint) {
-        return gradient.value(evaluationPoint);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -67,24 +67,18 @@ public abstract class AbstractDifferentiableOptimizer
      * {@link #optimizeInternal(int,MultivariateDifferentiableFunction,GoalType,OptimizationData[])}
      * instead.
      */
-    @Override@Deprecated
-    protected PointValuePair optimizeInternal(final int maxEval,
-                                              final MultivariateDifferentiableFunction f,
-                                              final GoalType goalType,
-                                              final double[] startPoint) {
+    @Override
+    @Deprecated
+    protected PointValuePair optimizeInternal(final int maxEval, final MultivariateDifferentiableFunction f, final GoalType goalType, final double[] startPoint) {
         return optimizeInternal(maxEval, f, goalType, new InitialGuess(startPoint));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected PointValuePair optimizeInternal(final int maxEval,
-                                              final MultivariateDifferentiableFunction f,
-                                              final GoalType goalType,
-                                              final OptimizationData... optData) {
-        // Store optimization problem characteristics.
-        gradient = new GradientFunction(f);
-
-        // Perform optimization.
-        return super.optimizeInternal(maxEval, f, goalType, optData);
+    protected PointValuePair optimizeInternal(final int maxEval, final MultivariateDifferentiableFunction f, final GoalType goalType, final OptimizationData... optData) {
+        // STUB: not implemented
+        return null;
     }
 }

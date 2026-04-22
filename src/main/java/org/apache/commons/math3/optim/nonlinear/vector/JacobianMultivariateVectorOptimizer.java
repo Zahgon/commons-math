@@ -40,8 +40,8 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
  * (cf. MATH-1008).
  */
 @Deprecated
-public abstract class JacobianMultivariateVectorOptimizer
-    extends MultivariateVectorOptimizer {
+public abstract class JacobianMultivariateVectorOptimizer extends MultivariateVectorOptimizer {
+
     /**
      * Jacobian of the model function.
      */
@@ -61,7 +61,8 @@ public abstract class JacobianMultivariateVectorOptimizer
      * @return the Jacobian at the specified point.
      */
     protected double[][] computeJacobian(final double[] params) {
-        return jacobian.value(params);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -80,11 +81,9 @@ public abstract class JacobianMultivariateVectorOptimizer
      * arguments have inconsistent dimensions.
      */
     @Override
-    public PointVectorValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException,
-               DimensionMismatchException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointVectorValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException, DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -99,18 +98,6 @@ public abstract class JacobianMultivariateVectorOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof ModelFunctionJacobian) {
-                jacobian = ((ModelFunctionJacobian) data).getModelFunctionJacobian();
-                // If more data must be parsed, this statement _must_ be
-                // changed to "continue".
-                break;
-            }
-        }
+        // STUB: not implemented
     }
 }

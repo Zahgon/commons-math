@@ -23,14 +23,14 @@ import java.util.Locale;
 
 /**
  * Base class for formatters of composite objects (complex numbers, vectors ...).
- *
  */
 public class CompositeFormat {
 
     /**
      * Class contains only static methods.
      */
-    private CompositeFormat() {}
+    private CompositeFormat() {
+    }
 
     /**
      * Create a default number format.  The default number format is based on
@@ -39,7 +39,8 @@ public class CompositeFormat {
      * @return the default number format.
      */
     public static NumberFormat getDefaultNumberFormat() {
-        return getDefaultNumberFormat(Locale.getDefault());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -50,9 +51,8 @@ public class CompositeFormat {
      * @return the default number format specific to the given locale.
      */
     public static NumberFormat getDefaultNumberFormat(final Locale locale) {
-        final NumberFormat nf = NumberFormat.getInstance(locale);
-        nf.setMaximumFractionDigits(10);
-        return nf;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -62,10 +62,8 @@ public class CompositeFormat {
      * @param pos input/output parsing parameter.  On output, <code>pos</code>
      *        holds the index of the next non-whitespace character.
      */
-    public static void parseAndIgnoreWhitespace(final String source,
-                                                final ParsePosition pos) {
-        parseNextCharacter(source, pos);
-        pos.setIndex(pos.getIndex() - 1);
+    public static void parseAndIgnoreWhitespace(final String source, final ParsePosition pos) {
+        // STUB: not implemented
     }
 
     /**
@@ -75,25 +73,9 @@ public class CompositeFormat {
      * @param pos input/output parsing parameter.
      * @return the first non-whitespace character.
      */
-    public static char parseNextCharacter(final String source,
-                                          final ParsePosition pos) {
-         int index = pos.getIndex();
-         final int n = source.length();
-         char ret = 0;
-
-         if (index < n) {
-             char c;
-             do {
-                 c = source.charAt(index++);
-             } while (Character.isWhitespace(c) && index < n);
-             pos.setIndex(index);
-
-             if (index < n) {
-                 ret = c;
-             }
-         }
-
-         return ret;
+    public static char parseNextCharacter(final String source, final ParsePosition pos) {
+        // STUB: not implemented
+        return '\0';
     }
 
     /**
@@ -105,24 +87,19 @@ public class CompositeFormat {
      * @param pos input/output parsing parameter.
      * @return the special number.
      */
-    private static Number parseNumber(final String source, final double value,
-                                      final ParsePosition pos) {
+    private static Number parseNumber(final String source, final double value, final ParsePosition pos) {
         Number ret = null;
-
         StringBuilder sb = new StringBuilder();
         sb.append('(');
         sb.append(value);
         sb.append(')');
-
         final int n = sb.length();
         final int startIndex = pos.getIndex();
         final int endIndex = startIndex + n;
-        if (endIndex < source.length() &&
-            source.substring(startIndex, endIndex).compareTo(sb.toString()) == 0) {
+        if (endIndex < source.length() && source.substring(startIndex, endIndex).compareTo(sb.toString()) == 0) {
             ret = Double.valueOf(value);
             pos.setIndex(endIndex);
         }
-
         return ret;
     }
 
@@ -136,27 +113,9 @@ public class CompositeFormat {
      * @param pos input/output parsing parameter.
      * @return the parsed number.
      */
-    public static Number parseNumber(final String source, final NumberFormat format,
-                                     final ParsePosition pos) {
-        final int startIndex = pos.getIndex();
-        Number number = format.parse(source, pos);
-        final int endIndex = pos.getIndex();
-
-        // check for error parsing number
-        if (startIndex == endIndex) {
-            // try parsing special numbers
-            final double[] special = {
-                Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY
-            };
-            for (int i = 0; i < special.length; ++i) {
-                number = parseNumber(source, special[i], pos);
-                if (number != null) {
-                    break;
-                }
-            }
-        }
-
-        return number;
+    public static Number parseNumber(final String source, final NumberFormat format, final ParsePosition pos) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -166,24 +125,9 @@ public class CompositeFormat {
      * @param pos input/output parsing parameter.
      * @return true if the expected string was there
      */
-    public static boolean parseFixedstring(final String source,
-                                           final String expected,
-                                           final ParsePosition pos) {
-
-        final int startIndex = pos.getIndex();
-        final int endIndex = startIndex + expected.length();
-        if ((startIndex >= source.length()) ||
-            (endIndex > source.length()) ||
-            (source.substring(startIndex, endIndex).compareTo(expected) != 0)) {
-            // set index back to start, error index should be the start index
-            pos.setIndex(startIndex);
-            pos.setErrorIndex(startIndex);
-            return false;
-        }
-
-        // the string was here
-        pos.setIndex(endIndex);
-        return true;
+    public static boolean parseFixedstring(final String source, final String expected, final ParsePosition pos) {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -203,16 +147,8 @@ public class CompositeFormat {
      *            offsets of the alignment field
      * @return the value passed in as toAppendTo.
      */
-    public static StringBuffer formatDouble(final double value, final NumberFormat format,
-                                            final StringBuffer toAppendTo,
-                                            final FieldPosition pos) {
-        if( Double.isNaN(value) || Double.isInfinite(value) ) {
-            toAppendTo.append('(');
-            toAppendTo.append(value);
-            toAppendTo.append(')');
-        } else {
-            format.format(value, toAppendTo, pos);
-        }
-        return toAppendTo;
+    public static StringBuffer formatDouble(final double value, final NumberFormat format, final StringBuffer toAppendTo, final FieldPosition pos) {
+        // STUB: not implemented
+        return null;
     }
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.random;
 
 import org.apache.commons.math3.util.FastMath;
@@ -27,31 +26,35 @@ import org.apache.commons.math3.util.FastMath;
  * [-&#x0221A;3, +&#x0221A;3].</p>
  *
  * @since 1.2
- *
  */
-
 public class UniformRandomGenerator implements NormalizedRandomGenerator {
 
-    /** Square root of three. */
+    /**
+     * Square root of three.
+     */
     private static final double SQRT3 = FastMath.sqrt(3.0);
 
-    /** Underlying generator. */
+    /**
+     * Underlying generator.
+     */
     private final RandomGenerator generator;
 
-    /** Create a new generator.
+    /**
+     * Create a new generator.
      * @param generator underlying random generator to use
      */
     public UniformRandomGenerator(RandomGenerator generator) {
         this.generator = generator;
     }
 
-    /** Generate a random scalar with null mean and unit standard deviation.
+    /**
+     * Generate a random scalar with null mean and unit standard deviation.
      * <p>The number generated is uniformly distributed between -&sqrt;(3)
      * and +&sqrt;(3).</p>
      * @return a random scalar with null mean and unit standard deviation
      */
     public double nextNormalizedDouble() {
-        return SQRT3 * (2 * generator.nextDouble() - 1.0);
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

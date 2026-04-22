@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -53,27 +52,45 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.0
  */
 public class LogNormalDistribution extends AbstractRealDistribution {
-    /** Default inverse cumulative probability accuracy. */
+
+    /**
+     * Default inverse cumulative probability accuracy.
+     */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20120112;
 
-    /** &radic;(2 &pi;) */
+    /**
+     * &radic;(2 &pi;)
+     */
     private static final double SQRT2PI = FastMath.sqrt(2 * FastMath.PI);
 
-    /** &radic;(2) */
+    /**
+     * &radic;(2)
+     */
     private static final double SQRT2 = FastMath.sqrt(2.0);
 
-    /** The scale parameter of this distribution. */
+    /**
+     * The scale parameter of this distribution.
+     */
     private final double scale;
 
-    /** The shape parameter of this distribution. */
+    /**
+     * The shape parameter of this distribution.
+     */
     private final double shape;
-    /** The value of {@code log(shape) + 0.5 * log(2*PI)} stored for faster computation. */
+
+    /**
+     * The value of {@code log(shape) + 0.5 * log(2*PI)} stored for faster computation.
+     */
     private final double logShapePlusHalfLog2Pi;
 
-    /** Inverse cumulative probability accuracy. */
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double solverAbsoluteAccuracy;
 
     /**
@@ -108,8 +125,7 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @param shape the shape parameter of this distribution
      * @throws NotStrictlyPositiveException if {@code shape <= 0}.
      */
-    public LogNormalDistribution(double scale, double shape)
-        throws NotStrictlyPositiveException {
+    public LogNormalDistribution(double scale, double shape) throws NotStrictlyPositiveException {
         this(scale, shape, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -129,8 +145,7 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @param inverseCumAccuracy Inverse cumulative probability accuracy.
      * @throws NotStrictlyPositiveException if {@code shape <= 0}.
      */
-    public LogNormalDistribution(double scale, double shape, double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public LogNormalDistribution(double scale, double shape, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         this(new Well19937c(), scale, shape, inverseCumAccuracy);
     }
 
@@ -143,8 +158,7 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code shape <= 0}.
      * @since 3.3
      */
-    public LogNormalDistribution(RandomGenerator rng, double scale, double shape)
-        throws NotStrictlyPositiveException {
+    public LogNormalDistribution(RandomGenerator rng, double scale, double shape) throws NotStrictlyPositiveException {
         this(rng, scale, shape, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -158,17 +172,11 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @throws NotStrictlyPositiveException if {@code shape <= 0}.
      * @since 3.1
      */
-    public LogNormalDistribution(RandomGenerator rng,
-                                 double scale,
-                                 double shape,
-                                 double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public LogNormalDistribution(RandomGenerator rng, double scale, double shape, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         super(rng);
-
         if (shape <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.SHAPE, shape);
         }
-
         this.scale = scale;
         this.shape = shape;
         this.logShapePlusHalfLog2Pi = FastMath.log(shape) + 0.5 * FastMath.log(2 * FastMath.PI);
@@ -181,7 +189,8 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @return the scale parameter
      */
     public double getScale() {
-        return scale;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -190,7 +199,8 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @return the shape parameter
      */
     public double getShape() {
-        return shape;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -205,27 +215,19 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double density(double x) {
-        if (x <= 0) {
-            return 0;
-        }
-        final double x0 = FastMath.log(x) - scale;
-        final double x1 = x0 / shape;
-        return FastMath.exp(-0.5 * x1 * x1) / (shape * SQRT2PI * x);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      *
      * See documentation of {@link #density(double)} for computation details.
      */
     @Override
     public double logDensity(double x) {
-        if (x <= 0) {
-            return Double.NEGATIVE_INFINITY;
-        }
-        final double logX = FastMath.log(x);
-        final double x0 = logX - scale;
-        final double x1 = x0 / shape;
-        return -0.5 * x1 * x1 - (logShapePlusHalfLog2Pi + logX);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -243,15 +245,9 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * <li>{@code 0.5 + 0.5 * erf((ln(x) - m) / (s * sqrt(2))} otherwise.</li>
      * </ul>
      */
-    public double cumulativeProbability(double x)  {
-        if (x <= 0) {
-            return 0;
-        }
-        final double dev = FastMath.log(x) - scale;
-        if (FastMath.abs(dev) > 40 * shape) {
-            return dev < 0 ? 0.0d : 1.0d;
-        }
-        return 0.5 + 0.5 * Erf.erf(dev / (shape * SQRT2));
+    public double cumulativeProbability(double x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -259,34 +255,28 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      *
      * @deprecated See {@link RealDistribution#cumulativeProbability(double,double)}
      */
-    @Override@Deprecated
-    public double cumulativeProbability(double x0, double x1)
-        throws NumberIsTooLargeException {
+    @Override
+    @Deprecated
+    public double cumulativeProbability(double x0, double x1) throws NumberIsTooLargeException {
         return probability(x0, x1);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double probability(double x0,
-                              double x1)
-        throws NumberIsTooLargeException {
-        if (x0 > x1) {
-            throw new NumberIsTooLargeException(LocalizedFormats.LOWER_ENDPOINT_ABOVE_UPPER_ENDPOINT,
-                                                x0, x1, true);
-        }
-        if (x0 <= 0 || x1 <= 0) {
-            return super.probability(x0, x1);
-        }
-        final double denom = shape * SQRT2;
-        final double v0 = (FastMath.log(x0) - scale) / denom;
-        final double v1 = (FastMath.log(x1) - scale) / denom;
-        return 0.5 * Erf.erf(v0, v1);
+    public double probability(double x0, double x1) throws NumberIsTooLargeException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -296,8 +286,8 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * {@code exp(m + s^2 / 2)}.
      */
     public double getNumericalMean() {
-        double s = shape;
-        return FastMath.exp(scale + (s * s / 2));
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -307,9 +297,8 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * {@code (exp(s^2) - 1) * exp(2 * m + s^2)}.
      */
     public double getNumericalVariance() {
-        final double s = shape;
-        final double ss = s * s;
-        return (FastMath.expm1(ss)) * FastMath.exp(2 * scale + ss);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -320,7 +309,8 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @return lower bound of the support (always 0)
      */
     public double getSupportLowerBound() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -333,16 +323,23 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * {@code Double.POSITIVE_INFINITY})
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -354,13 +351,16 @@ public class LogNormalDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double sample()  {
-        final double n = random.nextGaussian();
-        return FastMath.exp(scale + shape * n);
+    public double sample() {
+        // STUB: not implemented
+        return 0.0;
     }
 }

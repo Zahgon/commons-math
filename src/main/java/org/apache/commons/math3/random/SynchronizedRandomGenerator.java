@@ -26,7 +26,10 @@ package org.apache.commons.math3.random;
  * @since 3.1
  */
 public class SynchronizedRandomGenerator implements RandomGenerator {
-    /** Object to which all calls will be delegated. */
+
+    /**
+     * Object to which all calls will be delegated.
+     */
     private final RandomGenerator wrapped;
 
     /**
@@ -46,76 +49,83 @@ public class SynchronizedRandomGenerator implements RandomGenerator {
      * {@inheritDoc}
      */
     public synchronized void setSeed(int seed) {
-        wrapped.setSeed(seed);
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized void setSeed(int[] seed) {
-        wrapped.setSeed(seed);
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized void setSeed(long seed) {
-        wrapped.setSeed(seed);
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized void nextBytes(byte[] bytes) {
-        wrapped.nextBytes(bytes);
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized int nextInt() {
-        return wrapped.nextInt();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized int nextInt(int n) {
-        return wrapped.nextInt(n);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized long nextLong() {
-        return wrapped.nextLong();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized boolean nextBoolean() {
-        return wrapped.nextBoolean();
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized float nextFloat() {
-        return wrapped.nextFloat();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized double nextDouble() {
-        return wrapped.nextDouble();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public synchronized double nextGaussian() {
-        return wrapped.nextGaussian();
+        // STUB: not implemented
+        return 0.0;
     }
 }

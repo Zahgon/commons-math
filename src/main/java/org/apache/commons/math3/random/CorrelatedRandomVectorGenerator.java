@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.random;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -56,16 +55,26 @@ import org.apache.commons.math3.linear.RectangularCholeskyDecomposition;
  *
  * @since 1.2
  */
+public class CorrelatedRandomVectorGenerator implements RandomVectorGenerator {
 
-public class CorrelatedRandomVectorGenerator
-    implements RandomVectorGenerator {
-    /** Mean vector. */
+    /**
+     * Mean vector.
+     */
     private final double[] mean;
-    /** Underlying generator. */
+
+    /**
+     * Underlying generator.
+     */
     private final NormalizedRandomGenerator generator;
-    /** Storage for the normalized vector. */
+
+    /**
+     * Storage for the normalized vector.
+     */
     private final double[] normalized;
-    /** Root of the covariance matrix. */
+
+    /**
+     * Root of the covariance matrix.
+     */
     private final RealMatrix root;
 
     /**
@@ -83,22 +92,16 @@ public class CorrelatedRandomVectorGenerator
      * @throws DimensionMismatchException if the mean and covariance
      * arrays dimensions do not match.
      */
-    public CorrelatedRandomVectorGenerator(double[] mean,
-                                           RealMatrix covariance, double small,
-                                           NormalizedRandomGenerator generator) {
+    public CorrelatedRandomVectorGenerator(double[] mean, RealMatrix covariance, double small, NormalizedRandomGenerator generator) {
         int order = covariance.getRowDimension();
         if (mean.length != order) {
             throw new DimensionMismatchException(mean.length, order);
         }
         this.mean = mean.clone();
-
-        final RectangularCholeskyDecomposition decomposition =
-            new RectangularCholeskyDecomposition(covariance, small);
+        final RectangularCholeskyDecomposition decomposition = new RectangularCholeskyDecomposition(covariance, small);
         root = decomposition.getRootMatrix();
-
         this.generator = generator;
         normalized = new double[decomposition.getRank()];
-
     }
 
     /**
@@ -113,72 +116,58 @@ public class CorrelatedRandomVectorGenerator
      * @throws org.apache.commons.math3.linear.NonPositiveDefiniteMatrixException
      * if the covariance matrix is not strictly positive definite.
      */
-    public CorrelatedRandomVectorGenerator(RealMatrix covariance, double small,
-                                           NormalizedRandomGenerator generator) {
+    public CorrelatedRandomVectorGenerator(RealMatrix covariance, double small, NormalizedRandomGenerator generator) {
         int order = covariance.getRowDimension();
         mean = new double[order];
         for (int i = 0; i < order; ++i) {
             mean[i] = 0;
         }
-
-        final RectangularCholeskyDecomposition decomposition =
-            new RectangularCholeskyDecomposition(covariance, small);
+        final RectangularCholeskyDecomposition decomposition = new RectangularCholeskyDecomposition(covariance, small);
         root = decomposition.getRootMatrix();
-
         this.generator = generator;
         normalized = new double[decomposition.getRank()];
-
     }
 
-    /** Get the underlying normalized components generator.
+    /**
+     * Get the underlying normalized components generator.
      * @return underlying uncorrelated components generator
      */
     public NormalizedRandomGenerator getGenerator() {
-        return generator;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Get the rank of the covariance matrix.
+    /**
+     * Get the rank of the covariance matrix.
      * The rank is the number of independent rows in the covariance
      * matrix, it is also the number of columns of the root matrix.
      * @return rank of the square matrix.
      * @see #getRootMatrix()
      */
     public int getRank() {
-        return normalized.length;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** Get the root of the covariance matrix.
+    /**
+     * Get the root of the covariance matrix.
      * The root is the rectangular matrix <code>B</code> such that
      * the covariance matrix is equal to <code>B.B<sup>T</sup></code>
      * @return root of the square matrix
      * @see #getRank()
      */
     public RealMatrix getRootMatrix() {
-        return root;
+        // STUB: not implemented
+        return null;
     }
 
-    /** Generate a correlated random vector.
+    /**
+     * Generate a correlated random vector.
      * @return a random vector as an array of double. The returned array
      * is created at each call, the caller can do what it wants with it.
      */
     public double[] nextVector() {
-
-        // generate uncorrelated vector
-        for (int i = 0; i < normalized.length; ++i) {
-            normalized[i] = generator.nextNormalizedDouble();
-        }
-
-        // compute correlated vector
-        double[] correlated = new double[mean.length];
-        for (int i = 0; i < correlated.length; ++i) {
-            correlated[i] = mean[i];
-            for (int j = 0; j < root.getColumnDimension(); ++j) {
-                correlated[i] += root.getEntry(i, j) * normalized[j];
-            }
-        }
-
-        return correlated;
-
+        // STUB: not implemented
+        return null;
     }
-
 }

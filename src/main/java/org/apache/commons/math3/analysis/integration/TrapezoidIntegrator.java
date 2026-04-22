@@ -36,10 +36,14 @@ import org.apache.commons.math3.util.FastMath;
  */
 public class TrapezoidIntegrator extends BaseAbstractUnivariateIntegrator {
 
-    /** Maximum number of iterations for trapezoid. */
+    /**
+     * Maximum number of iterations for trapezoid.
+     */
     public static final int TRAPEZOID_MAX_ITERATIONS_COUNT = 64;
 
-    /** Intermediate result. */
+    /**
+     * Intermediate result.
+     */
     private double s;
 
     /**
@@ -56,15 +60,10 @@ public class TrapezoidIntegrator extends BaseAbstractUnivariateIntegrator {
      * @exception NumberIsTooLargeException if maximal number of iterations
      * is greater than {@link #TRAPEZOID_MAX_ITERATIONS_COUNT}
      */
-    public TrapezoidIntegrator(final double relativeAccuracy,
-                               final double absoluteAccuracy,
-                               final int minimalIterationCount,
-                               final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
+    public TrapezoidIntegrator(final double relativeAccuracy, final double absoluteAccuracy, final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
         super(relativeAccuracy, absoluteAccuracy, minimalIterationCount, maximalIterationCount);
         if (maximalIterationCount > TRAPEZOID_MAX_ITERATIONS_COUNT) {
-            throw new NumberIsTooLargeException(maximalIterationCount,
-                                                TRAPEZOID_MAX_ITERATIONS_COUNT, false);
+            throw new NumberIsTooLargeException(maximalIterationCount, TRAPEZOID_MAX_ITERATIONS_COUNT, false);
         }
     }
 
@@ -80,13 +79,10 @@ public class TrapezoidIntegrator extends BaseAbstractUnivariateIntegrator {
      * @exception NumberIsTooLargeException if maximal number of iterations
      * is greater than {@link #TRAPEZOID_MAX_ITERATIONS_COUNT}
      */
-    public TrapezoidIntegrator(final int minimalIterationCount,
-                               final int maximalIterationCount)
-        throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
+    public TrapezoidIntegrator(final int minimalIterationCount, final int maximalIterationCount) throws NotStrictlyPositiveException, NumberIsTooSmallException, NumberIsTooLargeException {
         super(minimalIterationCount, maximalIterationCount);
         if (maximalIterationCount > TRAPEZOID_MAX_ITERATIONS_COUNT) {
-            throw new NumberIsTooLargeException(maximalIterationCount,
-                                                TRAPEZOID_MAX_ITERATIONS_COUNT, false);
+            throw new NumberIsTooLargeException(maximalIterationCount, TRAPEZOID_MAX_ITERATIONS_COUNT, false);
         }
     }
 
@@ -113,56 +109,17 @@ public class TrapezoidIntegrator extends BaseAbstractUnivariateIntegrator {
      * @throws TooManyEvaluationsException if the maximal number of evaluations
      * is exceeded.
      */
-    double stage(final BaseAbstractUnivariateIntegrator baseIntegrator, final int n)
-        throws TooManyEvaluationsException {
-
-        if (n == 0) {
-            final double max = baseIntegrator.getMax();
-            final double min = baseIntegrator.getMin();
-            s = 0.5 * (max - min) *
-                      (baseIntegrator.computeObjectiveValue(min) +
-                       baseIntegrator.computeObjectiveValue(max));
-            return s;
-        } else {
-            final long np = 1L << (n-1);           // number of new points in this stage
-            double sum = 0;
-            final double max = baseIntegrator.getMax();
-            final double min = baseIntegrator.getMin();
-            // spacing between adjacent new points
-            final double spacing = (max - min) / np;
-            double x = min + 0.5 * spacing;    // the first new point
-            for (long i = 0; i < np; i++) {
-                sum += baseIntegrator.computeObjectiveValue(x);
-                x += spacing;
-            }
-            // add the new sum to previously calculated result
-            s = 0.5 * (s + sum * spacing);
-            return s;
-        }
+    double stage(final BaseAbstractUnivariateIntegrator baseIntegrator, final int n) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected double doIntegrate()
-        throws MathIllegalArgumentException, TooManyEvaluationsException, MaxCountExceededException {
-
-        double oldt = stage(this, 0);
-        incrementCount();
-        while (true) {
-            final int i = getIterations();
-            final double t = stage(this, i);
-            if (i >= getMinimalIterationCount()) {
-                final double delta = FastMath.abs(t - oldt);
-                final double rLimit =
-                    getRelativeAccuracy() * (FastMath.abs(oldt) + FastMath.abs(t)) * 0.5;
-                if ((delta <= rLimit) || (delta <= getAbsoluteAccuracy())) {
-                    return t;
-                }
-            }
-            oldt = t;
-            incrementCount();
-        }
-
+    protected double doIntegrate() throws MathIllegalArgumentException, TooManyEvaluationsException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

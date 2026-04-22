@@ -33,11 +33,20 @@ import org.apache.commons.math3.exception.OutOfRangeException;
  * @since 3.3
  */
 public class Combinations implements Iterable<int[]> {
-    /** Size of the set from which combinations are drawn. */
+
+    /**
+     * Size of the set from which combinations are drawn.
+     */
     private final int n;
-    /** Number of elements in each combination. */
+
+    /**
+     * Number of elements in each combination.
+     */
     private final int k;
-    /** Iteration order. */
+
+    /**
+     * Iteration order.
+     */
     private final IterationOrder iterationOrder;
 
     /**
@@ -45,11 +54,14 @@ public class Combinations implements Iterable<int[]> {
      * {@link #iterator() iterator}.
      */
     private enum IterationOrder {
-        /** Lexicographic order. */
+
+        /**
+         * Lexicographic order.
+         */
         LEXICOGRAPHIC
     }
 
-   /**
+    /**
      * Creates an instance whose range is the k-element subsets of
      * {0, ..., n - 1} represented as {@code int[]} arrays.
      * <p>
@@ -71,8 +83,7 @@ public class Combinations implements Iterable<int[]> {
      * @throws org.apache.commons.math3.exception.NotPositiveException if {@code n < 0}.
      * @throws org.apache.commons.math3.exception.NumberIsTooLargeException if {@code k > n}.
      */
-    public Combinations(int n,
-                        int k) {
+    public Combinations(int n, int k) {
         this(n, k, IterationOrder.LEXICOGRAPHIC);
     }
 
@@ -100,9 +111,7 @@ public class Combinations implements Iterable<int[]> {
      * @throws org.apache.commons.math3.exception.NotPositiveException if {@code n < 0}.
      * @throws org.apache.commons.math3.exception.NumberIsTooLargeException if {@code k > n}.
      */
-    private Combinations(int n,
-                         int k,
-                         IterationOrder iterationOrder) {
+    private Combinations(int n, int k, IterationOrder iterationOrder) {
         CombinatoricsUtils.checkBinomial(n, k);
         this.n = n;
         this.k = k;
@@ -115,7 +124,8 @@ public class Combinations implements Iterable<int[]> {
      * @return the size of the universe.
      */
     public int getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -124,22 +134,16 @@ public class Combinations implements Iterable<int[]> {
      * @return the size of the subsets to be enumerated.
      */
     public int getK() {
-        return k;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Iterator<int[]> iterator() {
-        if (k == 0 ||
-            k == n) {
-            return new SingletonIterator(MathArrays.natural(k));
-        }
-
-        switch (iterationOrder) {
-        case LEXICOGRAPHIC:
-            return new LexicographicIterator(n, k);
-        default:
-            throw new MathInternalError(); // Should never happen.
-        }
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -157,7 +161,8 @@ public class Combinations implements Iterable<int[]> {
      * @return a lexicographic comparator.
      */
     public Comparator<int[]> comparator() {
-        return new LexicographicComparator(n, k);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -171,10 +176,12 @@ public class Combinations implements Iterable<int[]> {
      * implementation.  If constructor arguments satisfy {@code k == 0}
      * or {@code k >= n}, no exception is generated, but the iterator is empty.
      * </p>
-     *
      */
     private static class LexicographicIterator implements Iterator<int[]> {
-        /** Size of subsets returned by the iterator */
+
+        /**
+         * Size of subsets returned by the iterator
+         */
         private final int k;
 
         /**
@@ -187,10 +194,14 @@ public class Combinations implements Iterable<int[]> {
          */
         private final int[] c;
 
-        /** Return value for {@link #hasNext()} */
+        /**
+         * Return value for {@link #hasNext()}
+         */
         private boolean more = true;
 
-        /** Marker: smallest index such that c[j + 1] > j */
+        /**
+         * Marker: smallest index such that c[j + 1] > j
+         */
         private int j;
 
         /**
@@ -217,70 +228,31 @@ public class Combinations implements Iterable<int[]> {
             // Initialize sentinels
             c[k + 1] = n;
             c[k + 2] = 0;
-            j = k; // Set up invariant: j is smallest index such that c[j + 1] > j
+            // Set up invariant: j is smallest index such that c[j + 1] > j
+            j = k;
         }
 
         /**
          * {@inheritDoc}
          */
         public boolean hasNext() {
-            return more;
+            // STUB: not implemented
+            return false;
         }
 
         /**
          * {@inheritDoc}
          */
         public int[] next() {
-            if (!more) {
-                throw new NoSuchElementException();
-            }
-            // Copy return value (prepared by last activation)
-            final int[] ret = new int[k];
-            System.arraycopy(c, 1, ret, 0, k);
-
-            // Prepare next iteration
-            // T2 and T6 loop
-            int x = 0;
-            if (j > 0) {
-                x = j;
-                c[j] = x;
-                j--;
-                return ret;
-            }
-            // T3
-            if (c[1] + 1 < c[2]) {
-                c[1]++;
-                return ret;
-            } else {
-                j = 2;
-            }
-            // T4
-            boolean stepDone = false;
-            while (!stepDone) {
-                c[j - 1] = j - 2;
-                x = c[j] + 1;
-                if (x == c[j + 1]) {
-                    j++;
-                } else {
-                    stepDone = true;
-                }
-            }
-            // T5
-            if (j > k) {
-                more = false;
-                return ret;
-            }
-            // T6
-            c[j] = x;
-            j--;
-            return ret;
+            // STUB: not implemented
+            return null;
         }
 
         /**
          * Not supported.
          */
         public void remove() {
-            throw new UnsupportedOperationException();
+            // STUB: not implemented
         }
     }
 
@@ -289,10 +261,17 @@ public class Combinations implements Iterable<int[]> {
      * empty array) for combination iterator.
      */
     private static class SingletonIterator implements Iterator<int[]> {
-        /** Singleton array */
+
+        /**
+         * Singleton array
+         */
         private final int[] singleton;
-        /** True on initialization, false after first call to next */
+
+        /**
+         * True on initialization, false after first call to next
+         */
         private boolean more = true;
+
         /**
          * Create a singleton iterator providing the given array.
          * @param singleton array returned by the iterator
@@ -300,22 +279,28 @@ public class Combinations implements Iterable<int[]> {
         SingletonIterator(final int[] singleton) {
             this.singleton = singleton;
         }
-        /** @return True until next is called the first time, then false */
+
+        /**
+         * @return True until next is called the first time, then false
+         */
         public boolean hasNext() {
-            return more;
+            // STUB: not implemented
+            return false;
         }
-        /** @return the singleton in first activation; throws NSEE thereafter */
+
+        /**
+         * @return the singleton in first activation; throws NSEE thereafter
+         */
         public int[] next() {
-            if (more) {
-                more = false;
-                return singleton;
-            } else {
-                throw new NoSuchElementException();
-            }
+            // STUB: not implemented
+            return null;
         }
-        /** Not supported */
+
+        /**
+         * Not supported
+         */
         public void remove() {
-            throw new UnsupportedOperationException();
+            // STUB: not implemented
         }
     }
 
@@ -323,13 +308,21 @@ public class Combinations implements Iterable<int[]> {
      * Defines the lexicographic ordering of combinations, using
      * the {@link #lexNorm(int[])} method.
      */
-    private static class LexicographicComparator
-        implements Comparator<int[]>, Serializable {
-        /** Serializable version identifier. */
+    private static class LexicographicComparator implements Comparator<int[]>, Serializable {
+
+        /**
+         * Serializable version identifier.
+         */
         private static final long serialVersionUID = 20130906L;
-        /** Size of the set from which combinations are drawn. */
+
+        /**
+         * Size of the set from which combinations are drawn.
+         */
         private final int n;
-        /** Number of elements in each combination. */
+
+        /**
+         * Number of elements in each combination.
+         */
         private final int k;
 
         /**
@@ -349,31 +342,9 @@ public class Combinations implements Iterable<int[]> {
          * @throws OutOfRangeException if an element of the array is not
          * within the interval [0, {@code n}).
          */
-        public int compare(int[] c1,
-                           int[] c2) {
-            if (c1.length != k) {
-                throw new DimensionMismatchException(c1.length, k);
-            }
-            if (c2.length != k) {
-                throw new DimensionMismatchException(c2.length, k);
-            }
-
-            // Method "lexNorm" works with ordered arrays.
-            final int[] c1s = MathArrays.copyOf(c1);
-            Arrays.sort(c1s);
-            final int[] c2s = MathArrays.copyOf(c2);
-            Arrays.sort(c2s);
-
-            final long v1 = lexNorm(c1s);
-            final long v2 = lexNorm(c2s);
-
-            if (v1 < v2) {
-                return -1;
-            } else if (v1 > v2) {
-                return 1;
-            } else {
-                return 0;
-            }
+        public int compare(int[] c1, int[] c2) {
+            // STUB: not implemented
+            return 0;
         }
 
         /**
@@ -392,11 +363,9 @@ public class Combinations implements Iterable<int[]> {
             long ret = 0;
             for (int i = 0; i < c.length; i++) {
                 final int digit = c[i];
-                if (digit < 0 ||
-                    digit >= n) {
+                if (digit < 0 || digit >= n) {
                     throw new OutOfRangeException(digit, 0, n - 1);
                 }
-
                 ret += c[i] * ArithmeticUtils.pow(n, i);
             }
             return ret;

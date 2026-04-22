@@ -28,11 +28,12 @@ import org.apache.commons.math3.util.FastMath;
 
 /**
  * An implementation of the Mann-Whitney U test (also called Wilcoxon rank-sum test).
- *
  */
 public class MannWhitneyUTest {
 
-    /** Ranking algorithm. */
+    /**
+     * Ranking algorithm.
+     */
     private NaturalRanking naturalRanking;
 
     /**
@@ -41,8 +42,7 @@ public class MannWhitneyUTest {
      * what you are doing.
      */
     public MannWhitneyUTest() {
-        naturalRanking = new NaturalRanking(NaNStrategy.FIXED,
-                TiesStrategy.AVERAGE);
+        naturalRanking = new NaturalRanking(NaNStrategy.FIXED, TiesStrategy.AVERAGE);
     }
 
     /**
@@ -54,8 +54,7 @@ public class MannWhitneyUTest {
      * @param tiesStrategy
      *            specifies the strategy that should be used for ties
      */
-    public MannWhitneyUTest(final NaNStrategy nanStrategy,
-                            final TiesStrategy tiesStrategy) {
+    public MannWhitneyUTest(final NaNStrategy nanStrategy, final TiesStrategy tiesStrategy) {
         naturalRanking = new NaturalRanking(nanStrategy, tiesStrategy);
     }
 
@@ -67,30 +66,25 @@ public class MannWhitneyUTest {
      * @throws NullArgumentException if {@code x} or {@code y} are {@code null}.
      * @throws NoDataException if {@code x} or {@code y} are zero-length.
      */
-    private void ensureDataConformance(final double[] x, final double[] y)
-        throws NullArgumentException, NoDataException {
-
-        if (x == null ||
-            y == null) {
+    private void ensureDataConformance(final double[] x, final double[] y) throws NullArgumentException, NoDataException {
+        if (x == null || y == null) {
             throw new NullArgumentException();
         }
-        if (x.length == 0 ||
-            y.length == 0) {
+        if (x.length == 0 || y.length == 0) {
             throw new NoDataException();
         }
     }
 
-    /** Concatenate the samples into one array.
+    /**
+     * Concatenate the samples into one array.
      * @param x first sample
      * @param y second sample
      * @return concatenated array
      */
     private double[] concatenateSamples(final double[] x, final double[] y) {
         final double[] z = new double[x.length + y.length];
-
         System.arraycopy(x, 0, z, 0, x.length);
         System.arraycopy(y, 0, z, x.length, y.length);
-
         return z;
     }
 
@@ -122,36 +116,9 @@ public class MannWhitneyUTest {
      * @throws NullArgumentException if {@code x} or {@code y} are {@code null}.
      * @throws NoDataException if {@code x} or {@code y} are zero-length.
      */
-    public double mannWhitneyU(final double[] x, final double[] y)
-        throws NullArgumentException, NoDataException {
-
-        ensureDataConformance(x, y);
-
-        final double[] z = concatenateSamples(x, y);
-        final double[] ranks = naturalRanking.rank(z);
-
-        double sumRankX = 0;
-
-        /*
-         * The ranks for x is in the first x.length entries in ranks because x
-         * is in the first x.length entries in z
-         */
-        for (int i = 0; i < x.length; ++i) {
-            sumRankX += ranks[i];
-        }
-
-        /*
-         * U1 = R1 - (n1 * (n1 + 1)) / 2 where R1 is sum of ranks for sample 1,
-         * e.g. x, n1 is the number of observations in sample 1.
-         */
-        final double U1 = sumRankX - ((long) x.length * (x.length + 1)) / 2;
-
-        /*
-         * It can be shown that U1 + U2 = n1 * n2
-         */
-        final double U2 = (long) x.length * y.length - U1;
-
-        return FastMath.max(U1, U2);
+    public double mannWhitneyU(final double[] x, final double[] y) throws NullArgumentException, NoDataException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -164,26 +131,18 @@ public class MannWhitneyUTest {
      * @throws MaxCountExceededException if the maximum number of
      * iterations is exceeded
      */
-    private double calculateAsymptoticPValue(final double Umin,
-                                             final int n1,
-                                             final int n2)
-        throws ConvergenceException, MaxCountExceededException {
-
+    private double calculateAsymptoticPValue(final double Umin, final int n1, final int n2) throws ConvergenceException, MaxCountExceededException {
         /* long multiplication to avoid overflow (double not used due to efficiency
          * and to avoid precision loss)
          */
         final long n1n2prod = (long) n1 * n2;
-
         // http://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U#Normal_approximation
         final double EU = n1n2prod / 2.0;
         final double VarU = n1n2prod * (n1 + n2 + 1) / 12.0;
-
         final double z = (Umin - EU) / FastMath.sqrt(VarU);
-
         // No try-catch or advertised exception because args are valid
         // pass a null rng to avoid unneeded overhead as we will not sample from this distribution
         final NormalDistribution standardNormal = new NormalDistribution(null, 0, 1);
-
         return 2 * standardNormal.cumulativeProbability(z);
     }
 
@@ -219,20 +178,8 @@ public class MannWhitneyUTest {
      * @throws MaxCountExceededException if the maximum number of iterations
      * is exceeded
      */
-    public double mannWhitneyUTest(final double[] x, final double[] y)
-        throws NullArgumentException, NoDataException,
-        ConvergenceException, MaxCountExceededException {
-
-        ensureDataConformance(x, y);
-
-        final double Umax = mannWhitneyU(x, y);
-
-        /*
-         * It can be shown that U1 + U2 = n1 * n2
-         */
-        final double Umin = (long) x.length * y.length - Umax;
-
-        return calculateAsymptoticPValue(Umin, x.length, y.length);
+    public double mannWhitneyUTest(final double[] x, final double[] y) throws NullArgumentException, NoDataException, ConvergenceException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
-
 }

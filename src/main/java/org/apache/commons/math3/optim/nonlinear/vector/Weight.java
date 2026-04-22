@@ -34,7 +34,10 @@ import org.apache.commons.math3.linear.NonSquareMatrixException;
  */
 @Deprecated
 public class Weight implements OptimizationData {
-    /** Weight matrix. */
+
+    /**
+     * Weight matrix.
+     */
     private final RealMatrix weightMatrix;
 
     /**
@@ -53,10 +56,8 @@ public class Weight implements OptimizationData {
      */
     public Weight(RealMatrix weight) {
         if (weight.getColumnDimension() != weight.getRowDimension()) {
-            throw new NonSquareMatrixException(weight.getColumnDimension(),
-                                               weight.getRowDimension());
+            throw new NonSquareMatrixException(weight.getColumnDimension(), weight.getRowDimension());
         }
-
         weightMatrix = weight.copy();
     }
 
@@ -66,6 +67,7 @@ public class Weight implements OptimizationData {
      * @return the initial guess.
      */
     public RealMatrix getWeight() {
-        return weightMatrix.copy();
+        // STUB: not implemented
+        return null;
     }
 }

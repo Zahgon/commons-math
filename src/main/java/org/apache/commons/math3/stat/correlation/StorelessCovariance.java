@@ -41,10 +41,14 @@ import org.apache.commons.math3.linear.RealMatrix;
  */
 public class StorelessCovariance extends Covariance {
 
-    /** the square covariance matrix (upper triangular part) */
+    /**
+     * the square covariance matrix (upper triangular part)
+     */
     private StorelessBivariateCovariance[] covMatrix;
 
-    /** dimension of the square covariance matrix */
+    /**
+     * dimension of the square covariance matrix
+     */
     private int dimension;
 
     /**
@@ -78,8 +82,8 @@ public class StorelessCovariance extends Covariance {
      * @param biasCorrected if the covariance estimate shall be corrected for bias
      */
     private void initializeMatrix(final boolean biasCorrected) {
-        for(int i = 0; i < dimension; i++){
-            for(int j = 0; j < dimension; j++){
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
                 setElement(i, j, new StorelessBivariateCovariance(biasCorrected));
             }
         }
@@ -114,8 +118,7 @@ public class StorelessCovariance extends Covariance {
      * @param j the column index
      * @param cov the {@link StorelessBivariateCovariance} element to be set
      */
-    private void setElement(final int i, final int j,
-                            final StorelessBivariateCovariance cov) {
+    private void setElement(final int i, final int j, final StorelessBivariateCovariance cov) {
         covMatrix[indexOf(i, j)] = cov;
     }
 
@@ -128,12 +131,9 @@ public class StorelessCovariance extends Covariance {
      * @throws NumberIsTooSmallException if the number of observations
      * in the cell is &lt; 2
      */
-    public double getCovariance(final int xIndex,
-                                final int yIndex)
-        throws NumberIsTooSmallException {
-
-        return getElement(xIndex, yIndex).getResult();
-
+    public double getCovariance(final int xIndex, final int yIndex) throws NumberIsTooSmallException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -143,22 +143,8 @@ public class StorelessCovariance extends Covariance {
      * @throws DimensionMismatchException if the length of <code>rowData</code>
      * does not match with the covariance matrix
      */
-    public void increment(final double[] data)
-        throws DimensionMismatchException {
-
-        int length = data.length;
-        if (length != dimension) {
-            throw new DimensionMismatchException(length, dimension);
-        }
-
-        // only update the upper triangular part of the covariance matrix
-        // as only these parts are actually stored
-        for (int i = 0; i < length; i++){
-            for (int j = i; j < length; j++){
-                getElement(i, j).increment(data[i], data[j]);
-            }
-        }
-
+    public void increment(final double[] data) throws DimensionMismatchException {
+        // STUB: not implemented
     }
 
     /**
@@ -172,17 +158,7 @@ public class StorelessCovariance extends Covariance {
      * @since 3.3
      */
     public void append(StorelessCovariance sc) throws DimensionMismatchException {
-        if (sc.dimension != dimension) {
-            throw new DimensionMismatchException(sc.dimension, dimension);
-        }
-
-        // only update the upper triangular part of the covariance matrix
-        // as only these parts are actually stored
-        for (int i = 0; i < dimension; i++) {
-            for (int j = i; j < dimension; j++) {
-                getElement(i, j).append(sc.getElement(i, j));
-            }
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -192,7 +168,8 @@ public class StorelessCovariance extends Covariance {
      */
     @Override
     public RealMatrix getCovarianceMatrix() throws NumberIsTooSmallException {
-        return MatrixUtils.createRealMatrix(getData());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -203,13 +180,8 @@ public class StorelessCovariance extends Covariance {
      * for a cell is &lt; 2
      */
     public double[][] getData() throws NumberIsTooSmallException {
-        final double[][] data = new double[dimension][dimension];
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                data[i][j] = getElement(i, j).getResult();
-            }
-        }
-        return data;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -222,8 +194,8 @@ public class StorelessCovariance extends Covariance {
      * @throws MathUnsupportedOperationException in all cases
      */
     @Override
-    public int getN()
-        throws MathUnsupportedOperationException {
-        throw new MathUnsupportedOperationException();
+    public int getN() throws MathUnsupportedOperationException {
+        // STUB: not implemented
+        return 0;
     }
 }

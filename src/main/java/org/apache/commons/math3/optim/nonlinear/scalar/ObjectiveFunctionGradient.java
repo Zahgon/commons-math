@@ -25,7 +25,10 @@ import org.apache.commons.math3.optim.OptimizationData;
  * @since 3.1
  */
 public class ObjectiveFunctionGradient implements OptimizationData {
-    /** Function to be optimized. */
+
+    /**
+     * Function to be optimized.
+     */
     private final MultivariateVectorFunction gradient;
 
     /**
@@ -41,6 +44,7 @@ public class ObjectiveFunctionGradient implements OptimizationData {
      * @return the objective function gradient.
      */
     public MultivariateVectorFunction getObjectiveFunctionGradient() {
-        return gradient;
+        // STUB: not implemented
+        return null;
     }
 }

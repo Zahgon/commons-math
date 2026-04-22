@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -29,7 +28,6 @@ import org.apache.commons.math3.ode.FieldExpandableODE;
 import org.apache.commons.math3.ode.FieldODEState;
 import org.apache.commons.math3.ode.FieldODEStateAndDerivative;
 import org.apache.commons.math3.util.MathArrays;
-
 
 /**
  * This class implements explicit Adams-Bashforth integrators for Ordinary
@@ -146,7 +144,9 @@ import org.apache.commons.math3.util.MathArrays;
  */
 public class AdamsBashforthFieldIntegrator<T extends RealFieldElement<T>> extends AdamsFieldIntegrator<T> {
 
-    /** Integrator method name. */
+    /**
+     * Integrator method name.
+     */
     private static final String METHOD_NAME = "Adams-Bashforth";
 
     /**
@@ -163,13 +163,8 @@ public class AdamsBashforthFieldIntegrator<T extends RealFieldElement<T>> extend
      * @param scalRelativeTolerance allowed relative error
      * @exception NumberIsTooSmallException if order is 1 or less
      */
-    public AdamsBashforthFieldIntegrator(final Field<T> field, final int nSteps,
-                                         final double minStep, final double maxStep,
-                                         final double scalAbsoluteTolerance,
-                                         final double scalRelativeTolerance)
-        throws NumberIsTooSmallException {
-        super(field, METHOD_NAME, nSteps, nSteps, minStep, maxStep,
-              scalAbsoluteTolerance, scalRelativeTolerance);
+    public AdamsBashforthFieldIntegrator(final Field<T> field, final int nSteps, final double minStep, final double maxStep, final double scalAbsoluteTolerance, final double scalRelativeTolerance) throws NumberIsTooSmallException {
+        super(field, METHOD_NAME, nSteps, nSteps, minStep, maxStep, scalAbsoluteTolerance, scalRelativeTolerance);
     }
 
     /**
@@ -186,16 +181,12 @@ public class AdamsBashforthFieldIntegrator<T extends RealFieldElement<T>> extend
      * @param vecRelativeTolerance allowed relative error
      * @exception IllegalArgumentException if order is 1 or less
      */
-    public AdamsBashforthFieldIntegrator(final Field<T> field, final int nSteps,
-                                         final double minStep, final double maxStep,
-                                         final double[] vecAbsoluteTolerance,
-                                         final double[] vecRelativeTolerance)
-        throws IllegalArgumentException {
-        super(field, METHOD_NAME, nSteps, nSteps, minStep, maxStep,
-              vecAbsoluteTolerance, vecRelativeTolerance);
+    public AdamsBashforthFieldIntegrator(final Field<T> field, final int nSteps, final double minStep, final double maxStep, final double[] vecAbsoluteTolerance, final double[] vecRelativeTolerance) throws IllegalArgumentException {
+        super(field, METHOD_NAME, nSteps, nSteps, minStep, maxStep, vecAbsoluteTolerance, vecRelativeTolerance);
     }
 
-    /** Estimate error.
+    /**
+     * Estimate error.
      * <p>
      * Error is estimated by interpolating back to previous state using
      * the state Taylor expansion and comparing to real previous state.
@@ -206,149 +197,32 @@ public class AdamsBashforthFieldIntegrator<T extends RealFieldElement<T>> extend
      * @param predictedNordsieck predicted value of the Nordsieck vector at step end
      * @return estimated normalized local discretization error
      */
-    private T errorEstimation(final T[] previousState,
-                              final T[] predictedState,
-                              final T[] predictedScaled,
-                              final FieldMatrix<T> predictedNordsieck) {
-
+    private T errorEstimation(final T[] previousState, final T[] predictedState, final T[] predictedScaled, final FieldMatrix<T> predictedNordsieck) {
         T error = getField().getZero();
         for (int i = 0; i < mainSetDimension; ++i) {
             final T yScale = predictedState[i].abs();
-            final T tol = (vecAbsoluteTolerance == null) ?
-                          yScale.multiply(scalRelativeTolerance).add(scalAbsoluteTolerance) :
-                          yScale.multiply(vecRelativeTolerance[i]).add(vecAbsoluteTolerance[i]);
-
+            final T tol = (vecAbsoluteTolerance == null) ? yScale.multiply(scalRelativeTolerance).add(scalAbsoluteTolerance) : yScale.multiply(vecRelativeTolerance[i]).add(vecAbsoluteTolerance[i]);
             // apply Taylor formula from high order to low order,
             // for the sake of numerical accuracy
             T variation = getField().getZero();
             int sign = predictedNordsieck.getRowDimension() % 2 == 0 ? -1 : 1;
             for (int k = predictedNordsieck.getRowDimension() - 1; k >= 0; --k) {
                 variation = variation.add(predictedNordsieck.getEntry(k, i).multiply(sign));
-                sign      = -sign;
+                sign = -sign;
             }
             variation = variation.subtract(predictedScaled[i]);
-
-            final T ratio  = predictedState[i].subtract(previousState[i]).add(variation).divide(tol);
+            final T ratio = predictedState[i].subtract(previousState[i]).add(variation).divide(tol);
             error = error.add(ratio.multiply(ratio));
-
         }
-
         return error.divide(mainSetDimension).sqrt();
-
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations,
-                                                   final FieldODEState<T> initialState,
-                                                   final T finalTime)
-        throws NumberIsTooSmallException, DimensionMismatchException,
-               MaxCountExceededException, NoBracketingException {
-
-        sanityChecks(initialState, finalTime);
-        final T   t0 = initialState.getTime();
-        final T[] y  = equations.getMapper().mapState(initialState);
-        setStepStart(initIntegration(equations, t0, y, finalTime));
-        final boolean forward = finalTime.subtract(initialState.getTime()).getReal() > 0;
-
-        // compute the initial Nordsieck vector using the configured starter integrator
-        start(equations, getStepStart(), finalTime);
-
-        // reuse the step that was chosen by the starter integrator
-        FieldODEStateAndDerivative<T> stepStart = getStepStart();
-        FieldODEStateAndDerivative<T> stepEnd   =
-                        AdamsFieldStepInterpolator.taylor(stepStart,
-                                                          stepStart.getTime().add(getStepSize()),
-                                                          getStepSize(), scaled, nordsieck);
-
-        // main integration loop
-        setIsLastStep(false);
-        do {
-
-            T[] predictedY = null;
-            final T[] predictedScaled = MathArrays.buildArray(getField(), y.length);
-            Array2DRowFieldMatrix<T> predictedNordsieck = null;
-            T error = getField().getZero().add(10);
-            while (error.subtract(1.0).getReal() >= 0.0) {
-
-                // predict a first estimate of the state at step end
-                predictedY = stepEnd.getState();
-
-                // evaluate the derivative
-                final T[] yDot = computeDerivatives(stepEnd.getTime(), predictedY);
-
-                // predict Nordsieck vector at step end
-                for (int j = 0; j < predictedScaled.length; ++j) {
-                    predictedScaled[j] = getStepSize().multiply(yDot[j]);
-                }
-                predictedNordsieck = updateHighOrderDerivativesPhase1(nordsieck);
-                updateHighOrderDerivativesPhase2(scaled, predictedScaled, predictedNordsieck);
-
-                // evaluate error
-                error = errorEstimation(y, predictedY, predictedScaled, predictedNordsieck);
-
-                if (error.subtract(1.0).getReal() >= 0.0) {
-                    // reject the step and attempt to reduce error by stepsize control
-                    final T factor = computeStepGrowShrinkFactor(error);
-                    rescale(filterStep(getStepSize().multiply(factor), forward, false));
-                    stepEnd = AdamsFieldStepInterpolator.taylor(getStepStart(),
-                                                                getStepStart().getTime().add(getStepSize()),
-                                                                getStepSize(),
-                                                                scaled,
-                                                                nordsieck);
-
-                }
-            }
-
-            // discrete events handling
-            setStepStart(acceptStep(new AdamsFieldStepInterpolator<T>(getStepSize(), stepEnd,
-                                                                      predictedScaled, predictedNordsieck, forward,
-                                                                      getStepStart(), stepEnd,
-                                                                      equations.getMapper()),
-                                    finalTime));
-            scaled    = predictedScaled;
-            nordsieck = predictedNordsieck;
-
-            if (!isLastStep()) {
-
-                System.arraycopy(predictedY, 0, y, 0, y.length);
-
-                if (resetOccurred()) {
-                    // some events handler has triggered changes that
-                    // invalidate the derivatives, we need to restart from scratch
-                    start(equations, getStepStart(), finalTime);
-                }
-
-                // stepsize control for next step
-                final T       factor     = computeStepGrowShrinkFactor(error);
-                final T       scaledH    = getStepSize().multiply(factor);
-                final T       nextT      = getStepStart().getTime().add(scaledH);
-                final boolean nextIsLast = forward ?
-                                           nextT.subtract(finalTime).getReal() >= 0 :
-                                           nextT.subtract(finalTime).getReal() <= 0;
-                T hNew = filterStep(scaledH, forward, nextIsLast);
-
-                final T       filteredNextT      = getStepStart().getTime().add(hNew);
-                final boolean filteredNextIsLast = forward ?
-                                                   filteredNextT.subtract(finalTime).getReal() >= 0 :
-                                                   filteredNextT.subtract(finalTime).getReal() <= 0;
-                if (filteredNextIsLast) {
-                    hNew = finalTime.subtract(getStepStart().getTime());
-                }
-
-                rescale(hNew);
-                stepEnd = AdamsFieldStepInterpolator.taylor(getStepStart(), getStepStart().getTime().add(getStepSize()),
-                                                            getStepSize(), scaled, nordsieck);
-
-            }
-
-        } while (!isLastStep());
-
-        final FieldODEStateAndDerivative<T> finalState = getStepStart();
-        setStepStart(null);
-        setStepSize(null);
-        return finalState;
-
+    public FieldODEStateAndDerivative<T> integrate(final FieldExpandableODE<T> equations, final FieldODEState<T> initialState, final T finalTime) throws NumberIsTooSmallException, DimensionMismatchException, MaxCountExceededException, NoBracketingException {
+        // STUB: not implemented
+        return null;
     }
-
 }

@@ -41,44 +41,101 @@ import org.apache.commons.math3.util.MathArrays;
  */
 public class MillerUpdatingRegression implements UpdatingMultipleLinearRegression {
 
-    /** number of variables in regression */
+    /**
+     * number of variables in regression
+     */
     private final int nvars;
-    /** diagonals of cross products matrix */
+
+    /**
+     * diagonals of cross products matrix
+     */
     private final double[] d;
-    /** the elements of the R`Y */
+
+    /**
+     * the elements of the R`Y
+     */
     private final double[] rhs;
-    /** the off diagonal portion of the R matrix */
+
+    /**
+     * the off diagonal portion of the R matrix
+     */
     private final double[] r;
-    /** the tolerance for each of the variables */
+
+    /**
+     * the tolerance for each of the variables
+     */
     private final double[] tol;
-    /** residual sum of squares for all nested regressions */
+
+    /**
+     * residual sum of squares for all nested regressions
+     */
     private final double[] rss;
-    /** order of the regressors */
+
+    /**
+     * order of the regressors
+     */
     private final int[] vorder;
-    /** scratch space for tolerance calc */
+
+    /**
+     * scratch space for tolerance calc
+     */
     private final double[] work_tolset;
-    /** number of observations entered */
+
+    /**
+     * number of observations entered
+     */
     private long nobs = 0;
-    /** sum of squared errors of largest regression */
+
+    /**
+     * sum of squared errors of largest regression
+     */
     private double sserr = 0.0;
-    /** has rss been called? */
+
+    /**
+     * has rss been called?
+     */
     private boolean rss_set = false;
-    /** has the tolerance setting method been called */
+
+    /**
+     * has the tolerance setting method been called
+     */
     private boolean tol_set = false;
-    /** flags for variables with linear dependency problems */
+
+    /**
+     * flags for variables with linear dependency problems
+     */
     private final boolean[] lindep;
-    /** singular x values */
+
+    /**
+     * singular x values
+     */
     private final double[] x_sing;
-    /** workspace for singularity method */
+
+    /**
+     * workspace for singularity method
+     */
     private final double[] work_sing;
-    /** summation of Y variable */
+
+    /**
+     * summation of Y variable
+     */
     private double sumy = 0.0;
-    /** summation of squared Y values */
+
+    /**
+     * summation of squared Y values
+     */
     private double sumsqy = 0.0;
-    /** boolean flag whether a regression constant is added */
+
+    /**
+     * boolean flag whether a regression constant is added
+     */
     private boolean hasIntercept;
-    /** zero tolerance */
+
+    /**
+     * zero tolerance
+     */
     private final double epsilon;
+
     /**
      *  Set the default constructor to private access
      *  to prevent inadvertent instantiation
@@ -96,8 +153,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * @param errorTolerance  zero tolerance, how machine zero is determined
      * @throws ModelSpecificationException if {@code numberOfVariables is less than 1}
      */
-    public MillerUpdatingRegression(int numberOfVariables, boolean includeConstant, double errorTolerance)
-    throws ModelSpecificationException {
+    public MillerUpdatingRegression(int numberOfVariables, boolean includeConstant, double errorTolerance) throws ModelSpecificationException {
         if (numberOfVariables < 1) {
             throw new ModelSpecificationException(LocalizedFormats.NO_REGRESSORS);
         }
@@ -135,8 +191,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * @param includeConstant include a constant automatically
      * @throws ModelSpecificationException if {@code numberOfVariables is less than 1}
      */
-    public MillerUpdatingRegression(int numberOfVariables, boolean includeConstant)
-    throws ModelSpecificationException {
+    public MillerUpdatingRegression(int numberOfVariables, boolean includeConstant) throws ModelSpecificationException {
         this(numberOfVariables, includeConstant, Precision.EPSILON);
     }
 
@@ -145,7 +200,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * @return true regression has an intercept, false no intercept
      */
     public boolean hasIntercept() {
-        return this.hasIntercept;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -153,7 +209,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * @return number of observations
      */
     public long getN() {
-        return this.nobs;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -163,24 +220,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * @exception ModelSpecificationException if the length of {@code x} does not equal
      * the number of independent variables in the model
      */
-    public void addObservation(final double[] x, final double y)
-    throws ModelSpecificationException {
-
-        if ((!this.hasIntercept && x.length != nvars) ||
-               (this.hasIntercept && x.length + 1 != nvars)) {
-            throw new ModelSpecificationException(LocalizedFormats.INVALID_REGRESSION_OBSERVATION,
-                    x.length, nvars);
-        }
-        if (!this.hasIntercept) {
-            include(MathArrays.copyOf(x, x.length), 1.0, y);
-        } else {
-            final double[] tmp = new double[x.length + 1];
-            System.arraycopy(x, 0, tmp, 1, x.length);
-            tmp[0] = 1.0;
-            include(tmp, 1.0, y);
-        }
-        ++nobs;
-
+    public void addObservation(final double[] x, final double y) throws ModelSpecificationException {
+        // STUB: not implemented
     }
 
     /**
@@ -191,24 +232,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * the length of {@code y} or does not contain sufficient data to estimate the model
      */
     public void addObservations(double[][] x, double[] y) throws ModelSpecificationException {
-        if ((x == null) || (y == null) || (x.length != y.length)) {
-            throw new ModelSpecificationException(
-                  LocalizedFormats.DIMENSIONS_MISMATCH_SIMPLE,
-                  (x == null) ? 0 : x.length,
-                  (y == null) ? 0 : y.length);
-        }
-        if (x.length == 0) {  // Must be no y data either
-            throw new ModelSpecificationException(
-                    LocalizedFormats.NO_DATA);
-        }
-        if (x[0].length + 1 > x.length) {
-            throw new ModelSpecificationException(
-                  LocalizedFormats.NOT_ENOUGH_DATA_FOR_NUMBER_OF_PREDICTORS,
-                  x.length, x[0].length);
-        }
-        for (int i = 0; i < x.length; i++) {
-            addObservation(x[i], y[i]);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -243,7 +267,6 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
                 return;
             }
             xi = x[i];
-
             if (xi == 0.0) {
                 nextr += nvars - i - 1;
                 continue;
@@ -313,24 +336,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * canonical order.
      */
     public void clear() {
-        Arrays.fill(this.d, 0.0);
-        Arrays.fill(this.rhs, 0.0);
-        Arrays.fill(this.r, 0.0);
-        Arrays.fill(this.tol, 0.0);
-        Arrays.fill(this.rss, 0.0);
-        Arrays.fill(this.work_tolset, 0.0);
-        Arrays.fill(this.work_sing, 0.0);
-        Arrays.fill(this.x_sing, 0.0);
-        Arrays.fill(this.lindep, false);
-        for (int i = 0; i < nvars; i++) {
-            this.vorder[i] = i;
-        }
-        this.nobs = 0;
-        this.sserr = 0.0;
-        this.sumy = 0.0;
-        this.sumsqy = 0.0;
-        this.rss_set = false;
-        this.tol_set = false;
+        // STUB: not implemented
     }
 
     /**
@@ -373,8 +379,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
             throw new ModelSpecificationException(LocalizedFormats.NO_REGRESSORS);
         }
         if (nreq > this.nvars) {
-            throw new ModelSpecificationException(
-                    LocalizedFormats.TOO_MANY_REGRESSORS, nreq, this.nvars);
+            throw new ModelSpecificationException(LocalizedFormats.TOO_MANY_REGRESSORS, nreq, this.nvars);
         }
         if (!this.tol_set) {
             tolset();
@@ -525,7 +530,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
                             ++pos1;
                             ++pos2;
                         }
-                        covmat[ (col + 1) * col / 2 + row] = total * var;
+                        covmat[(col + 1) * col / 2 + row] = total * var;
                     } else {
                         pos2 += nreq - col - 1;
                     }
@@ -606,73 +611,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * regressors with each other and the regressand, in lower triangular form
      */
     public double[] getPartialCorrelations(int in) {
-        final double[] output = new double[(nvars - in + 1) * (nvars - in) / 2];
-        int pos;
-        int pos1;
-        int pos2;
-        final int rms_off = -in;
-        final int wrk_off = -(in + 1);
-        final double[] rms = new double[nvars - in];
-        final double[] work = new double[nvars - in - 1];
-        double sumxx;
-        double sumxy;
-        double sumyy;
-        final int offXX = (nvars - in) * (nvars - in - 1) / 2;
-        if (in < -1 || in >= nvars) {
-            return null;
-        }
-        final int nvm = nvars - 1;
-        final int base_pos = r.length - (nvm - in) * (nvm - in + 1) / 2;
-        if (d[in] > 0.0) {
-            rms[in + rms_off] = 1.0 / FastMath.sqrt(d[in]);
-        }
-        for (int col = in + 1; col < nvars; col++) {
-            pos = base_pos + col - 1 - in;
-            sumxx = d[col];
-            for (int row = in; row < col; row++) {
-                sumxx += d[row] * r[pos] * r[pos];
-                pos += nvars - row - 2;
-            }
-            if (sumxx > 0.0) {
-                rms[col + rms_off] = 1.0 / FastMath.sqrt(sumxx);
-            } else {
-                rms[col + rms_off] = 0.0;
-            }
-        }
-        sumyy = sserr;
-        for (int row = in; row < nvars; row++) {
-            sumyy += d[row] * rhs[row] * rhs[row];
-        }
-        if (sumyy > 0.0) {
-            sumyy = 1.0 / FastMath.sqrt(sumyy);
-        }
-        pos = 0;
-        for (int col1 = in; col1 < nvars; col1++) {
-            sumxy = 0.0;
-            Arrays.fill(work, 0.0);
-            pos1 = base_pos + col1 - in - 1;
-            for (int row = in; row < col1; row++) {
-                pos2 = pos1 + 1;
-                for (int col2 = col1 + 1; col2 < nvars; col2++) {
-                    work[col2 + wrk_off] += d[row] * r[pos1] * r[pos2];
-                    pos2++;
-                }
-                sumxy += d[row] * r[pos1] * rhs[row];
-                pos1 += nvars - row - 2;
-            }
-            pos2 = pos1 + 1;
-            for (int col2 = col1 + 1; col2 < nvars; col2++) {
-                work[col2 + wrk_off] += d[col1] * r[pos2];
-                ++pos2;
-                output[ (col2 - 1 - in) * (col2 - in) / 2 + col1 - in] =
-                        work[col2 + wrk_off] * rms[col1 + rms_off] * rms[col2 + rms_off];
-                ++pos;
-            }
-            sumxy += d[col1] * rhs[col1];
-            output[col1 + rms_off + offXX] = sumxy * rms[col1 + rms_off] * sumyy;
-        }
-
-        return output;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -715,14 +655,12 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
             inc = -1;
             count = from - to;
         }
-
         int m = first;
         int idx = 0;
         while (idx < count) {
             m1 = m * (nvars + nvars - m - 1) / 2;
             m2 = m1 + nvars - m - 1;
             mp1 = m + 1;
-
             d1 = d[m];
             d2 = d[mp1];
             // Special cases.
@@ -795,7 +733,6 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
             tol[m] = tol[mp1];
             tol[mp1] = X;
             rss[m] = rss[mp1] + d[mp1] * rhs[mp1] * rhs[mp1];
-
             m += inc;
             ++idx;
         }
@@ -850,37 +787,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * @return the diagonal element of the hatmatrix
      */
     public double getDiagonalOfHatMatrix(double[] row_data) {
-        double[] wk = new double[this.nvars];
-        int pos;
-        double total;
-
-        if (row_data.length > nvars) {
-            return Double.NaN;
-        }
-        double[] xrow;
-        if (this.hasIntercept) {
-            xrow = new double[row_data.length + 1];
-            xrow[0] = 1.0;
-            System.arraycopy(row_data, 0, xrow, 1, row_data.length);
-        } else {
-            xrow = row_data;
-        }
-        double hii = 0.0;
-        for (int col = 0; col < xrow.length; col++) {
-            if (FastMath.sqrt(d[col]) < tol[col]) {
-                wk[col] = 0.0;
-            } else {
-                pos = col - 1;
-                total = xrow[col];
-                for (int row = 0; row < col; row++) {
-                    total = smartAdd(total, -wk[row] * r[pos]);
-                    pos += nvars - row - 2;
-                }
-                wk[col] = total;
-                hii = smartAdd(hii, (total * total) / d[col]);
-            }
-        }
-        return hii;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -890,8 +798,9 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      *
      * @return int[] with the current order of the regressors
      */
-    public int[] getOrderOfRegressors(){
-        return MathArrays.copyOf(vorder);
+    public int[] getOrderOfRegressors() {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -902,7 +811,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * less than the number of variables
      */
     public RegressionResults regress() throws ModelSpecificationException {
-        return regress(this.nvars);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -916,77 +826,8 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * is greater than the regressors in the model
      */
     public RegressionResults regress(int numberOfRegressors) throws ModelSpecificationException {
-        if (this.nobs <= numberOfRegressors) {
-           throw new ModelSpecificationException(
-                   LocalizedFormats.NOT_ENOUGH_DATA_FOR_NUMBER_OF_PREDICTORS,
-                   this.nobs, numberOfRegressors);
-        }
-        if( numberOfRegressors > this.nvars ){
-            throw new ModelSpecificationException(
-                    LocalizedFormats.TOO_MANY_REGRESSORS, numberOfRegressors, this.nvars);
-        }
-
-        tolset();
-        singcheck();
-
-        double[] beta = this.regcf(numberOfRegressors);
-
-        ss();
-
-        double[] cov = this.cov(numberOfRegressors);
-
-        int rnk = 0;
-        for (int i = 0; i < this.lindep.length; i++) {
-            if (!this.lindep[i]) {
-                ++rnk;
-            }
-        }
-
-        boolean needsReorder = false;
-        for (int i = 0; i < numberOfRegressors; i++) {
-            if (this.vorder[i] != i) {
-                needsReorder = true;
-                break;
-            }
-        }
-        if (!needsReorder) {
-            return new RegressionResults(
-                    beta, new double[][]{cov}, true, this.nobs, rnk,
-                    this.sumy, this.sumsqy, this.sserr, this.hasIntercept, false);
-        } else {
-            double[] betaNew = new double[beta.length];
-            double[] covNew = new double[cov.length];
-
-            int[] newIndices = new int[beta.length];
-            for (int i = 0; i < nvars; i++) {
-                for (int j = 0; j < numberOfRegressors; j++) {
-                    if (this.vorder[j] == i) {
-                        betaNew[i] = beta[ j];
-                        newIndices[i] = j;
-                    }
-                }
-            }
-
-            int idx1 = 0;
-            int idx2;
-            int _i;
-            int _j;
-            for (int i = 0; i < beta.length; i++) {
-                _i = newIndices[i];
-                for (int j = 0; j <= i; j++, idx1++) {
-                    _j = newIndices[j];
-                    if (_i > _j) {
-                        idx2 = _i * (_i + 1) / 2 + _j;
-                    } else {
-                        idx2 = _j * (_j + 1) / 2 + _i;
-                    }
-                    covNew[idx1] = cov[idx2];
-                }
-            }
-            return new RegressionResults(
-                    betaNew, new double[][]{covNew}, true, this.nobs, rnk,
-                    this.sumy, this.sumsqy, this.sserr, this.hasIntercept, false);
-        }
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -1002,100 +843,7 @@ public class MillerUpdatingRegression implements UpdatingMultipleLinearRegressio
      * regressor array does not exist
      */
     public RegressionResults regress(int[] variablesToInclude) throws ModelSpecificationException {
-        if (variablesToInclude.length > this.nvars) {
-            throw new ModelSpecificationException(
-                    LocalizedFormats.TOO_MANY_REGRESSORS, variablesToInclude.length, this.nvars);
-        }
-        if (this.nobs <= this.nvars) {
-            throw new ModelSpecificationException(
-                    LocalizedFormats.NOT_ENOUGH_DATA_FOR_NUMBER_OF_PREDICTORS,
-                    this.nobs, this.nvars);
-        }
-        Arrays.sort(variablesToInclude);
-        int iExclude = 0;
-        for (int i = 0; i < variablesToInclude.length; i++) {
-            if (i >= this.nvars) {
-                throw new ModelSpecificationException(
-                        LocalizedFormats.INDEX_LARGER_THAN_MAX, i, this.nvars);
-            }
-            if (i > 0 && variablesToInclude[i] == variablesToInclude[i - 1]) {
-                variablesToInclude[i] = -1;
-                ++iExclude;
-            }
-        }
-        int[] series;
-        if (iExclude > 0) {
-            int j = 0;
-            series = new int[variablesToInclude.length - iExclude];
-            for (int i = 0; i < variablesToInclude.length; i++) {
-                if (variablesToInclude[i] > -1) {
-                    series[j] = variablesToInclude[i];
-                    ++j;
-                }
-            }
-        } else {
-            series = variablesToInclude;
-        }
-
-        reorderRegressors(series, 0);
-        tolset();
-        singcheck();
-
-        double[] beta = this.regcf(series.length);
-
-        ss();
-
-        double[] cov = this.cov(series.length);
-
-        int rnk = 0;
-        for (int i = 0; i < this.lindep.length; i++) {
-            if (!this.lindep[i]) {
-                ++rnk;
-            }
-        }
-
-        boolean needsReorder = false;
-        for (int i = 0; i < this.nvars; i++) {
-            if (this.vorder[i] != series[i]) {
-                needsReorder = true;
-                break;
-            }
-        }
-        if (!needsReorder) {
-            return new RegressionResults(
-                    beta, new double[][]{cov}, true, this.nobs, rnk,
-                    this.sumy, this.sumsqy, this.sserr, this.hasIntercept, false);
-        } else {
-            double[] betaNew = new double[beta.length];
-            int[] newIndices = new int[beta.length];
-            for (int i = 0; i < series.length; i++) {
-                for (int j = 0; j < this.vorder.length; j++) {
-                    if (this.vorder[j] == series[i]) {
-                        betaNew[i] = beta[ j];
-                        newIndices[i] = j;
-                    }
-                }
-            }
-            double[] covNew = new double[cov.length];
-            int idx1 = 0;
-            int idx2;
-            int _i;
-            int _j;
-            for (int i = 0; i < beta.length; i++) {
-                _i = newIndices[i];
-                for (int j = 0; j <= i; j++, idx1++) {
-                    _j = newIndices[j];
-                    if (_i > _j) {
-                        idx2 = _i * (_i + 1) / 2 + _j;
-                    } else {
-                        idx2 = _j * (_j + 1) / 2 + _i;
-                    }
-                    covNew[idx1] = cov[idx2];
-                }
-            }
-            return new RegressionResults(
-                    betaNew, new double[][]{covNew}, true, this.nobs, rnk,
-                    this.sumy, this.sumsqy, this.sserr, this.hasIntercept, false);
-        }
+        // STUB: not implemented
+        return null;
     }
 }

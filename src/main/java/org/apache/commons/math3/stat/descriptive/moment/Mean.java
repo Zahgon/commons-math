@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
@@ -58,15 +57,17 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.
- *
  */
-public class Mean extends AbstractStorelessUnivariateStatistic
-    implements Serializable, WeightedEvaluation {
+public class Mean extends AbstractStorelessUnivariateStatistic implements Serializable, WeightedEvaluation {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = -1296043746617791564L;
 
-    /** First moment on which this statistic is based. */
+    /**
+     * First moment on which this statistic is based.
+     */
     protected FirstMoment moment;
 
     /**
@@ -77,7 +78,9 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      */
     protected boolean incMoment;
 
-    /** Constructs a Mean. */
+    /**
+     * Constructs a Mean.
+     */
     public Mean() {
         incMoment = true;
         moment = new FirstMoment();
@@ -112,9 +115,7 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public void increment(final double d) {
-        if (incMoment) {
-            moment.increment(d);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -122,9 +123,7 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public void clear() {
-        if (incMoment) {
-            moment.clear();
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -132,14 +131,16 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public double getResult() {
-        return moment.m1;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return moment.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -159,23 +160,9 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values,final int begin, final int length)
-    throws MathIllegalArgumentException {
-        if (test(values, begin, length)) {
-            Sum sum = new Sum();
-            double sampleSize = length;
-
-            // Compute initial estimate using definitional formula
-            double xbar = sum.evaluate(values, begin, length) / sampleSize;
-
-            // Compute correction factor in second pass
-            double correction = 0;
-            for (int i = begin; i < begin + length; i++) {
-                correction += values[i] - xbar;
-            }
-            return xbar + (correction/sampleSize);
-        }
-        return Double.NaN;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -207,23 +194,9 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights,
-                           final int begin, final int length) throws MathIllegalArgumentException {
-        if (test(values, weights, begin, length)) {
-            Sum sum = new Sum();
-
-            // Compute initial estimate using definitional formula
-            double sumw = sum.evaluate(weights,begin,length);
-            double xbarw = sum.evaluate(values, weights, begin, length) / sumw;
-
-            // Compute correction factor in second pass
-            double correction = 0;
-            for (int i = begin; i < begin + length; i++) {
-                correction += weights[i] * (values[i] - xbarw);
-            }
-            return xbarw + (correction/sumw);
-        }
-        return Double.NaN;
+    public double evaluate(final double[] values, final double[] weights, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -250,9 +223,9 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      * @throws MathIllegalArgumentException if the parameters are not valid
      * @since 2.1
      */
-    public double evaluate(final double[] values, final double[] weights)
-    throws MathIllegalArgumentException {
-        return evaluate(values, weights, 0, values.length);
+    public double evaluate(final double[] values, final double[] weights) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -260,12 +233,9 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      */
     @Override
     public Mean copy() {
-        Mean result = new Mean();
-        // No try-catch or advertised exception because args are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
-
 
     /**
      * Copies source to dest.
@@ -275,12 +245,7 @@ public class Mean extends AbstractStorelessUnivariateStatistic
      * @param dest Mean to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(Mean source, Mean dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.incMoment = source.incMoment;
-        dest.moment = source.moment.copy();
+    public static void copy(Mean source, Mean dest) throws NullArgumentException {
+        // STUB: not implemented
     }
 }

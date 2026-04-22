@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.Field;
@@ -51,10 +50,10 @@ import org.apache.commons.math3.util.MathArrays;
  * @param <T> the type of the field elements
  * @since 3.6
  */
-
 public class EulerFieldIntegrator<T extends RealFieldElement<T>> extends RungeKuttaFieldIntegrator<T> {
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * Build an Euler integrator with the given step.
      * @param field field to which the time and state vector elements belong
      * @param step integration step
@@ -63,34 +62,36 @@ public class EulerFieldIntegrator<T extends RealFieldElement<T>> extends RungeKu
         super(field, "Euler", step);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[] getC() {
-        return MathArrays.buildArray(getField(), 0);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[][] getA() {
-        return MathArrays.buildArray(getField(), 0, 0);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T[] getB() {
-        final T[] b = MathArrays.buildArray(getField(), 1);
-        b[0] = getField().getOne();
-        return b;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected EulerFieldStepInterpolator<T>
-        createInterpolator(final boolean forward, T[][] yDotK,
-                           final FieldODEStateAndDerivative<T> globalPreviousState,
-                           final FieldODEStateAndDerivative<T> globalCurrentState,
-                           final FieldEquationsMapper<T> mapper) {
-        return new EulerFieldStepInterpolator<T>(getField(), forward, yDotK,
-                                                 globalPreviousState, globalCurrentState,
-                                                 globalPreviousState, globalCurrentState,
-                                                 mapper);
+    protected EulerFieldStepInterpolator<T> createInterpolator(final boolean forward, T[][] yDotK, final FieldODEStateAndDerivative<T> globalPreviousState, final FieldODEStateAndDerivative<T> globalCurrentState, final FieldEquationsMapper<T> mapper) {
+        // STUB: not implemented
+        return null;
     }
-
 }

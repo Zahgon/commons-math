@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.fitting;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -30,7 +29,9 @@ import org.apache.commons.math3.optimization.DifferentiableMultivariateVectorOpt
  */
 @Deprecated
 public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric> {
-    /** Polynomial degree.
+
+    /**
+     * Polynomial degree.
      * @deprecated
      */
     @Deprecated
@@ -60,7 +61,8 @@ public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric>
      */
     public PolynomialFitter(DifferentiableMultivariateVectorOptimizer optimizer) {
         super(optimizer);
-        degree = -1; // To avoid compilation error until the instance variable is removed.
+        // To avoid compilation error until the instance variable is removed.
+        degree = -1;
     }
 
     /**
@@ -91,7 +93,8 @@ public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric>
      * @since 3.1
      */
     public double[] fit(int maxEval, double[] guess) {
-        return fit(maxEval, new PolynomialFunction.Parametric(), guess);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -106,6 +109,7 @@ public class PolynomialFitter extends CurveFitter<PolynomialFunction.Parametric>
      * @since 3.1
      */
     public double[] fit(double[] guess) {
-        return fit(new PolynomialFunction.Parametric(), guess);
+        // STUB: not implemented
+        return null;
     }
 }

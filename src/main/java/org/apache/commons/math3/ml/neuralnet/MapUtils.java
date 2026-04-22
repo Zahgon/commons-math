@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Comparator;
-
 import org.apache.commons.math3.exception.NoDataException;
 import org.apache.commons.math3.ml.distance.DistanceMeasure;
 import org.apache.commons.math3.ml.neuralnet.twod.NeuronSquareMesh2D;
@@ -35,10 +33,12 @@ import org.apache.commons.math3.util.Pair;
  * @since 3.3
  */
 public class MapUtils {
+
     /**
      * Class contains only static methods.
      */
-    private MapUtils() {}
+    private MapUtils() {
+    }
 
     /**
      * Finds the neuron that best matches the given features.
@@ -53,20 +53,9 @@ public class MapUtils {
      * if the size of the input is not compatible with the neurons features
      * size.
      */
-    public static Neuron findBest(double[] features,
-                                  Iterable<Neuron> neurons,
-                                  DistanceMeasure distance) {
-        Neuron best = null;
-        double min = Double.POSITIVE_INFINITY;
-        for (final Neuron n : neurons) {
-            final double d = distance.compute(n.getFeatures(), features);
-            if (d < min) {
-                min = d;
-                best = n;
-            }
-        }
-
-        return best;
+    public static Neuron findBest(double[] features, Iterable<Neuron> neurons, DistanceMeasure distance) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -82,30 +71,9 @@ public class MapUtils {
      * if the size of the input is not compatible with the neurons features
      * size.
      */
-    public static Pair<Neuron, Neuron> findBestAndSecondBest(double[] features,
-                                                             Iterable<Neuron> neurons,
-                                                             DistanceMeasure distance) {
-        Neuron[] best = { null, null };
-        double[] min = { Double.POSITIVE_INFINITY,
-                         Double.POSITIVE_INFINITY };
-        for (final Neuron n : neurons) {
-            final double d = distance.compute(n.getFeatures(), features);
-            if (d < min[0]) {
-                // Replace second best with old best.
-                min[1] = min[0];
-                best[1] = best[0];
-
-                // Store current as new best.
-                min[0] = d;
-                best[0] = n;
-            } else if (d < min[1]) {
-                // Replace old second best with current.
-                min[1] = d;
-                best[1] = n;
-            }
-        }
-
-        return new Pair<Neuron, Neuron>(best[0], best[1]);
+    public static Pair<Neuron, Neuron> findBestAndSecondBest(double[] features, Iterable<Neuron> neurons, DistanceMeasure distance) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -127,25 +95,9 @@ public class MapUtils {
      *
      * @since 3.6
      */
-    public static Neuron[] sort(double[] features,
-                                Iterable<Neuron> neurons,
-                                DistanceMeasure distance) {
-        final List<PairNeuronDouble> list = new ArrayList<PairNeuronDouble>();
-
-        for (final Neuron n : neurons) {
-            final double d = distance.compute(n.getFeatures(), features);
-            list.add(new PairNeuronDouble(n, d));
-        }
-
-        Collections.sort(list, PairNeuronDouble.COMPARATOR);
-
-        final int len = list.size();
-        final Neuron[] sorted = new Neuron[len];
-
-        for (int i = 0; i < len; i++) {
-            sorted[i] = list.get(i).getNeuron();
-        }
-        return sorted;
+    public static Neuron[] sort(double[] features, Iterable<Neuron> neurons, DistanceMeasure distance) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -157,32 +109,9 @@ public class MapUtils {
      * distance from a neuron to its neighbours.
      * @return the matrix of average distances.
      */
-    public static double[][] computeU(NeuronSquareMesh2D map,
-                                      DistanceMeasure distance) {
-        final int numRows = map.getNumberOfRows();
-        final int numCols = map.getNumberOfColumns();
-        final double[][] uMatrix = new double[numRows][numCols];
-
-        final Network net = map.getNetwork();
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                final Neuron neuron = map.getNeuron(i, j);
-                final Collection<Neuron> neighbours = net.getNeighbours(neuron);
-                final double[] features = neuron.getFeatures();
-
-                double d = 0;
-                int count = 0;
-                for (Neuron n : neighbours) {
-                    ++count;
-                    d += distance.compute(features, n.getFeatures());
-                }
-
-                uMatrix[i][j] = d / count;
-            }
-        }
-
-        return uMatrix;
+    public static double[][] computeU(NeuronSquareMesh2D map, DistanceMeasure distance) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -193,40 +122,9 @@ public class MapUtils {
      * @param distance Function to use for determining the best matching unit.
      * @return the number of hits for each neuron in the map.
      */
-    public static int[][] computeHitHistogram(Iterable<double[]> data,
-                                              NeuronSquareMesh2D map,
-                                              DistanceMeasure distance) {
-        final HashMap<Neuron, Integer> hit = new HashMap<Neuron, Integer>();
-        final Network net = map.getNetwork();
-
-        for (double[] f : data) {
-            final Neuron best = findBest(f, net, distance);
-            final Integer count = hit.get(best);
-            if (count == null) {
-                hit.put(best, 1);
-            } else {
-                hit.put(best, count + 1);
-            }
-        }
-
-        // Copy the histogram data into a 2D map.
-        final int numRows = map.getNumberOfRows();
-        final int numCols = map.getNumberOfColumns();
-        final int[][] histo = new int[numRows][numCols];
-
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
-                final Neuron neuron = map.getNeuron(i, j);
-                final Integer count = hit.get(neuron);
-                if (count == null) {
-                    histo[i][j] = 0;
-                } else {
-                    histo[i][j] = count;
-                }
-            }
-        }
-
-        return histo;
+    public static int[][] computeHitHistogram(Iterable<double[]> data, NeuronSquareMesh2D map, DistanceMeasure distance) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -240,21 +138,9 @@ public class MapUtils {
      * @return the error.
      * @throws NoDataException if {@code data} is empty.
      */
-    public static double computeQuantizationError(Iterable<double[]> data,
-                                                  Iterable<Neuron> neurons,
-                                                  DistanceMeasure distance) {
-        double d = 0;
-        int count = 0;
-        for (double[] f : data) {
-            ++count;
-            d += distance.compute(f, findBest(f, neurons, distance).getFeatures());
-        }
-
-        if (count == 0) {
-            throw new NoDataException();
-        }
-
-        return d / count;
+    public static double computeQuantizationError(Iterable<double[]> data, Iterable<Neuron> neurons, DistanceMeasure distance) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -268,44 +154,38 @@ public class MapUtils {
      * @return the error.
      * @throws NoDataException if {@code data} is empty.
      */
-    public static double computeTopographicError(Iterable<double[]> data,
-                                                 Network net,
-                                                 DistanceMeasure distance) {
-        int notAdjacentCount = 0;
-        int count = 0;
-        for (double[] f : data) {
-            ++count;
-            final Pair<Neuron, Neuron> p = findBestAndSecondBest(f, net, distance);
-            if (!net.getNeighbours(p.getFirst()).contains(p.getSecond())) {
-                // Increment count if first and second best matching units
-                // are not neighbours.
-                ++notAdjacentCount;
-            }
-        }
-
-        if (count == 0) {
-            throw new NoDataException();
-        }
-
-        return ((double) notAdjacentCount) / count;
+    public static double computeTopographicError(Iterable<double[]> data, Network net, DistanceMeasure distance) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * Helper data structure holding a (Neuron, double) pair.
      */
     private static class PairNeuronDouble {
-        /** Comparator. */
-        static final Comparator<PairNeuronDouble> COMPARATOR
-            = new Comparator<PairNeuronDouble>() {
-            /** {@inheritDoc} */
-            public int compare(PairNeuronDouble o1,
-                               PairNeuronDouble o2) {
-                return Double.compare(o1.value, o2.value);
+
+        /**
+         * Comparator.
+         */
+        static final Comparator<PairNeuronDouble> COMPARATOR = new Comparator<PairNeuronDouble>() {
+
+            /**
+             * {@inheritDoc}
+             */
+            public int compare(PairNeuronDouble o1, PairNeuronDouble o2) {
+                // STUB: not implemented
+                return 0;
             }
         };
-        /** Key. */
+
+        /**
+         * Key.
+         */
         private final Neuron neuron;
-        /** Value. */
+
+        /**
+         * Value.
+         */
         private final double value;
 
         /**
@@ -317,10 +197,12 @@ public class MapUtils {
             this.value = value;
         }
 
-        /** @return the neuron. */
+        /**
+         * @return the neuron.
+         */
         public Neuron getNeuron() {
-            return neuron;
+            // STUB: not implemented
+            return null;
         }
-
     }
 }

@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.linear;
 
 import org.apache.commons.math3.FieldElement;
@@ -29,28 +28,40 @@ import org.apache.commons.math3.FieldElement;
  * @param <T> the type of the field elements
  * @since 2.0
  */
-public class DefaultFieldMatrixPreservingVisitor<T extends FieldElement<T>>
-    implements FieldMatrixPreservingVisitor<T> {
-    /** Zero element of the field. */
+public class DefaultFieldMatrixPreservingVisitor<T extends FieldElement<T>> implements FieldMatrixPreservingVisitor<T> {
+
+    /**
+     * Zero element of the field.
+     */
     private final T zero;
 
-    /** Build a new instance.
+    /**
+     * Build a new instance.
      * @param zero additive identity of the field
      */
     public DefaultFieldMatrixPreservingVisitor(final T zero) {
         this.zero = zero;
     }
 
-    /** {@inheritDoc} */
-    public void start(int rows, int columns,
-                      int startRow, int endRow, int startColumn, int endColumn) {
+    /**
+     * {@inheritDoc}
+     */
+    public void start(int rows, int columns, int startRow, int endRow, int startColumn, int endColumn) {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
-    public void visit(int row, int column, T value) {}
+    /**
+     * {@inheritDoc}
+     */
+    public void visit(int row, int column, T value) {
+        // STUB: not implemented
+    }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public T end() {
-        return zero;
+        // STUB: not implemented
+        return null;
     }
 }

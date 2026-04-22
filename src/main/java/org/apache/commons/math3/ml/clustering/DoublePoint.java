@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.clustering;
 
 import java.io.Serializable;
@@ -26,10 +25,14 @@ import java.util.Arrays;
  */
 public class DoublePoint implements Clusterable, Serializable {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 3946024775784901369L;
 
-    /** Point coordinates. */
+    /**
+     * Point coordinates.
+     */
     private final double[] point;
 
     /**
@@ -52,35 +55,43 @@ public class DoublePoint implements Clusterable, Serializable {
      */
     public DoublePoint(final int[] point) {
         this.point = new double[point.length];
-        for ( int i = 0; i < point.length; i++) {
+        for (int i = 0; i < point.length; i++) {
             this.point[i] = point[i];
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double[] getPoint() {
-        return point;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object other) {
-        if (!(other instanceof DoublePoint)) {
-            return false;
-        }
-        return Arrays.equals(point, ((DoublePoint) other).point);
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(point);
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return Arrays.toString(point);
+        // STUB: not implemented
+        return null;
     }
-
 }

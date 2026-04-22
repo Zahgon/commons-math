@@ -28,11 +28,19 @@ import org.apache.commons.math3.linear.RealVector;
  */
 class OptimumImpl implements Optimum {
 
-    /** abscissa and ordinate */
+    /**
+     * abscissa and ordinate
+     */
     private final Evaluation value;
-    /** number of evaluations to compute this optimum */
+
+    /**
+     * number of evaluations to compute this optimum
+     */
     private final int evaluations;
-    /** number of iterations to compute this optimum */
+
+    /**
+     * number of iterations to compute this optimum
+     */
     private final int iterations;
 
     /**
@@ -49,49 +57,75 @@ class OptimumImpl implements Optimum {
     }
 
     /* auto-generated implementations */
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getEvaluations() {
-        return evaluations;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public int getIterations() {
-        return iterations;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getCovariances(double threshold) {
-        return value.getCovariances(threshold);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealVector getSigma(double covarianceSingularityThreshold) {
-        return value.getSigma(covarianceSingularityThreshold);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getRMS() {
-        return value.getRMS();
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealMatrix getJacobian() {
-        return value.getJacobian();
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double getCost() {
-        return value.getCost();
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealVector getResiduals() {
-        return value.getResiduals();
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public RealVector getPoint() {
-        return value.getPoint();
+        // STUB: not implemented
+        return null;
     }
 }

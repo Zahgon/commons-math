@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
@@ -27,7 +26,10 @@ import org.apache.commons.math3.analysis.differentiation.UnivariateDifferentiabl
  * @since 3.0
  */
 public class Constant implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction {
-    /** Constant. */
+
+    /**
+     * Constant.
+     */
     private final double c;
 
     /**
@@ -37,12 +39,16 @@ public class Constant implements UnivariateDifferentiableFunction, Differentiabl
         this.c = c;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x) {
-        return c;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @deprecated as of 3.1, replaced by {@link #value(DerivativeStructure)}
      */
     @Deprecated
@@ -50,11 +56,12 @@ public class Constant implements UnivariateDifferentiableFunction, Differentiabl
         return new Constant(0);
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      */
     public DerivativeStructure value(final DerivativeStructure t) {
-        return new DerivativeStructure(t.getFreeParameters(), t.getOrder(), c);
+        // STUB: not implemented
+        return null;
     }
-
 }

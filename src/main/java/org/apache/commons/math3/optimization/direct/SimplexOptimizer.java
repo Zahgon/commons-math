@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.direct;
 
 import java.util.Comparator;
-
 import org.apache.commons.math3.analysis.MultivariateFunction;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.optimization.GoalType;
@@ -84,12 +82,14 @@ import org.apache.commons.math3.optimization.OptimizationData;
  * @deprecated As of 3.1 (to be removed in 4.0).
  * @since 3.0
  */
-@SuppressWarnings("boxing") // deprecated anyway
+// deprecated anyway
+@SuppressWarnings("boxing")
 @Deprecated
-public class SimplexOptimizer
-    extends BaseAbstractMultivariateOptimizer<MultivariateFunction>
-    implements MultivariateOptimizer {
-    /** Simplex. */
+public class SimplexOptimizer extends BaseAbstractMultivariateOptimizer<MultivariateFunction> implements MultivariateOptimizer {
+
+    /**
+     * Simplex.
+     */
     private AbstractSimplex simplex;
 
     /**
@@ -145,15 +145,9 @@ public class SimplexOptimizer
      * function.
      */
     @Override
-    protected PointValuePair optimizeInternal(int maxEval, MultivariateFunction f,
-                                              GoalType goalType,
-                                              OptimizationData... optData) {
-        // Scan "optData" for the input specific to this optimizer.
-        parseOptimizationData(optData);
-
-        // The parent's method will retrieve the common parameters from
-        // "optData" and call "doOptimize".
-        return super.optimizeInternal(maxEval, f, goalType, optData);
+    protected PointValuePair optimizeInternal(int maxEval, MultivariateFunction f, GoalType goalType, OptimizationData... optData) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -176,60 +170,12 @@ public class SimplexOptimizer
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PointValuePair doOptimize() {
-        if (simplex == null) {
-            throw new NullArgumentException();
-        }
-
-        // Indirect call to "computeObjectiveValue" in order to update the
-        // evaluations counter.
-        final MultivariateFunction evalFunc
-            = new MultivariateFunction() {
-                /** {@inheritDoc} */
-                public double value(double[] point) {
-                    return computeObjectiveValue(point);
-                }
-            };
-
-        final boolean isMinim = getGoalType() == GoalType.MINIMIZE;
-        final Comparator<PointValuePair> comparator
-            = new Comparator<PointValuePair>() {
-            /** {@inheritDoc} */
-            public int compare(final PointValuePair o1,
-                               final PointValuePair o2) {
-                final double v1 = o1.getValue();
-                final double v2 = o2.getValue();
-                return isMinim ? Double.compare(v1, v2) : Double.compare(v2, v1);
-            }
-        };
-
-        // Initialize search.
-        simplex.build(getStartPoint());
-        simplex.evaluate(evalFunc, comparator);
-
-        PointValuePair[] previous = null;
-        int iteration = 0;
-        final ConvergenceChecker<PointValuePair> checker = getConvergenceChecker();
-        while (true) {
-            if (iteration > 0) {
-                boolean converged = true;
-                for (int i = 0; i < simplex.getSize(); i++) {
-                    PointValuePair prev = previous[i];
-                    converged = converged &&
-                        checker.converged(iteration, prev, simplex.getPoint(i));
-                }
-                if (converged) {
-                    // We have found an optimum.
-                    return simplex.getPoint(0);
-                }
-            }
-
-            // We still need to search.
-            previous = simplex.getPoints();
-            simplex.iterate(evalFunc, comparator);
-            ++iteration;
-        }
+        // STUB: not implemented
+        return null;
     }
 }

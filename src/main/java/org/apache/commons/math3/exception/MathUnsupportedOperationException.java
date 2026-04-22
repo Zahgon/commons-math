@@ -29,11 +29,16 @@ import org.apache.commons.math3.exception.util.ExceptionContextProvider;
  *
  * @since 2.2
  */
-public class MathUnsupportedOperationException extends UnsupportedOperationException
-    implements ExceptionContextProvider {
-    /** Serializable version Id. */
+public class MathUnsupportedOperationException extends UnsupportedOperationException implements ExceptionContextProvider {
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = -6024911025449780478L;
-    /** Context. */
+
+    /**
+     * Context.
+     */
     private final ExceptionContext context;
 
     /**
@@ -42,31 +47,40 @@ public class MathUnsupportedOperationException extends UnsupportedOperationExcep
     public MathUnsupportedOperationException() {
         this(LocalizedFormats.UNSUPPORTED_OPERATION);
     }
+
     /**
      * @param pattern Message pattern providing the specific context of
      * the error.
      * @param args Arguments.
      */
-    public MathUnsupportedOperationException(Localizable pattern,
-                                             Object ... args) {
+    public MathUnsupportedOperationException(Localizable pattern, Object... args) {
         context = new ExceptionContext(this);
         context.addMessage(pattern, args);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public ExceptionContext getContext() {
-        return context;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
-        return context.getMessage();
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getLocalizedMessage() {
-        return context.getLocalizedMessage();
+        // STUB: not implemented
+        return null;
     }
 }

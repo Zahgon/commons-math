@@ -18,9 +18,7 @@ package org.apache.commons.math3.primes;
 
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.util.LocalizedFormats;
-
 import java.util.List;
-
 
 /**
  * Methods related to prime numbers in the range of <code>int</code>:
@@ -51,16 +49,8 @@ public class Primes {
      * @return true if n is prime. (All numbers &lt; 2 return false).
      */
     public static boolean isPrime(int n) {
-        if (n < 2) {
-            return false;
-        }
-
-        for (int p : SmallPrimes.PRIMES) {
-            if (0 == (n % p)) {
-                return n == p;
-            }
-        }
-        return SmallPrimes.millerRabinPrimeTest(n);
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -71,40 +61,8 @@ public class Primes {
      * @throws MathIllegalArgumentException if n &lt; 0.
      */
     public static int nextPrime(int n) {
-        if (n < 0) {
-            throw new MathIllegalArgumentException(LocalizedFormats.NUMBER_TOO_SMALL, n, 0);
-        }
-        if (n == 2) {
-            return 2;
-        }
-        n |= 1;//make sure n is odd
-        if (n == 1) {
-            return 2;
-        }
-
-        if (isPrime(n)) {
-            return n;
-        }
-
-        // prepare entry in the +2, +4 loop:
-        // n should not be a multiple of 3
-        final int rem = n % 3;
-        if (0 == rem) { // if n % 3 == 0
-            n += 2; // n % 3 == 2
-        } else if (1 == rem) { // if n % 3 == 1
-            // if (isPrime(n)) return n;
-            n += 4; // n % 3 == 2
-        }
-        while (true) { // this loop skips all multiple of 3
-            if (isPrime(n)) {
-                return n;
-            }
-            n += 2; // n % 3 == 1
-            if (isPrime(n)) {
-                return n;
-            }
-            n += 4; // n % 3 == 2
-        }
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -115,15 +73,7 @@ public class Primes {
      * @throws MathIllegalArgumentException if n &lt; 2.
      */
     public static List<Integer> primeFactors(int n) {
-
-        if (n < 2) {
-            throw new MathIllegalArgumentException(LocalizedFormats.NUMBER_TOO_SMALL, n, 2);
-        }
-        // slower than trial div unless we do an awful lot of computation
-        // (then it finally gets JIT-compiled efficiently
-        // List<Integer> out = PollardRho.primeFactors(n);
-        return SmallPrimes.trialDivision(n);
-
+        // STUB: not implemented
+        return null;
     }
-
 }

@@ -26,10 +26,14 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 public class UnknownParameterException extends MathIllegalArgumentException {
 
-    /** Serializable version Id. */
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = 20120902L;
 
-    /** Parameter name. */
+    /**
+     * Parameter name.
+     */
     private final String name;
 
     /**
@@ -46,7 +50,7 @@ public class UnknownParameterException extends MathIllegalArgumentException {
      * @return the name of the unknown parameter.
      */
     public String getName() {
-        return name;
+        // STUB: not implemented
+        return null;
     }
-
 }

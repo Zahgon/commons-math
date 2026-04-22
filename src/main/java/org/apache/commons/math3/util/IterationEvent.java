@@ -21,13 +21,16 @@ import java.util.EventObject;
 /**
  * The root class from which all events occurring while running an
  * {@link IterationManager} should be derived.
- *
  */
 public class IterationEvent extends EventObject {
-    /** */
+
+    /**
+     */
     private static final long serialVersionUID = 20120128L;
 
-    /** The number of iterations performed so far. */
+    /**
+     * The number of iterations performed so far.
+     */
     private final int iterations;
 
     /**
@@ -50,6 +53,7 @@ public class IterationEvent extends EventObject {
      * @return the number of iterations performed
      */
     public int getIterations() {
-        return iterations;
+        // STUB: not implemented
+        return 0;
     }
- }
+}

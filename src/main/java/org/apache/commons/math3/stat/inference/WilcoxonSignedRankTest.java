@@ -30,11 +30,12 @@ import org.apache.commons.math3.util.FastMath;
 
 /**
  * An implementation of the Wilcoxon signed-rank test.
- *
  */
 public class WilcoxonSignedRankTest {
 
-    /** Ranking algorithm. */
+    /**
+     * Ranking algorithm.
+     */
     private NaturalRanking naturalRanking;
 
     /**
@@ -43,8 +44,7 @@ public class WilcoxonSignedRankTest {
      * of what you are doing.
      */
     public WilcoxonSignedRankTest() {
-        naturalRanking = new NaturalRanking(NaNStrategy.FIXED,
-                TiesStrategy.AVERAGE);
+        naturalRanking = new NaturalRanking(NaNStrategy.FIXED, TiesStrategy.AVERAGE);
     }
 
     /**
@@ -56,8 +56,7 @@ public class WilcoxonSignedRankTest {
      * @param tiesStrategy
      *            specifies the strategy that should be used for ties
      */
-    public WilcoxonSignedRankTest(final NaNStrategy nanStrategy,
-                                  final TiesStrategy tiesStrategy) {
+    public WilcoxonSignedRankTest(final NaNStrategy nanStrategy, final TiesStrategy tiesStrategy) {
         naturalRanking = new NaturalRanking(nanStrategy, tiesStrategy);
     }
 
@@ -71,15 +70,11 @@ public class WilcoxonSignedRankTest {
      * @throws DimensionMismatchException if {@code x} and {@code y} do not
      * have the same length.
      */
-    private void ensureDataConformance(final double[] x, final double[] y)
-        throws NullArgumentException, NoDataException, DimensionMismatchException {
-
-        if (x == null ||
-            y == null) {
-                throw new NullArgumentException();
+    private void ensureDataConformance(final double[] x, final double[] y) throws NullArgumentException, NoDataException, DimensionMismatchException {
+        if (x == null || y == null) {
+            throw new NullArgumentException();
         }
-        if (x.length == 0 ||
-            y.length == 0) {
+        if (x.length == 0 || y.length == 0) {
             throw new NoDataException();
         }
         if (y.length != x.length) {
@@ -95,13 +90,10 @@ public class WilcoxonSignedRankTest {
      * @return z = y - x
      */
     private double[] calculateDifferences(final double[] x, final double[] y) {
-
         final double[] z = new double[x.length];
-
         for (int i = 0; i < x.length; ++i) {
             z[i] = y[i] - x[i];
         }
-
         return z;
     }
 
@@ -113,23 +105,17 @@ public class WilcoxonSignedRankTest {
      * @throws NullArgumentException if {@code z} is {@code null}
      * @throws NoDataException if {@code z} is zero-length.
      */
-    private double[] calculateAbsoluteDifferences(final double[] z)
-        throws NullArgumentException, NoDataException {
-
+    private double[] calculateAbsoluteDifferences(final double[] z) throws NullArgumentException, NoDataException {
         if (z == null) {
             throw new NullArgumentException();
         }
-
         if (z.length == 0) {
             throw new NoDataException();
         }
-
         final double[] zAbs = new double[z.length];
-
         for (int i = 0; i < z.length; ++i) {
             zAbs[i] = FastMath.abs(z[i]);
         }
-
         return zAbs;
     }
 
@@ -168,30 +154,9 @@ public class WilcoxonSignedRankTest {
      * @throws DimensionMismatchException if {@code x} and {@code y} do not
      * have the same length.
      */
-    public double wilcoxonSignedRank(final double[] x, final double[] y)
-        throws NullArgumentException, NoDataException, DimensionMismatchException {
-
-        ensureDataConformance(x, y);
-
-        // throws IllegalArgumentException if x and y are not correctly
-        // specified
-        final double[] z = calculateDifferences(x, y);
-        final double[] zAbs = calculateAbsoluteDifferences(z);
-
-        final double[] ranks = naturalRanking.rank(zAbs);
-
-        double Wplus = 0;
-
-        for (int i = 0; i < z.length; ++i) {
-            if (z[i] > 0) {
-                Wplus += ranks[i];
-            }
-        }
-
-        final int N = x.length;
-        final double Wminus = (((double) (N * (N + 1))) / 2.0) - Wplus;
-
-        return FastMath.max(Wplus, Wminus);
+    public double wilcoxonSignedRank(final double[] x, final double[] y) throws NullArgumentException, NoDataException, DimensionMismatchException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -205,29 +170,22 @@ public class WilcoxonSignedRankTest {
      * @return two-sided exact p-value
      */
     private double calculateExactPValue(final double Wmax, final int N) {
-
         // Total number of outcomes (equal to 2^N but a lot faster)
         final int m = 1 << N;
-
         int largerRankSums = 0;
-
         for (int i = 0; i < m; ++i) {
             int rankSum = 0;
-
             // Generate all possible rank sums
             for (int j = 0; j < N; ++j) {
-
                 // (i >> j) & 1 extract i's j-th bit from the right
                 if (((i >> j) & 1) == 1) {
                     rankSum += j + 1;
                 }
             }
-
             if (rankSum >= Wmax) {
                 ++largerRankSums;
             }
         }
-
         /*
          * largerRankSums / m gives the one-sided p-value, so it's multiplied
          * with 2 to get the two-sided p-value
@@ -241,22 +199,17 @@ public class WilcoxonSignedRankTest {
      * @return two-sided asymptotic p-value
      */
     private double calculateAsymptoticPValue(final double Wmin, final int N) {
-
         final double ES = (double) (N * (N + 1)) / 4.0;
-
         /* Same as (but saves computations):
          * final double VarW = ((double) (N * (N + 1) * (2*N + 1))) / 24;
          */
         final double VarS = ES * ((double) (2 * N + 1) / 6.0);
-
         // - 0.5 is a continuity correction
         final double z = (Wmin - ES - 0.5) / FastMath.sqrt(VarS);
-
         // No try-catch or advertised exception because args are valid
         // pass a null rng to avoid unneeded overhead as we will not sample from this distribution
         final NormalDistribution standardNormal = new NormalDistribution(null, 0, 1);
-
-        return 2*standardNormal.cumulativeProbability(z);
+        return 2 * standardNormal.cumulativeProbability(z);
     }
 
     /**
@@ -301,25 +254,8 @@ public class WilcoxonSignedRankTest {
      * @throws MaxCountExceededException if the maximum number of iterations
      * is exceeded
      */
-    public double wilcoxonSignedRankTest(final double[] x, final double[] y,
-                                         final boolean exactPValue)
-        throws NullArgumentException, NoDataException, DimensionMismatchException,
-        NumberIsTooLargeException, ConvergenceException, MaxCountExceededException {
-
-        ensureDataConformance(x, y);
-
-        final int N = x.length;
-        final double Wmax = wilcoxonSignedRank(x, y);
-
-        if (exactPValue && N > 30) {
-            throw new NumberIsTooLargeException(N, 30, true);
-        }
-
-        if (exactPValue) {
-            return calculateExactPValue(Wmax, N);
-        } else {
-            final double Wmin = ( (double)(N*(N+1)) / 2.0 ) - Wmax;
-            return calculateAsymptoticPValue(Wmin, N);
-        }
+    public double wilcoxonSignedRankTest(final double[] x, final double[] y, final boolean exactPValue) throws NullArgumentException, NoDataException, DimensionMismatchException, NumberIsTooLargeException, ConvergenceException, MaxCountExceededException {
+        // STUB: not implemented
+        return 0.0;
     }
 }

@@ -30,9 +30,15 @@ import org.apache.commons.math3.util.Pair;
  * @since 3.1
  */
 public class GaussIntegrator {
-    /** Nodes. */
+
+    /**
+     * Nodes.
+     */
     private final double[] points;
-    /** Nodes weights. */
+
+    /**
+     * Nodes weights.
+     */
     private final double[] weights;
 
     /**
@@ -46,16 +52,11 @@ public class GaussIntegrator {
      * sorted in increasing order.
      * @throws DimensionMismatchException if points and weights don't have the same length
      */
-    public GaussIntegrator(double[] points,
-                           double[] weights)
-        throws NonMonotonicSequenceException, DimensionMismatchException {
+    public GaussIntegrator(double[] points, double[] weights) throws NonMonotonicSequenceException, DimensionMismatchException {
         if (points.length != weights.length) {
-            throw new DimensionMismatchException(points.length,
-                                                 weights.length);
+            throw new DimensionMismatchException(points.length, weights.length);
         }
-
         MathArrays.checkOrder(points, MathArrays.OrderDirection.INCREASING, true, true);
-
         this.points = points.clone();
         this.weights = weights.clone();
     }
@@ -70,8 +71,7 @@ public class GaussIntegrator {
      *
      * @see #GaussIntegrator(double[], double[])
      */
-    public GaussIntegrator(Pair<double[], double[]> pointsAndWeights)
-        throws NonMonotonicSequenceException {
+    public GaussIntegrator(Pair<double[], double[]> pointsAndWeights) throws NonMonotonicSequenceException {
         this(pointsAndWeights.getFirst(), pointsAndWeights.getSecond());
     }
 
@@ -86,17 +86,8 @@ public class GaussIntegrator {
      * @return the integral of the weighted function.
      */
     public double integrate(UnivariateFunction f) {
-        double s = 0;
-        double c = 0;
-        for (int i = 0; i < points.length; i++) {
-            final double x = points[i];
-            final double w = weights[i];
-            final double y = w * f.value(x) - c;
-            final double t = s + y;
-            c = (t - s) - y;
-            s = t;
-        }
-        return s;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -104,7 +95,8 @@ public class GaussIntegrator {
      * points).
      */
     public int getNumberOfPoints() {
-        return points.length;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -114,7 +106,8 @@ public class GaussIntegrator {
      * @return the integration point.
      */
     public double getPoint(int index) {
-        return points[index];
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -124,6 +117,7 @@ public class GaussIntegrator {
      * @return the weight.
      */
     public double getWeight(int index) {
-        return weights[index];
+        // STUB: not implemented
+        return 0.0;
     }
 }

@@ -33,11 +33,20 @@ import org.apache.commons.math3.exception.TooManyIterationsException;
  * @since 3.1
  */
 public abstract class BaseOptimizer<PAIR> {
-    /** Evaluations counter. */
+
+    /**
+     * Evaluations counter.
+     */
     protected final Incrementor evaluations;
-    /** Iterations counter. */
+
+    /**
+     * Iterations counter.
+     */
     protected final Incrementor iterations;
-    /** Convergence checker. */
+
+    /**
+     * Convergence checker.
+     */
     private final ConvergenceChecker<PAIR> checker;
 
     /**
@@ -52,11 +61,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @param maxEval Maximum number of objective function evaluations.
      * @param maxIter Maximum number of algorithm iterations.
      */
-    protected BaseOptimizer(ConvergenceChecker<PAIR> checker,
-                            int maxEval,
-                            int maxIter) {
+    protected BaseOptimizer(ConvergenceChecker<PAIR> checker, int maxEval, int maxIter) {
         this.checker = checker;
-
         evaluations = new Incrementor(maxEval, new MaxEvalCallback());
         iterations = new Incrementor(maxIter, new MaxIterCallback());
     }
@@ -67,7 +73,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @return the maximal number of function evaluations.
      */
     public int getMaxEvaluations() {
-        return evaluations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -79,7 +86,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @return the number of evaluations of the objective function.
      */
     public int getEvaluations() {
-        return evaluations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -88,7 +96,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @return the maximal number of iterations.
      */
     public int getMaxIterations() {
-        return iterations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -100,7 +109,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @return the number of evaluations of the objective function.
      */
     public int getIterations() {
-        return iterations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -109,7 +119,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @return the object used to check for convergence.
      */
     public ConvergenceChecker<PAIR> getConvergenceChecker() {
-        return checker;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -140,17 +151,9 @@ public abstract class BaseOptimizer<PAIR> {
      * @throws TooManyIterationsException if the maximal number of
      * iterations is exceeded.
      */
-    public PAIR optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException,
-               TooManyIterationsException {
-        // Parse options.
-        parseOptimizationData(optData);
-
-        // Reset counters.
-        evaluations.resetCount();
-        iterations.resetCount();
-        // Perform optimization.
-        return doOptimize();
+    public PAIR optimize(OptimizationData... optData) throws TooManyEvaluationsException, TooManyIterationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -162,14 +165,9 @@ public abstract class BaseOptimizer<PAIR> {
      * @throws TooManyIterationsException if the maximal number of
      * iterations is exceeded.
      */
-    public PAIR optimize()
-        throws TooManyEvaluationsException,
-               TooManyIterationsException {
-        // Reset counters.
-        evaluations.resetCount();
-        iterations.resetCount();
-        // Perform optimization.
-        return doOptimize();
+    public PAIR optimize() throws TooManyEvaluationsException, TooManyIterationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -186,9 +184,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @throws TooManyEvaluationsException if the allowed evaluations
      * have been exhausted.
      */
-    protected void incrementEvaluationCount()
-        throws TooManyEvaluationsException {
-        evaluations.incrementCount();
+    protected void incrementEvaluationCount() throws TooManyEvaluationsException {
+        // STUB: not implemented
     }
 
     /**
@@ -197,9 +194,8 @@ public abstract class BaseOptimizer<PAIR> {
      * @throws TooManyIterationsException if the allowed iterations
      * have been exhausted.
      */
-    protected void incrementIterationCount()
-        throws TooManyIterationsException {
-        iterations.incrementCount();
+    protected void incrementIterationCount() throws TooManyIterationsException {
+        // STUB: not implemented
     }
 
     /**
@@ -214,32 +210,21 @@ public abstract class BaseOptimizer<PAIR> {
      * </ul>
      */
     protected void parseOptimizationData(OptimizationData... optData) {
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof MaxEval) {
-                evaluations.setMaximalCount(((MaxEval) data).getMaxEval());
-                continue;
-            }
-            if (data instanceof MaxIter) {
-                iterations.setMaximalCount(((MaxIter) data).getMaxIter());
-                continue;
-            }
-        }
+        // STUB: not implemented
     }
 
     /**
      * Defines the action to perform when reaching the maximum number
      * of evaluations.
      */
-    private static class MaxEvalCallback
-        implements  Incrementor.MaxCountExceededCallback {
+    private static class MaxEvalCallback implements Incrementor.MaxCountExceededCallback {
+
         /**
          * {@inheritDoc}
          * @throws TooManyEvaluationsException
          */
         public void trigger(int max) {
-            throw new TooManyEvaluationsException(max);
+            // STUB: not implemented
         }
     }
 
@@ -247,14 +232,14 @@ public abstract class BaseOptimizer<PAIR> {
      * Defines the action to perform when reaching the maximum number
      * of evaluations.
      */
-    private static class MaxIterCallback
-        implements Incrementor.MaxCountExceededCallback {
+    private static class MaxIterCallback implements Incrementor.MaxCountExceededCallback {
+
         /**
          * {@inheritDoc}
          * @throws TooManyIterationsException
          */
         public void trigger(int max) {
-            throw new TooManyIterationsException(max);
+            // STUB: not implemented
         }
     }
 }

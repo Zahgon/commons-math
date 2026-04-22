@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optim;
 
 /**
@@ -25,7 +24,10 @@ package org.apache.commons.math3.optim;
  * @since 3.1
  */
 public class InitialGuess implements OptimizationData {
-    /** Initial guess. */
+
+    /**
+     * Initial guess.
+     */
     private final double[] init;
 
     /**
@@ -41,6 +43,7 @@ public class InitialGuess implements OptimizationData {
      * @return the initial guess.
      */
     public double[] getInitialGuess() {
-        return init.clone();
+        // STUB: not implemented
+        return null;
     }
 }

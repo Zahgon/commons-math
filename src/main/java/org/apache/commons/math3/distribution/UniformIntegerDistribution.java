@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NumberIsTooLargeException;
@@ -31,11 +30,20 @@ import org.apache.commons.math3.random.Well19937c;
  * @since 3.0
  */
 public class UniformIntegerDistribution extends AbstractIntegerDistribution {
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20120109L;
-    /** Lower bound (inclusive) of this distribution. */
+
+    /**
+     * Lower bound (inclusive) of this distribution.
+     */
     private final int lower;
-    /** Upper bound (inclusive) of this distribution. */
+
+    /**
+     * Upper bound (inclusive) of this distribution.
+     */
     private final int upper;
 
     /**
@@ -53,8 +61,7 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * @param upper Upper bound (inclusive) of this distribution.
      * @throws NumberIsTooLargeException if {@code lower >= upper}.
      */
-    public UniformIntegerDistribution(int lower, int upper)
-        throws NumberIsTooLargeException {
+    public UniformIntegerDistribution(int lower, int upper) throws NumberIsTooLargeException {
         this(new Well19937c(), lower, upper);
     }
 
@@ -68,38 +75,29 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * @throws NumberIsTooLargeException if {@code lower > upper}.
      * @since 3.1
      */
-    public UniformIntegerDistribution(RandomGenerator rng,
-                                      int lower,
-                                      int upper)
-        throws NumberIsTooLargeException {
+    public UniformIntegerDistribution(RandomGenerator rng, int lower, int upper) throws NumberIsTooLargeException {
         super(rng);
-
         if (lower > upper) {
-            throw new NumberIsTooLargeException(
-                            LocalizedFormats.LOWER_BOUND_NOT_BELOW_UPPER_BOUND,
-                            lower, upper, true);
+            throw new NumberIsTooLargeException(LocalizedFormats.LOWER_BOUND_NOT_BELOW_UPPER_BOUND, lower, upper, true);
         }
         this.lower = lower;
         this.upper = upper;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(int x) {
-        if (x < lower || x > upper) {
-            return 0;
-        }
-        return 1.0 / (upper - lower + 1);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(int x) {
-        if (x < lower) {
-            return 0;
-        }
-        if (x > upper) {
-            return 1;
-        }
-        return (x - lower + 1.0) / (upper - lower + 1.0);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -109,7 +107,8 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * {@code 0.5 * (lower + upper)}.
      */
     public double getNumericalMean() {
-        return 0.5 * (lower + upper);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -119,8 +118,8 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * {@code n = upper - lower + 1}, the variance is {@code (n^2 - 1) / 12}.
      */
     public double getNumericalVariance() {
-        double n = upper - lower + 1;
-        return (n * n - 1) / 12.0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -132,7 +131,8 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support
      */
     public int getSupportLowerBound() {
-        return lower;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -144,7 +144,8 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * @return upper bound of the support
      */
     public int getSupportUpperBound() {
-        return upper;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -155,27 +156,16 @@ public class UniformIntegerDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int sample() {
-        final int max = (upper - lower) + 1;
-        if (max <= 0) {
-            // The range is too wide to fit in a positive int (larger
-            // than 2^31); as it covers more than half the integer range,
-            // we use a simple rejection method.
-            while (true) {
-                final int r = random.nextInt();
-                if (r >= lower &&
-                    r <= upper) {
-                    return r;
-                }
-            }
-        } else {
-            // We can shift the range and directly generate a positive int.
-            return lower + random.nextInt(max);
-        }
+        // STUB: not implemented
+        return 0;
     }
 }

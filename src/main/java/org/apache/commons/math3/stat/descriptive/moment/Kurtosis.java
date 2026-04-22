@@ -17,13 +17,11 @@
 package org.apache.commons.math3.stat.descriptive.moment;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
 import org.apache.commons.math3.util.FastMath;
 import org.apache.commons.math3.util.MathUtils;
-
 
 /**
  * Computes the Kurtosis of the available values.
@@ -44,14 +42,17 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
-public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements Serializable {
+public class Kurtosis extends AbstractStorelessUnivariateStatistic implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 2784465764798260919L;
 
-    /**Fourth Moment on which this statistic is based */
+    /**
+     * Fourth Moment on which this statistic is based
+     */
     protected FourthMoment moment;
 
     /**
@@ -59,7 +60,7 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      * <p>
      * Statistics based on (constructed from) external moments cannot
      * be incremented or cleared.</p>
-    */
+     */
     protected boolean incMoment;
 
     /**
@@ -99,9 +100,7 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      */
     @Override
     public void increment(final double d) {
-        if (incMoment) {
-            moment.increment(d);
-        }
+        // STUB: not implemented
     }
 
     /**
@@ -109,20 +108,8 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      */
     @Override
     public double getResult() {
-        double kurtosis = Double.NaN;
-        if (moment.getN() > 3) {
-            double variance = moment.m2 / (moment.n - 1);
-                if (moment.n <= 3 || variance < 10E-20) {
-                    kurtosis = 0.0;
-                } else {
-                    double n = moment.n;
-                    kurtosis =
-                        (n * (n + 1) * moment.getResult() -
-                                3 * moment.m2 * moment.m2 * (n - 1)) /
-                                ((n - 1) * (n -2) * (n -3) * variance * variance);
-                }
-        }
-        return kurtosis;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -130,20 +117,18 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      */
     @Override
     public void clear() {
-        if (incMoment) {
-            moment.clear();
-        }
+        // STUB: not implemented
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return moment.getN();
+        // STUB: not implemented
+        return 0;
     }
 
     /* UnvariateStatistic Approach  */
-
     /**
      * Returns the kurtosis of the entries in the specified portion of the
      * input array.
@@ -160,39 +145,9 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      * index parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values,final int begin, final int length)
-    throws MathIllegalArgumentException {
-        // Initialize the kurtosis
-        double kurt = Double.NaN;
-
-        if (test(values, begin, length) && length > 3) {
-
-            // Compute the mean and standard deviation
-            Variance variance = new Variance();
-            variance.incrementAll(values, begin, length);
-            double mean = variance.moment.m1;
-            double stdDev = FastMath.sqrt(variance.getResult());
-
-            // Sum the ^4 of the distance from the mean divided by the
-            // standard deviation
-            double accum3 = 0.0;
-            for (int i = begin; i < begin + length; i++) {
-                accum3 += FastMath.pow(values[i] - mean, 4.0);
-            }
-            accum3 /= FastMath.pow(stdDev, 4.0d);
-
-            // Get N
-            double n0 = length;
-
-            double coefficientOne =
-                (n0 * (n0 + 1)) / ((n0 - 1) * (n0 - 2) * (n0 - 3));
-            double termTwo =
-                (3 * FastMath.pow(n0 - 1, 2.0)) / ((n0 - 2) * (n0 - 3));
-
-            // Calculate kurtosis
-            kurt = (coefficientOne * accum3) - termTwo;
-        }
-        return kurt;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -200,10 +155,8 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      */
     @Override
     public Kurtosis copy() {
-        Kurtosis result = new Kurtosis();
-        // No try-catch because args are guaranteed non-null
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -214,13 +167,7 @@ public class Kurtosis extends AbstractStorelessUnivariateStatistic  implements S
      * @param dest Kurtosis to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(Kurtosis source, Kurtosis dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.moment = source.moment.copy();
-        dest.incMoment = source.incMoment;
+    public static void copy(Kurtosis source, Kurtosis dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

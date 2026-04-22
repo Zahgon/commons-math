@@ -26,15 +26,30 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 3.0
  */
 public class NoBracketingException extends MathIllegalArgumentException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = -3629324471511904459L;
-    /** Lower end of the interval. */
+
+    /**
+     * Lower end of the interval.
+     */
     private final double lo;
-    /** Higher end of the interval. */
+
+    /**
+     * Higher end of the interval.
+     */
     private final double hi;
-    /** Value at lower end of the interval. */
+
+    /**
+     * Value at lower end of the interval.
+     */
     private final double fLo;
-    /** Value at higher end of the interval. */
+
+    /**
+     * Value at higher end of the interval.
+     */
     private final double fHi;
 
     /**
@@ -45,8 +60,7 @@ public class NoBracketingException extends MathIllegalArgumentException {
      * @param fLo Value at lower end of the interval.
      * @param fHi Value at higher end of the interval.
      */
-    public NoBracketingException(double lo, double hi,
-                                 double fLo, double fHi) {
+    public NoBracketingException(double lo, double hi, double fLo, double fHi) {
         this(LocalizedFormats.SAME_SIGN_AT_ENDPOINTS, lo, hi, fLo, fHi);
     }
 
@@ -60,10 +74,7 @@ public class NoBracketingException extends MathIllegalArgumentException {
      * @param fHi Value at higher end of the interval.
      * @param args Additional arguments.
      */
-    public NoBracketingException(Localizable specific,
-                                 double lo, double hi,
-                                 double fLo, double fHi,
-                                 Object ... args) {
+    public NoBracketingException(Localizable specific, double lo, double hi, double fLo, double fHi, Object... args) {
         super(specific, Double.valueOf(lo), Double.valueOf(hi), Double.valueOf(fLo), Double.valueOf(fHi), args);
         this.lo = lo;
         this.hi = hi;
@@ -77,30 +88,37 @@ public class NoBracketingException extends MathIllegalArgumentException {
      * @return the lower end.
      */
     public double getLo() {
-        return lo;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * Get the higher end of the interval.
      *
      * @return the higher end.
      */
     public double getHi() {
-        return hi;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * Get the value at the lower end of the interval.
      *
      * @return the value at the lower end.
      */
     public double getFLo() {
-        return fLo;
+        // STUB: not implemented
+        return 0.0;
     }
+
     /**
      * Get the value at the higher end of the interval.
      *
      * @return the value at the higher end.
      */
     public double getFHi() {
-        return fHi;
+        // STUB: not implemented
+        return 0.0;
     }
 }

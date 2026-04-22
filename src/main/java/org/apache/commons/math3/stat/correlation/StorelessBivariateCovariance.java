@@ -37,19 +37,29 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 class StorelessBivariateCovariance {
 
-    /** the mean of variable x */
+    /**
+     * the mean of variable x
+     */
     private double meanX;
 
-    /** the mean of variable y */
+    /**
+     * the mean of variable y
+     */
     private double meanY;
 
-    /** number of observations */
+    /**
+     * number of observations
+     */
     private double n;
 
-    /** the running covariance estimate */
+    /**
+     * the running covariance estimate
+     */
     private double covarianceNumerator;
 
-    /** flag for bias correction */
+    /**
+     * flag for bias correction
+     */
     private boolean biasCorrected;
 
     /**
@@ -81,12 +91,7 @@ class StorelessBivariateCovariance {
      * @param y the y value
      */
     public void increment(final double x, final double y) {
-        n++;
-        final double deltaX = x - meanX;
-        final double deltaY = y - meanY;
-        meanX += deltaX / n;
-        meanY += deltaY / n;
-        covarianceNumerator += ((n - 1.0) / n) * deltaX * deltaY;
+        // STUB: not implemented
     }
 
     /**
@@ -98,13 +103,7 @@ class StorelessBivariateCovariance {
      * @param cov StorelessBivariateCovariance instance to append.
      */
     public void append(StorelessBivariateCovariance cov) {
-        double oldN = n;
-        n += cov.n;
-        final double deltaX = cov.meanX - meanX;
-        final double deltaY = cov.meanY - meanY;
-        meanX += deltaX * cov.n / n;
-        meanY += deltaY * cov.n / n;
-        covarianceNumerator += cov.covarianceNumerator + oldN * cov.n / n * deltaX * deltaY;
+        // STUB: not implemented
     }
 
     /**
@@ -113,7 +112,8 @@ class StorelessBivariateCovariance {
      * @return number of observations
      */
     public double getN() {
-        return n;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -124,15 +124,7 @@ class StorelessBivariateCovariance {
      * is &lt; 2
      */
     public double getResult() throws NumberIsTooSmallException {
-        if (n < 2) {
-            throw new NumberIsTooSmallException(LocalizedFormats.INSUFFICIENT_DIMENSION,
-                                                n, 2, true);
-        }
-        if (biasCorrected) {
-            return covarianceNumerator / (n - 1d);
-        } else {
-            return covarianceNumerator / n;
-        }
+        // STUB: not implemented
+        return 0.0;
     }
 }
-

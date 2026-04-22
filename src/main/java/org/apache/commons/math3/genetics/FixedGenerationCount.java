@@ -26,10 +26,15 @@ import org.apache.commons.math3.exception.NumberIsTooSmallException;
  * @since 2.0
  */
 public class FixedGenerationCount implements StoppingCondition {
-    /** Number of generations that have passed */
+
+    /**
+     * Number of generations that have passed
+     */
     private int numGenerations = 0;
 
-    /** Maximum number of generations (stopping criteria) */
+    /**
+     * Maximum number of generations (stopping criteria)
+     */
     private final int maxGenerations;
 
     /**
@@ -53,11 +58,8 @@ public class FixedGenerationCount implements StoppingCondition {
      * @return <code>true</code> IFF the maximum number of generations has been exceeded
      */
     public boolean isSatisfied(final Population population) {
-        if (this.numGenerations < this.maxGenerations) {
-            numGenerations++;
-            return false;
-        }
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -65,7 +67,7 @@ public class FixedGenerationCount implements StoppingCondition {
      * @return the number of generations that have passed
      */
     public int getNumGenerations() {
-        return numGenerations;
+        // STUB: not implemented
+        return 0;
     }
-
 }

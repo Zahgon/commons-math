@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.analysis.function;
 
 import org.apache.commons.math3.analysis.BivariateFunction;
@@ -25,8 +24,12 @@ import org.apache.commons.math3.analysis.BivariateFunction;
  * @since 3.0
  */
 public class Subtract implements BivariateFunction {
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     public double value(double x, double y) {
-        return x - y;
+        // STUB: not implemented
+        return 0.0;
     }
 }

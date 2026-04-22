@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ode.nonstiff;
 
 import org.apache.commons.math3.exception.DimensionMismatchException;
@@ -25,14 +24,16 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.ode.ExpandableStatefulODE;
 import org.apache.commons.math3.ode.MultistepIntegrator;
 
-
-/** Base class for {@link AdamsBashforthIntegrator Adams-Bashforth} and
+/**
+ * Base class for {@link AdamsBashforthIntegrator Adams-Bashforth} and
  * {@link AdamsMoultonIntegrator Adams-Moulton} integrators.
  * @since 2.0
  */
 public abstract class AdamsIntegrator extends MultistepIntegrator {
 
-    /** Transformer. */
+    /**
+     * Transformer.
+     */
     private final AdamsNordsieckTransformer transformer;
 
     /**
@@ -50,13 +51,8 @@ public abstract class AdamsIntegrator extends MultistepIntegrator {
      * @param scalRelativeTolerance allowed relative error
      * @exception NumberIsTooSmallException if order is 1 or less
      */
-    public AdamsIntegrator(final String name, final int nSteps, final int order,
-                           final double minStep, final double maxStep,
-                           final double scalAbsoluteTolerance,
-                           final double scalRelativeTolerance)
-        throws NumberIsTooSmallException {
-        super(name, nSteps, order, minStep, maxStep,
-              scalAbsoluteTolerance, scalRelativeTolerance);
+    public AdamsIntegrator(final String name, final int nSteps, final int order, final double minStep, final double maxStep, final double scalAbsoluteTolerance, final double scalRelativeTolerance) throws NumberIsTooSmallException {
+        super(name, nSteps, order, minStep, maxStep, scalAbsoluteTolerance, scalRelativeTolerance);
         transformer = AdamsNordsieckTransformer.getInstance(nSteps);
     }
 
@@ -75,31 +71,28 @@ public abstract class AdamsIntegrator extends MultistepIntegrator {
      * @param vecRelativeTolerance allowed relative error
      * @exception IllegalArgumentException if order is 1 or less
      */
-    public AdamsIntegrator(final String name, final int nSteps, final int order,
-                           final double minStep, final double maxStep,
-                           final double[] vecAbsoluteTolerance,
-                           final double[] vecRelativeTolerance)
-        throws IllegalArgumentException {
-        super(name, nSteps, order, minStep, maxStep,
-              vecAbsoluteTolerance, vecRelativeTolerance);
+    public AdamsIntegrator(final String name, final int nSteps, final int order, final double minStep, final double maxStep, final double[] vecAbsoluteTolerance, final double[] vecRelativeTolerance) throws IllegalArgumentException {
+        super(name, nSteps, order, minStep, maxStep, vecAbsoluteTolerance, vecRelativeTolerance);
         transformer = AdamsNordsieckTransformer.getInstance(nSteps);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public abstract void integrate(final ExpandableStatefulODE equations, final double t)
-        throws NumberIsTooSmallException, DimensionMismatchException,
-               MaxCountExceededException, NoBracketingException;
+    public abstract void integrate(final ExpandableStatefulODE equations, final double t) throws NumberIsTooSmallException, DimensionMismatchException, MaxCountExceededException, NoBracketingException;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected Array2DRowRealMatrix initializeHighOrderDerivatives(final double h, final double[] t,
-                                                                  final double[][] y,
-                                                                  final double[][] yDot) {
-        return transformer.initializeHighOrderDerivatives(h, t, y, yDot);
+    protected Array2DRowRealMatrix initializeHighOrderDerivatives(final double h, final double[] t, final double[][] y, final double[][] yDot) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** Update the high order scaled derivatives for Adams integrators (phase 1).
+    /**
+     * Update the high order scaled derivatives for Adams integrators (phase 1).
      * <p>The complete update of high order derivatives has a form similar to:
      * <pre>
      * r<sub>n+1</sub> = (s<sub>1</sub>(n) - s<sub>1</sub>(n+1)) P<sup>-1</sup> u + P<sup>-1</sup> A P r<sub>n</sub>
@@ -111,10 +104,12 @@ public abstract class AdamsIntegrator extends MultistepIntegrator {
      * @see #updateHighOrderDerivativesPhase2(double[], double[], Array2DRowRealMatrix)
      */
     public Array2DRowRealMatrix updateHighOrderDerivativesPhase1(final Array2DRowRealMatrix highOrder) {
-        return transformer.updateHighOrderDerivativesPhase1(highOrder);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Update the high order scaled derivatives Adams integrators (phase 2).
+    /**
+     * Update the high order scaled derivatives Adams integrators (phase 2).
      * <p>The complete update of high order derivatives has a form similar to:
      * <pre>
      * r<sub>n+1</sub> = (s<sub>1</sub>(n) - s<sub>1</sub>(n+1)) P<sup>-1</sup> u + P<sup>-1</sup> A P r<sub>n</sub>
@@ -127,10 +122,7 @@ public abstract class AdamsIntegrator extends MultistepIntegrator {
      * (h<sup>2</sup>/2 y'', ... h<sup>k</sup>/k! y(k))
      * @see #updateHighOrderDerivativesPhase1(Array2DRowRealMatrix)
      */
-    public void updateHighOrderDerivativesPhase2(final double[] start,
-                                                 final double[] end,
-                                                 final Array2DRowRealMatrix highOrder) {
-        transformer.updateHighOrderDerivativesPhase2(start, end, highOrder);
+    public void updateHighOrderDerivativesPhase2(final double[] start, final double[] end, final Array2DRowRealMatrix highOrder) {
+        // STUB: not implemented
     }
-
 }

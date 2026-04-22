@@ -14,12 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optimization.fitting;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.math3.analysis.DifferentiableMultivariateVectorFunction;
 import org.apache.commons.math3.analysis.MultivariateMatrixFunction;
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
@@ -29,7 +27,8 @@ import org.apache.commons.math3.optimization.DifferentiableMultivariateVectorOpt
 import org.apache.commons.math3.optimization.MultivariateDifferentiableVectorOptimizer;
 import org.apache.commons.math3.optimization.PointVectorValuePair;
 
-/** Fitter for parametric univariate real functions y = f(x).
+/**
+ * Fitter for parametric univariate real functions y = f(x).
  * <br/>
  * When a univariate real function y = f(x) does depend on some
  * unknown parameters p<sub>0</sub>, p<sub>1</sub> ... p<sub>n-1</sub>,
@@ -49,40 +48,48 @@ import org.apache.commons.math3.optimization.PointVectorValuePair;
 @Deprecated
 public class CurveFitter<T extends ParametricUnivariateFunction> {
 
-    /** Optimizer to use for the fitting.
+    /**
+     * Optimizer to use for the fitting.
      * @deprecated as of 3.1 replaced by {@link #optimizer}
      */
     @Deprecated
     private final DifferentiableMultivariateVectorOptimizer oldOptimizer;
 
-    /** Optimizer to use for the fitting. */
+    /**
+     * Optimizer to use for the fitting.
+     */
     private final MultivariateDifferentiableVectorOptimizer optimizer;
 
-    /** Observed points. */
+    /**
+     * Observed points.
+     */
     private final List<WeightedObservedPoint> observations;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param optimizer optimizer to use for the fitting
      * @deprecated as of 3.1 replaced by {@link #CurveFitter(MultivariateDifferentiableVectorOptimizer)}
      */
     @Deprecated
     public CurveFitter(final DifferentiableMultivariateVectorOptimizer optimizer) {
         this.oldOptimizer = optimizer;
-        this.optimizer    = null;
-        observations      = new ArrayList<WeightedObservedPoint>();
+        this.optimizer = null;
+        observations = new ArrayList<WeightedObservedPoint>();
     }
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param optimizer optimizer to use for the fitting
      * @since 3.1
      */
     public CurveFitter(final MultivariateDifferentiableVectorOptimizer optimizer) {
         this.oldOptimizer = null;
-        this.optimizer    = optimizer;
-        observations      = new ArrayList<WeightedObservedPoint>();
+        this.optimizer = optimizer;
+        observations = new ArrayList<WeightedObservedPoint>();
     }
 
-    /** Add an observed (x,y) point to the sample with unit weight.
+    /**
+     * Add an observed (x,y) point to the sample with unit weight.
      * <p>Calling this method is equivalent to call
      * {@code addObservedPoint(1.0, x, y)}.</p>
      * @param x abscissa of the point
@@ -93,10 +100,11 @@ public class CurveFitter<T extends ParametricUnivariateFunction> {
      * @see #getObservations()
      */
     public void addObservedPoint(double x, double y) {
-        addObservedPoint(1.0, x, y);
+        // STUB: not implemented
     }
 
-    /** Add an observed weighted (x,y) point to the sample.
+    /**
+     * Add an observed weighted (x,y) point to the sample.
      * @param weight weight of the observed point in the fit
      * @param x abscissa of the point
      * @param y observed value of the point at x, after fitting we should
@@ -106,34 +114,37 @@ public class CurveFitter<T extends ParametricUnivariateFunction> {
      * @see #getObservations()
      */
     public void addObservedPoint(double weight, double x, double y) {
-        observations.add(new WeightedObservedPoint(weight, x, y));
+        // STUB: not implemented
     }
 
-    /** Add an observed weighted (x,y) point to the sample.
+    /**
+     * Add an observed weighted (x,y) point to the sample.
      * @param observed observed point to add
      * @see #addObservedPoint(double, double)
      * @see #addObservedPoint(double, double, double)
      * @see #getObservations()
      */
     public void addObservedPoint(WeightedObservedPoint observed) {
-        observations.add(observed);
+        // STUB: not implemented
     }
 
-    /** Get the observed points.
+    /**
+     * Get the observed points.
      * @return observed points
      * @see #addObservedPoint(double, double)
      * @see #addObservedPoint(double, double, double)
      * @see #addObservedPoint(WeightedObservedPoint)
      */
     public WeightedObservedPoint[] getObservations() {
-        return observations.toArray(new WeightedObservedPoint[observations.size()]);
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * Remove all observations.
      */
     public void clearObservations() {
-        observations.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -150,7 +161,8 @@ public class CurveFitter<T extends ParametricUnivariateFunction> {
      * if the start point dimension is wrong.
      */
     public double[] fit(T f, final double[] initialGuess) {
-        return fit(Integer.MAX_VALUE, f, initialGuess);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -170,130 +182,79 @@ public class CurveFitter<T extends ParametricUnivariateFunction> {
      * if the start point dimension is wrong.
      * @since 3.0
      */
-    public double[] fit(int maxEval, T f,
-                        final double[] initialGuess) {
-        // prepare least squares problem
-        double[] target  = new double[observations.size()];
-        double[] weights = new double[observations.size()];
-        int i = 0;
-        for (WeightedObservedPoint point : observations) {
-            target[i]  = point.getY();
-            weights[i] = point.getWeight();
-            ++i;
-        }
-
-        // perform the fit
-        final PointVectorValuePair optimum;
-        if (optimizer == null) {
-            // to be removed in 4.0
-            optimum = oldOptimizer.optimize(maxEval, new OldTheoreticalValuesFunction(f),
-                                            target, weights, initialGuess);
-        } else {
-            optimum = optimizer.optimize(maxEval, new TheoreticalValuesFunction(f),
-                                         target, weights, initialGuess);
-        }
-
-        // extract the coefficients
-        return optimum.getPointRef();
+    public double[] fit(int maxEval, T f, final double[] initialGuess) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** Vectorial function computing function theoretical values. */
+    /**
+     * Vectorial function computing function theoretical values.
+     */
     @Deprecated
-    private class OldTheoreticalValuesFunction
-        implements DifferentiableMultivariateVectorFunction {
-        /** Function to fit. */
+    private class OldTheoreticalValuesFunction implements DifferentiableMultivariateVectorFunction {
+
+        /**
+         * Function to fit.
+         */
         private final ParametricUnivariateFunction f;
 
-        /** Simple constructor.
+        /**
+         * Simple constructor.
          * @param f function to fit.
          */
         OldTheoreticalValuesFunction(final ParametricUnivariateFunction f) {
             this.f = f;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public MultivariateMatrixFunction jacobian() {
-            return new MultivariateMatrixFunction() {
-                /** {@inheritDoc} */
-                public double[][] value(double[] point) {
-                    final double[][] jacobian = new double[observations.size()][];
-
-                    int i = 0;
-                    for (WeightedObservedPoint observed : observations) {
-                        jacobian[i++] = f.gradient(observed.getX(), point);
-                    }
-
-                    return jacobian;
-                }
-            };
+            // STUB: not implemented
+            return null;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double[] value(double[] point) {
-            // compute the residuals
-            final double[] values = new double[observations.size()];
-            int i = 0;
-            for (WeightedObservedPoint observed : observations) {
-                values[i++] = f.value(observed.getX(), point);
-            }
-
-            return values;
+            // STUB: not implemented
+            return null;
         }
     }
 
-    /** Vectorial function computing function theoretical values. */
+    /**
+     * Vectorial function computing function theoretical values.
+     */
     private class TheoreticalValuesFunction implements MultivariateDifferentiableVectorFunction {
 
-        /** Function to fit. */
+        /**
+         * Function to fit.
+         */
         private final ParametricUnivariateFunction f;
 
-        /** Simple constructor.
+        /**
+         * Simple constructor.
          * @param f function to fit.
          */
         TheoreticalValuesFunction(final ParametricUnivariateFunction f) {
             this.f = f;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public double[] value(double[] point) {
-            // compute the residuals
-            final double[] values = new double[observations.size()];
-            int i = 0;
-            for (WeightedObservedPoint observed : observations) {
-                values[i++] = f.value(observed.getX(), point);
-            }
-
-            return values;
+            // STUB: not implemented
+            return null;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public DerivativeStructure[] value(DerivativeStructure[] point) {
-
-            // extract parameters
-            final double[] parameters = new double[point.length];
-            for (int k = 0; k < point.length; ++k) {
-                parameters[k] = point[k].getValue();
-            }
-
-            // compute the residuals
-            final DerivativeStructure[] values = new DerivativeStructure[observations.size()];
-            int i = 0;
-            for (WeightedObservedPoint observed : observations) {
-
-                // build the DerivativeStructure by adding first the value as a constant
-                // and then adding derivatives
-                DerivativeStructure vi = new DerivativeStructure(point.length, 1, f.value(observed.getX(), parameters));
-                for (int k = 0; k < point.length; ++k) {
-                    vi = vi.add(new DerivativeStructure(point.length, 1, k, 0.0));
-                }
-
-                values[i++] = vi;
-
-            }
-
-            return values;
+            // STUB: not implemented
+            return null;
         }
-
     }
-
 }

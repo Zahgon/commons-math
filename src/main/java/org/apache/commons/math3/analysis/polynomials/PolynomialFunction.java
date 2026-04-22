@@ -18,7 +18,6 @@ package org.apache.commons.math3.analysis.polynomials;
 
 import java.io.Serializable;
 import java.util.Arrays;
-
 import org.apache.commons.math3.analysis.DifferentiableUnivariateFunction;
 import org.apache.commons.math3.analysis.ParametricUnivariateFunction;
 import org.apache.commons.math3.analysis.UnivariateFunction;
@@ -35,19 +34,20 @@ import org.apache.commons.math3.util.MathUtils;
  * <p>
  * <a href="http://mathworld.wolfram.com/HornersMethod.html">Horner's Method</a>
  * is used to evaluate the function.</p>
- *
  */
 public class PolynomialFunction implements UnivariateDifferentiableFunction, DifferentiableUnivariateFunction, Serializable {
+
     /**
      * Serialization identifier
      */
     private static final long serialVersionUID = -7726511984200295583L;
+
     /**
      * The coefficients of the polynomial, ordered by degree -- i.e.,
      * coefficients[0] is the constant term and coefficients[n] is the
      * coefficient of x^n where n is the degree of the polynomial.
      */
-    private final double coefficients[];
+    private final double[] coefficients;
 
     /**
      * Construct a polynomial with the given coefficients.  The first element
@@ -63,8 +63,7 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @throws NullArgumentException if {@code c} is {@code null}.
      * @throws NoDataException if {@code c} is empty.
      */
-    public PolynomialFunction(double c[])
-        throws NullArgumentException, NoDataException {
+    public PolynomialFunction(double[] c) throws NullArgumentException, NoDataException {
         super();
         MathUtils.checkNotNull(c);
         int n = c.length;
@@ -90,7 +89,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @see UnivariateFunction#value(double)
      */
     public double value(double x) {
-       return evaluate(coefficients, x);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -99,7 +99,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return the degree of the polynomial.
      */
     public int degree() {
-        return coefficients.length - 1;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -111,7 +112,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return a fresh copy of the coefficients array.
      */
     public double[] getCoefficients() {
-        return coefficients.clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -124,39 +126,20 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @throws NoDataException if {@code coefficients} is empty.
      * @throws NullArgumentException if {@code coefficients} is {@code null}.
      */
-    protected static double evaluate(double[] coefficients, double argument)
-        throws NullArgumentException, NoDataException {
-        MathUtils.checkNotNull(coefficients);
-        int n = coefficients.length;
-        if (n == 0) {
-            throw new NoDataException(LocalizedFormats.EMPTY_POLYNOMIALS_COEFFICIENTS_ARRAY);
-        }
-        double result = coefficients[n - 1];
-        for (int j = n - 2; j >= 0; j--) {
-            result = argument * result + coefficients[j];
-        }
-        return result;
+    protected static double evaluate(double[] coefficients, double argument) throws NullArgumentException, NoDataException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @since 3.1
      * @throws NoDataException if {@code coefficients} is empty.
      * @throws NullArgumentException if {@code coefficients} is {@code null}.
      */
-    public DerivativeStructure value(final DerivativeStructure t)
-        throws NullArgumentException, NoDataException {
-        MathUtils.checkNotNull(coefficients);
-        int n = coefficients.length;
-        if (n == 0) {
-            throw new NoDataException(LocalizedFormats.EMPTY_POLYNOMIALS_COEFFICIENTS_ARRAY);
-        }
-        DerivativeStructure result =
-                new DerivativeStructure(t.getFreeParameters(), t.getOrder(), coefficients[n - 1]);
-        for (int j = n - 2; j >= 0; j--) {
-            result = result.multiply(t).add(coefficients[j]);
-        }
-        return result;
+    public DerivativeStructure value(final DerivativeStructure t) throws NullArgumentException, NoDataException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -166,22 +149,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return a new polynomial which is the sum of the instance and {@code p}.
      */
     public PolynomialFunction add(final PolynomialFunction p) {
-        // identify the lowest degree polynomial
-        final int lowLength  = FastMath.min(coefficients.length, p.coefficients.length);
-        final int highLength = FastMath.max(coefficients.length, p.coefficients.length);
-
-        // build the coefficients array
-        double[] newCoefficients = new double[highLength];
-        for (int i = 0; i < lowLength; ++i) {
-            newCoefficients[i] = coefficients[i] + p.coefficients[i];
-        }
-        System.arraycopy((coefficients.length < p.coefficients.length) ?
-                         p.coefficients : coefficients,
-                         lowLength,
-                         newCoefficients, lowLength,
-                         highLength - lowLength);
-
-        return new PolynomialFunction(newCoefficients);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -191,25 +160,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return a new polynomial which is the instance minus {@code p}.
      */
     public PolynomialFunction subtract(final PolynomialFunction p) {
-        // identify the lowest degree polynomial
-        int lowLength  = FastMath.min(coefficients.length, p.coefficients.length);
-        int highLength = FastMath.max(coefficients.length, p.coefficients.length);
-
-        // build the coefficients array
-        double[] newCoefficients = new double[highLength];
-        for (int i = 0; i < lowLength; ++i) {
-            newCoefficients[i] = coefficients[i] - p.coefficients[i];
-        }
-        if (coefficients.length < p.coefficients.length) {
-            for (int i = lowLength; i < highLength; ++i) {
-                newCoefficients[i] = -p.coefficients[i];
-            }
-        } else {
-            System.arraycopy(coefficients, lowLength, newCoefficients, lowLength,
-                             highLength - lowLength);
-        }
-
-        return new PolynomialFunction(newCoefficients);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -218,11 +170,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return a new polynomial with all coefficients negated
      */
     public PolynomialFunction negate() {
-        double[] newCoefficients = new double[coefficients.length];
-        for (int i = 0; i < coefficients.length; ++i) {
-            newCoefficients[i] = -coefficients[i];
-        }
-        return new PolynomialFunction(newCoefficients);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -232,18 +181,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return a new polynomial equal to this times {@code p}
      */
     public PolynomialFunction multiply(final PolynomialFunction p) {
-        double[] newCoefficients = new double[coefficients.length + p.coefficients.length - 1];
-
-        for (int i = 0; i < newCoefficients.length; ++i) {
-            newCoefficients[i] = 0.0;
-            for (int j = FastMath.max(0, i + 1 - p.coefficients.length);
-                 j < FastMath.min(coefficients.length, i + 1);
-                 ++j) {
-                newCoefficients[i] += coefficients[j] * p.coefficients[i-j];
-            }
-        }
-
-        return new PolynomialFunction(newCoefficients);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -254,21 +193,9 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @throws NoDataException if {@code coefficients} is empty.
      * @throws NullArgumentException if {@code coefficients} is {@code null}.
      */
-    protected static double[] differentiate(double[] coefficients)
-        throws NullArgumentException, NoDataException {
-        MathUtils.checkNotNull(coefficients);
-        int n = coefficients.length;
-        if (n == 0) {
-            throw new NoDataException(LocalizedFormats.EMPTY_POLYNOMIALS_COEFFICIENTS_ARRAY);
-        }
-        if (n == 1) {
-            return new double[]{0};
-        }
-        double[] result = new double[n - 1];
-        for (int i = n - 1; i > 0; i--) {
-            result[i - 1] = i * coefficients[i];
-        }
-        return result;
+    protected static double[] differentiate(double[] coefficients) throws NullArgumentException, NoDataException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -277,7 +204,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return the derivative polynomial.
      */
     public PolynomialFunction polynomialDerivative() {
-        return new PolynomialFunction(differentiate(coefficients));
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -286,7 +214,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @return the derivative function.
      */
     public UnivariateFunction derivative() {
-        return polynomialDerivative();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -306,44 +235,8 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      */
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        if (coefficients[0] == 0.0) {
-            if (coefficients.length == 1) {
-                return "0";
-            }
-        } else {
-            s.append(toString(coefficients[0]));
-        }
-
-        for (int i = 1; i < coefficients.length; ++i) {
-            if (coefficients[i] != 0) {
-                if (s.length() > 0) {
-                    if (coefficients[i] < 0) {
-                        s.append(" - ");
-                    } else {
-                        s.append(" + ");
-                    }
-                } else {
-                    if (coefficients[i] < 0) {
-                        s.append("-");
-                    }
-                }
-
-                double absAi = FastMath.abs(coefficients[i]);
-                if ((absAi - 1) != 0) {
-                    s.append(toString(absAi));
-                    s.append(' ');
-                }
-
-                s.append("x");
-                if (i > 1) {
-                    s.append('^');
-                    s.append(Integer.toString(i));
-                }
-            }
-        }
-
-        return s.toString();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -361,29 +254,22 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + Arrays.hashCode(coefficients);
-        return result;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof PolynomialFunction)) {
-            return false;
-        }
-        PolynomialFunction other = (PolynomialFunction) obj;
-        if (!Arrays.equals(coefficients, other.coefficients)) {
-            return false;
-        }
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -392,21 +278,21 @@ public class PolynomialFunction implements UnivariateDifferentiableFunction, Dif
      * @since 3.0
      */
     public static class Parametric implements ParametricUnivariateFunction {
-        /** {@inheritDoc} */
-        public double[] gradient(double x, double ... parameters) {
-            final double[] gradient = new double[parameters.length];
-            double xn = 1.0;
-            for (int i = 0; i < parameters.length; ++i) {
-                gradient[i] = xn;
-                xn *= x;
-            }
-            return gradient;
+
+        /**
+         * {@inheritDoc}
+         */
+        public double[] gradient(double x, double... parameters) {
+            // STUB: not implemented
+            return null;
         }
 
-        /** {@inheritDoc} */
-        public double value(final double x, final double ... parameters)
-            throws NoDataException {
-            return PolynomialFunction.evaluate(parameters, x);
+        /**
+         * {@inheritDoc}
+         */
+        public double value(final double x, final double... parameters) throws NoDataException {
+            // STUB: not implemented
+            return 0.0;
         }
     }
 }

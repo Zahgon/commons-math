@@ -32,23 +32,37 @@ import org.apache.commons.math3.util.MathUtils;
  * @see <a href="http://mathworld.wolfram.com/PoissonDistribution.html">Poisson distribution (MathWorld)</a>
  */
 public class PoissonDistribution extends AbstractIntegerDistribution {
+
     /**
      * Default maximum number of iterations for cumulative probability calculations.
      * @since 2.1
      */
     public static final int DEFAULT_MAX_ITERATIONS = 10000000;
+
     /**
      * Default convergence criterion.
      * @since 2.1
      */
     public static final double DEFAULT_EPSILON = 1e-12;
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -3349935121172596109L;
-    /** Distribution used to compute normal approximation. */
+
+    /**
+     * Distribution used to compute normal approximation.
+     */
     private final NormalDistribution normal;
-    /** Distribution needed for the {@link #sample()} method. */
+
+    /**
+     * Distribution needed for the {@link #sample()} method.
+     */
     private final ExponentialDistribution exponential;
-    /** Mean of the distribution. */
+
+    /**
+     * Mean of the distribution.
+     */
     private final double mean;
 
     /**
@@ -60,7 +74,9 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      */
     private final int maxIterations;
 
-    /** Convergence criterion for cumulative probability. */
+    /**
+     * Convergence criterion for cumulative probability.
+     */
     private final double epsilon;
 
     /**
@@ -98,8 +114,7 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @throws NotStrictlyPositiveException if {@code p <= 0}.
      * @since 2.1
      */
-    public PoissonDistribution(double p, double epsilon, int maxIterations)
-    throws NotStrictlyPositiveException {
+    public PoissonDistribution(double p, double epsilon, int maxIterations) throws NotStrictlyPositiveException {
         this(new Well19937c(), p, epsilon, maxIterations);
     }
 
@@ -115,25 +130,17 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @throws NotStrictlyPositiveException if {@code p <= 0}.
      * @since 3.1
      */
-    public PoissonDistribution(RandomGenerator rng,
-                               double p,
-                               double epsilon,
-                               int maxIterations)
-    throws NotStrictlyPositiveException {
+    public PoissonDistribution(RandomGenerator rng, double p, double epsilon, int maxIterations) throws NotStrictlyPositiveException {
         super(rng);
-
         if (p <= 0) {
             throw new NotStrictlyPositiveException(LocalizedFormats.MEAN, p);
         }
         mean = p;
         this.epsilon = epsilon;
         this.maxIterations = maxIterations;
-
         // Use the same RNG instance as the parent class.
-        normal = new NormalDistribution(rng, p, FastMath.sqrt(p),
-                                        NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
-        exponential = new ExponentialDistribution(rng, 1,
-                                                  ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
+        normal = new NormalDistribution(rng, p, FastMath.sqrt(p), NormalDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
+        exponential = new ExponentialDistribution(rng, 1, ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
     /**
@@ -145,8 +152,7 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @throws NotStrictlyPositiveException if {@code p <= 0}.
      * @since 2.1
      */
-    public PoissonDistribution(double p, double epsilon)
-    throws NotStrictlyPositiveException {
+    public PoissonDistribution(double p, double epsilon) throws NotStrictlyPositiveException {
         this(p, epsilon, DEFAULT_MAX_ITERATIONS);
     }
 
@@ -169,41 +175,33 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @return the mean for the distribution.
      */
     public double getMean() {
-        return mean;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double probability(int x) {
-        final double logProbability = logProbability(x);
-        return logProbability == Double.NEGATIVE_INFINITY ? 0 : FastMath.exp(logProbability);
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double logProbability(int x) {
-        double ret;
-        if (x < 0 || x == Integer.MAX_VALUE) {
-            ret = Double.NEGATIVE_INFINITY;
-        } else if (x == 0) {
-            ret = -mean;
-        } else {
-            ret = -SaddlePointExpansion.getStirlingError(x) -
-                  SaddlePointExpansion.getDeviancePart(x, mean) -
-                  0.5 * FastMath.log(MathUtils.TWO_PI) - 0.5 * FastMath.log(x);
-        }
-        return ret;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double cumulativeProbability(int x) {
-        if (x < 0) {
-            return 0;
-        }
-        if (x == Integer.MAX_VALUE) {
-            return 1;
-        }
-        return Gamma.regularizedGammaQ((double) x + 1, mean, epsilon,
-                                       maxIterations);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -217,9 +215,9 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @return the distribution function value calculated using a normal
      * approximation.
      */
-    public double normalApproximateProbability(int x)  {
-        // calculate the probability using half-correction
-        return normal.cumulativeProbability(x + 0.5);
+    public double normalApproximateProbability(int x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -228,7 +226,8 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * For mean parameter {@code p}, the mean is {@code p}.
      */
     public double getNumericalMean() {
-        return getMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -237,7 +236,8 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * For mean parameter {@code p}, the variance is {@code p}.
      */
     public double getNumericalVariance() {
-        return getMean();
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -248,6 +248,7 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @return lower bound of the support (always 0)
      */
     public int getSupportLowerBound() {
+        // STUB: not implemented
         return 0;
     }
 
@@ -262,7 +263,8 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * positive infinity)
      */
     public int getSupportUpperBound() {
-        return Integer.MAX_VALUE;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -273,7 +275,8 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -300,7 +303,8 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
      */
     @Override
     public int sample() {
-        return (int) FastMath.min(nextPoisson(mean), Integer.MAX_VALUE);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -314,7 +318,6 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
             long n = 0;
             double r = 1.0d;
             double rnd = 1.0d;
-
             while (n < 1000 * meanPoisson) {
                 rnd = random.nextDouble();
                 r *= rnd;
@@ -340,7 +343,6 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
             final double p1 = a1 / aSum;
             final double p2 = a2 / aSum;
             final double c1 = 1 / (8 * lambda);
-
             double x = 0;
             double y = 0;
             double v = 0;
@@ -348,7 +350,7 @@ public class PoissonDistribution extends AbstractIntegerDistribution {
             double t = 0;
             double qr = 0;
             double qa = 0;
-            for (;;) {
+            for (; ; ) {
                 final double u = random.nextDouble();
                 if (u <= p1) {
                     final double n = random.nextGaussian();

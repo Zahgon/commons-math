@@ -34,40 +34,52 @@ import org.apache.commons.math3.optimization.GoalType;
  */
 @Deprecated
 public class BracketFinder {
-    /** Tolerance to avoid division by zero. */
+
+    /**
+     * Tolerance to avoid division by zero.
+     */
     private static final double EPS_MIN = 1e-21;
+
     /**
      * Golden section.
      */
     private static final double GOLD = 1.618034;
+
     /**
      * Factor for expanding the interval.
      */
     private final double growLimit;
+
     /**
      * Counter for function evaluations.
      */
     private final Incrementor evaluations = new Incrementor();
+
     /**
      * Lower bound of the bracket.
      */
     private double lo;
+
     /**
      * Higher bound of the bracket.
      */
     private double hi;
+
     /**
      * Point inside the bracket.
      */
     private double mid;
+
     /**
      * Function value at {@link #lo}.
      */
     private double fLo;
+
     /**
      * Function value at {@link #hi}.
      */
     private double fHi;
+
     /**
      * Function value at {@link #mid}.
      */
@@ -88,15 +100,13 @@ public class BracketFinder {
      * @param maxEvaluations Maximum number of evaluations allowed for finding
      * a bracketing interval.
      */
-    public BracketFinder(double growLimit,
-                         int maxEvaluations) {
+    public BracketFinder(double growLimit, int maxEvaluations) {
         if (growLimit <= 0) {
             throw new NotStrictlyPositiveException(growLimit);
         }
         if (maxEvaluations <= 0) {
             throw new NotStrictlyPositiveException(maxEvaluations);
         }
-
         this.growLimit = growLimit;
         evaluations.setMaximalCount(maxEvaluations);
     }
@@ -112,115 +122,23 @@ public class BracketFinder {
      * is exceeded.
      */
     public void search(UnivariateFunction func, GoalType goal, double xA, double xB) {
-        evaluations.resetCount();
-        final boolean isMinim = goal == GoalType.MINIMIZE;
-
-        double fA = eval(func, xA);
-        double fB = eval(func, xB);
-        if (isMinim ?
-            fA < fB :
-            fA > fB) {
-
-            double tmp = xA;
-            xA = xB;
-            xB = tmp;
-
-            tmp = fA;
-            fA = fB;
-            fB = tmp;
-        }
-
-        double xC = xB + GOLD * (xB - xA);
-        double fC = eval(func, xC);
-
-        while (isMinim ? fC < fB : fC > fB) {
-            double tmp1 = (xB - xA) * (fB - fC);
-            double tmp2 = (xB - xC) * (fB - fA);
-
-            double val = tmp2 - tmp1;
-            double denom = FastMath.abs(val) < EPS_MIN ? 2 * EPS_MIN : 2 * val;
-
-            double w = xB - ((xB - xC) * tmp2 - (xB - xA) * tmp1) / denom;
-            double wLim = xB + growLimit * (xC - xB);
-
-            double fW;
-            if ((w - xC) * (xB - w) > 0) {
-                fW = eval(func, w);
-                if (isMinim ?
-                    fW < fC :
-                    fW > fC) {
-                    xA = xB;
-                    xB = w;
-                    fA = fB;
-                    fB = fW;
-                    break;
-                } else if (isMinim ?
-                           fW > fB :
-                           fW < fB) {
-                    xC = w;
-                    fC = fW;
-                    break;
-                }
-                w = xC + GOLD * (xC - xB);
-                fW = eval(func, w);
-            } else if ((w - wLim) * (wLim - xC) >= 0) {
-                w = wLim;
-                fW = eval(func, w);
-            } else if ((w - wLim) * (xC - w) > 0) {
-                fW = eval(func, w);
-                if (isMinim ?
-                    fW < fC :
-                    fW > fC) {
-                    xB = xC;
-                    xC = w;
-                    w = xC + GOLD * (xC - xB);
-                    fB = fC;
-                    fC =fW;
-                    fW = eval(func, w);
-                }
-            } else {
-                w = xC + GOLD * (xC - xB);
-                fW = eval(func, w);
-            }
-
-            xA = xB;
-            fA = fB;
-            xB = xC;
-            fB = fC;
-            xC = w;
-            fC = fW;
-        }
-
-        lo = xA;
-        fLo = fA;
-        mid = xB;
-        fMid = fB;
-        hi = xC;
-        fHi = fC;
-
-        if (lo > hi) {
-            double tmp = lo;
-            lo = hi;
-            hi = tmp;
-
-            tmp = fLo;
-            fLo = fHi;
-            fHi = tmp;
-        }
+        // STUB: not implemented
     }
 
     /**
      * @return the number of evalutations.
      */
     public int getMaxEvaluations() {
-        return evaluations.getMaximalCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
      * @return the number of evalutations.
      */
     public int getEvaluations() {
-        return evaluations.getCount();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -228,7 +146,8 @@ public class BracketFinder {
      * @see #getFLo()
      */
     public double getLo() {
-        return lo;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -236,7 +155,8 @@ public class BracketFinder {
      * @return function value at {@link #getLo()}
      */
     public double getFLo() {
-        return fLo;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -244,7 +164,8 @@ public class BracketFinder {
      * @see #getFHi()
      */
     public double getHi() {
-        return hi;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -252,7 +173,8 @@ public class BracketFinder {
      * @return function value at {@link #getHi()}
      */
     public double getFHi() {
-        return fHi;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -260,7 +182,8 @@ public class BracketFinder {
      * @see #getFMid()
      */
     public double getMid() {
-        return mid;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -268,7 +191,8 @@ public class BracketFinder {
      * @return function value at {@link #getMid()}
      */
     public double getFMid() {
-        return fMid;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**

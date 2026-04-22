@@ -14,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.geometry.euclidean.twod;
 
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
-
 import org.apache.commons.math3.exception.MathParseException;
 import org.apache.commons.math3.geometry.Vector;
 import org.apache.commons.math3.geometry.VectorFormat;
@@ -51,8 +49,7 @@ public class Vector2DFormat extends VectorFormat<Euclidean2D> {
      * "{", "}", and "; " and the default number format for components.</p>
      */
     public Vector2DFormat() {
-        super(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR,
-              CompositeFormat.getDefaultNumberFormat());
+        super(DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_SEPARATOR, CompositeFormat.getDefaultNumberFormat());
     }
 
     /**
@@ -69,8 +66,7 @@ public class Vector2DFormat extends VectorFormat<Euclidean2D> {
      * @param suffix suffix to use instead of the default "}"
      * @param separator separator to use instead of the default "; "
      */
-    public Vector2DFormat(final String prefix, final String suffix,
-                         final String separator) {
+    public Vector2DFormat(final String prefix, final String suffix, final String separator) {
         super(prefix, suffix, separator, CompositeFormat.getDefaultNumberFormat());
     }
 
@@ -82,8 +78,7 @@ public class Vector2DFormat extends VectorFormat<Euclidean2D> {
      * @param separator separator to use instead of the default "; "
      * @param format the custom format for components.
      */
-    public Vector2DFormat(final String prefix, final String suffix,
-                         final String separator, final NumberFormat format) {
+    public Vector2DFormat(final String prefix, final String suffix, final String separator, final NumberFormat format) {
         super(prefix, suffix, separator, format);
     }
 
@@ -92,7 +87,8 @@ public class Vector2DFormat extends VectorFormat<Euclidean2D> {
      * @return the default 2D vector format.
      */
     public static Vector2DFormat getInstance() {
-        return getInstance(Locale.getDefault());
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -101,38 +97,34 @@ public class Vector2DFormat extends VectorFormat<Euclidean2D> {
      * @return the 2D vector format specific to the given locale.
      */
     public static Vector2DFormat getInstance(final Locale locale) {
-        return new Vector2DFormat(CompositeFormat.getDefaultNumberFormat(locale));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public StringBuffer format(final Vector<Euclidean2D> vector, final StringBuffer toAppendTo,
-                               final FieldPosition pos) {
-        final Vector2D p2 = (Vector2D) vector;
-        return format(toAppendTo, pos, p2.getX(), p2.getY());
+    public StringBuffer format(final Vector<Euclidean2D> vector, final StringBuffer toAppendTo, final FieldPosition pos) {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector2D parse(final String source) throws MathParseException {
-        ParsePosition parsePosition = new ParsePosition(0);
-        Vector2D result = parse(source, parsePosition);
-        if (parsePosition.getIndex() == 0) {
-            throw new MathParseException(source,
-                                         parsePosition.getErrorIndex(),
-                                         Vector2D.class);
-        }
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector2D parse(final String source, final ParsePosition pos) {
-        final double[] coordinates = parseCoordinates(2, source, pos);
-        if (coordinates == null) {
-            return null;
-        }
-        return new Vector2D(coordinates[0], coordinates[1]);
+        // STUB: not implemented
+        return null;
     }
-
 }

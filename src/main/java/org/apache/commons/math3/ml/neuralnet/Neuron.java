@@ -14,17 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.ml.neuralnet;
 
 import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.util.Precision;
-
 
 /**
  * Describes a neuron element of a neural network.
@@ -34,17 +31,35 @@ import org.apache.commons.math3.util.Precision;
  * @since 3.3
  */
 public class Neuron implements Serializable {
-    /** Serializable. */
+
+    /**
+     * Serializable.
+     */
     private static final long serialVersionUID = 20130207L;
-    /** Identifier. */
+
+    /**
+     * Identifier.
+     */
     private final long identifier;
-    /** Length of the feature set. */
+
+    /**
+     * Length of the feature set.
+     */
     private final int size;
-    /** Neuron data. */
+
+    /**
+     * Neuron data.
+     */
     private final AtomicReference<double[]> features;
-    /** Number of attempts to update a neuron. */
+
+    /**
+     * Number of attempts to update a neuron.
+     */
     private final AtomicLong numberOfAttemptedUpdates = new AtomicLong(0);
-    /** Number of successful updates  of a neuron. */
+
+    /**
+     * Number of successful updates  of a neuron.
+     */
     private final AtomicLong numberOfSuccessfulUpdates = new AtomicLong(0);
 
     /**
@@ -59,8 +74,7 @@ public class Neuron implements Serializable {
      * @param identifier Identifier (assigned by the {@link Network}).
      * @param features Initial values of the feature set.
      */
-    Neuron(long identifier,
-           double[] features) {
+    Neuron(long identifier, double[] features) {
         this.identifier = identifier;
         this.size = features.length;
         this.features = new AtomicReference<double[]>(features.clone());
@@ -75,12 +89,8 @@ public class Neuron implements Serializable {
      * @since 3.6
      */
     public synchronized Neuron copy() {
-        final Neuron copy = new Neuron(getIdentifier(),
-                                       getFeatures());
-        copy.numberOfAttemptedUpdates.set(numberOfAttemptedUpdates.get());
-        copy.numberOfSuccessfulUpdates.set(numberOfSuccessfulUpdates.get());
-
-        return copy;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -89,7 +99,8 @@ public class Neuron implements Serializable {
      * @return the identifier.
      */
     public long getIdentifier() {
-        return identifier;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -98,7 +109,8 @@ public class Neuron implements Serializable {
      * @return the number of features.
      */
     public int getSize() {
-        return size;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -107,7 +119,8 @@ public class Neuron implements Serializable {
      * @return a copy of the neuron's features.
      */
     public double[] getFeatures() {
-        return features.get().clone();
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -138,31 +151,9 @@ public class Neuron implements Serializable {
      * not the same as specified in the {@link #Neuron(long,double[])
      * constructor}.
      */
-    public boolean compareAndSetFeatures(double[] expect,
-                                         double[] update) {
-        if (update.length != size) {
-            throw new DimensionMismatchException(update.length, size);
-        }
-
-        // Get the internal reference. Note that this must not be a copy;
-        // otherwise the "compareAndSet" below will always fail.
-        final double[] current = features.get();
-        if (!containSameValues(current, expect)) {
-            // Some other thread already modified the state.
-            return false;
-        }
-
-        // Increment attempt counter.
-        numberOfAttemptedUpdates.incrementAndGet();
-
-        if (features.compareAndSet(current, update.clone())) {
-            // The current thread could atomically update the state (attempt succeeded).
-            numberOfSuccessfulUpdates.incrementAndGet();
-            return true;
-        } else {
-            // Some other thread came first (attempt failed).
-            return false;
-        }
+    public boolean compareAndSetFeatures(double[] expect, double[] update) {
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -177,7 +168,8 @@ public class Neuron implements Serializable {
      * @since 3.6
      */
     public long getNumberOfAttemptedUpdates() {
-        return numberOfAttemptedUpdates.get();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -192,7 +184,8 @@ public class Neuron implements Serializable {
      * @since 3.6
      */
     public long getNumberOfSuccessfulUpdates() {
-        return numberOfSuccessfulUpdates.get();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -205,12 +198,10 @@ public class Neuron implements Serializable {
      * constructor}.
      * @return {@code true} if the arrays contain the same values.
      */
-    private boolean containSameValues(double[] current,
-                                      double[] expect) {
+    private boolean containSameValues(double[] current, double[] expect) {
         if (expect.length != size) {
             throw new DimensionMismatchException(expect.length, size);
         }
-
         for (int i = 0; i < size; i++) {
             if (!Precision.equals(current[i], expect[i])) {
                 return false;
@@ -234,27 +225,34 @@ public class Neuron implements Serializable {
      * @return the proxy instance that will be actually serialized.
      */
     private Object writeReplace() {
-        return new SerializationProxy(identifier,
-                                      features.get());
+        return new SerializationProxy(identifier, features.get());
     }
 
     /**
      * Serialization.
      */
     private static class SerializationProxy implements Serializable {
-        /** Serializable. */
+
+        /**
+         * Serializable.
+         */
         private static final long serialVersionUID = 20130207L;
-        /** Features. */
+
+        /**
+         * Features.
+         */
         private final double[] features;
-        /** Identifier. */
+
+        /**
+         * Identifier.
+         */
         private final long identifier;
 
         /**
          * @param identifier Identifier.
          * @param features Features.
          */
-        SerializationProxy(long identifier,
-                           double[] features) {
+        SerializationProxy(long identifier, double[] features) {
             this.identifier = identifier;
             this.features = features;
         }
@@ -265,8 +263,7 @@ public class Neuron implements Serializable {
          * @return the {@link Neuron} for which this instance is the proxy.
          */
         private Object readResolve() {
-            return new Neuron(identifier,
-                              features);
+            return new Neuron(identifier, features);
         }
     }
 }

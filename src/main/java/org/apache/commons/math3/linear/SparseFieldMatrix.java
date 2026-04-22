@@ -35,11 +35,19 @@ import org.apache.commons.math3.util.OpenIntToFieldHashMap;
  */
 public class SparseFieldMatrix<T extends FieldElement<T>> extends AbstractFieldMatrix<T> {
 
-    /** Storage for (sparse) matrix elements. */
+    /**
+     * Storage for (sparse) matrix elements.
+     */
     private final OpenIntToFieldHashMap<T> entries;
-    /** Row dimension. */
+
+    /**
+     * Row dimension.
+     */
     private final int rows;
-    /** Column dimension. */
+
+    /**
+     * Column dimension.
+     */
     private final int columns;
 
     /**
@@ -50,7 +58,7 @@ public class SparseFieldMatrix<T extends FieldElement<T>> extends AbstractFieldM
     public SparseFieldMatrix(final Field<T> field) {
         super(field);
         rows = 0;
-        columns= 0;
+        columns = 0;
         entries = new OpenIntToFieldHashMap<T>(field);
     }
 
@@ -64,8 +72,7 @@ public class SparseFieldMatrix<T extends FieldElement<T>> extends AbstractFieldM
      * @throws org.apache.commons.math3.exception.NotStrictlyPositiveException
      * if row or column dimension is not positive.
      */
-    public SparseFieldMatrix(final Field<T> field,
-                             final int rowDimension, final int columnDimension) {
+    public SparseFieldMatrix(final Field<T> field, final int rowDimension, final int columnDimension) {
         super(field, rowDimension, columnDimension);
         this.rows = rowDimension;
         this.columns = columnDimension;
@@ -89,7 +96,7 @@ public class SparseFieldMatrix<T extends FieldElement<T>> extends AbstractFieldM
      *
      * @param other Instance to copy.
      */
-    public SparseFieldMatrix(FieldMatrix<T> other){
+    public SparseFieldMatrix(FieldMatrix<T> other) {
         super(other.getField(), other.getRowDimension(), other.getColumnDimension());
         rows = other.getRowDimension();
         columns = other.getColumnDimension();
@@ -101,77 +108,73 @@ public class SparseFieldMatrix<T extends FieldElement<T>> extends AbstractFieldM
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addToEntry(int row, int column, T increment) {
-        checkRowIndex(row);
-        checkColumnIndex(column);
-        final int key = computeKey(row, column);
-        final T value = entries.get(key).add(increment);
-        if (getField().getZero().equals(value)) {
-            entries.remove(key);
-        } else {
-            entries.put(key, value);
-        }
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FieldMatrix<T> copy() {
-        return new SparseFieldMatrix<T>(this);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FieldMatrix<T> createMatrix(int rowDimension, int columnDimension) {
-        return new SparseFieldMatrix<T>(getField(), rowDimension, columnDimension);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getColumnDimension() {
-        return columns;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T getEntry(int row, int column) {
-        checkRowIndex(row);
-        checkColumnIndex(column);
-        return entries.get(computeKey(row, column));
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRowDimension() {
-        return rows;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void multiplyEntry(int row, int column, T factor) {
-        checkRowIndex(row);
-        checkColumnIndex(column);
-        final int key = computeKey(row, column);
-        final T value = entries.get(key).multiply(factor);
-        if (getField().getZero().equals(value)) {
-            entries.remove(key);
-        } else {
-            entries.put(key, value);
-        }
-
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setEntry(int row, int column, T value) {
-        checkRowIndex(row);
-        checkColumnIndex(column);
-        if (getField().getZero().equals(value)) {
-            entries.remove(computeKey(row, column));
-        } else {
-            entries.put(computeKey(row, column), value);
-        }
+        // STUB: not implemented
     }
 
     /**

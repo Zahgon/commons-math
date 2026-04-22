@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optim.nonlinear.scalar;
 
 import org.apache.commons.math3.analysis.MultivariateFunction;
@@ -45,20 +44,31 @@ import org.apache.commons.math3.linear.RealMatrix;
  * functions.
  * <br/>
  * This class support combination of residuals with or without weights and correlations.
-  *
+ *
  * @see MultivariateFunction
  * @see MultivariateVectorFunction
  * @since 2.0
  */
-
 public class LeastSquaresConverter implements MultivariateFunction {
-    /** Underlying vectorial function. */
+
+    /**
+     * Underlying vectorial function.
+     */
     private final MultivariateVectorFunction function;
-    /** Observations to be compared to objective function to compute residuals. */
+
+    /**
+     * Observations to be compared to objective function to compute residuals.
+     */
     private final double[] observations;
-    /** Optional weights for the residuals. */
+
+    /**
+     * Optional weights for the residuals.
+     */
     private final double[] weights;
-    /** Optional scaling matrix (weight and correlations) for the residuals. */
+
+    /**
+     * Optional scaling matrix (weight and correlations) for the residuals.
+     */
     private final RealMatrix scale;
 
     /**
@@ -68,12 +78,11 @@ public class LeastSquaresConverter implements MultivariateFunction {
      * @param function vectorial residuals function to wrap
      * @param observations observations to be compared to objective function to compute residuals
      */
-    public LeastSquaresConverter(final MultivariateVectorFunction function,
-                                 final double[] observations) {
-        this.function     = function;
+    public LeastSquaresConverter(final MultivariateVectorFunction function, final double[] observations) {
+        this.function = function;
         this.observations = observations.clone();
-        this.weights      = null;
-        this.scale        = null;
+        this.weights = null;
+        this.scale = null;
     }
 
     /**
@@ -107,16 +116,14 @@ public class LeastSquaresConverter implements MultivariateFunction {
      * vector dimensions do not match (objective function dimension is checked only when
      * the {@link #value(double[])} method is called)
      */
-    public LeastSquaresConverter(final MultivariateVectorFunction function,
-                                 final double[] observations,
-                                 final double[] weights) {
+    public LeastSquaresConverter(final MultivariateVectorFunction function, final double[] observations, final double[] weights) {
         if (observations.length != weights.length) {
             throw new DimensionMismatchException(observations.length, weights.length);
         }
-        this.function     = function;
+        this.function = function;
         this.observations = observations.clone();
-        this.weights      = weights.clone();
-        this.scale        = null;
+        this.weights = weights.clone();
+        this.scale = null;
     }
 
     /**
@@ -141,46 +148,21 @@ public class LeastSquaresConverter implements MultivariateFunction {
      * matrix dimensions do not match (objective function dimension is checked only when
      * the {@link #value(double[])} method is called)
      */
-    public LeastSquaresConverter(final MultivariateVectorFunction function,
-                                 final double[] observations,
-                                 final RealMatrix scale) {
+    public LeastSquaresConverter(final MultivariateVectorFunction function, final double[] observations, final RealMatrix scale) {
         if (observations.length != scale.getColumnDimension()) {
             throw new DimensionMismatchException(observations.length, scale.getColumnDimension());
         }
-        this.function     = function;
+        this.function = function;
         this.observations = observations.clone();
-        this.weights      = null;
-        this.scale        = scale.copy();
+        this.weights = null;
+        this.scale = scale.copy();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double value(final double[] point) {
-        // compute residuals
-        final double[] residuals = function.value(point);
-        if (residuals.length != observations.length) {
-            throw new DimensionMismatchException(residuals.length, observations.length);
-        }
-        for (int i = 0; i < residuals.length; ++i) {
-            residuals[i] -= observations[i];
-        }
-
-        // compute sum of squares
-        double sumSquares = 0;
-        if (weights != null) {
-            for (int i = 0; i < residuals.length; ++i) {
-                final double ri = residuals[i];
-                sumSquares +=  weights[i] * ri * ri;
-            }
-        } else if (scale != null) {
-            for (final double yi : scale.operate(residuals)) {
-                sumSquares += yi * yi;
-            }
-        } else {
-            for (final double ri : residuals) {
-                sumSquares += ri * ri;
-            }
-        }
-
-        return sumSquares;
+        // STUB: not implemented
+        return 0.0;
     }
 }

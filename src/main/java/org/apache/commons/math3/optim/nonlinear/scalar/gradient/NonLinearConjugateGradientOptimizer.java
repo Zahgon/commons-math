@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.optim.nonlinear.scalar.gradient;
 
 import org.apache.commons.math3.analysis.solvers.UnivariateSolver;
@@ -29,7 +28,6 @@ import org.apache.commons.math3.optim.nonlinear.scalar.GoalType;
 import org.apache.commons.math3.optim.nonlinear.scalar.GradientMultivariateOptimizer;
 import org.apache.commons.math3.optim.nonlinear.scalar.LineSearch;
 
-
 /**
  * Non-linear conjugate gradient optimizer.
  * <br/>
@@ -43,13 +41,21 @@ import org.apache.commons.math3.optim.nonlinear.scalar.LineSearch;
  *
  * @since 2.0
  */
-public class NonLinearConjugateGradientOptimizer
-    extends GradientMultivariateOptimizer {
-    /** Update formula for the beta parameter. */
+public class NonLinearConjugateGradientOptimizer extends GradientMultivariateOptimizer {
+
+    /**
+     * Update formula for the beta parameter.
+     */
     private final Formula updateFormula;
-    /** Preconditioner (may be null). */
+
+    /**
+     * Preconditioner (may be null).
+     */
     private final Preconditioner preconditioner;
-    /** Line search algorithm. */
+
+    /**
+     * Line search algorithm.
+     */
     private final LineSearch line;
 
     /**
@@ -71,9 +77,14 @@ public class NonLinearConjugateGradientOptimizer
      * @since 2.0
      */
     public enum Formula {
-        /** Fletcher-Reeves formula. */
+
+        /**
+         * Fletcher-Reeves formula.
+         */
         FLETCHER_REEVES,
-        /** Polak-Ribière formula. */
+        /**
+         * Polak-Ribière formula.
+         */
         POLAK_RIBIERE
     }
 
@@ -91,7 +102,10 @@ public class NonLinearConjugateGradientOptimizer
      */
     @Deprecated
     public static class BracketingStep implements OptimizationData {
-        /** Initial step. */
+
+        /**
+         * Initial step.
+         */
         private final double initialStep;
 
         /**
@@ -107,7 +121,8 @@ public class NonLinearConjugateGradientOptimizer
          * @return the initial step.
          */
         public double getBracketingStep() {
-            return initialStep;
+            // STUB: not implemented
+            return 0.0;
         }
     }
 
@@ -120,14 +135,8 @@ public class NonLinearConjugateGradientOptimizer
      * {@link Formula#POLAK_RIBIERE}.
      * @param checker Convergence checker.
      */
-    public NonLinearConjugateGradientOptimizer(final Formula updateFormula,
-                                               ConvergenceChecker<PointValuePair> checker) {
-        this(updateFormula,
-             checker,
-             1e-8,
-             1e-8,
-             1e-8,
-             new IdentityPreconditioner());
+    public NonLinearConjugateGradientOptimizer(final Formula updateFormula, ConvergenceChecker<PointValuePair> checker) {
+        this(updateFormula, checker, 1e-8, 1e-8, 1e-8, new IdentityPreconditioner());
     }
 
     /**
@@ -142,13 +151,8 @@ public class NonLinearConjugateGradientOptimizer
      * {@link #NonLinearConjugateGradientOptimizer(Formula,ConvergenceChecker,double,double,double)} instead.
      */
     @Deprecated
-    public NonLinearConjugateGradientOptimizer(final Formula updateFormula,
-                                               ConvergenceChecker<PointValuePair> checker,
-                                               final UnivariateSolver lineSearchSolver) {
-        this(updateFormula,
-             checker,
-             lineSearchSolver,
-             new IdentityPreconditioner());
+    public NonLinearConjugateGradientOptimizer(final Formula updateFormula, ConvergenceChecker<PointValuePair> checker, final UnivariateSolver lineSearchSolver) {
+        this(updateFormula, checker, lineSearchSolver, new IdentityPreconditioner());
     }
 
     /**
@@ -167,17 +171,8 @@ public class NonLinearConjugateGradientOptimizer
      * @see LineSearch#LineSearch(MultivariateOptimizer,double,double,double)
      * @since 3.3
      */
-    public NonLinearConjugateGradientOptimizer(final Formula updateFormula,
-                                               ConvergenceChecker<PointValuePair> checker,
-                                               double relativeTolerance,
-                                               double absoluteTolerance,
-                                               double initialBracketingRange) {
-        this(updateFormula,
-             checker,
-             relativeTolerance,
-             absoluteTolerance,
-             initialBracketingRange,
-             new IdentityPreconditioner());
+    public NonLinearConjugateGradientOptimizer(final Formula updateFormula, ConvergenceChecker<PointValuePair> checker, double relativeTolerance, double absoluteTolerance, double initialBracketingRange) {
+        this(updateFormula, checker, relativeTolerance, absoluteTolerance, initialBracketingRange, new IdentityPreconditioner());
     }
 
     /**
@@ -191,16 +186,8 @@ public class NonLinearConjugateGradientOptimizer
      * {@link #NonLinearConjugateGradientOptimizer(Formula,ConvergenceChecker,double,double,double,Preconditioner)} instead.
      */
     @Deprecated
-    public NonLinearConjugateGradientOptimizer(final Formula updateFormula,
-                                               ConvergenceChecker<PointValuePair> checker,
-                                               final UnivariateSolver lineSearchSolver,
-                                               final Preconditioner preconditioner) {
-        this(updateFormula,
-             checker,
-             lineSearchSolver.getRelativeAccuracy(),
-             lineSearchSolver.getAbsoluteAccuracy(),
-             lineSearchSolver.getAbsoluteAccuracy(),
-             preconditioner);
+    public NonLinearConjugateGradientOptimizer(final Formula updateFormula, ConvergenceChecker<PointValuePair> checker, final UnivariateSolver lineSearchSolver, final Preconditioner preconditioner) {
+        this(updateFormula, checker, lineSearchSolver.getRelativeAccuracy(), lineSearchSolver.getAbsoluteAccuracy(), lineSearchSolver.getAbsoluteAccuracy(), preconditioner);
     }
 
     /**
@@ -218,119 +205,29 @@ public class NonLinearConjugateGradientOptimizer
      * @see LineSearch#LineSearch(MultivariateOptimizer,double,double,double)
      * @since 3.3
      */
-    public NonLinearConjugateGradientOptimizer(final Formula updateFormula,
-                                               ConvergenceChecker<PointValuePair> checker,
-                                               double relativeTolerance,
-                                               double absoluteTolerance,
-                                               double initialBracketingRange,
-                                               final Preconditioner preconditioner) {
+    public NonLinearConjugateGradientOptimizer(final Formula updateFormula, ConvergenceChecker<PointValuePair> checker, double relativeTolerance, double absoluteTolerance, double initialBracketingRange, final Preconditioner preconditioner) {
         super(checker);
-
         this.updateFormula = updateFormula;
         this.preconditioner = preconditioner;
-        line = new LineSearch(this,
-                              relativeTolerance,
-                              absoluteTolerance,
-                              initialBracketingRange);
+        line = new LineSearch(this, relativeTolerance, absoluteTolerance, initialBracketingRange);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public PointValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PointValuePair doOptimize() {
-        final ConvergenceChecker<PointValuePair> checker = getConvergenceChecker();
-        final double[] point = getStartPoint();
-        final GoalType goal = getGoalType();
-        final int n = point.length;
-        double[] r = computeObjectiveGradient(point);
-        if (goal == GoalType.MINIMIZE) {
-            for (int i = 0; i < n; i++) {
-                r[i] = -r[i];
-            }
-        }
-
-        // Initial search direction.
-        double[] steepestDescent = preconditioner.precondition(point, r);
-        double[] searchDirection = steepestDescent.clone();
-
-        double delta = 0;
-        for (int i = 0; i < n; ++i) {
-            delta += r[i] * searchDirection[i];
-        }
-
-        PointValuePair current = null;
-        while (true) {
-            incrementIterationCount();
-
-            final double objective = computeObjectiveValue(point);
-            PointValuePair previous = current;
-            current = new PointValuePair(point, objective);
-            if (previous != null && checker.converged(getIterations(), previous, current)) {
-                // We have found an optimum.
-                return current;
-            }
-
-            final double step = line.search(point, searchDirection).getPoint();
-
-            // Validate new point.
-            for (int i = 0; i < point.length; ++i) {
-                point[i] += step * searchDirection[i];
-            }
-
-            r = computeObjectiveGradient(point);
-            if (goal == GoalType.MINIMIZE) {
-                for (int i = 0; i < n; ++i) {
-                    r[i] = -r[i];
-                }
-            }
-
-            // Compute beta.
-            final double deltaOld = delta;
-            final double[] newSteepestDescent = preconditioner.precondition(point, r);
-            delta = 0;
-            for (int i = 0; i < n; ++i) {
-                delta += r[i] * newSteepestDescent[i];
-            }
-
-            final double beta;
-            switch (updateFormula) {
-            case FLETCHER_REEVES:
-                beta = delta / deltaOld;
-                break;
-            case POLAK_RIBIERE:
-                double deltaMid = 0;
-                for (int i = 0; i < r.length; ++i) {
-                    deltaMid += r[i] * steepestDescent[i];
-                }
-                beta = (delta - deltaMid) / deltaOld;
-                break;
-            default:
-                // Should never happen.
-                throw new MathInternalError();
-            }
-            steepestDescent = newSteepestDescent;
-
-            // Compute conjugate search direction.
-            if (getIterations() % n == 0 ||
-                beta < 0) {
-                // Break conjugation: reset search direction.
-                searchDirection = steepestDescent.clone();
-            } else {
-                // Compute new conjugate search direction.
-                for (int i = 0; i < n; ++i) {
-                    searchDirection[i] = steepestDescent[i] + beta * searchDirection[i];
-                }
-            }
-        }
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -338,77 +235,73 @@ public class NonLinearConjugateGradientOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        checkParameters();
+        // STUB: not implemented
     }
 
-    /** Default identity preconditioner. */
+    /**
+     * Default identity preconditioner.
+     */
     public static class IdentityPreconditioner implements Preconditioner {
-        /** {@inheritDoc} */
+
+        /**
+         * {@inheritDoc}
+         */
         public double[] precondition(double[] variables, double[] r) {
-            return r.clone();
+            // STUB: not implemented
+            return null;
         }
     }
 
     // Class is not used anymore (cf. MATH-1092). However, it might
     // be interesting to create a class similar to "LineSearch", but
     // that will take advantage that the model's gradient is available.
-//     /**
-//      * Internal class for line search.
-//      * <p>
-//      * The function represented by this class is the dot product of
-//      * the objective function gradient and the search direction. Its
-//      * value is zero when the gradient is orthogonal to the search
-//      * direction, i.e. when the objective function value is a local
-//      * extremum along the search direction.
-//      * </p>
-//      */
-//     private class LineSearchFunction implements UnivariateFunction {
-//         /** Current point. */
-//         private final double[] currentPoint;
-//         /** Search direction. */
-//         private final double[] searchDirection;
-
-//         /**
-//          * @param point Current point.
-//          * @param direction Search direction.
-//          */
-//         public LineSearchFunction(double[] point,
-//                                   double[] direction) {
-//             currentPoint = point.clone();
-//             searchDirection = direction.clone();
-//         }
-
-//         /** {@inheritDoc} */
-//         public double value(double x) {
-//             // current point in the search direction
-//             final double[] shiftedPoint = currentPoint.clone();
-//             for (int i = 0; i < shiftedPoint.length; ++i) {
-//                 shiftedPoint[i] += x * searchDirection[i];
-//             }
-
-//             // gradient of the objective function
-//             final double[] gradient = computeObjectiveGradient(shiftedPoint);
-
-//             // dot product with the search direction
-//             double dotProduct = 0;
-//             for (int i = 0; i < gradient.length; ++i) {
-//                 dotProduct += gradient[i] * searchDirection[i];
-//             }
-
-//             return dotProduct;
-//         }
-//     }
-
+    //     /**
+    //      * Internal class for line search.
+    //      * <p>
+    //      * The function represented by this class is the dot product of
+    //      * the objective function gradient and the search direction. Its
+    //      * value is zero when the gradient is orthogonal to the search
+    //      * direction, i.e. when the objective function value is a local
+    //      * extremum along the search direction.
+    //      * </p>
+    //      */
+    //     private class LineSearchFunction implements UnivariateFunction {
+    //         /** Current point. */
+    //         private final double[] currentPoint;
+    //         /** Search direction. */
+    //         private final double[] searchDirection;
+    //         /**
+    //          * @param point Current point.
+    //          * @param direction Search direction.
+    //          */
+    //         public LineSearchFunction(double[] point,
+    //                                   double[] direction) {
+    //             currentPoint = point.clone();
+    //             searchDirection = direction.clone();
+    //         }
+    //         /** {@inheritDoc} */
+    //         public double value(double x) {
+    //             // current point in the search direction
+    //             final double[] shiftedPoint = currentPoint.clone();
+    //             for (int i = 0; i < shiftedPoint.length; ++i) {
+    //                 shiftedPoint[i] += x * searchDirection[i];
+    //             }
+    //             // gradient of the objective function
+    //             final double[] gradient = computeObjectiveGradient(shiftedPoint);
+    //             // dot product with the search direction
+    //             double dotProduct = 0;
+    //             for (int i = 0; i < gradient.length; ++i) {
+    //                 dotProduct += gradient[i] * searchDirection[i];
+    //             }
+    //             return dotProduct;
+    //         }
+    //     }
     /**
      * @throws MathUnsupportedOperationException if bounds were passed to the
      * {@link #optimize(OptimizationData[]) optimize} method.
      */
     private void checkParameters() {
-        if (getLowerBound() != null ||
-            getUpperBound() != null) {
+        if (getLowerBound() != null || getUpperBound() != null) {
             throw new MathUnsupportedOperationException(LocalizedFormats.CONSTRAINT);
         }
     }

@@ -25,7 +25,10 @@ import org.apache.commons.math3.optim.OptimizationData;
  * @since 3.1
  */
 public class NonNegativeConstraint implements OptimizationData {
-    /** Whether the variables are all positive. */
+
+    /**
+     * Whether the variables are all positive.
+     */
     private final boolean isRestricted;
 
     /**
@@ -42,6 +45,7 @@ public class NonNegativeConstraint implements OptimizationData {
      * @return {@code true} if all the variables must be positive.
      */
     public boolean isRestrictedToNonNegative() {
-        return isRestricted;
+        // STUB: not implemented
+        return false;
     }
 }

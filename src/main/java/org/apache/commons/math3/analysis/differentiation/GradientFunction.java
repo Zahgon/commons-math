@@ -18,7 +18,8 @@ package org.apache.commons.math3.analysis.differentiation;
 
 import org.apache.commons.math3.analysis.MultivariateVectorFunction;
 
-/** Class representing the gradient of a multivariate function.
+/**
+ * Class representing the gradient of a multivariate function.
  * <p>
  * The vectorial components of the function represent the derivatives
  * with respect to each function parameters.
@@ -27,39 +28,24 @@ import org.apache.commons.math3.analysis.MultivariateVectorFunction;
  */
 public class GradientFunction implements MultivariateVectorFunction {
 
-    /** Underlying real-valued function. */
+    /**
+     * Underlying real-valued function.
+     */
     private final MultivariateDifferentiableFunction f;
 
-    /** Simple constructor.
+    /**
+     * Simple constructor.
      * @param f underlying real-valued function
      */
     public GradientFunction(final MultivariateDifferentiableFunction f) {
         this.f = f;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double[] value(double[] point) {
-
-        // set up parameters
-        final DerivativeStructure[] dsX = new DerivativeStructure[point.length];
-        for (int i = 0; i < point.length; ++i) {
-            dsX[i] = new DerivativeStructure(point.length, 1, i, point[i]);
-        }
-
-        // compute the derivatives
-        final DerivativeStructure dsY = f.value(dsX);
-
-        // extract the gradient
-        final double[] y = new double[point.length];
-        final int[] orders = new int[point.length];
-        for (int i = 0; i < point.length; ++i) {
-            orders[i] = 1;
-            y[i] = dsY.getPartialDerivative(orders);
-            orders[i] = 0;
-        }
-
-        return y;
-
+        // STUB: not implemented
+        return null;
     }
-
 }

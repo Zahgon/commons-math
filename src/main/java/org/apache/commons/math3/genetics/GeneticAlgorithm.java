@@ -37,22 +37,34 @@ public class GeneticAlgorithm {
     //@GuardedBy("this")
     private static RandomGenerator randomGenerator = new JDKRandomGenerator();
 
-    /** the crossover policy used by the algorithm. */
+    /**
+     * the crossover policy used by the algorithm.
+     */
     private final CrossoverPolicy crossoverPolicy;
 
-    /** the rate of crossover for the algorithm. */
+    /**
+     * the rate of crossover for the algorithm.
+     */
     private final double crossoverRate;
 
-    /** the mutation policy used by the algorithm. */
+    /**
+     * the mutation policy used by the algorithm.
+     */
     private final MutationPolicy mutationPolicy;
 
-    /** the rate of mutation for the algorithm. */
+    /**
+     * the rate of mutation for the algorithm.
+     */
     private final double mutationRate;
 
-    /** the selection policy used by the algorithm. */
+    /**
+     * the selection policy used by the algorithm.
+     */
     private final SelectionPolicy selectionPolicy;
 
-    /** the number of generations evolved to reach {@link StoppingCondition} in the last run. */
+    /**
+     * the number of generations evolved to reach {@link StoppingCondition} in the last run.
+     */
     private int generationsEvolved = 0;
 
     /**
@@ -64,19 +76,12 @@ public class GeneticAlgorithm {
      * @param selectionPolicy The {@link SelectionPolicy}
      * @throws OutOfRangeException if the crossover or mutation rate is outside the [0, 1] range
      */
-    public GeneticAlgorithm(final CrossoverPolicy crossoverPolicy,
-                            final double crossoverRate,
-                            final MutationPolicy mutationPolicy,
-                            final double mutationRate,
-                            final SelectionPolicy selectionPolicy) throws OutOfRangeException {
-
+    public GeneticAlgorithm(final CrossoverPolicy crossoverPolicy, final double crossoverRate, final MutationPolicy mutationPolicy, final double mutationRate, final SelectionPolicy selectionPolicy) throws OutOfRangeException {
         if (crossoverRate < 0 || crossoverRate > 1) {
-            throw new OutOfRangeException(LocalizedFormats.CROSSOVER_RATE,
-                                          crossoverRate, 0, 1);
+            throw new OutOfRangeException(LocalizedFormats.CROSSOVER_RATE, crossoverRate, 0, 1);
         }
         if (mutationRate < 0 || mutationRate > 1) {
-            throw new OutOfRangeException(LocalizedFormats.MUTATION_RATE,
-                                          mutationRate, 0, 1);
+            throw new OutOfRangeException(LocalizedFormats.MUTATION_RATE, mutationRate, 0, 1);
         }
         this.crossoverPolicy = crossoverPolicy;
         this.crossoverRate = crossoverRate;
@@ -91,7 +96,7 @@ public class GeneticAlgorithm {
      * @param random random generator
      */
     public static synchronized void setRandomGenerator(final RandomGenerator random) {
-        randomGenerator = random;
+        // STUB: not implemented
     }
 
     /**
@@ -100,7 +105,8 @@ public class GeneticAlgorithm {
      * @return the static random generator shared by GA implementation classes
      */
     public static synchronized RandomGenerator getRandomGenerator() {
-        return randomGenerator;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -114,13 +120,8 @@ public class GeneticAlgorithm {
      * @return the population that satisfies the stopping condition.
      */
     public Population evolve(final Population initial, final StoppingCondition condition) {
-        Population current = initial;
-        generationsEvolved = 0;
-        while (!condition.isSatisfied(current)) {
-            current = nextGeneration(current);
-            generationsEvolved++;
-        }
-        return current;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -146,38 +147,8 @@ public class GeneticAlgorithm {
      * @return the population for the next generation.
      */
     public Population nextGeneration(final Population current) {
-        Population nextGeneration = current.nextGeneration();
-
-        RandomGenerator randGen = getRandomGenerator();
-
-        while (nextGeneration.getPopulationSize() < nextGeneration.getPopulationLimit()) {
-            // select parent chromosomes
-            ChromosomePair pair = getSelectionPolicy().select(current);
-
-            // crossover?
-            if (randGen.nextDouble() < getCrossoverRate()) {
-                // apply crossover policy to create two offspring
-                pair = getCrossoverPolicy().crossover(pair.getFirst(), pair.getSecond());
-            }
-
-            // mutation?
-            if (randGen.nextDouble() < getMutationRate()) {
-                // apply mutation policy to the chromosomes
-                pair = new ChromosomePair(
-                    getMutationPolicy().mutate(pair.getFirst()),
-                    getMutationPolicy().mutate(pair.getSecond()));
-            }
-
-            // add the first chromosome to the population
-            nextGeneration.addChromosome(pair.getFirst());
-            // is there still a place for the second chromosome?
-            if (nextGeneration.getPopulationSize() < nextGeneration.getPopulationLimit()) {
-                // add the second chromosome to the population
-                nextGeneration.addChromosome(pair.getSecond());
-            }
-        }
-
-        return nextGeneration;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -185,7 +156,8 @@ public class GeneticAlgorithm {
      * @return crossover policy
      */
     public CrossoverPolicy getCrossoverPolicy() {
-        return crossoverPolicy;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -193,7 +165,8 @@ public class GeneticAlgorithm {
      * @return crossover rate
      */
     public double getCrossoverRate() {
-        return crossoverRate;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -201,7 +174,8 @@ public class GeneticAlgorithm {
      * @return mutation policy
      */
     public MutationPolicy getMutationPolicy() {
-        return mutationPolicy;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -209,7 +183,8 @@ public class GeneticAlgorithm {
      * @return mutation rate
      */
     public double getMutationRate() {
-        return mutationRate;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -217,7 +192,8 @@ public class GeneticAlgorithm {
      * @return selection policy
      */
     public SelectionPolicy getSelectionPolicy() {
-        return selectionPolicy;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -227,7 +203,7 @@ public class GeneticAlgorithm {
      * @since 2.1
      */
     public int getGenerationsEvolved() {
-        return generationsEvolved;
+        // STUB: not implemented
+        return 0;
     }
-
 }

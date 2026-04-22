@@ -36,16 +36,24 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  */
 public final class IntervalUtils {
 
-    /** Singleton Agresti-Coull instance. */
+    /**
+     * Singleton Agresti-Coull instance.
+     */
     private static final BinomialConfidenceInterval AGRESTI_COULL = new AgrestiCoullInterval();
 
-    /** Singleton Clopper-Pearson instance. */
+    /**
+     * Singleton Clopper-Pearson instance.
+     */
     private static final BinomialConfidenceInterval CLOPPER_PEARSON = new ClopperPearsonInterval();
 
-    /** Singleton NormalApproximation instance. */
+    /**
+     * Singleton NormalApproximation instance.
+     */
     private static final BinomialConfidenceInterval NORMAL_APPROXIMATION = new NormalApproximationInterval();
 
-    /** Singleton Wilson score instance. */
+    /**
+     * Singleton Wilson score instance.
+     */
     private static final BinomialConfidenceInterval WILSON_SCORE = new WilsonScoreInterval();
 
     /**
@@ -70,9 +78,9 @@ public final class IntervalUtils {
      * @throws NumberIsTooLargeException if {@code numberOfSuccesses > numberOfTrials}.
      * @throws OutOfRangeException if {@code confidenceLevel} is not in the interval {@code (0, 1)}.
      */
-    public static ConfidenceInterval getAgrestiCoullInterval(int numberOfTrials, int numberOfSuccesses,
-                                                             double confidenceLevel) {
-        return AGRESTI_COULL.createInterval(numberOfTrials, numberOfSuccesses, confidenceLevel);
+    public static ConfidenceInterval getAgrestiCoullInterval(int numberOfTrials, int numberOfSuccesses, double confidenceLevel) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -99,9 +107,9 @@ public final class IntervalUtils {
      * @throws NumberIsTooLargeException if {@code numberOfSuccesses > numberOfTrials}.
      * @throws OutOfRangeException if {@code confidenceLevel} is not in the interval {@code (0, 1)}.
      */
-    public static ConfidenceInterval getClopperPearsonInterval(int numberOfTrials, int numberOfSuccesses,
-                                                               double confidenceLevel) {
-        return CLOPPER_PEARSON.createInterval(numberOfTrials, numberOfSuccesses, confidenceLevel);
+    public static ConfidenceInterval getClopperPearsonInterval(int numberOfTrials, int numberOfSuccesses, double confidenceLevel) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -117,9 +125,9 @@ public final class IntervalUtils {
      * @return Confidence interval containing the probability of success with
      *         probability {@code confidenceLevel}
      */
-    public static ConfidenceInterval getNormalApproximationInterval(int numberOfTrials, int numberOfSuccesses,
-                                                                    double confidenceLevel) {
-        return NORMAL_APPROXIMATION.createInterval(numberOfTrials, numberOfSuccesses, confidenceLevel);
+    public static ConfidenceInterval getNormalApproximationInterval(int numberOfTrials, int numberOfSuccesses, double confidenceLevel) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -138,9 +146,9 @@ public final class IntervalUtils {
      * @throws NumberIsTooLargeException if {@code numberOfSuccesses > numberOfTrials}.
      * @throws OutOfRangeException if {@code confidenceLevel} is not in the interval {@code (0, 1)}.
      */
-    public static ConfidenceInterval getWilsonScoreInterval(int numberOfTrials, int numberOfSuccesses,
-                                                            double confidenceLevel) {
-        return WILSON_SCORE.createInterval(numberOfTrials, numberOfSuccesses, confidenceLevel);
+    public static ConfidenceInterval getWilsonScoreInterval(int numberOfTrials, int numberOfSuccesses, double confidenceLevel) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -155,20 +163,6 @@ public final class IntervalUtils {
      * @throws OutOfRangeException if {@code confidenceLevel} is not in the interval {@code (0, 1)}.
      */
     static void checkParameters(int numberOfTrials, int numberOfSuccesses, double confidenceLevel) {
-        if (numberOfTrials <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.NUMBER_OF_TRIALS, numberOfTrials);
-        }
-        if (numberOfSuccesses < 0) {
-            throw new NotPositiveException(LocalizedFormats.NEGATIVE_NUMBER_OF_SUCCESSES, numberOfSuccesses);
-        }
-        if (numberOfSuccesses > numberOfTrials) {
-            throw new NumberIsTooLargeException(LocalizedFormats.NUMBER_OF_SUCCESS_LARGER_THAN_POPULATION_SIZE,
-                                                numberOfSuccesses, numberOfTrials, true);
-        }
-        if (confidenceLevel <= 0 || confidenceLevel >= 1) {
-            throw new OutOfRangeException(LocalizedFormats.OUT_OF_BOUNDS_CONFIDENCE_LEVEL,
-                                          confidenceLevel, 0, 1);
-        }
+        // STUB: not implemented
     }
-
 }

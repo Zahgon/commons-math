@@ -29,10 +29,12 @@ import org.apache.commons.math3.exception.ZeroException;
  * @since 3.6
  */
 public class IntegerSequence {
+
     /**
      * Utility class contains only static methods.
      */
-    private IntegerSequence() {}
+    private IntegerSequence() {
+    }
 
     /**
      * Creates a sequence {@code [start .. end]}.
@@ -42,9 +44,9 @@ public class IntegerSequence {
      * @param end Last value of the range.
      * @return a range.
      */
-    public static Range range(int start,
-                              int end) {
-        return range(start, end, 1);
+    public static Range range(int start, int end) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -58,23 +60,34 @@ public class IntegerSequence {
      * @param step Increment.
      * @return a range.
      */
-    public static Range range(final int start,
-                              final int max,
-                              final int step) {
-        return new Range(start, max, step);
+    public static Range range(final int start, final int max, final int step) {
+        // STUB: not implemented
+        return null;
     }
 
     /**
      * Generates a sequence of integers.
      */
     public static class Range implements Iterable<Integer> {
-        /** Number of integers contained in this range. */
+
+        /**
+         * Number of integers contained in this range.
+         */
         private final int size;
-        /** First value. */
+
+        /**
+         * First value.
+         */
         private final int start;
-        /** Final value. */
+
+        /**
+         * Final value.
+         */
         private final int max;
-        /** Increment. */
+
+        /**
+         * Increment.
+         */
         private final int step;
 
         /**
@@ -87,13 +100,10 @@ public class IntegerSequence {
          * construction rule.
          * @param step Increment.
          */
-        public Range(int start,
-                     int max,
-                     int step) {
+        public Range(int start, int max, int step) {
             this.start = start;
             this.max = max;
             this.step = step;
-
             final int s = (max - start) / step + 1;
             this.size = s < 0 ? 0 : s;
         }
@@ -104,15 +114,16 @@ public class IntegerSequence {
          * @return the size of the range.
          */
         public int size() {
-            return size;
+            // STUB: not implemented
+            return 0;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public Iterator<Integer> iterator() {
-            return Incrementor.create()
-                .withStart(start)
-                .withMaximalCount(max + (step > 0 ? 1 : -1))
-                .withIncrement(step);
+            // STUB: not implemented
+            return null;
         }
     }
 
@@ -125,24 +136,43 @@ public class IntegerSequence {
      * select which exception must be thrown.
      */
     public static class Incrementor implements Iterator<Integer> {
-        /** Default callback. */
-        private static final MaxCountExceededCallback CALLBACK
-            = new MaxCountExceededCallback() {
-                    /** {@inheritDoc} */
-                    public void trigger(int max) throws MaxCountExceededException {
-                        throw new MaxCountExceededException(max);
-                    }
-                };
 
-        /** Initial value the counter. */
+        /**
+         * Default callback.
+         */
+        private static final MaxCountExceededCallback CALLBACK = new MaxCountExceededCallback() {
+
+            /**
+             * {@inheritDoc}
+             */
+            public void trigger(int max) throws MaxCountExceededException {
+                // STUB: not implemented
+            }
+        };
+
+        /**
+         * Initial value the counter.
+         */
         private final int init;
-        /** Upper limit for the counter. */
+
+        /**
+         * Upper limit for the counter.
+         */
         private final int maximalCount;
-        /** Increment. */
+
+        /**
+         * Increment.
+         */
         private final int increment;
-        /** Function called at counter exhaustion. */
+
+        /**
+         * Function called at counter exhaustion.
+         */
         private final MaxCountExceededCallback maxCountCallback;
-        /** Current count. */
+
+        /**
+         * Current count.
+         */
         private int count = 0;
 
         /**
@@ -150,6 +180,7 @@ public class IntegerSequence {
          * The {@link #trigger(int) trigger} method should usually throw an exception.
          */
         public interface MaxCountExceededCallback {
+
             /**
              * Function called when the maximal count has been reached.
              *
@@ -170,11 +201,7 @@ public class IntegerSequence {
          * @param cb Function to be called when the maximal count has been reached.
          * @throws NullArgumentException if {@code cb} is {@code null}.
          */
-        private Incrementor(int start,
-                            int max,
-                            int step,
-                            MaxCountExceededCallback cb)
-            throws NullArgumentException {
+        private Incrementor(int start, int max, int step, MaxCountExceededCallback cb) throws NullArgumentException {
             if (cb == null) {
                 throw new NullArgumentException();
             }
@@ -194,7 +221,8 @@ public class IntegerSequence {
          * @return an new instance.
          */
         public static Incrementor create() {
-            return new Incrementor(0, 0, 1, CALLBACK);
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -205,10 +233,8 @@ public class IntegerSequence {
          * @return a new instance.
          */
         public Incrementor withStart(int start) {
-            return new Incrementor(start,
-                                   this.maximalCount,
-                                   this.increment,
-                                   this.maxCountCallback);
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -219,10 +245,8 @@ public class IntegerSequence {
          * @return a new instance.
          */
         public Incrementor withMaximalCount(int max) {
-            return new Incrementor(this.init,
-                                   max,
-                                   this.increment,
-                                   this.maxCountCallback);
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -233,13 +257,8 @@ public class IntegerSequence {
          * @return a new instance.
          */
         public Incrementor withIncrement(int step) {
-            if (step == 0) {
-                throw new ZeroException();
-            }
-            return new Incrementor(this.init,
-                                   this.maximalCount,
-                                   step,
-                                   this.maxCountCallback);
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -250,10 +269,8 @@ public class IntegerSequence {
          * @return a new instance.
          */
         public Incrementor withCallback(MaxCountExceededCallback cb) {
-            return new Incrementor(this.init,
-                                   this.maximalCount,
-                                   this.increment,
-                                   cb);
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -262,7 +279,8 @@ public class IntegerSequence {
          * @return the counter upper limit.
          */
         public int getMaximalCount() {
-            return maximalCount;
+            // STUB: not implemented
+            return 0;
         }
 
         /**
@@ -271,7 +289,8 @@ public class IntegerSequence {
          * @return the current count.
          */
         public int getCount() {
-            return count;
+            // STUB: not implemented
+            return 0;
         }
 
         /**
@@ -282,7 +301,8 @@ public class IntegerSequence {
          * {@code true} otherwise.
          */
         public boolean canIncrement() {
-            return canIncrement(1);
+            // STUB: not implemented
+            return false;
         }
 
         /**
@@ -294,10 +314,8 @@ public class IntegerSequence {
          * {@code true} otherwise.
          */
         public boolean canIncrement(int nTimes) {
-            final int finalCount = count + nTimes * increment;
-            return increment < 0 ?
-                finalCount > maximalCount :
-                finalCount < maximalCount;
+            // STUB: not implemented
+            return false;
         }
 
         /**
@@ -310,14 +328,7 @@ public class IntegerSequence {
          * @see #increment()
          */
         public void increment(int nTimes) throws MaxCountExceededException {
-            if (nTimes <= 0) {
-                throw new NotStrictlyPositiveException(nTimes);
-            }
-
-            if (!canIncrement(0)) {
-                maxCountCallback.trigger(maximalCount);
-            }
-            count += nTimes * increment;
+            // STUB: not implemented
         }
 
         /**
@@ -335,19 +346,23 @@ public class IntegerSequence {
          * @see #increment(int)
          */
         public void increment() throws MaxCountExceededException {
-            increment(1);
+            // STUB: not implemented
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public boolean hasNext() {
-            return canIncrement(0);
+            // STUB: not implemented
+            return false;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public Integer next() {
-            final int value = count;
-            increment();
-            return value;
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -356,7 +371,7 @@ public class IntegerSequence {
          * @throws MathUnsupportedOperationException
          */
         public void remove() {
-            throw new MathUnsupportedOperationException();
+            // STUB: not implemented
         }
     }
 }

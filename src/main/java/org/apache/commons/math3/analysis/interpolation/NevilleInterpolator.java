@@ -17,7 +17,6 @@
 package org.apache.commons.math3.analysis.interpolation;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
@@ -34,10 +33,11 @@ import org.apache.commons.math3.exception.NonMonotonicSequenceException;
  *
  * @since 1.2
  */
-public class NevilleInterpolator implements UnivariateInterpolator,
-    Serializable {
+public class NevilleInterpolator implements UnivariateInterpolator, Serializable {
 
-    /** serializable version identifier */
+    /**
+     * serializable version identifier
+     */
     static final long serialVersionUID = 3003707660147873733L;
 
     /**
@@ -51,10 +51,8 @@ public class NevilleInterpolator implements UnivariateInterpolator,
      * @throws NonMonotonicSequenceException if two abscissae have the same
      * value.
      */
-    public PolynomialFunctionLagrangeForm interpolate(double x[], double y[])
-        throws DimensionMismatchException,
-               NumberIsTooSmallException,
-               NonMonotonicSequenceException {
-        return new PolynomialFunctionLagrangeForm(x, y);
+    public PolynomialFunctionLagrangeForm interpolate(double[] x, double[] y) throws DimensionMismatchException, NumberIsTooSmallException, NonMonotonicSequenceException {
+        // STUB: not implemented
+        return null;
     }
 }

@@ -17,7 +17,6 @@
 package org.apache.commons.math3.stat.descriptive.summary;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.exception.NullArgumentException;
 import org.apache.commons.math3.stat.descriptive.AbstractStorelessUnivariateStatistic;
@@ -34,14 +33,16 @@ import org.apache.commons.math3.util.MathUtils;
  * multiple threads access an instance of this class concurrently, and at least
  * one of the threads invokes the <code>increment()</code> or
  * <code>clear()</code> method, it must be synchronized externally.</p>
- *
  */
 public class SumOfSquares extends AbstractStorelessUnivariateStatistic implements Serializable {
 
-    /** Serializable version identifier */
+    /**
+     * Serializable version identifier
+     */
     private static final long serialVersionUID = 1460986908574398008L;
 
-    /** */
+    /**
+     */
     private long n;
 
     /**
@@ -73,8 +74,7 @@ public class SumOfSquares extends AbstractStorelessUnivariateStatistic implement
      */
     @Override
     public void increment(final double d) {
-        value += d * d;
-        n++;
+        // STUB: not implemented
     }
 
     /**
@@ -82,14 +82,16 @@ public class SumOfSquares extends AbstractStorelessUnivariateStatistic implement
      */
     @Override
     public double getResult() {
-        return value;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
      * {@inheritDoc}
      */
     public long getN() {
-        return n;
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -97,8 +99,7 @@ public class SumOfSquares extends AbstractStorelessUnivariateStatistic implement
      */
     @Override
     public void clear() {
-        value = 0;
-        n = 0;
+        // STUB: not implemented
     }
 
     /**
@@ -116,16 +117,9 @@ public class SumOfSquares extends AbstractStorelessUnivariateStatistic implement
      *  parameters are not valid
      */
     @Override
-    public double evaluate(final double[] values,final int begin, final int length)
-    throws MathIllegalArgumentException {
-        double sumSq = Double.NaN;
-        if (test(values, begin, length, true)) {
-            sumSq = 0.0;
-            for (int i = begin; i < begin + length; i++) {
-                sumSq += values[i] * values[i];
-            }
-        }
-        return sumSq;
+    public double evaluate(final double[] values, final int begin, final int length) throws MathIllegalArgumentException {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -133,10 +127,8 @@ public class SumOfSquares extends AbstractStorelessUnivariateStatistic implement
      */
     @Override
     public SumOfSquares copy() {
-        SumOfSquares result = new SumOfSquares();
-        // no try-catch or advertised exception here because args are valid
-        copy(this, result);
-        return result;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -147,13 +139,7 @@ public class SumOfSquares extends AbstractStorelessUnivariateStatistic implement
      * @param dest SumOfSquares to copy to
      * @throws NullArgumentException if either source or dest is null
      */
-    public static void copy(SumOfSquares source, SumOfSquares dest)
-        throws NullArgumentException {
-        MathUtils.checkNotNull(source);
-        MathUtils.checkNotNull(dest);
-        dest.setData(source.getDataRef());
-        dest.n = source.n;
-        dest.value = source.value;
+    public static void copy(SumOfSquares source, SumOfSquares dest) throws NullArgumentException {
+        // STUB: not implemented
     }
-
 }

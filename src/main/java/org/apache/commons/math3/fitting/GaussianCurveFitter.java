@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import org.apache.commons.math3.analysis.function.Gaussian;
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 import org.apache.commons.math3.exception.NullArgumentException;
@@ -70,37 +69,39 @@ import org.apache.commons.math3.util.FastMath;
  * @since 3.3
  */
 public class GaussianCurveFitter extends AbstractCurveFitter {
-    /** Parametric function to be fitted. */
-    private static final Gaussian.Parametric FUNCTION = new Gaussian.Parametric() {
-            /** {@inheritDoc} */
-            @Override
-            public double value(double x, double ... p) {
-                double v = Double.POSITIVE_INFINITY;
-                try {
-                    v = super.value(x, p);
-                } catch (NotStrictlyPositiveException e) { // NOPMD
-                    // Do nothing.
-                }
-                return v;
-            }
 
-            /** {@inheritDoc} */
-            @Override
-            public double[] gradient(double x, double ... p) {
-                double[] v = { Double.POSITIVE_INFINITY,
-                               Double.POSITIVE_INFINITY,
-                               Double.POSITIVE_INFINITY };
-                try {
-                    v = super.gradient(x, p);
-                } catch (NotStrictlyPositiveException e) { // NOPMD
-                    // Do nothing.
-                }
-                return v;
-            }
-        };
-    /** Initial guess. */
+    /**
+     * Parametric function to be fitted.
+     */
+    private static final Gaussian.Parametric FUNCTION = new Gaussian.Parametric() {
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public double value(double x, double... p) {
+            // STUB: not implemented
+            return 0.0;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public double[] gradient(double x, double... p) {
+            // STUB: not implemented
+            return null;
+        }
+    };
+
+    /**
+     * Initial guess.
+     */
     private final double[] initialGuess;
-    /** Maximum number of iterations of the optimization algorithm. */
+
+    /**
+     * Maximum number of iterations of the optimization algorithm.
+     */
     private final int maxIter;
 
     /**
@@ -110,8 +111,7 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
      * will be estimated using the {@link ParameterGuesser}.
      * @param maxIter Maximum number of iterations of the optimization algorithm.
      */
-    private GaussianCurveFitter(double[] initialGuess,
-                                int maxIter) {
+    private GaussianCurveFitter(double[] initialGuess, int maxIter) {
         this.initialGuess = initialGuess;
         this.maxIter = maxIter;
     }
@@ -128,7 +128,8 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
      * @see #withMaxIterations(int)
      */
     public static GaussianCurveFitter create() {
-        return new GaussianCurveFitter(null, Integer.MAX_VALUE);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -137,8 +138,8 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
      * @return a new instance.
      */
     public GaussianCurveFitter withStartPoint(double[] newStart) {
-        return new GaussianCurveFitter(newStart.clone(),
-                                       maxIter);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -147,45 +148,17 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
      * @return a new instance.
      */
     public GaussianCurveFitter withMaxIterations(int newMaxIter) {
-        return new GaussianCurveFitter(initialGuess,
-                                       newMaxIter);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected LeastSquaresProblem getProblem(Collection<WeightedObservedPoint> observations) {
-
-        // Prepare least-squares problem.
-        final int len = observations.size();
-        final double[] target  = new double[len];
-        final double[] weights = new double[len];
-
-        int i = 0;
-        for (WeightedObservedPoint obs : observations) {
-            target[i]  = obs.getY();
-            weights[i] = obs.getWeight();
-            ++i;
-        }
-
-        final AbstractCurveFitter.TheoreticalValuesFunction model =
-                new AbstractCurveFitter.TheoreticalValuesFunction(FUNCTION, observations);
-
-        final double[] startPoint = initialGuess != null ?
-            initialGuess :
-            // Compute estimation.
-            new ParameterGuesser(observations).guess();
-
-        // Return a new least squares problem set up to fit a Gaussian curve to the
-        // observed points.
-        return new LeastSquaresBuilder().
-                maxEvaluations(Integer.MAX_VALUE).
-                maxIterations(maxIter).
-                start(startPoint).
-                target(target).
-                weight(new DiagonalMatrix(weights)).
-                model(model.getModelFunction(), model.getModelFunctionJacobian()).
-                build();
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -194,11 +167,20 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
      * based on the specified observed points.
      */
     public static class ParameterGuesser {
-        /** Normalization factor. */
+
+        /**
+         * Normalization factor.
+         */
         private final double norm;
-        /** Mean. */
+
+        /**
+         * Mean.
+         */
         private final double mean;
-        /** Standard deviation. */
+
+        /**
+         * Standard deviation.
+         */
         private final double sigma;
 
         /**
@@ -218,10 +200,8 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
             if (observations.size() < 3) {
                 throw new NumberIsTooSmallException(observations.size(), 3, true);
             }
-
             final List<WeightedObservedPoint> sorted = sortObservations(observations);
             final double[] params = basicGuess(sorted.toArray(new WeightedObservedPoint[0]));
-
             norm = params[0];
             mean = params[1];
             sigma = params[2];
@@ -238,7 +218,8 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
          * </ul>
          */
         public double[] guess() {
-            return new double[] { norm, mean, sigma };
+            // STUB: not implemented
+            return null;
         }
 
         /**
@@ -249,11 +230,12 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
          */
         private List<WeightedObservedPoint> sortObservations(Collection<WeightedObservedPoint> unsorted) {
             final List<WeightedObservedPoint> observations = new ArrayList<WeightedObservedPoint>(unsorted);
-
             final Comparator<WeightedObservedPoint> cmp = new Comparator<WeightedObservedPoint>() {
-                /** {@inheritDoc} */
-                public int compare(WeightedObservedPoint p1,
-                                   WeightedObservedPoint p2) {
+
+                /**
+                 * {@inheritDoc}
+                 */
+                public int compare(WeightedObservedPoint p1, WeightedObservedPoint p2) {
                     if (p1 == null && p2 == null) {
                         return 0;
                     }
@@ -287,7 +269,6 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
                     return 0;
                 }
             };
-
             Collections.sort(observations, cmp);
             return observations;
         }
@@ -303,7 +284,6 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
             final int maxYIdx = findMaxY(points);
             final double n = points[maxYIdx].getY();
             final double m = points[maxYIdx].getX();
-
             double fwhmApprox;
             try {
                 final double halfY = n + ((m - n) / 2);
@@ -315,7 +295,6 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
                 fwhmApprox = points[points.length - 1].getX() - points[0].getX();
             }
             final double s = fwhmApprox / (2 * FastMath.sqrt(2 * FastMath.log(2)));
-
             return new double[] { n, m, s };
         }
 
@@ -349,16 +328,11 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
          * @throws OutOfRangeException if specified {@code y} is not within the
          * range of the specified {@code points}.
          */
-        private double interpolateXAtY(WeightedObservedPoint[] points,
-                                       int startIdx,
-                                       int idxStep,
-                                       double y)
-            throws OutOfRangeException {
+        private double interpolateXAtY(WeightedObservedPoint[] points, int startIdx, int idxStep, double y) throws OutOfRangeException {
             if (idxStep == 0) {
                 throw new ZeroException();
             }
-            final WeightedObservedPoint[] twoPoints
-                = getInterpolationPointsForY(points, startIdx, idxStep, y);
+            final WeightedObservedPoint[] twoPoints = getInterpolationPointsForY(points, startIdx, idxStep, y);
             final WeightedObservedPoint p1 = twoPoints[0];
             final WeightedObservedPoint p2 = twoPoints[1];
             if (p1.getY() == y) {
@@ -367,8 +341,7 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
             if (p2.getY() == y) {
                 return p2.getX();
             }
-            return p1.getX() + (((y - p1.getY()) * (p2.getX() - p1.getX())) /
-                                (p2.getY() - p1.getY()));
+            return p1.getX() + (((y - p1.getY()) * (p2.getX() - p1.getX())) / (p2.getY() - p1.getY()));
         }
 
         /**
@@ -386,17 +359,11 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
          * @throws OutOfRangeException if specified {@code y} is not within the
          * range of the specified {@code points}.
          */
-        private WeightedObservedPoint[] getInterpolationPointsForY(WeightedObservedPoint[] points,
-                                                                   int startIdx,
-                                                                   int idxStep,
-                                                                   double y)
-            throws OutOfRangeException {
+        private WeightedObservedPoint[] getInterpolationPointsForY(WeightedObservedPoint[] points, int startIdx, int idxStep, double y) throws OutOfRangeException {
             if (idxStep == 0) {
                 throw new ZeroException();
             }
-            for (int i = startIdx;
-                 idxStep < 0 ? i + idxStep >= 0 : i + idxStep < points.length;
-                 i += idxStep) {
+            for (int i = startIdx; idxStep < 0 ? i + idxStep >= 0 : i + idxStep < points.length; i += idxStep) {
                 final WeightedObservedPoint p1 = points[i];
                 final WeightedObservedPoint p2 = points[i + idxStep];
                 if (isBetween(y, p1.getY(), p2.getY())) {
@@ -407,13 +374,10 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
                     }
                 }
             }
-
             // Boundaries are replaced by dummy values because the raised
             // exception is caught and the message never displayed.
             // TODO: Exceptions should not be used for flow control.
-            throw new OutOfRangeException(y,
-                                          Double.NEGATIVE_INFINITY,
-                                          Double.POSITIVE_INFINITY);
+            throw new OutOfRangeException(y, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         }
 
         /**
@@ -426,11 +390,8 @@ public class GaussianCurveFitter extends AbstractCurveFitter {
          * @return {@code true} if {@code value} is between {@code boundary1} and
          * {@code boundary2} (inclusive), {@code false} otherwise.
          */
-        private boolean isBetween(double value,
-                                  double boundary1,
-                                  double boundary2) {
-            return (value >= boundary1 && value <= boundary2) ||
-                (value >= boundary2 && value <= boundary1);
+        private boolean isBetween(double value, double boundary1, double boundary2) {
+            return (value >= boundary1 && value <= boundary2) || (value >= boundary2 && value <= boundary1);
         }
     }
 }

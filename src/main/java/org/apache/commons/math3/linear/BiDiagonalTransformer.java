@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.linear;
 
 import org.apache.commons.math3.util.FastMath;
-
 
 /**
  * Class transforming any matrix to bi-diagonal shape.
@@ -36,22 +34,34 @@ import org.apache.commons.math3.util.FastMath;
  */
 class BiDiagonalTransformer {
 
-    /** Householder vectors. */
-    private final double householderVectors[][];
+    /**
+     * Householder vectors.
+     */
+    private final double[][] householderVectors;
 
-    /** Main diagonal. */
+    /**
+     * Main diagonal.
+     */
     private final double[] main;
 
-    /** Secondary diagonal. */
+    /**
+     * Secondary diagonal.
+     */
     private final double[] secondary;
 
-    /** Cached value of U. */
+    /**
+     * Cached value of U.
+     */
     private RealMatrix cachedU;
 
-    /** Cached value of B. */
+    /**
+     * Cached value of B.
+     */
     private RealMatrix cachedB;
 
-    /** Cached value of V. */
+    /**
+     * Cached value of V.
+     */
     private RealMatrix cachedV;
 
     /**
@@ -59,24 +69,21 @@ class BiDiagonalTransformer {
      * @param matrix the matrix to transform.
      */
     BiDiagonalTransformer(RealMatrix matrix) {
-
         final int m = matrix.getRowDimension();
         final int n = matrix.getColumnDimension();
         final int p = FastMath.min(m, n);
         householderVectors = matrix.getData();
-        main      = new double[p];
+        main = new double[p];
         secondary = new double[p - 1];
-        cachedU   = null;
-        cachedB   = null;
-        cachedV   = null;
-
+        cachedU = null;
+        cachedB = null;
+        cachedV = null;
         // transform matrix
         if (m >= n) {
             transformToUpperBiDiagonal();
         } else {
             transformToLowerBiDiagonal();
         }
-
     }
 
     /**
@@ -85,48 +92,8 @@ class BiDiagonalTransformer {
      * @return the U matrix
      */
     public RealMatrix getU() {
-
-        if (cachedU == null) {
-
-            final int m = householderVectors.length;
-            final int n = householderVectors[0].length;
-            final int p = main.length;
-            final int diagOffset    = (m >= n) ? 0 : 1;
-            final double[] diagonal = (m >= n) ? main : secondary;
-            double[][] ua = new double[m][m];
-
-            // fill up the part of the matrix not affected by Householder transforms
-            for (int k = m - 1; k >= p; --k) {
-                ua[k][k] = 1;
-            }
-
-            // build up first part of the matrix by applying Householder transforms
-            for (int k = p - 1; k >= diagOffset; --k) {
-                final double[] hK = householderVectors[k];
-                ua[k][k] = 1;
-                if (hK[k - diagOffset] != 0.0) {
-                    for (int j = k; j < m; ++j) {
-                        double alpha = 0;
-                        for (int i = k; i < m; ++i) {
-                            alpha -= ua[i][j] * householderVectors[i][k - diagOffset];
-                        }
-                        alpha /= diagonal[k - diagOffset] * hK[k - diagOffset];
-
-                        for (int i = k; i < m; ++i) {
-                            ua[i][j] += -alpha * householderVectors[i][k - diagOffset];
-                        }
-                    }
-                }
-            }
-            if (diagOffset > 0) {
-                ua[0][0] = 1;
-            }
-            cachedU = MatrixUtils.createRealMatrix(ua);
-        }
-
-        // return the cached matrix
-        return cachedU;
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -134,30 +101,8 @@ class BiDiagonalTransformer {
      * @return the B matrix
      */
     public RealMatrix getB() {
-
-        if (cachedB == null) {
-
-            final int m = householderVectors.length;
-            final int n = householderVectors[0].length;
-            double[][] ba = new double[m][n];
-            for (int i = 0; i < main.length; ++i) {
-                ba[i][i] = main[i];
-                if (m < n) {
-                    if (i > 0) {
-                        ba[i][i-1] = secondary[i - 1];
-                    }
-                } else {
-                    if (i < main.length - 1) {
-                        ba[i][i+1] = secondary[i];
-                    }
-                }
-            }
-            cachedB = MatrixUtils.createRealMatrix(ba);
-        }
-
-        // return the cached matrix
-        return cachedB;
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -166,48 +111,8 @@ class BiDiagonalTransformer {
      * @return the V matrix
      */
     public RealMatrix getV() {
-
-        if (cachedV == null) {
-
-            final int m = householderVectors.length;
-            final int n = householderVectors[0].length;
-            final int p = main.length;
-            final int diagOffset    = (m >= n) ? 1 : 0;
-            final double[] diagonal = (m >= n) ? secondary : main;
-            double[][] va = new double[n][n];
-
-            // fill up the part of the matrix not affected by Householder transforms
-            for (int k = n - 1; k >= p; --k) {
-                va[k][k] = 1;
-            }
-
-            // build up first part of the matrix by applying Householder transforms
-            for (int k = p - 1; k >= diagOffset; --k) {
-                final double[] hK = householderVectors[k - diagOffset];
-                va[k][k] = 1;
-                if (hK[k] != 0.0) {
-                    for (int j = k; j < n; ++j) {
-                        double beta = 0;
-                        for (int i = k; i < n; ++i) {
-                            beta -= va[i][j] * hK[i];
-                        }
-                        beta /= diagonal[k - diagOffset] * hK[k];
-
-                        for (int i = k; i < n; ++i) {
-                            va[i][j] += -beta * hK[i];
-                        }
-                    }
-                }
-            }
-            if (diagOffset > 0) {
-                va[0][0] = 1;
-            }
-            cachedV = MatrixUtils.createRealMatrix(va);
-        }
-
-        // return the cached matrix
-        return cachedV;
-
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -217,7 +122,8 @@ class BiDiagonalTransformer {
      * @return the main diagonal elements of the B matrix
      */
     double[][] getHouseholderVectorsRef() {
-        return householderVectors;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -227,7 +133,8 @@ class BiDiagonalTransformer {
      * @return the main diagonal elements of the B matrix
      */
     double[] getMainDiagonalRef() {
-        return main;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -237,7 +144,8 @@ class BiDiagonalTransformer {
      * @return the secondary diagonal elements of the B matrix
      */
     double[] getSecondaryDiagonalRef() {
-        return secondary;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -245,7 +153,8 @@ class BiDiagonalTransformer {
      * @return true if the matrix is transformed to upper bi-diagonal
      */
     boolean isUpperBiDiagonal() {
-        return householderVectors.length >=  householderVectors[0].length;
+        // STUB: not implemented
+        return false;
     }
 
     /**
@@ -254,11 +163,9 @@ class BiDiagonalTransformer {
      * on columns and rows.</p>
      */
     private void transformToUpperBiDiagonal() {
-
         final int m = householderVectors.length;
         final int n = householderVectors[0].length;
         for (int k = 0; k < n; k++) {
-
             //zero-out a column
             double xNormSqr = 0;
             for (int i = k; i < m; ++i) {
@@ -283,7 +190,6 @@ class BiDiagonalTransformer {
                     }
                 }
             }
-
             if (k < n - 1) {
                 //zero-out a row
                 xNormSqr = 0;
@@ -308,7 +214,6 @@ class BiDiagonalTransformer {
                     }
                 }
             }
-
         }
     }
 
@@ -318,11 +223,9 @@ class BiDiagonalTransformer {
      * on rows and columns.</p>
      */
     private void transformToLowerBiDiagonal() {
-
         final int m = householderVectors.length;
         final int n = householderVectors[0].length;
         for (int k = 0; k < m; k++) {
-
             //zero-out a row
             final double[] hK = householderVectors[k];
             double xNormSqr = 0;
@@ -346,7 +249,6 @@ class BiDiagonalTransformer {
                     }
                 }
             }
-
             if (k < m - 1) {
                 //zero-out a column
                 final double[] hKp1 = householderVectors[k + 1];
@@ -373,8 +275,6 @@ class BiDiagonalTransformer {
                     }
                 }
             }
-
         }
     }
-
 }

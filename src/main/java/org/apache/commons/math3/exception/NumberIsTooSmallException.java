@@ -25,12 +25,17 @@ import org.apache.commons.math3.exception.util.LocalizedFormats;
  * @since 2.2
  */
 public class NumberIsTooSmallException extends MathIllegalNumberException {
-    /** Serializable version Id. */
+
+    /**
+     * Serializable version Id.
+     */
     private static final long serialVersionUID = -6100997100383932834L;
+
     /**
      * Higher bound.
      */
     private final Number min;
+
     /**
      * Whether the maximum is included in the allowed range.
      */
@@ -43,13 +48,8 @@ public class NumberIsTooSmallException extends MathIllegalNumberException {
      * @param min Minimum.
      * @param boundIsAllowed Whether {@code min} is included in the allowed range.
      */
-    public NumberIsTooSmallException(Number wrong,
-                                     Number min,
-                                     boolean boundIsAllowed) {
-        this(boundIsAllowed ?
-             LocalizedFormats.NUMBER_TOO_SMALL :
-             LocalizedFormats.NUMBER_TOO_SMALL_BOUND_EXCLUDED,
-             wrong, min, boundIsAllowed);
+    public NumberIsTooSmallException(Number wrong, Number min, boolean boundIsAllowed) {
+        this(boundIsAllowed ? LocalizedFormats.NUMBER_TOO_SMALL : LocalizedFormats.NUMBER_TOO_SMALL_BOUND_EXCLUDED, wrong, min, boundIsAllowed);
     }
 
     /**
@@ -60,12 +60,8 @@ public class NumberIsTooSmallException extends MathIllegalNumberException {
      * @param min Minimum.
      * @param boundIsAllowed Whether {@code min} is included in the allowed range.
      */
-    public NumberIsTooSmallException(Localizable specific,
-                                     Number wrong,
-                                     Number min,
-                                     boolean boundIsAllowed) {
+    public NumberIsTooSmallException(Localizable specific, Number wrong, Number min, boolean boundIsAllowed) {
         super(specific, wrong, min);
-
         this.min = min;
         this.boundIsAllowed = boundIsAllowed;
     }
@@ -74,13 +70,15 @@ public class NumberIsTooSmallException extends MathIllegalNumberException {
      * @return {@code true} if the minimum is included in the allowed range.
      */
     public boolean getBoundIsAllowed() {
-        return boundIsAllowed;
+        // STUB: not implemented
+        return false;
     }
 
     /**
      * @return the minimum.
      */
     public Number getMin() {
-        return min;
+        // STUB: not implemented
+        return null;
     }
 }

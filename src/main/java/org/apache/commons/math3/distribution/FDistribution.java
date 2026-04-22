@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.distribution;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
@@ -31,22 +30,41 @@ import org.apache.commons.math3.util.FastMath;
  * @see <a href="http://mathworld.wolfram.com/F-Distribution.html">F-distribution (MathWorld)</a>
  */
 public class FDistribution extends AbstractRealDistribution {
+
     /**
      * Default inverse cumulative probability accuracy.
      * @since 2.1
      */
     public static final double DEFAULT_INVERSE_ABSOLUTE_ACCURACY = 1e-9;
-    /** Serializable version identifier. */
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = -8516354193418641566L;
-    /** The numerator degrees of freedom. */
+
+    /**
+     * The numerator degrees of freedom.
+     */
     private final double numeratorDegreesOfFreedom;
-    /** The numerator degrees of freedom. */
+
+    /**
+     * The numerator degrees of freedom.
+     */
     private final double denominatorDegreesOfFreedom;
-    /** Inverse cumulative probability accuracy. */
+
+    /**
+     * Inverse cumulative probability accuracy.
+     */
     private final double solverAbsoluteAccuracy;
-    /** Cached numerical variance */
+
+    /**
+     * Cached numerical variance
+     */
     private double numericalVariance = Double.NaN;
-    /** Whether or not the numerical variance has been calculated */
+
+    /**
+     * Whether or not the numerical variance has been calculated
+     */
     private boolean numericalVarianceIsCalculated = false;
 
     /**
@@ -65,11 +83,8 @@ public class FDistribution extends AbstractRealDistribution {
      * {@code numeratorDegreesOfFreedom <= 0} or
      * {@code denominatorDegreesOfFreedom <= 0}.
      */
-    public FDistribution(double numeratorDegreesOfFreedom,
-                         double denominatorDegreesOfFreedom)
-        throws NotStrictlyPositiveException {
-        this(numeratorDegreesOfFreedom, denominatorDegreesOfFreedom,
-             DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
+    public FDistribution(double numeratorDegreesOfFreedom, double denominatorDegreesOfFreedom) throws NotStrictlyPositiveException {
+        this(numeratorDegreesOfFreedom, denominatorDegreesOfFreedom, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
     /**
@@ -92,12 +107,8 @@ public class FDistribution extends AbstractRealDistribution {
      * {@code denominatorDegreesOfFreedom <= 0}.
      * @since 2.1
      */
-    public FDistribution(double numeratorDegreesOfFreedom,
-                         double denominatorDegreesOfFreedom,
-                         double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
-        this(new Well19937c(), numeratorDegreesOfFreedom,
-             denominatorDegreesOfFreedom, inverseCumAccuracy);
+    public FDistribution(double numeratorDegreesOfFreedom, double denominatorDegreesOfFreedom, double inverseCumAccuracy) throws NotStrictlyPositiveException {
+        this(new Well19937c(), numeratorDegreesOfFreedom, denominatorDegreesOfFreedom, inverseCumAccuracy);
     }
 
     /**
@@ -110,10 +121,7 @@ public class FDistribution extends AbstractRealDistribution {
      * {@code denominatorDegreesOfFreedom <= 0}.
      * @since 3.3
      */
-    public FDistribution(RandomGenerator rng,
-                         double numeratorDegreesOfFreedom,
-                         double denominatorDegreesOfFreedom)
-        throws NotStrictlyPositiveException {
+    public FDistribution(RandomGenerator rng, double numeratorDegreesOfFreedom, double denominatorDegreesOfFreedom) throws NotStrictlyPositiveException {
         this(rng, numeratorDegreesOfFreedom, denominatorDegreesOfFreedom, DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
     }
 
@@ -129,20 +137,13 @@ public class FDistribution extends AbstractRealDistribution {
      * {@code denominatorDegreesOfFreedom <= 0}.
      * @since 3.1
      */
-    public FDistribution(RandomGenerator rng,
-                         double numeratorDegreesOfFreedom,
-                         double denominatorDegreesOfFreedom,
-                         double inverseCumAccuracy)
-        throws NotStrictlyPositiveException {
+    public FDistribution(RandomGenerator rng, double numeratorDegreesOfFreedom, double denominatorDegreesOfFreedom, double inverseCumAccuracy) throws NotStrictlyPositiveException {
         super(rng);
-
         if (numeratorDegreesOfFreedom <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.DEGREES_OF_FREEDOM,
-                                                   numeratorDegreesOfFreedom);
+            throw new NotStrictlyPositiveException(LocalizedFormats.DEGREES_OF_FREEDOM, numeratorDegreesOfFreedom);
         }
         if (denominatorDegreesOfFreedom <= 0) {
-            throw new NotStrictlyPositiveException(LocalizedFormats.DEGREES_OF_FREEDOM,
-                                                   denominatorDegreesOfFreedom);
+            throw new NotStrictlyPositiveException(LocalizedFormats.DEGREES_OF_FREEDOM, denominatorDegreesOfFreedom);
         }
         this.numeratorDegreesOfFreedom = numeratorDegreesOfFreedom;
         this.denominatorDegreesOfFreedom = denominatorDegreesOfFreedom;
@@ -155,22 +156,17 @@ public class FDistribution extends AbstractRealDistribution {
      * @since 2.1
      */
     public double density(double x) {
-        return FastMath.exp(logDensity(x));
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} **/
+    /**
+     * {@inheritDoc} *
+     */
     @Override
     public double logDensity(double x) {
-        final double nhalf = numeratorDegreesOfFreedom / 2;
-        final double mhalf = denominatorDegreesOfFreedom / 2;
-        final double logx = FastMath.log(x);
-        final double logn = FastMath.log(numeratorDegreesOfFreedom);
-        final double logm = FastMath.log(denominatorDegreesOfFreedom);
-        final double lognxm = FastMath.log(numeratorDegreesOfFreedom * x +
-                denominatorDegreesOfFreedom);
-        return nhalf * logn + nhalf * logx - logx +
-               mhalf * logm - nhalf * lognxm - mhalf * lognxm -
-               Beta.logBeta(nhalf, mhalf);
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -184,19 +180,9 @@ public class FDistribution extends AbstractRealDistribution {
      *  </li>
      * </ul>
      */
-    public double cumulativeProbability(double x)  {
-        double ret;
-        if (x <= 0) {
-            ret = 0;
-        } else {
-            double n = numeratorDegreesOfFreedom;
-            double m = denominatorDegreesOfFreedom;
-
-            ret = Beta.regularizedBeta((n * x) / (m + n * x),
-                0.5 * n,
-                0.5 * m);
-        }
-        return ret;
+    public double cumulativeProbability(double x) {
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -205,7 +191,8 @@ public class FDistribution extends AbstractRealDistribution {
      * @return the numerator degrees of freedom.
      */
     public double getNumeratorDegreesOfFreedom() {
-        return numeratorDegreesOfFreedom;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -214,13 +201,17 @@ public class FDistribution extends AbstractRealDistribution {
      * @return the denominator degrees of freedom.
      */
     public double getDenominatorDegreesOfFreedom() {
-        return denominatorDegreesOfFreedom;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected double getSolverAbsoluteAccuracy() {
-        return solverAbsoluteAccuracy;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -233,13 +224,8 @@ public class FDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double getNumericalMean() {
-        final double denominatorDF = getDenominatorDegreesOfFreedom();
-
-        if (denominatorDF > 2) {
-            return denominatorDF / (denominatorDF - 2);
-        }
-
-        return Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -256,11 +242,8 @@ public class FDistribution extends AbstractRealDistribution {
      * </ul>
      */
     public double getNumericalVariance() {
-        if (!numericalVarianceIsCalculated) {
-            numericalVariance = calculateNumericalVariance();
-            numericalVarianceIsCalculated = true;
-        }
-        return numericalVariance;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -269,17 +252,8 @@ public class FDistribution extends AbstractRealDistribution {
      * @return the variance of this distribution
      */
     protected double calculateNumericalVariance() {
-        final double denominatorDF = getDenominatorDegreesOfFreedom();
-
-        if (denominatorDF > 4) {
-            final double numeratorDF = getNumeratorDegreesOfFreedom();
-            final double denomDFMinusTwo = denominatorDF - 2;
-
-            return ( 2 * (denominatorDF * denominatorDF) * (numeratorDF + denominatorDF - 2) ) /
-                   ( (numeratorDF * (denomDFMinusTwo * denomDFMinusTwo) * (denominatorDF - 4)) );
-        }
-
-        return Double.NaN;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -290,7 +264,8 @@ public class FDistribution extends AbstractRealDistribution {
      * @return lower bound of the support (always 0)
      */
     public double getSupportLowerBound() {
-        return 0;
+        // STUB: not implemented
+        return 0.0;
     }
 
     /**
@@ -302,16 +277,23 @@ public class FDistribution extends AbstractRealDistribution {
      * @return upper bound of the support (always Double.POSITIVE_INFINITY)
      */
     public double getSupportUpperBound() {
-        return Double.POSITIVE_INFINITY;
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportLowerBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public boolean isSupportUpperBoundInclusive() {
+        // STUB: not implemented
         return false;
     }
 
@@ -323,6 +305,7 @@ public class FDistribution extends AbstractRealDistribution {
      * @return {@code true}
      */
     public boolean isSupportConnected() {
-        return true;
+        // STUB: not implemented
+        return false;
     }
 }

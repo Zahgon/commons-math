@@ -29,7 +29,9 @@ import java.util.List;
  */
 public abstract class AbstractListChromosome<T> extends Chromosome {
 
-    /** List representing the chromosome */
+    /**
+     * List representing the chromosome
+     */
     private final List<T> representation;
 
     /**
@@ -58,8 +60,7 @@ public abstract class AbstractListChromosome<T> extends Chromosome {
      */
     public AbstractListChromosome(final List<T> representation, final boolean copyList) {
         checkValidity(representation);
-        this.representation =
-                Collections.unmodifiableList(copyList ? new ArrayList<T>(representation) : representation);
+        this.representation = Collections.unmodifiableList(copyList ? new ArrayList<T>(representation) : representation);
     }
 
     /**
@@ -75,7 +76,8 @@ public abstract class AbstractListChromosome<T> extends Chromosome {
      * @return the representation of the chromosome
      */
     protected List<T> getRepresentation() {
-        return representation;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -83,7 +85,8 @@ public abstract class AbstractListChromosome<T> extends Chromosome {
      * @return the length of the chromosome
      */
     public int getLength() {
-        return getRepresentation().size();
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -98,9 +101,12 @@ public abstract class AbstractListChromosome<T> extends Chromosome {
      */
     public abstract AbstractListChromosome<T> newFixedLengthChromosome(final List<T> chromosomeRepresentation);
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-        return String.format("(f=%s %s)", getFitness(), getRepresentation());
+        // STUB: not implemented
+        return null;
     }
 }

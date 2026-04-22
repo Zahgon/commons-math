@@ -14,13 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.math3.stat.clustering;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.apache.commons.math3.util.MathArrays;
 
 /**
@@ -32,10 +30,14 @@ import org.apache.commons.math3.util.MathArrays;
 @Deprecated
 public class EuclideanIntegerPoint implements Clusterable<EuclideanIntegerPoint>, Serializable {
 
-    /** Serializable version identifier. */
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 3946024775784901369L;
 
-    /** Point coordinates. */
+    /**
+     * Point coordinates.
+     */
     private final int[] point;
 
     /**
@@ -52,41 +54,42 @@ public class EuclideanIntegerPoint implements Clusterable<EuclideanIntegerPoint>
      * @return a reference (not a copy!) to the wrapped array
      */
     public int[] getPoint() {
-        return point;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public double distanceFrom(final EuclideanIntegerPoint p) {
-        return MathArrays.distance(point, p.getPoint());
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public EuclideanIntegerPoint centroidOf(final Collection<EuclideanIntegerPoint> points) {
-        int[] centroid = new int[getPoint().length];
-        for (EuclideanIntegerPoint p : points) {
-            for (int i = 0; i < centroid.length; i++) {
-                centroid[i] += p.getPoint()[i];
-            }
-        }
-        for (int i = 0; i < centroid.length; i++) {
-            centroid[i] /= points.size();
-        }
-        return new EuclideanIntegerPoint(centroid);
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(final Object other) {
-        if (!(other instanceof EuclideanIntegerPoint)) {
-            return false;
-        }
-        return Arrays.equals(point, ((EuclideanIntegerPoint) other).point);
+        // STUB: not implemented
+        return false;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(point);
+        // STUB: not implemented
+        return 0;
     }
 
     /**
@@ -95,7 +98,7 @@ public class EuclideanIntegerPoint implements Clusterable<EuclideanIntegerPoint>
      */
     @Override
     public String toString() {
-        return Arrays.toString(point);
+        // STUB: not implemented
+        return null;
     }
-
 }

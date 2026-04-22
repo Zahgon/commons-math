@@ -17,7 +17,6 @@
 package org.apache.commons.math3.linear;
 
 import java.io.Serializable;
-
 import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 import org.apache.commons.math3.exception.NullArgumentException;
@@ -32,11 +31,16 @@ import org.apache.commons.math3.util.Precision;
  *
  * @since 3.1.1
  */
-public class DiagonalMatrix extends AbstractRealMatrix
-    implements Serializable {
-    /** Serializable version identifier. */
+public class DiagonalMatrix extends AbstractRealMatrix implements Serializable {
+
+    /**
+     * Serializable version identifier.
+     */
     private static final long serialVersionUID = 20121229L;
-    /** Entries of the diagonal. */
+
+    /**
+     * Entries of the diagonal.
+     */
     private final double[] data;
 
     /**
@@ -46,8 +50,7 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @throws NotStrictlyPositiveException if the dimension is
      * not positive.
      */
-    public DiagonalMatrix(final int dimension)
-        throws NotStrictlyPositiveException {
+    public DiagonalMatrix(final int dimension) throws NotStrictlyPositiveException {
         super(dimension, dimension);
         data = new double[dimension];
     }
@@ -77,8 +80,7 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * otherwise it will be referenced.
      * @exception NullArgumentException if d is null
      */
-    public DiagonalMatrix(final double[] d, final boolean copyArray)
-        throws NullArgumentException {
+    public DiagonalMatrix(final double[] d, final boolean copyArray) throws NullArgumentException {
         MathUtils.checkNotNull(d);
         data = copyArray ? d.clone() : d;
     }
@@ -89,21 +91,18 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @throws DimensionMismatchException if the requested dimensions are not equal.
      */
     @Override
-    public RealMatrix createMatrix(final int rowDimension,
-                                   final int columnDimension)
-        throws NotStrictlyPositiveException,
-               DimensionMismatchException {
-        if (rowDimension != columnDimension) {
-            throw new DimensionMismatchException(rowDimension, columnDimension);
-        }
-
-        return new DiagonalMatrix(rowDimension);
+    public RealMatrix createMatrix(final int rowDimension, final int columnDimension) throws NotStrictlyPositiveException, DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RealMatrix copy() {
-        return new DiagonalMatrix(data);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -114,18 +113,9 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @throws MatrixDimensionMismatchException if {@code m} is not the same
      * size as {@code this}.
      */
-    public DiagonalMatrix add(final DiagonalMatrix m)
-        throws MatrixDimensionMismatchException {
-        // Safety check.
-        MatrixUtils.checkAdditionCompatible(this, m);
-
-        final int dim = getRowDimension();
-        final double[] outData = new double[dim];
-        for (int i = 0; i < dim; i++) {
-            outData[i] = data[i] + m.data[i];
-        }
-
-        return new DiagonalMatrix(outData, false);
+    public DiagonalMatrix add(final DiagonalMatrix m) throws MatrixDimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -136,17 +126,9 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @throws MatrixDimensionMismatchException if {@code m} is not the same
      * size as {@code this}.
      */
-    public DiagonalMatrix subtract(final DiagonalMatrix m)
-        throws MatrixDimensionMismatchException {
-        MatrixUtils.checkSubtractionCompatible(this, m);
-
-        final int dim = getRowDimension();
-        final double[] outData = new double[dim];
-        for (int i = 0; i < dim; i++) {
-            outData[i] = data[i] - m.data[i];
-        }
-
-        return new DiagonalMatrix(outData, false);
+    public DiagonalMatrix subtract(final DiagonalMatrix m) throws MatrixDimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -157,17 +139,9 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @throws DimensionMismatchException if
      * {@code columnDimension(this) != rowDimension(m)}
      */
-    public DiagonalMatrix multiply(final DiagonalMatrix m)
-        throws DimensionMismatchException {
-        MatrixUtils.checkMultiplicationCompatible(this, m);
-
-        final int dim = getRowDimension();
-        final double[] outData = new double[dim];
-        for (int i = 0; i < dim; i++) {
-            outData[i] = data[i] * m.data[i];
-        }
-
-        return new DiagonalMatrix(outData, false);
+    public DiagonalMatrix multiply(final DiagonalMatrix m) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -179,35 +153,18 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * {@code columnDimension(this) != rowDimension(m)}
      */
     @Override
-    public RealMatrix multiply(final RealMatrix m)
-        throws DimensionMismatchException {
-        if (m instanceof DiagonalMatrix) {
-            return multiply((DiagonalMatrix) m);
-        } else {
-            MatrixUtils.checkMultiplicationCompatible(this, m);
-            final int nRows = m.getRowDimension();
-            final int nCols = m.getColumnDimension();
-            final double[][] product = new double[nRows][nCols];
-            for (int r = 0; r < nRows; r++) {
-                for (int c = 0; c < nCols; c++) {
-                    product[r][c] = data[r] * m.getEntry(r, c);
-                }
-            }
-            return new Array2DRowRealMatrix(product, false);
-        }
+    public RealMatrix multiply(final RealMatrix m) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double[][] getData() {
-        final int dim = getRowDimension();
-        final double[][] out = new double[dim][dim];
-
-        for (int i = 0; i < dim; i++) {
-            out[i][i] = data[i];
-        }
-
-        return out;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -216,99 +173,92 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @return 1-dimensional array of entries.
      */
     public double[] getDataRef() {
-        return data;
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double getEntry(final int row, final int column)
-        throws OutOfRangeException {
-        MatrixUtils.checkMatrixIndex(this, row, column);
-        return row == column ? data[row] : 0;
+    public double getEntry(final int row, final int column) throws OutOfRangeException {
+        // STUB: not implemented
+        return 0.0;
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @throws NumberIsTooLargeException if {@code row != column} and value is non-zero.
      */
     @Override
-    public void setEntry(final int row, final int column, final double value)
-        throws OutOfRangeException, NumberIsTooLargeException {
-        if (row == column) {
-            MatrixUtils.checkRowIndex(this, row);
-            data[row] = value;
-        } else {
-            ensureZero(value);
-        }
+    public void setEntry(final int row, final int column, final double value) throws OutOfRangeException, NumberIsTooLargeException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc}
+    /**
+     * {@inheritDoc}
      * @throws NumberIsTooLargeException if {@code row != column} and increment is non-zero.
      */
     @Override
-    public void addToEntry(final int row,
-                           final int column,
-                           final double increment)
-        throws OutOfRangeException, NumberIsTooLargeException {
-        if (row == column) {
-            MatrixUtils.checkRowIndex(this, row);
-            data[row] += increment;
-        } else {
-            ensureZero(increment);
-        }
+    public void addToEntry(final int row, final int column, final double increment) throws OutOfRangeException, NumberIsTooLargeException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void multiplyEntry(final int row,
-                              final int column,
-                              final double factor)
-        throws OutOfRangeException {
-        // we don't care about non-diagonal elements for multiplication
-        if (row == column) {
-            MatrixUtils.checkRowIndex(this, row);
-            data[row] *= factor;
-        }
+    public void multiplyEntry(final int row, final int column, final double factor) throws OutOfRangeException {
+        // STUB: not implemented
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRowDimension() {
-        return data.length;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getColumnDimension() {
-        return data.length;
+        // STUB: not implemented
+        return 0;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double[] operate(final double[] v)
-        throws DimensionMismatchException {
-        return multiply(new DiagonalMatrix(v, false)).getDataRef();
+    public double[] operate(final double[] v) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public double[] preMultiply(final double[] v)
-        throws DimensionMismatchException {
-        return operate(v);
+    public double[] preMultiply(final double[] v) throws DimensionMismatchException {
+        // STUB: not implemented
+        return null;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RealVector preMultiply(final RealVector v) throws DimensionMismatchException {
-        final double[] vectorData;
-        if (v instanceof ArrayRealVector) {
-            vectorData = ((ArrayRealVector) v).getDataRef();
-        } else {
-            vectorData = v.toArray();
-        }
-        return MatrixUtils.createRealVector(preMultiply(vectorData));
+        // STUB: not implemented
+        return null;
     }
 
-    /** Ensure a value is zero.
+    /**
+     * Ensure a value is zero.
      * @param value value to check
      * @exception NumberIsTooLargeException if value is not zero
      */
@@ -329,7 +279,8 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @since 3.3
      */
     public DiagonalMatrix inverse() throws SingularMatrixException {
-        return inverse(0);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -341,18 +292,12 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @since 3.3
      */
     public DiagonalMatrix inverse(double threshold) throws SingularMatrixException {
-        if (isSingular(threshold)) {
-            throw new SingularMatrixException();
-        }
-
-        final double[] result = new double[data.length];
-        for (int i = 0; i < data.length; i++) {
-            result[i] = 1.0 / data[i];
-        }
-        return new DiagonalMatrix(result, false);
+        // STUB: not implemented
+        return null;
     }
 
-    /** Returns whether this diagonal matrix is singular, i.e. any diagonal entry
+    /**
+     * Returns whether this diagonal matrix is singular, i.e. any diagonal entry
      * is equal to {@code 0} within the given threshold.
      *
      * @param threshold Singularity threshold.
@@ -360,11 +305,7 @@ public class DiagonalMatrix extends AbstractRealMatrix
      * @since 3.3
      */
     public boolean isSingular(double threshold) {
-        for (int i = 0; i < data.length; i++) {
-            if (Precision.equals(data[i], 0.0, threshold)) {
-                return true;
-            }
-        }
+        // STUB: not implemented
         return false;
     }
 }

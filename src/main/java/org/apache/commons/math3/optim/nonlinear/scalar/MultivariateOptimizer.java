@@ -28,11 +28,16 @@ import org.apache.commons.math3.exception.TooManyEvaluationsException;
  *
  * @since 3.1
  */
-public abstract class MultivariateOptimizer
-    extends BaseMultivariateOptimizer<PointValuePair> {
-    /** Objective function. */
+public abstract class MultivariateOptimizer extends BaseMultivariateOptimizer<PointValuePair> {
+
+    /**
+     * Objective function.
+     */
     private MultivariateFunction function;
-    /** Type of optimization. */
+
+    /**
+     * Type of optimization.
+     */
     private GoalType goal;
 
     /**
@@ -57,10 +62,9 @@ public abstract class MultivariateOptimizer
      * evaluations is exceeded.
      */
     @Override
-    public PointValuePair optimize(OptimizationData... optData)
-        throws TooManyEvaluationsException {
-        // Set up base class and perform computation.
-        return super.optimize(optData);
+    public PointValuePair optimize(OptimizationData... optData) throws TooManyEvaluationsException {
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -76,28 +80,15 @@ public abstract class MultivariateOptimizer
      */
     @Override
     protected void parseOptimizationData(OptimizationData... optData) {
-        // Allow base class to register its own data.
-        super.parseOptimizationData(optData);
-
-        // The existing values (as set by the previous call) are reused if
-        // not provided in the argument list.
-        for (OptimizationData data : optData) {
-            if (data instanceof GoalType) {
-                goal = (GoalType) data;
-                continue;
-            }
-            if (data instanceof ObjectiveFunction) {
-                function = ((ObjectiveFunction) data).getObjectiveFunction();
-                continue;
-            }
-        }
+        // STUB: not implemented
     }
 
     /**
      * @return the optimization type.
      */
     public GoalType getGoalType() {
-        return goal;
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -111,7 +102,7 @@ public abstract class MultivariateOptimizer
      * evaluations is exceeded.
      */
     public double computeObjectiveValue(double[] params) {
-        super.incrementEvaluationCount();
-        return function.value(params);
+        // STUB: not implemented
+        return 0.0;
     }
 }

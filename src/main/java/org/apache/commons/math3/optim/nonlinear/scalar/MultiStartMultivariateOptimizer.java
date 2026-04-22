@@ -35,11 +35,16 @@ import org.apache.commons.math3.optim.PointValuePair;
  *
  * @since 3.0
  */
-public class MultiStartMultivariateOptimizer
-    extends BaseMultiStartMultivariateOptimizer<PointValuePair> {
-    /** Underlying optimizer. */
+public class MultiStartMultivariateOptimizer extends BaseMultiStartMultivariateOptimizer<PointValuePair> {
+
+    /**
+     * Underlying optimizer.
+     */
     private final MultivariateOptimizer optimizer;
-    /** Found optima. */
+
+    /**
+     * Found optima.
+     */
     private final List<PointValuePair> optima = new ArrayList<PointValuePair>();
 
     /**
@@ -54,11 +59,7 @@ public class MultiStartMultivariateOptimizer
      * is {@code null}.
      * @throws NotStrictlyPositiveException if {@code starts < 1}.
      */
-    public MultiStartMultivariateOptimizer(final MultivariateOptimizer optimizer,
-                                           final int starts,
-                                           final RandomVectorGenerator generator)
-        throws NullArgumentException,
-        NotStrictlyPositiveException {
+    public MultiStartMultivariateOptimizer(final MultivariateOptimizer optimizer, final int starts, final RandomVectorGenerator generator) throws NullArgumentException, NotStrictlyPositiveException {
         super(optimizer, starts, generator);
         this.optimizer = optimizer;
     }
@@ -68,8 +69,8 @@ public class MultiStartMultivariateOptimizer
      */
     @Override
     public PointValuePair[] getOptima() {
-        Collections.sort(optima, getPairComparator());
-        return optima.toArray(new PointValuePair[0]);
+        // STUB: not implemented
+        return null;
     }
 
     /**
@@ -77,7 +78,7 @@ public class MultiStartMultivariateOptimizer
      */
     @Override
     protected void store(PointValuePair optimum) {
-        optima.add(optimum);
+        // STUB: not implemented
     }
 
     /**
@@ -85,7 +86,7 @@ public class MultiStartMultivariateOptimizer
      */
     @Override
     protected void clear() {
-        optima.clear();
+        // STUB: not implemented
     }
 
     /**
@@ -93,9 +94,11 @@ public class MultiStartMultivariateOptimizer
      */
     private Comparator<PointValuePair> getPairComparator() {
         return new Comparator<PointValuePair>() {
-            /** {@inheritDoc} */
-            public int compare(final PointValuePair o1,
-                               final PointValuePair o2) {
+
+            /**
+             * {@inheritDoc}
+             */
+            public int compare(final PointValuePair o1, final PointValuePair o2) {
                 if (o1 == null) {
                     return (o2 == null) ? 0 : 1;
                 } else if (o2 == null) {
@@ -103,8 +106,7 @@ public class MultiStartMultivariateOptimizer
                 }
                 final double v1 = o1.getValue();
                 final double v2 = o2.getValue();
-                return (optimizer.getGoalType() == GoalType.MINIMIZE) ?
-                    Double.compare(v1, v2) : Double.compare(v2, v1);
+                return (optimizer.getGoalType() == GoalType.MINIMIZE) ? Double.compare(v1, v2) : Double.compare(v2, v1);
             }
         };
     }
